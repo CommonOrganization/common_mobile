@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "150965386290",
+    "project_id": "common-2fea2",
+    "storage_bucket": "common-2fea2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150965386290:android:e17f049949382f1f8e902b",
+        "android_client_info": {
+          "package_name": "com.junghun.common"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "150965386290-66tglf1ev3so0gj26eo9q811fboinic5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7t1aAmbzpMMAkmg2_lqc-v7R_EP16uGE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "150965386290-66tglf1ev3so0gj26eo9q811fboinic5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "150965386290-utbp71c0op78pe1367s8pgu60d8g96fv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.damoim.common"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
