@@ -1185,7 +1185,82 @@ extension CommonCategoryMap on CommonCategory {
   };
 
   String get name => names[this];
-  String getCategory(String text) => categories[text];
+  CommonCategory getCategory(String text) => categories[text];
   String get title => titles[this];
   String get image => images[this];
+}
+
+enum GatheringType { oneDay, clubOneDay, club }
+
+extension GatheringTypeMap on GatheringType {
+  static Map names = {
+    GatheringType.oneDay: 'oneDay',
+    GatheringType.clubOneDay: 'clubOneDay',
+    GatheringType.club: 'club',
+  };
+
+  static Map types = {
+    'oneDay': GatheringType.oneDay,
+    'clubOneDay': GatheringType.clubOneDay,
+    'club': GatheringType.club,
+  };
+
+  static Map titles = {
+    GatheringType.oneDay: '하루모임',
+    GatheringType.clubOneDay: '소모임의 하루모임',
+    GatheringType.club: '소모임',
+  };
+
+  static Map contents = {
+    GatheringType.oneDay: '누구나 자유롭게 참여할 수 있는 하루모임을 열어요.',
+    GatheringType.clubOneDay: '내가 가입했거나 운영하는 소모임의 하루모임을 열어요.',
+    GatheringType.club: '',
+  };
+
+  static Map icons = {
+    GatheringType.oneDay: 'assets/icons/svg/earth.svg',
+    GatheringType.clubOneDay: 'assets/icons/svg/group.svg',
+    GatheringType.club: 'assets/icons/svg/group.svg',
+  };
+
+  String get name => names[this];
+  GatheringType getType(String text) => types[text];
+  String get title => titles[this];
+  String get content => contents[this];
+  String get icon => icons[this];
+}
+
+enum RecruitWay { firstCome, approval }
+
+extension RecruitWayMap on RecruitWay {
+  static Map names = {
+    RecruitWay.firstCome: 'firstCome',
+    RecruitWay.approval: 'approval',
+  };
+
+  static Map recruitWays = {
+    'firstCome': RecruitWay.firstCome,
+    'approval': RecruitWay.approval,
+  };
+
+  static Map titles = {
+    RecruitWay.firstCome: '선착순',
+    RecruitWay.approval: '승인제',
+  };
+
+  static Map contents = {
+    RecruitWay.firstCome: '멤버들의 신청과 동시에 참여가 완료돼요.\n누구나 참여할 수 있어서 신청률이 높아요.',
+    RecruitWay.approval: '호스트가 직접 멤버를 수락하거나 거절 할 수 있어요.\n질문을 통해 취향이 통하는 사람들과 만날 수 있어요.',
+  };
+
+  static Map icons = {
+    RecruitWay.firstCome: 'assets/icons/svg/clock.svg',
+    RecruitWay.approval: 'assets/icons/svg/inbox.svg',
+  };
+
+  String get name => names[this];
+  RecruitWay getRecruitWay(String text) => recruitWays[text];
+  String get title => titles[this];
+  String get content => contents[this];
+  String get icon => icons[this];
 }

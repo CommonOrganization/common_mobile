@@ -27,22 +27,26 @@ class _SplashScreenState extends State<SplashScreen>
 
   void playAnimation() {
     _animationController = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 1500));
+        vsync: this, duration: const Duration(milliseconds: 600));
+
     _animation =
         Tween<Offset>(begin: const Offset(0, 1), end: const Offset(0, 0))
             .animate(_animationController);
-    Future.delayed(Duration.zero, () => _animationController.forward());
+
+    Future.delayed(const Duration(milliseconds: 800),
+        () => _animationController.forward());
   }
 
   void autoLoginCheck() => Future.delayed(
-        const Duration(seconds: 3),
+        const Duration(seconds: 2),
         () async {
           bool autoLoggedIn = await context.read<UserController>().autoLogin();
           if (!mounted) return;
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => autoLoggedIn ? const MainScreen() : const LoginScreen(),
+              builder: (context) =>
+                  autoLoggedIn ? const MainScreen() : const LoginScreen(),
             ),
           );
         },

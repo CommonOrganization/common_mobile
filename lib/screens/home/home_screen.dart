@@ -1,3 +1,5 @@
+import 'package:common/screens/gathering_upload/club_gathering_upload/club_gathering_upload_main_screen.dart';
+import 'package:common/screens/gathering_upload/one_day_gathering_upload/one_day_gathering_upload_main_screen.dart';
 import 'package:common/screens/home/components/gathering_header.dart';
 import 'package:common/screens/home/home_club_gathering_screen.dart';
 import 'package:common/screens/home/home_one_day_gathering_screen.dart';
@@ -79,16 +81,26 @@ class _HomeScreenState extends State<HomeScreen> {
         activeForegroundColor: kMainColor,
         overlayOpacity: 0.7,
         overlayColor: kBlackColor,
-        childMargin: const EdgeInsets.symmetric(horizontal:0),
+        childMargin: const EdgeInsets.symmetric(horizontal: 0),
         spaceBetweenChildren: 6,
         children: [
           kSpeedDialChild(
             title: '소모임 등록하기',
-            onTap: () {},
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ClubGatheringUploadMainScreen(),
+              ),
+            ),
           ),
           kSpeedDialChild(
             title: '하루모임 등록하기',
-            onTap: () {},
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const OneDayGatheringUploadMainScreen(),
+              ),
+            ),
           ),
         ],
         activeChild: SvgPicture.asset(
