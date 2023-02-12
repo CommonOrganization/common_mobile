@@ -159,7 +159,7 @@ class GatheringCategorySelectArea extends StatelessWidget {
           ),
           child: TextField(
             controller: controller,
-            style: const TextStyle(fontSize: 13),
+            style: TextStyle(fontSize: 13, color: kGrey363639Color),
             decoration: InputDecoration(
               border: InputBorder.none,
               enabledBorder: InputBorder.none,

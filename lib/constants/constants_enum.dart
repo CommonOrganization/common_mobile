@@ -1253,14 +1253,20 @@ extension RecruitWayMap on RecruitWay {
     RecruitWay.approval: '호스트가 직접 멤버를 수락하거나 거절 할 수 있어요.\n질문을 통해 취향이 통하는 사람들과 만날 수 있어요.',
   };
 
-  static Map icons = {
-    RecruitWay.firstCome: 'assets/icons/svg/clock.svg',
-    RecruitWay.approval: 'assets/icons/svg/inbox.svg',
+  static Map unselectedIcons = {
+    RecruitWay.firstCome: 'assets/icons/svg/clock_unselected.svg',
+    RecruitWay.approval: 'assets/icons/svg/inbox_unselected.svg',
+  };
+
+  static Map selectedIcons = {
+    RecruitWay.firstCome: 'assets/icons/svg/clock_selected.svg',
+    RecruitWay.approval: 'assets/icons/svg/inbox_selected.svg',
   };
 
   String get name => names[this];
   RecruitWay getRecruitWay(String text) => recruitWays[text];
   String get title => titles[this];
   String get content => contents[this];
-  String get icon => icons[this];
+  String get selectedIcon => selectedIcons[this];
+  String get unselectedIcon => unselectedIcons[this];
 }

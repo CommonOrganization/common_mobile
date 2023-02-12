@@ -2,20 +2,19 @@ import 'package:common/constants/constants_colors.dart';
 import 'package:common/screens/gathering_upload/components/gathering_upload_next_button.dart';
 import 'package:flutter/material.dart';
 
-class OneDayGatheringTitleScreen extends StatefulWidget {
+class ClubGatheringTitleScreen extends StatefulWidget {
   final Function nextPressed;
-  const OneDayGatheringTitleScreen({
+  const ClubGatheringTitleScreen({
     Key? key,
     required this.nextPressed,
   }) : super(key: key);
 
   @override
-  State<OneDayGatheringTitleScreen> createState() =>
-      _OneDayGatheringTitleScreenState();
+  State<ClubGatheringTitleScreen> createState() =>
+      _ClubGatheringTitleScreenState();
 }
 
-class _OneDayGatheringTitleScreenState
-    extends State<OneDayGatheringTitleScreen> {
+class _ClubGatheringTitleScreenState extends State<ClubGatheringTitleScreen> {
   final TextEditingController _gatheringTitleController =
       TextEditingController();
 
@@ -31,7 +30,7 @@ class _OneDayGatheringTitleScreenState
               child: ListView(
                 children: [
                   Text(
-                    '하루모임 제목을 작성해볼까요?',
+                    '소모임 제목을 작성해볼까요?',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -71,7 +70,7 @@ class _OneDayGatheringTitleScreenState
                         focusedBorder: InputBorder.none,
                         isDense: true,
                         counterText: '',
-                        hintText: '하루모임을 대표할 수 있는 제목을 적어주세요.',
+                        hintText: '소모임을 대표할 수 있는 제목을 적어주세요.',
                         hintStyle: TextStyle(
                           fontSize: 13,
                           color: kWhiteAEAEB2Color,

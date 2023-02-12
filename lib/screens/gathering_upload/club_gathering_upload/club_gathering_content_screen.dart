@@ -7,24 +7,24 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../services/firebase_user_service.dart';
 
-class OneDayGatheringContentScreen extends StatefulWidget {
+class ClubGatheringContentScreen extends StatefulWidget {
   final Function nextPressed;
-  const OneDayGatheringContentScreen({
+  const ClubGatheringContentScreen({
     Key? key,
     required this.nextPressed,
   }) : super(key: key);
 
   @override
-  State<OneDayGatheringContentScreen> createState() =>
-      _OneDayGatheringContentScreenState();
+  State<ClubGatheringContentScreen> createState() =>
+      _ClubGatheringContentScreenState();
 }
 
-class _OneDayGatheringContentScreenState
-    extends State<OneDayGatheringContentScreen> {
+class _ClubGatheringContentScreenState
+    extends State<ClubGatheringContentScreen> {
   final ImagePicker _picker = ImagePicker();
 
   final TextEditingController _gatheringContentController =
-      TextEditingController();
+  TextEditingController();
 
   String? _mainImageUrl;
   final List<String> _imageUrlList = [];
@@ -33,7 +33,7 @@ class _OneDayGatheringContentScreenState
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
     if (image == null) return;
     String? imageUrl =
-        await FirebaseGatheringService.uploadGatheringImage(image: image);
+    await FirebaseGatheringService.uploadGatheringImage(image: image);
     if (imageUrl == null) return;
     if (isMain) {
       setState(() => _mainImageUrl = imageUrl);
@@ -53,7 +53,7 @@ class _OneDayGatheringContentScreenState
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
-                  '하루모임을 소개해볼까요?',
+                  '소모임을 소개해볼까요?',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -140,7 +140,7 @@ class _OneDayGatheringContentScreenState
                     focusedBorder: InputBorder.none,
                     isDense: true,
                     counterText: '',
-                    hintText: '어떤 주제로 하루모임을 갖고 싶은지 소개해보세요.(선택)',
+                    hintText: '어떤 주제로 소모임을 갖고 싶은지 소개해보세요.(선택)',
                     hintStyle: TextStyle(
                       fontSize: 13,
                       color: kWhiteAEAEB2Color,
@@ -152,7 +152,7 @@ class _OneDayGatheringContentScreenState
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 26),
                 child: Text(
-                  '하루모임 상세 내용을 자세히 작성할수록 멤버들의 신청률도 높아져요',
+                  '소모임 상세 내용을 자세히 작성할수록 멤버들의 신청률도 높아져요',
                   style: TextStyle(
                     fontSize: 10,
                     color: kGrey8E8E93Color,

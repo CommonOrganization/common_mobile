@@ -5,29 +5,29 @@ import 'package:common/screens/gathering_upload/components/gathering_upload_next
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class OneDayGatheringRecruitScreen extends StatefulWidget {
+class ClubGatheringRecruitScreen extends StatefulWidget {
   final Function nextPressed;
-  const OneDayGatheringRecruitScreen({
+  const ClubGatheringRecruitScreen({
     Key? key,
     required this.nextPressed,
   }) : super(key: key);
 
   @override
-  State<OneDayGatheringRecruitScreen> createState() =>
-      _OneDayGatheringRecruitScreenState();
+  State<ClubGatheringRecruitScreen> createState() =>
+      _ClubGatheringRecruitScreenState();
 }
 
-class _OneDayGatheringRecruitScreenState
-    extends State<OneDayGatheringRecruitScreen> {
+class _ClubGatheringRecruitScreenState
+    extends State<ClubGatheringRecruitScreen> {
   final TextEditingController _detailQuestionController =
-      TextEditingController();
+  TextEditingController();
 
   RecruitWay _selectedRecruitWay = RecruitWay.firstCome;
 
   bool get canNextPress =>
       _selectedRecruitWay == RecruitWay.firstCome ||
-      (_selectedRecruitWay == RecruitWay.approval &&
-          _detailQuestionController.text.isNotEmpty);
+          (_selectedRecruitWay == RecruitWay.approval &&
+              _detailQuestionController.text.isNotEmpty);
 
   @override
   Widget build(BuildContext context) {

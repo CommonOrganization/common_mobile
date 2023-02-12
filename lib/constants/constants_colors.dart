@@ -5,6 +5,7 @@ Color kFontMainColor = const Color(0xFFE65620);
 Color kMainBackgroundColor = const Color(0xFFFDF4F0);
 Color kSubColor = const Color(0xFF99908C);
 Color kChatColor = const Color(0xFFA28B82);
+Color kChatLineColor = const Color(0xFFFBE4DC);
 Color kOkColor = const Color(0xFF00BD54);
 Color kWarningColor = const Color(0xFFFF3838);
 

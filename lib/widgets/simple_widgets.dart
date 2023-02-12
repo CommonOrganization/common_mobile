@@ -20,6 +20,7 @@ class CustomCheckBox extends StatefulWidget {
   @override
   State<CustomCheckBox> createState() => _CustomCheckBoxState();
 }
+
 class _CustomCheckBoxState extends State<CustomCheckBox> {
   @override
   Widget build(BuildContext context) {
@@ -41,7 +42,7 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
             ? Icon(
                 Icons.check,
                 color: widget.activeColor ?? kMainColor,
-                size: widget.size-4,
+                size: widget.size - 4,
               )
             : null,
       ),
