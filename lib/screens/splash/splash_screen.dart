@@ -27,18 +27,18 @@ class _SplashScreenState extends State<SplashScreen>
 
   void playAnimation() {
     _animationController = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 600));
+        vsync: this, duration: const Duration(milliseconds: 800));
 
     _animation =
         Tween<Offset>(begin: const Offset(0, 1), end: const Offset(0, 0))
             .animate(_animationController);
 
-    Future.delayed(const Duration(milliseconds: 800),
+    Future.delayed(const Duration(milliseconds: 600),
         () => _animationController.forward());
   }
 
   void autoLoginCheck() => Future.delayed(
-        const Duration(seconds: 2),
+        const Duration(milliseconds: 2250),
         () async {
           bool autoLoggedIn = await context.read<UserController>().autoLogin();
           if (!mounted) return;

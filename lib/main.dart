@@ -1,3 +1,4 @@
+import 'package:common/constants/constants_colors.dart';
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/screens/splash/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -24,8 +25,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: '커먼',
-      // theme: ThemeData(
-      //     textSelectionTheme: TextSelectionThemeData(cursorColor: kMainColor)),
+      theme: ThemeData(
+          textSelectionTheme: TextSelectionThemeData(cursorColor: kGrey8E8E93Color)),
       builder: (context, child) {
         if (child == null) return Container();
         return MediaQuery(
