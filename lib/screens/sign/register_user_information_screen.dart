@@ -1,12 +1,11 @@
 import 'package:common/constants/constants_enum.dart';
 import 'package:common/models/user_place/user_place.dart';
 import 'package:common/screens/sign/bottom_sheets/user_place_bottom_sheet.dart';
-import 'package:common/widgets/custom_date_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 import '../../constants/constants_colors.dart';
 import '../../utils/date_utils.dart';
+import '../../widgets/birthday_date_picker.dart';
 import 'components/register_next_button.dart';
 
 class RegisterUserInformationScreen extends StatefulWidget {
@@ -136,7 +135,7 @@ class _RegisterUserInformationScreenState
                               context: context,
                               isScrollControlled: true,
                               backgroundColor: Colors.transparent,
-                              builder: (context) => const CustomDatePicker(),
+                              builder: (context) => const BirthdayDatePicker(),
                             );
                             if (selectedDate != null) {
                               setState(() => _birthday = selectedDate);

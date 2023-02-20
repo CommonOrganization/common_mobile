@@ -56,6 +56,7 @@ class _RegisterMainScreenState extends State<RegisterMainScreen> {
         'likePostList': [],
       };
       if (await FirebaseUserService.register(userData: userData)) {
+        if(!mounted) return;
         Navigator.pop(context);
         showMessage(context, message: '회원가입이 완료되었습니다');
         return;
@@ -74,6 +75,7 @@ class _RegisterMainScreenState extends State<RegisterMainScreen> {
           nextPressed: (String phone, Country country) async {
             if (await FirebaseUserService.duplicate(
                 field: 'phone', value: phone)) {
+              if(!mounted) return;
               showMessage(context, message: '이미 가입된 번호입니다.');
               return;
             }

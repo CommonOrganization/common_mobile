@@ -1,39 +1,25 @@
-import 'package:common/utils/local_utils.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import '../constants/constants_colors.dart';
 import '../constants/constants_value.dart';
+import '../utils/local_utils.dart';
 
-class CustomDatePicker extends StatefulWidget {
-  const CustomDatePicker({Key? key}) : super(key: key);
+class CustomTimePicker extends StatefulWidget {
+  const CustomTimePicker({Key? key}) : super(key: key);
 
   @override
-  State<CustomDatePicker> createState() => _CustomDatePickerState();
+  State<CustomTimePicker> createState() => _CustomTimePickerState();
 }
 
-class _CustomDatePickerState extends State<CustomDatePicker> {
-  final int _yearCount = 2;
+class _CustomTimePickerState extends State<CustomTimePicker> {
 
-  late final FixedExtentScrollController _yearController;
-  late final FixedExtentScrollController _monthController;
-  late final FixedExtentScrollController _dayController;
+  final FixedExtentScrollController _hourController =
+  FixedExtentScrollController(initialItem: 12);
+  final FixedExtentScrollController _minuteController =
+  FixedExtentScrollController();
 
-  late int _year;
-  late int _currentYear;
-  late int _month;
-  late int _day;
-
-  @override
-  void initState() {
-    super.initState();
-    DateTime nowDate = DateTime.now();
-    _year = nowDate.year;
-    _currentYear = nowDate.year;
-    _month = nowDate.month;
-    _day = nowDate.day;
-    _yearController = FixedExtentScrollController();
-    _monthController = FixedExtentScrollController(initialItem: _month - 1);
-    _dayController = FixedExtentScrollController(initialItem: _day - 1);
-  }
+  int _hour = 12;
+  int _minute = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -63,22 +49,22 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                 children: [
                   Expanded(
                     child: CupertinoPicker(
-                      scrollController: _yearController,
+                      scrollController: _hourController,
                       itemExtent: 35,
                       onSelectedItemChanged: (int index) =>
-                          _year = index + _currentYear,
+                      _hour = index,
                       selectionOverlay:
-                          const CupertinoPickerDefaultSelectionOverlay(
+                      const CupertinoPickerDefaultSelectionOverlay(
                         capEndEdge: false,
                       ),
                       offAxisFraction: -0.5,
                       squeeze: 1.2,
                       children: List.generate(
-                        _yearCount,
-                        (index) => Container(
+                        24,
+                            (index) => Container(
                           alignment: Alignment.centerRight,
                           child: Text(
-                            '${index + _currentYear}년',
+                            '$index시',
                             style: const TextStyle(
                               fontSize: 24,
                             ),
@@ -90,46 +76,21 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                   Expanded(
                     child: CupertinoPicker(
                       useMagnifier: true,
-                      scrollController: _monthController,
+                      scrollController: _minuteController,
                       itemExtent: 35,
-                      onSelectedItemChanged: (int index) => _month = index + 1,
+                      onSelectedItemChanged: (int index) => _minute = index *10,
                       selectionOverlay:
-                          const CupertinoPickerDefaultSelectionOverlay(
+                      const CupertinoPickerDefaultSelectionOverlay(
                         capStartEdge: false,
                         capEndEdge: false,
                       ),
                       squeeze: 1.2,
                       children: List.generate(
-                        12,
-                        (index) => Container(
+                        6,
+                            (index) => Container(
                           alignment: Alignment.center,
                           child: Text(
-                            '${index + 1}월',
-                            style: const TextStyle(
-                              fontSize: 24,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: CupertinoPicker(
-                      scrollController: _dayController,
-                      itemExtent: 35,
-                      onSelectedItemChanged: (int index) => _day = index + 1,
-                      selectionOverlay:
-                          const CupertinoPickerDefaultSelectionOverlay(
-                        capStartEdge: false,
-                      ),
-                      offAxisFraction: 0.5,
-                      squeeze: 1.2,
-                      children: List.generate(
-                        31,
-                        (index) => Container(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            '${index + 1}일',
+                            '${index*10}분',
                             style: const TextStyle(
                               fontSize: 24,
                             ),
@@ -143,14 +104,13 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
             ),
             GestureDetector(
               onTap: () {
-                DateTime selectedDate = DateTime(_year, _month, _day);
-                if (selectedDate.year != _year ||
-                    selectedDate.month != _month ||
-                    selectedDate.day != _day) {
-                  showMessage(context, message: '날짜를 다시 한번 확인해 주세요');
+                TimeOfDay selectedTime = TimeOfDay(hour: _hour,minute: _minute);
+                if (selectedTime.hour != _hour ||
+                    selectedTime.minute != _minute) {
+                  showMessage(context, message: '모임 시간을 다시 한번 확인해 주세요');
                   return;
                 }
-                Navigator.pop(context, selectedDate);
+                Navigator.pop(context, selectedTime);
               },
               child: Container(
                 alignment: Alignment.center,

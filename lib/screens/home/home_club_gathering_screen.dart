@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../gathering_upload/club_gathering_upload/club_gathering_upload_main_screen.dart';
 import 'components/top_add_container.dart';
 
 class HomeClubGatheringScreen extends StatelessWidget {
@@ -11,9 +12,12 @@ class HomeClubGatheringScreen extends StatelessWidget {
       children: [
         TopAddContainer(
           title: '새로운 소모임 만들기',
-          onTap: () {
-            print('하루모임');
-          },
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const ClubGatheringUploadMainScreen(),
+            ),
+          ),
         ),
       ],
     );

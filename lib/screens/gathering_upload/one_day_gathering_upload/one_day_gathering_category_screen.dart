@@ -3,8 +3,6 @@ import 'package:common/screens/gathering_upload/components/gathering_category_se
 import 'package:common/screens/gathering_upload/components/gathering_upload_next_button.dart';
 import 'package:flutter/material.dart';
 
-import '../../../constants/constants_colors.dart';
-
 class OneDayGatheringCategoryScreen extends StatefulWidget {
   final Function nextPressed;
   const OneDayGatheringCategoryScreen({Key? key, required this.nextPressed})

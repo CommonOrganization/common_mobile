@@ -3,6 +3,7 @@ import 'package:common/controllers/user_controller.dart';
 import 'package:common/screens/splash/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 
@@ -17,14 +18,35 @@ Future<void> main() async {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  final FlutterLocalization localization = FlutterLocalization.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    localization.init(
+      mapLocales: [
+        const MapLocale('ko', {'title': '한국어'}),
+      ],
+      initLanguageCode: 'ko',
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: '커먼',
+      supportedLocales: localization.supportedLocales,
+      localizationsDelegates: localization.localizationsDelegates,
       theme: ThemeData(
           textSelectionTheme: TextSelectionThemeData(cursorColor: kGrey8E8E93Color)),
       builder: (context, child) {

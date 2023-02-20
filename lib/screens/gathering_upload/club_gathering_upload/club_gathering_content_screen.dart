@@ -2,10 +2,7 @@ import 'package:common/constants/constants_colors.dart';
 import 'package:common/screens/gathering_upload/components/gathering_upload_next_button.dart';
 import 'package:common/services/firebase_gathering_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
-
-import '../../../services/firebase_user_service.dart';
 
 class ClubGatheringContentScreen extends StatefulWidget {
   final Function nextPressed;
@@ -98,25 +95,13 @@ class _ClubGatheringContentScreenState
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  children: [
-                    Text(
-                      '설명',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: kGrey2C2C2EColor,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const Spacer(),
-                    Text(
-                      '${_gatheringContentController.text.length}/800',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: kGrey636366Color,
-                      ),
-                    )
-                  ],
+                child:  Text(
+                  '설명',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: kGrey2C2C2EColor,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               Container(
@@ -132,7 +117,6 @@ class _ClubGatheringContentScreenState
                 child: TextField(
                   controller: _gatheringContentController,
                   style: TextStyle(fontSize: 13, color: kGrey363639Color),
-                  maxLength: 800,
                   maxLines: null,
                   decoration: InputDecoration(
                     border: InputBorder.none,

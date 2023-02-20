@@ -48,7 +48,7 @@ class _ClubGatheringCapacityScreenState
                 ),
                 const SizedBox(height: 36),
                 Center(
-                  child: Container(
+                  child: SizedBox(
                     width: 100,
                     height: 150,
                     child: Row(

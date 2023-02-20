@@ -1,8 +1,5 @@
-import 'package:common/screens/gathering_upload/components/gathering_upload_next_button.dart';
 import 'package:common/utils/local_utils.dart';
 import 'package:flutter/material.dart';
-
-import '../../../constants/constants_colors.dart';
 import '../components/gathering_tag_area.dart';
 import '../components/gathering_upload_preview_button.dart';
 
@@ -34,6 +31,10 @@ class _ClubGatheringTagScreenState extends State<ClubGatheringTagScreen> {
             submitPressed: () {
               if (_tagList.length >= 5) {
                 showMessage(context, message: '태그는 최대 5개까지 등록 가능합니다');
+                return;
+              }
+              if(_tagController.text.isEmpty){
+                showMessage(context, message: '태그를 입력해 주세요');
                 return;
               }
               setState(() {

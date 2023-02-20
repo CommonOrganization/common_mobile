@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 enum Country {
   ghana,
   gabon,
@@ -1184,10 +1186,34 @@ extension CommonCategoryMap on CommonCategory {
     CommonCategory.free: 'assets/category_images/free.png',
   };
 
+  static Map backgroundColors = {
+    CommonCategory.language: const Color(0xFFFFE0DF),
+    CommonCategory.investment: const Color(0xFFFFE0DF),
+    CommonCategory.study: const Color(0xFFFFE0DF),
+    CommonCategory.photo: const Color(0xFFFFE0DF),
+    CommonCategory.game: const Color(0xFFFFE0DF),
+    CommonCategory.sports: const Color(0xFFFFE0DF),
+    CommonCategory.music:const Color(0xFFFFE0DF),
+    CommonCategory.dance: const Color(0xFFFFE0DF),
+    CommonCategory.concert: const Color(0xFFFFE0DF),
+    CommonCategory.movie: const Color(0xFFFFE0DF),
+    CommonCategory.book: const Color(0xFFFFE0DF),
+    CommonCategory.social: const Color(0xFFFFE0DF),
+    CommonCategory.hiking: const Color(0xFFFFE0DF),
+    CommonCategory.travel:const Color(0xFFFFE0DF),
+    CommonCategory.making:const Color(0xFFFFE0DF),
+    CommonCategory.cooking:const Color(0xFFFFE0DF),
+    CommonCategory.coffee: const Color(0xFFFFE0DF),
+    CommonCategory.pet:const Color(0xFFFFE0DF),
+    CommonCategory.volunteer: const Color(0xFFFFE0DF),
+    CommonCategory.free: const Color(0xFFFFE0DF),
+  };
+
   String get name => names[this];
-  CommonCategory getCategory(String text) => categories[text];
+  static CommonCategory getCategory(String text) => categories[text];
   String get title => titles[this];
   String get image => images[this];
+  Color get backgroundColor => backgroundColors[this];
 }
 
 enum GatheringType { oneDay, clubOneDay, club }
@@ -1196,38 +1222,40 @@ extension GatheringTypeMap on GatheringType {
   static Map names = {
     GatheringType.oneDay: 'oneDay',
     GatheringType.clubOneDay: 'clubOneDay',
-    GatheringType.club: 'club',
   };
 
   static Map types = {
     'oneDay': GatheringType.oneDay,
     'clubOneDay': GatheringType.clubOneDay,
-    'club': GatheringType.club,
   };
 
   static Map titles = {
     GatheringType.oneDay: '하루모임',
     GatheringType.clubOneDay: '소모임의 하루모임',
-    GatheringType.club: '소모임',
   };
 
   static Map contents = {
     GatheringType.oneDay: '누구나 자유롭게 참여할 수 있는 하루모임을 열어요.',
     GatheringType.clubOneDay: '내가 가입했거나 운영하는 소모임의 하루모임을 열어요.',
-    GatheringType.club: '',
   };
 
-  static Map icons = {
-    GatheringType.oneDay: 'assets/icons/svg/earth.svg',
-    GatheringType.clubOneDay: 'assets/icons/svg/group.svg',
-    GatheringType.club: 'assets/icons/svg/group.svg',
+
+  static Map unselectedIcons = {
+    GatheringType.oneDay: 'assets/icons/svg/earth_unselected.svg',
+    GatheringType.clubOneDay: 'assets/icons/svg/group_unselected.svg',
+  };
+
+  static Map selectedIcons = {
+    GatheringType.oneDay: 'assets/icons/svg/earth_selected.svg',
+    GatheringType.clubOneDay: 'assets/icons/svg/group_selected.svg',
   };
 
   String get name => names[this];
   GatheringType getType(String text) => types[text];
   String get title => titles[this];
   String get content => contents[this];
-  String get icon => icons[this];
+  String get unselectedIcon => unselectedIcons[this];
+  String get selectedIcon => selectedIcons[this];
 }
 
 enum RecruitWay { firstCome, approval }

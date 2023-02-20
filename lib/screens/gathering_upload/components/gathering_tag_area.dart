@@ -8,7 +8,14 @@ class GatheringTagArea extends StatelessWidget {
   final List<String> tagList;
   final Function submitPressed;
   final Function removePressed;
-  const GatheringTagArea({Key? key, required this.title, required this.controller, required this.tagList, required this.submitPressed, required this.removePressed}) : super(key: key);
+  const GatheringTagArea({
+    Key? key,
+    required this.title,
+    required this.controller,
+    required this.tagList,
+    required this.submitPressed,
+    required this.removePressed,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,15 +53,14 @@ class GatheringTagArea extends StatelessWidget {
                 Expanded(
                   child: TextField(
                     controller: controller,
-                    style:
-                    TextStyle(fontSize: 13, color: kGrey363639Color),
+                    style: TextStyle(fontSize: 13, color: kGrey363639Color),
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       enabledBorder: InputBorder.none,
                       focusedBorder: InputBorder.none,
                       isDense: true,
                       counterText: '',
-                      hintText: '모임과 관련된 태그를 입력해주세요.',
+                      hintText: '모임과 관련된 태그를 입력해 주세요.',
                       hintStyle: TextStyle(
                         fontSize: 13,
                         color: kWhiteAEAEB2Color,
@@ -63,7 +69,7 @@ class GatheringTagArea extends StatelessWidget {
                   ),
                 ),
                 GestureDetector(
-                  onTap: ()=>submitPressed(),
+                  onTap: () => submitPressed(),
                   child: Container(
                     alignment: Alignment.center,
                     padding: const EdgeInsets.symmetric(horizontal: 12),

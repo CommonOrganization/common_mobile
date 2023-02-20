@@ -4,6 +4,7 @@ import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/user/user.dart';
 import 'package:common/screens/main/main_screen.dart';
 import 'package:common/screens/sign/register_main_screen.dart';
+import 'package:common/screens/sign/reset_password_screen.dart';
 import 'package:common/services/firebase_user_service.dart';
 import 'package:common/utils/local_utils.dart';
 import 'package:flutter/material.dart';
@@ -37,16 +38,15 @@ class _LoginScreenState extends State<LoginScreen> {
       showMessage(context, message: '입력한 정보를 다시 한번 확인해 주세요');
       return;
     }
-    if (await context.read<UserController>().setUser(user)) {
-      if (_keepLogin) {
-        await LocalController.saveUserData(user);
-      }
-      if (!mounted) return;
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => const MainScreen()),
-          (route) => false);
+    await context.read<UserController>().setUser(user);
+    if (_keepLogin) {
+      await LocalController.saveUserData(user);
     }
+    if (!mounted) return;
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const MainScreen()),
+        (route) => false);
   }
 
   @override
@@ -176,14 +176,22 @@ class _LoginScreenState extends State<LoginScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      alignment: Alignment.center,
-                      width: 120,
-                      child: Text(
-                        '비밀번호 재설정',
-                        style: TextStyle(
-                          fontSize: 11,
-                          color: kGrey636366Color,
+                    GestureDetector(
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ResetPasswordScreen(),
+                        ),
+                      ),
+                      child: Container(
+                        alignment: Alignment.center,
+                        width: 120,
+                        child: Text(
+                          '비밀번호 재설정',
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: kGrey636366Color,
+                          ),
                         ),
                       ),
                     ),

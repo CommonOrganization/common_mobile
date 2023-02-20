@@ -6,9 +6,8 @@ import 'package:common/screens/home/home_one_day_gathering_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 import '../../constants/constants_colors.dart';
-import 'components/top_add_container.dart';
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -48,14 +47,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     'assets/icons/svg/menu.svg',
                     width: 28,
                     height: 28,
-                    color: kGrey363639Color,
                   ),
                   const SizedBox(width: 18),
                   SvgPicture.asset(
                     'assets/icons/svg/notification.svg',
                     width: 28,
                     height: 28,
-                    color: kGrey363639Color,
                   ),
                   const SizedBox(width: 20),
                 ],
@@ -105,11 +102,9 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
         activeChild: SvgPicture.asset(
           'assets/icons/svg/close.svg',
-          color: kMainColor,
         ),
         child: SvgPicture.asset(
           'assets/icons/svg/add.svg',
-          color: kWhiteColor,
         ),
       ),
     );

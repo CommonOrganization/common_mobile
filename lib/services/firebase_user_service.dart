@@ -100,4 +100,29 @@ class FirebaseUserService {
       return false;
     }
   }
+
+  static Future<bool> updatePassword({
+    required String phone,
+    required String newPassword,
+  }) async {
+    try {
+      final snapshot = await FirebaseService.fireStore
+          .collection('user')
+          .where('phone', isEqualTo: phone)
+          .get();
+
+      if(snapshot.docs.isNotEmpty){
+        for (var userSnapshot in snapshot.docs) {
+          await FirebaseService.fireStore
+              .collection('user')
+              .doc(userSnapshot.id).update({'password':newPassword});
+        }
+        return true;
+      }
+      return false;
+    } catch (e) {
+      log('FirebaseUserService - updatePassword Failed : $e');
+      return false;
+    }
+  }
 }

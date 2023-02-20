@@ -16,17 +16,19 @@ class OneDayGatheringTypeScreen extends StatefulWidget {
 
 class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
   GatheringType _selectedGatheringType = GatheringType.oneDay;
+  bool _showAllThePeople = true;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Expanded(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20, top: 18),
-            child: ListView(
-              children: [
-                Text(
+          child: ListView(
+            children: [
+              const SizedBox(height: 18),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text(
                   '어떤 하루모임을 열어볼까요?',
                   style: TextStyle(
                     fontSize: 20,
@@ -34,20 +36,84 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
                     color: kGrey1C1C1EColor,
                   ),
                 ),
-                const SizedBox(height: 10),
-                Text(
+              ),
+              const SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text(
                   '\'하루모임\'은 원데이로 만나 활동을 하는 모임이에요.\n장기간 함께 활동하는 모임을 원하실 경우 \'소모임\'으로 열어주세요!',
                   style: TextStyle(
                     fontSize: 13,
                     color: kGrey8E8E93Color,
                   ),
                 ),
-                const SizedBox(height: 36),
-                kGatheringTypeCard(GatheringType.oneDay),
-                const SizedBox(height: 12),
-                kGatheringTypeCard(GatheringType.clubOneDay),
-              ],
-            ),
+              ),
+              const SizedBox(height: 36),
+              kGatheringTypeCard(GatheringType.oneDay),
+              const SizedBox(height: 12),
+              kGatheringTypeCard(GatheringType.clubOneDay),
+              const SizedBox(height: 24),
+              if (_selectedGatheringType == GatheringType.clubOneDay)
+                ListView(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Row(
+                        children: [
+                          Text(
+                            '전체 공개 여부',
+                            style: TextStyle(
+                                fontSize: 14, color: kGrey363639Color),
+                          ),
+                          const Spacer(),
+                          SizedBox(
+                            width: 38,
+                            height: 20,
+                            child: Switch(
+                              value: _showAllThePeople,
+                              thumbColor:
+                                  MaterialStateProperty.all(kWhiteColor),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              activeTrackColor: kMainColor,
+                              inactiveTrackColor: kWhiteC6C6C6Color,
+                              onChanged: (value) {
+                                setState(() => _showAllThePeople = value);
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 6),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Text(
+                        '설정 시 모든 사람들이 하루모임에 참여할 수 있어요.\n설정하지 않으면 선택한 클럽 멤버들만 하루모임에 참여할 수 있어요.',
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: kGrey8E8E93Color,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 14),
+                    Container(
+                      width: double.infinity,
+                      height: 1,
+                      color: kWhiteF4F4F4Color,
+                    ),
+                    // TODO 여기서 '내가 가입한 소모임'을 불러와서 소모임카드로 보여줄 수 있음
+                    FutureBuilder(
+                      future: null,
+                      builder: (context, snapshot) {
+                        return Container();
+                      },
+                    ),
+                  ],
+                ),
+            ],
           ),
         ),
         GatheringUploadNextButton(
@@ -62,6 +128,7 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
     return GestureDetector(
       onTap: () => setState(() => _selectedGatheringType = gatheringType),
       child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 20),
         padding: const EdgeInsets.symmetric(horizontal: 16),
         width: double.infinity,
         height: 82,
@@ -74,7 +141,9 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
         child: Row(
           children: [
             SvgPicture.asset(
-              gatheringType.icon,
+              _selectedGatheringType == gatheringType
+                  ? gatheringType.selectedIcon
+                  : gatheringType.unselectedIcon,
               width: 22,
               height: 22,
             ),

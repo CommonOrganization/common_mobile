@@ -3,37 +3,26 @@ import 'package:flutter/cupertino.dart';
 import '../constants/constants_colors.dart';
 import '../constants/constants_value.dart';
 
-class CustomDatePicker extends StatefulWidget {
-  const CustomDatePicker({Key? key}) : super(key: key);
+class BirthdayDatePicker extends StatefulWidget {
+  const BirthdayDatePicker({Key? key}) : super(key: key);
 
   @override
-  State<CustomDatePicker> createState() => _CustomDatePickerState();
+  State<BirthdayDatePicker> createState() => _BirthdayDatePickerState();
 }
 
-class _CustomDatePickerState extends State<CustomDatePicker> {
-  final int _yearCount = 2;
+class _BirthdayDatePickerState extends State<BirthdayDatePicker> {
+  final int _yearCount = DateTime.now().year - 1900 + 1;
 
-  late final FixedExtentScrollController _yearController;
-  late final FixedExtentScrollController _monthController;
-  late final FixedExtentScrollController _dayController;
+  final FixedExtentScrollController _yearController =
+      FixedExtentScrollController(initialItem: 100);
+  final FixedExtentScrollController _monthController =
+      FixedExtentScrollController();
+  final FixedExtentScrollController _dayController =
+      FixedExtentScrollController();
 
-  late int _year;
-  late int _currentYear;
-  late int _month;
-  late int _day;
-
-  @override
-  void initState() {
-    super.initState();
-    DateTime nowDate = DateTime.now();
-    _year = nowDate.year;
-    _currentYear = nowDate.year;
-    _month = nowDate.month;
-    _day = nowDate.day;
-    _yearController = FixedExtentScrollController();
-    _monthController = FixedExtentScrollController(initialItem: _month - 1);
-    _dayController = FixedExtentScrollController(initialItem: _day - 1);
-  }
+  int _year = 2000;
+  int _month = 1;
+  int _day = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +55,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                       scrollController: _yearController,
                       itemExtent: 35,
                       onSelectedItemChanged: (int index) =>
-                          _year = index + _currentYear,
+                          _year = index + 1900,
                       selectionOverlay:
                           const CupertinoPickerDefaultSelectionOverlay(
                         capEndEdge: false,
@@ -78,7 +67,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                         (index) => Container(
                           alignment: Alignment.centerRight,
                           child: Text(
-                            '${index + _currentYear}년',
+                            '${1900 + index}년',
                             style: const TextStyle(
                               fontSize: 24,
                             ),
@@ -147,7 +136,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                 if (selectedDate.year != _year ||
                     selectedDate.month != _month ||
                     selectedDate.day != _day) {
-                  showMessage(context, message: '날짜를 다시 한번 확인해 주세요');
+                  showMessage(context, message: '생년월일을 다시 한번 확인해 주세요');
                   return;
                 }
                 Navigator.pop(context, selectedDate);

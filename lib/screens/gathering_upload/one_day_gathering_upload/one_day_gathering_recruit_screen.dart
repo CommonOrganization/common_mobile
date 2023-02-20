@@ -1,9 +1,7 @@
-import 'package:common/constants/constants_colors.dart';
 import 'package:common/constants/constants_enum.dart';
 import 'package:common/screens/gathering_upload/components/gathering_recruit_way_area.dart';
 import 'package:common/screens/gathering_upload/components/gathering_upload_next_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class OneDayGatheringRecruitScreen extends StatefulWidget {
   final Function nextPressed;

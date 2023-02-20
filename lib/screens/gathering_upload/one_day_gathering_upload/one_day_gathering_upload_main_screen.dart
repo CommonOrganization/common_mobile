@@ -3,6 +3,7 @@ import 'package:common/models/user_place/user_place.dart';
 import 'package:common/screens/gathering_upload/one_day_gathering_upload/one_day_gathering_capacity_screen.dart';
 import 'package:common/screens/gathering_upload/one_day_gathering_upload/one_day_gathering_category_screen.dart';
 import 'package:common/screens/gathering_upload/one_day_gathering_upload/one_day_gathering_content_screen.dart';
+import 'package:common/screens/gathering_upload/one_day_gathering_upload/one_day_gathering_preview_screen.dart';
 import 'package:common/screens/gathering_upload/one_day_gathering_upload/one_day_gathering_recruit_screen.dart';
 import 'package:common/screens/gathering_upload/one_day_gathering_upload/one_day_gathering_schedule_screen.dart';
 import 'package:common/screens/gathering_upload/one_day_gathering_upload/one_day_gathering_tag_screen.dart';
@@ -43,18 +44,19 @@ class _OneDayGatheringUploadMainScreenState
 
   Future<void> previewPressed(List<String> tagList) async {
     _gatheringTagList = tagList;
-    Map<String, dynamic> clubGatheringDataMap = {
+    Map<String, dynamic> oneDayGatheringMap = {
+      'type': _gatheringType.name,
       'category': _gatheringMainCategory.name,
       'detailCategory': _gatheringDetailCategory,
       'title': _gatheringTitle,
       'content': _gatheringContent,
-      'mainImageUrl': _gatheringMainImageUrl,
-      'gatheringImageUrlList': _gatheringImageUrlList,
+      'mainImage': _gatheringMainImageUrl,
+      'gatheringImage': _gatheringImageUrlList,
       'recruitWay': _gatheringRecruitWay.name,
       'recruitQuestion': _gatheringRecruitQuestion,
       'capacity': _gatheringCapacity,
       'openingDate': _gatheringOpeningDate.toString(),
-      'gatheringPlace': {
+      'place': {
         ..._gatheringPlace.toJson(),
         'detail': _gatheringPlaceDetail,
       },
@@ -62,7 +64,14 @@ class _OneDayGatheringUploadMainScreenState
       'entryFee': _gatheringEntryFee,
       'tagList': _gatheringTagList,
     };
-    print(clubGatheringDataMap);
+    print(oneDayGatheringMap);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            OneDayGatheringPreviewScreen(gathering: oneDayGatheringMap),
+      ),
+    );
   }
 
   Widget getScreen() {
