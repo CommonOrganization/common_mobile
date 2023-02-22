@@ -19,134 +19,137 @@ class GatheringTagArea extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-      child: ListView(
-        children: [
-          Text(
-            title,
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: kGrey1C1C1EColor,
+    return GestureDetector(
+      onTap: ()=>FocusScope.of(context).unfocus(),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+        child: ListView(
+          children: [
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: kGrey1C1C1EColor,
+              ),
             ),
-          ),
-          const SizedBox(height: 10),
-          Text(
-            '한글과 영어로 최대 8글자까지 입력할 수 있어요.',
-            style: TextStyle(
-              fontSize: 14,
-              color: kGrey8E8E93Color,
+            const SizedBox(height: 10),
+            Text(
+              '한글과 영어로 최대 8글자까지 입력할 수 있어요.',
+              style: TextStyle(
+                fontSize: 14,
+                color: kGrey8E8E93Color,
+              ),
             ),
-          ),
-          const SizedBox(height: 36),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            width: double.infinity,
-            height: 52,
-            decoration: BoxDecoration(
-              border: Border.all(color: kMainColor, width: 2),
-              borderRadius: BorderRadius.circular(52),
-            ),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: controller,
-                    style: TextStyle(fontSize: 14, color: kGrey363639Color),
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      enabledBorder: InputBorder.none,
-                      focusedBorder: InputBorder.none,
-                      isDense: true,
-                      counterText: '',
-                      hintText: '모임과 관련된 태그를 입력해 주세요.',
-                      hintStyle: TextStyle(
-                        fontSize: 14,
-                        color: kWhiteAEAEB2Color,
+            const SizedBox(height: 36),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              width: double.infinity,
+              height: 52,
+              decoration: BoxDecoration(
+                border: Border.all(color: kMainColor, width: 2),
+                borderRadius: BorderRadius.circular(52),
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: controller,
+                      style: TextStyle(fontSize: 14, color: kGrey363639Color),
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        enabledBorder: InputBorder.none,
+                        focusedBorder: InputBorder.none,
+                        isDense: true,
+                        counterText: '',
+                        hintText: '모임과 관련된 태그를 입력해 주세요.',
+                        hintStyle: TextStyle(
+                          fontSize: 14,
+                          color: kWhiteAEAEB2Color,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                GestureDetector(
-                  onTap: () => submitPressed(),
-                  child: Container(
-                    alignment: Alignment.center,
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    height: 26,
-                    decoration: BoxDecoration(
-                      color: kMainColor,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: Text(
-                      '등록',
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: kWhiteColor,
+                  GestureDetector(
+                    onTap: () => submitPressed(),
+                    child: Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      height: 26,
+                      decoration: BoxDecoration(
+                        color: kMainColor,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Text(
+                        '등록',
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: kWhiteColor,
+                        ),
                       ),
                     ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 36),
+            Row(
+              children: [
+                Text(
+                  '예시',
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: kGrey2C2C2EColor,
+                  ),
+                ),
+                const SizedBox(width: 4),
+                Text(
+                  '(관심사, 지역, 연령 등)',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: kWhiteAEAEB2Color,
                   ),
                 ),
               ],
             ),
-          ),
-          const SizedBox(height: 36),
-          Row(
-            children: [
-              Text(
-                '예시',
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: kGrey2C2C2EColor,
+            const SizedBox(height: 12),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: ['배드민턴', '등산', '서울', '2030']
+                  .map((tag) => kShowTag(tag))
+                  .toList(),
+            ),
+            const SizedBox(height: 24),
+            Row(
+              children: [
+                Text(
+                  '등록한 태그',
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: kGrey2C2C2EColor,
+                  ),
                 ),
-              ),
-              const SizedBox(width: 4),
-              Text(
-                '(관심사, 지역, 연령 등)',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: kWhiteAEAEB2Color,
+                const Spacer(),
+                Text(
+                  '최대 5개',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: kGrey636366Color,
+                  ),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: ['배드민턴', '등산', '서울', '2030']
-                .map((tag) => kShowTag(tag))
-                .toList(),
-          ),
-          const SizedBox(height: 24),
-          Row(
-            children: [
-              Text(
-                '등록한 태그',
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: kGrey2C2C2EColor,
-                ),
-              ),
-              const Spacer(),
-              Text(
-                '최대 5개',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: kGrey636366Color,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: tagList.map((tag) => kEditTag(tag)).toList(),
-          ),
-        ],
+              ],
+            ),
+            const SizedBox(height: 12),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: tagList.map((tag) => kEditTag(tag)).toList(),
+            ),
+          ],
+        ),
       ),
     );
   }

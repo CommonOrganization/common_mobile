@@ -41,120 +41,124 @@ class _OneDayGatheringContentScreenState
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: ListView(
-            children: [
-              const SizedBox(height: 18),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Text(
-                  '하루모임을 소개해볼까요?',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: kGrey1C1C1EColor,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 10),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Text(
-                  '대표사진은 최소 1장 이상 등록해 주세요.',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: kGrey8E8E93Color,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 36),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(width: 20),
-                    if (_mainImageUrl != null)
-                      kSelectedImageArea(_mainImageUrl!, true)
-                    else
-                      kImageSelectButton(true),
-                    ..._imageUrlList
-                        .map((imageUrl) => kSelectedImageArea(imageUrl, false))
-                        .toList(),
-                    kImageSelectButton(false),
-                  ],
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 18, bottom: 24),
-                width: double.infinity,
-                height: 1,
-                color: kWhiteF4F4F4Color,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Text(
-                  '설명',
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: kGrey2C2C2EColor,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(
-                    top: 12, bottom: 6, left: 20, right: 20),
-                padding: const EdgeInsets.all(16),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: kWhiteF6F6F6Color,
-                ),
-                constraints: const BoxConstraints(minHeight: 150),
-                child: TextField(
-                  controller: _gatheringContentController,
-                  style: TextStyle(fontSize: 14, color: kGrey363639Color),
-                  maxLines: null,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    enabledBorder: InputBorder.none,
-                    focusedBorder: InputBorder.none,
-                    isDense: true,
-                    counterText: '',
-                    hintText: '어떤 주제로 하루모임을 갖고 싶은지 소개해보세요.(선택)',
-                    hintStyle: TextStyle(
-                      fontSize: 14,
-                      color: kWhiteAEAEB2Color,
+    return GestureDetector(
+      onTap: ()=>FocusScope.of(context).unfocus(),
+      child: Column(
+        children: [
+          Expanded(
+            child: ListView(
+              children: [
+                const SizedBox(height: 18),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    '하루모임을 소개해볼까요?',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: kGrey1C1C1EColor,
                     ),
                   ),
-                  onChanged: (text) => setState(() {}),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 26),
-                child: Text(
-                  '하루모임 상세 내용을 자세히 작성할수록 멤버들의 신청률도 높아져요',
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: kGrey8E8E93Color,
+                const SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    '대표사진은 최소 1장 이상 등록해 주세요.',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: kGrey8E8E93Color,
+                    ),
                   ),
                 ),
-              )
-            ],
+                const SizedBox(height: 36),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(width: 20),
+                      if (_mainImageUrl != null)
+                        kSelectedImageArea(_mainImageUrl!, true)
+                      else
+                        kImageSelectButton(true),
+                      ..._imageUrlList
+                          .map((imageUrl) => kSelectedImageArea(imageUrl, false))
+                          .toList(),
+                      kImageSelectButton(false),
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 18, bottom: 24),
+                  width: double.infinity,
+                  height: 1,
+                  color: kWhiteF4F4F4Color,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    '설명',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: kGrey2C2C2EColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(
+                      top: 12, bottom: 6, left: 20, right: 20),
+                  padding: const EdgeInsets.all(16),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: kWhiteF6F6F6Color,
+                  ),
+                  constraints: const BoxConstraints(minHeight: 150),
+                  child: TextField(
+                    controller: _gatheringContentController,
+                    style: TextStyle(fontSize: 14, color: kGrey363639Color),
+                    maxLines: null,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      isDense: true,
+                      counterText: '',
+                      hintText: '어떤 주제로 하루모임을 갖고 싶은지 소개해보세요.(선택)',
+                      hintStyle: TextStyle(
+                        fontSize: 14,
+                        color: kWhiteAEAEB2Color,
+                      ),
+                    ),
+                    onChanged: (text) => setState(() {}),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 26),
+                  child: Text(
+                    '하루모임 상세 내용을 자세히 작성할수록 멤버들의 신청률도 높아져요',
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: kGrey8E8E93Color,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 40),
+              ],
+            ),
           ),
-        ),
-        GatheringUploadNextButton(
-          value: _mainImageUrl != null,
-          onTap: () {
-            if (_mainImageUrl == null) return;
-            widget.nextPressed(
-                _gatheringContentController.text, _mainImageUrl, _imageUrlList);
-          },
-        ),
-      ],
+          GatheringUploadNextButton(
+            value: _mainImageUrl != null,
+            onTap: () {
+              if (_mainImageUrl == null) return;
+              widget.nextPressed(
+                  _gatheringContentController.text, _mainImageUrl, _imageUrlList);
+            },
+          ),
+        ],
+      ),
     );
   }
 

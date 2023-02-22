@@ -87,6 +87,24 @@ class FirebaseUserService {
     }
   }
 
+  static Future<dynamic> get(
+      {required String id,
+        required String field}) async {
+    try {
+      final snapshot = await FirebaseService.fireStore
+          .collection('user')
+          .doc(id)
+          .get();
+      if(snapshot.exists){
+        return snapshot.get(field);
+      }
+      return null;
+    } catch (e) {
+      log('FirebaseUserService - get Failed : $e');
+      return null;
+    }
+  }
+
   static Future<bool> duplicate(
       {required String field, required String value}) async {
     try {

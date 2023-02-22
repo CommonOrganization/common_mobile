@@ -189,7 +189,8 @@ class GatheringCategorySelectArea extends StatelessWidget {
             ),
             onChanged: (text) => onChanged(text),
           ),
-        )
+        ),
+        const SizedBox(height: 40),
       ],
     );
   }

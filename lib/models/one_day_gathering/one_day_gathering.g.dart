@@ -28,6 +28,7 @@ OneDayGathering _$OneDayGatheringFromJson(Map<String, dynamic> json) =>
       entryFee: json['entryFee'] as int,
       tagList:
           (json['tagList'] as List<dynamic>).map((e) => e as String).toList(),
+      timeStamp: json['timeStamp'] as String,
     );
 
 Map<String, dynamic> _$OneDayGatheringToJson(OneDayGathering instance) =>
@@ -49,4 +50,5 @@ Map<String, dynamic> _$OneDayGatheringToJson(OneDayGathering instance) =>
       'isHaveEntryFee': instance.isHaveEntryFee,
       'entryFee': instance.entryFee,
       'tagList': instance.tagList,
+      'timeStamp': instance.timeStamp,
     };

@@ -20,6 +20,7 @@ class OneDayGathering {
   final bool isHaveEntryFee;
   final int entryFee;
   final List<String> tagList;
+  final String timeStamp;
 
   OneDayGathering({
     required this.id,
@@ -39,6 +40,7 @@ class OneDayGathering {
     required this.isHaveEntryFee,
     required this.entryFee,
     required this.tagList,
+    required this.timeStamp,
   });
 
   factory OneDayGathering.fromJson(Map<String, dynamic> json) =>

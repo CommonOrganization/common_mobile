@@ -1,17 +1,21 @@
 import 'package:common/constants/constants_enum.dart';
+import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/user_place/user_place.dart';
 import 'package:common/screens/gathering_upload/one_day_gathering_upload/one_day_gathering_capacity_screen.dart';
 import 'package:common/screens/gathering_upload/one_day_gathering_upload/one_day_gathering_category_screen.dart';
 import 'package:common/screens/gathering_upload/one_day_gathering_upload/one_day_gathering_content_screen.dart';
-import 'package:common/screens/gathering_upload/one_day_gathering_upload/one_day_gathering_preview_screen.dart';
+import 'package:common/screens/gathering_detail/one_day_gathering_detail/one_day_gathering_preview_screen.dart';
 import 'package:common/screens/gathering_upload/one_day_gathering_upload/one_day_gathering_recruit_screen.dart';
 import 'package:common/screens/gathering_upload/one_day_gathering_upload/one_day_gathering_schedule_screen.dart';
 import 'package:common/screens/gathering_upload/one_day_gathering_upload/one_day_gathering_tag_screen.dart';
 import 'package:common/screens/gathering_upload/one_day_gathering_upload/one_day_gathering_title_screen.dart';
 import 'package:common/screens/gathering_upload/one_day_gathering_upload/one_day_gathering_type_screen.dart';
+import 'package:common/utils/local_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../constants/constants_colors.dart';
+import '../../../models/one_day_gathering/one_day_gathering.dart';
 
 class OneDayGatheringUploadMainScreen extends StatefulWidget {
   const OneDayGatheringUploadMainScreen({Key? key}) : super(key: key);
@@ -43,35 +47,44 @@ class _OneDayGatheringUploadMainScreenState
   late List<String> _gatheringTagList;
 
   Future<void> previewPressed(List<String> tagList) async {
-    _gatheringTagList = tagList;
-    Map<String, dynamic> oneDayGatheringMap = {
-      'type': _gatheringType.name,
-      'category': _gatheringMainCategory.name,
-      'detailCategory': _gatheringDetailCategory,
-      'title': _gatheringTitle,
-      'content': _gatheringContent,
-      'mainImage': _gatheringMainImageUrl,
-      'gatheringImage': _gatheringImageUrlList,
-      'recruitWay': _gatheringRecruitWay.name,
-      'recruitQuestion': _gatheringRecruitQuestion,
-      'capacity': _gatheringCapacity,
-      'openingDate': _gatheringOpeningDate.toString(),
-      'place': {
-        ..._gatheringPlace.toJson(),
-        'detail': _gatheringPlaceDetail,
-      },
-      'isHaveEntryFee': _isHaveEntryFee,
-      'entryFee': _gatheringEntryFee,
-      'tagList': _gatheringTagList,
-    };
-    print(oneDayGatheringMap);
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) =>
-            OneDayGatheringPreviewScreen(gathering: oneDayGatheringMap),
-      ),
-    );
+    try {
+      _gatheringTagList = tagList;
+      Map<String, dynamic> oneDayGatheringMap = {
+        'type': _gatheringType.name,
+        'category': _gatheringMainCategory.name,
+        'detailCategory': _gatheringDetailCategory,
+        'title': _gatheringTitle,
+        'content': _gatheringContent,
+        'mainImage': _gatheringMainImageUrl,
+        'gatheringImage': _gatheringImageUrlList,
+        'recruitWay': _gatheringRecruitWay.name,
+        'recruitQuestion': _gatheringRecruitQuestion,
+        'capacity': _gatheringCapacity,
+        'openingDate': _gatheringOpeningDate.toString(),
+        'place': {
+          ..._gatheringPlace.toJson(),
+          'detail': _gatheringPlaceDetail,
+        },
+        'isHaveEntryFee': _isHaveEntryFee,
+        'entryFee': _isHaveEntryFee ? int.parse(_gatheringEntryFee) : 0,
+        'tagList': _gatheringTagList,
+      };
+      OneDayGathering gathering = OneDayGathering.fromJson({
+        'id': 'preview',
+        'organizerId': context.read<UserController>().user?.id,
+        ...oneDayGatheringMap,
+        'timeStamp': DateTime.now().toString(),
+      });
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              OneDayGatheringPreviewScreen(gathering: gathering),
+        ),
+      );
+    } catch (e) {
+      showMessage(context, message: '입력한 정보를 다시 한번 확인해 주세요.');
+    }
   }
 
   Widget getScreen() {
