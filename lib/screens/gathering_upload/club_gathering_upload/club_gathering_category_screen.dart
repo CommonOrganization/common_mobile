@@ -6,17 +6,20 @@ import '../components/gathering_upload_next_button.dart';
 
 class ClubGatheringCategoryScreen extends StatefulWidget {
   final Function nextPressed;
-  const ClubGatheringCategoryScreen({Key? key, required this.nextPressed}) : super(key: key);
+  const ClubGatheringCategoryScreen({Key? key, required this.nextPressed})
+      : super(key: key);
 
   @override
-  State<ClubGatheringCategoryScreen> createState() => _ClubGatheringCategoryScreenState();
+  State<ClubGatheringCategoryScreen> createState() =>
+      _ClubGatheringCategoryScreenState();
 }
 
-class _ClubGatheringCategoryScreenState extends State<ClubGatheringCategoryScreen> {
+class _ClubGatheringCategoryScreenState
+    extends State<ClubGatheringCategoryScreen> {
   bool _showMore = false;
   CommonCategory? _selectedCategory;
   final TextEditingController _detailCategoryController =
-  TextEditingController();
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +36,7 @@ class _ClubGatheringCategoryScreenState extends State<ClubGatheringCategoryScree
               onSelect: (CommonCategory category) =>
                   setState(() => _selectedCategory = category),
               showMorePressed: () => setState(() => _showMore = true),
+              onChanged: (text) => setState(() {}),
             ),
           ),
           GatheringUploadNextButton(

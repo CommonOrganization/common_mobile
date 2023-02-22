@@ -61,7 +61,7 @@ class _ClubGatheringTitleScreenState extends State<ClubGatheringTitleScreen> {
                     ),
                     child: TextField(
                       controller: _gatheringTitleController,
-                      style: TextStyle(fontSize: 13, color: kGrey363639Color),
+                      style: TextStyle(fontSize: 14, color: kGrey363639Color),
                       maxLength: 20,
                       maxLines: null,
                       decoration: InputDecoration(
@@ -72,7 +72,7 @@ class _ClubGatheringTitleScreenState extends State<ClubGatheringTitleScreen> {
                         counterText: '',
                         hintText: '소모임을 대표할 수 있는 제목을 적어주세요.',
                         hintStyle: TextStyle(
-                          fontSize: 13,
+                          fontSize: 14,
                           color: kWhiteAEAEB2Color,
                         ),
                       ),

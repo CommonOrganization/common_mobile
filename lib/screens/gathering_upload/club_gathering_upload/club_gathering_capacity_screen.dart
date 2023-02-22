@@ -147,14 +147,14 @@ class _ClubGatheringCapacityScreenState
                       Text(
                         '인원 안내',
                         style: TextStyle(
-                          fontSize: 11,
+                          fontSize: 13,
                           color: kGrey48484AColor,
                         ),
                       ),
                       Text(
                         '최소 10명 ~ 최대 99명',
                         style: TextStyle(
-                          fontSize: 10,
+                          fontSize: 12,
                           color: kGrey636366Color,
                         ),
                       )

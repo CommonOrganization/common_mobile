@@ -6,9 +6,8 @@ import 'package:common/utils/local_utils.dart';
 import 'package:common/widgets/custom_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 import '../../../widgets/custom_date_picker.dart';
-import '../../sign/bottom_sheets/user_place_bottom_sheet.dart';
+import '../../../widgets/select_location_bottom_sheet.dart';
 
 class OneDayGatheringScheduleScreen extends StatefulWidget {
   final Function nextPressed;
@@ -61,7 +60,7 @@ class _OneDayGatheringScheduleScreenState
                 Text(
                   '모임 일정',
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 15,
                     fontWeight: FontWeight.bold,
                     color: kGrey2C2C2EColor,
                   ),
@@ -106,7 +105,7 @@ class _OneDayGatheringScheduleScreenState
                               return Text(
                                 '모임 날짜를 선택해 주세요.',
                                 style: TextStyle(
-                                  fontSize: 13,
+                                  fontSize: 14,
                                   color: kWhiteAEAEB2Color,
                                 ),
                               );
@@ -114,7 +113,7 @@ class _OneDayGatheringScheduleScreenState
                             return Text(
                               '${_gatheringDate!.month}.${_gatheringDate!.day} (${kShortWeekdayList[_gatheringDate!.weekday - 1]})',
                               style: TextStyle(
-                                fontSize: 13,
+                                fontSize: 14,
                                 color: kGrey363639Color,
                               ),
                             );
@@ -162,7 +161,7 @@ class _OneDayGatheringScheduleScreenState
                               return Text(
                                 '모임 시간을 선택해 주세요.',
                                 style: TextStyle(
-                                  fontSize: 13,
+                                  fontSize: 14,
                                   color: kWhiteAEAEB2Color,
                                 ),
                               );
@@ -170,7 +169,7 @@ class _OneDayGatheringScheduleScreenState
                             return Text(
                               '${_gatheringTime!.hour >= 12 ? '오후' : '오전'} ${_gatheringTime!.hour > 12 ? _gatheringTime!.hour - 12 : _gatheringTime!.hour}:${_gatheringTime!.minute.toString().padLeft(2, '0')}',
                               style: TextStyle(
-                                fontSize: 13,
+                                fontSize: 14,
                                 color: kGrey363639Color,
                               ),
                             );
@@ -189,7 +188,7 @@ class _OneDayGatheringScheduleScreenState
                 Text(
                   '모임 장소',
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 15,
                     fontWeight: FontWeight.bold,
                     color: kGrey2C2C2EColor,
                   ),
@@ -202,7 +201,7 @@ class _OneDayGatheringScheduleScreenState
                       context: context,
                       isScrollControlled: true,
                       backgroundColor: Colors.transparent,
-                      builder: (context) => const UserPlaceBottomSheet(),
+                      builder: (context) => const SelectLocationBottomSheet(),
                     );
                     if (selectedGatheringPlace != null) {
                       setState(() => _gatheringPlace = selectedGatheringPlace);
@@ -227,7 +226,7 @@ class _OneDayGatheringScheduleScreenState
                               return Text(
                                 '모임 장소를 선택해 주세요.',
                                 style: TextStyle(
-                                  fontSize: 13,
+                                  fontSize: 14,
                                   color: kWhiteAEAEB2Color,
                                 ),
                               );
@@ -235,7 +234,7 @@ class _OneDayGatheringScheduleScreenState
                             return Text(
                               '${_gatheringPlace!.city} ${_gatheringPlace!.county}',
                               style: TextStyle(
-                                fontSize: 13,
+                                fontSize: 14,
                                 color: kGrey363639Color,
                               ),
                             );
@@ -262,7 +261,7 @@ class _OneDayGatheringScheduleScreenState
                   ),
                   child: TextField(
                     controller: _gatheringPlaceDetailController,
-                    style: TextStyle(fontSize: 13, color: kGrey363639Color),
+                    style: TextStyle(fontSize: 14, color: kGrey363639Color),
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       enabledBorder: InputBorder.none,
@@ -271,7 +270,7 @@ class _OneDayGatheringScheduleScreenState
                       counterText: '',
                       hintText: '상세주소를 입력해 주세요. ex) 역삼동 스타벅스',
                       hintStyle: TextStyle(
-                        fontSize: 13,
+                        fontSize: 14,
                         color: kWhiteAEAEB2Color,
                       ),
                     ),
@@ -282,7 +281,7 @@ class _OneDayGatheringScheduleScreenState
                 Text(
                   '모임비',
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 15,
                     fontWeight: FontWeight.bold,
                     color: kGrey2C2C2EColor,
                   ),
@@ -384,6 +383,7 @@ class _OneDayGatheringScheduleScreenState
             style: TextStyle(
               color:
                   _isHaveEntryFee == value ? kFontMainColor : kWhiteAEAEB2Color,
+              fontSize: 14,
             ),
           ),
         ),

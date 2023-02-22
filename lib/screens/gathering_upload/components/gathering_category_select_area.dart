@@ -10,6 +10,7 @@ class GatheringCategorySelectArea extends StatelessWidget {
   final CommonCategory? selectedCategory;
   final Function onSelect;
   final Function showMorePressed;
+  final Function onChanged;
   const GatheringCategorySelectArea({
     Key? key,
     required this.title,
@@ -18,6 +19,7 @@ class GatheringCategorySelectArea extends StatelessWidget {
     required this.onSelect,
     required this.showMore,
     required this.showMorePressed,
+    required this.onChanged,
   }) : super(key: key);
 
   @override
@@ -42,7 +44,7 @@ class GatheringCategorySelectArea extends StatelessWidget {
           child: Text(
             '카테고리',
             style: TextStyle(
-              fontSize: 14,
+              fontSize: 15,
               fontWeight: FontWeight.bold,
               color: kGrey2C2C2EColor,
             ),
@@ -115,7 +117,7 @@ class GatheringCategorySelectArea extends StatelessWidget {
                   Text(
                     '더보기',
                     style: TextStyle(
-                      fontSize: 12,
+                      fontSize: 13,
                       color: kGrey48484AColor,
                     ),
                   ),
@@ -137,13 +139,25 @@ class GatheringCategorySelectArea extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Text(
-            '세부 카테고리',
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-              color: kGrey2C2C2EColor,
-            ),
+          child: Row(
+            children: [
+              Text(
+                '세부 카테고리',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  color: kGrey2C2C2EColor,
+                ),
+              ),
+              const Spacer(),
+              Text(
+                '${controller.text.length}/8',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: kGrey636366Color,
+                ),
+              )
+            ],
           ),
         ),
         const SizedBox(height: 12),
@@ -159,7 +173,8 @@ class GatheringCategorySelectArea extends StatelessWidget {
           ),
           child: TextField(
             controller: controller,
-            style: TextStyle(fontSize: 13, color: kGrey363639Color),
+            maxLength: 8,
+            style: TextStyle(fontSize: 14, color: kGrey363639Color),
             decoration: InputDecoration(
               border: InputBorder.none,
               enabledBorder: InputBorder.none,
@@ -168,10 +183,11 @@ class GatheringCategorySelectArea extends StatelessWidget {
               counterText: '',
               hintText: '세부 카테고리를 입력해주세요.(선택)',
               hintStyle: TextStyle(
-                fontSize: 13,
+                fontSize: 14,
                 color: kWhiteAEAEB2Color,
               ),
             ),
+            onChanged: (text) => onChanged(text),
           ),
         )
       ],

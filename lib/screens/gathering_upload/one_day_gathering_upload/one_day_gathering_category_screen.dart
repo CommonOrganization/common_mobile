@@ -35,6 +35,7 @@ class _OneDayGatheringCategoryScreenState
               onSelect: (CommonCategory category) =>
                   setState(() => _selectedCategory = category),
               showMorePressed: () => setState(() => _showMore = true),
+              onChanged: (text) =>setState((){}),
             ),
           ),
           GatheringUploadNextButton(

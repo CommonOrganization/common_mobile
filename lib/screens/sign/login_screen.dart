@@ -87,9 +87,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         isDense: true,
                         hintText: '휴대폰 번호',
                         hintStyle: TextStyle(
-                          fontSize: 14,
+                          fontSize: 15,
                           color: kGrey8E8E93Color,
                         ),
+                      ),
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: kGrey363639Color,
                       ),
                     ),
                   ),
@@ -114,9 +118,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         isDense: true,
                         hintText: '패스워드',
                         hintStyle: TextStyle(
-                          fontSize: 14,
+                          fontSize: 15,
                           color: kGrey8E8E93Color,
                         ),
+                      ),
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: kGrey363639Color,
                       ),
                     ),
                   ),
@@ -139,7 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           Text(
                             '로그인 상태 유지',
                             style: TextStyle(
-                              fontSize: 12,
+                              fontSize: 13,
                               color: kGrey636366Color,
                             ),
                           )
@@ -189,7 +197,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Text(
                           '비밀번호 재설정',
                           style: TextStyle(
-                            fontSize: 11,
+                            fontSize: 12,
                             color: kGrey636366Color,
                           ),
                         ),
@@ -209,7 +217,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Text(
                           '회원가입',
                           style: TextStyle(
-                            fontSize: 11,
+                            fontSize: 12,
                             color: kGrey636366Color,
                           ),
                         ),

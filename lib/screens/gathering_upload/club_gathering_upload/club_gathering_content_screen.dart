@@ -116,7 +116,7 @@ class _ClubGatheringContentScreenState
                 constraints: const BoxConstraints(minHeight: 150),
                 child: TextField(
                   controller: _gatheringContentController,
-                  style: TextStyle(fontSize: 13, color: kGrey363639Color),
+                  style: TextStyle(fontSize: 14, color: kGrey363639Color),
                   maxLines: null,
                   decoration: InputDecoration(
                     border: InputBorder.none,
@@ -126,7 +126,7 @@ class _ClubGatheringContentScreenState
                     counterText: '',
                     hintText: '어떤 주제로 소모임을 갖고 싶은지 소개해보세요.(선택)',
                     hintStyle: TextStyle(
-                      fontSize: 13,
+                      fontSize: 14,
                       color: kWhiteAEAEB2Color,
                     ),
                   ),
@@ -138,7 +138,7 @@ class _ClubGatheringContentScreenState
                 child: Text(
                   '소모임 상세 내용을 자세히 작성할수록 멤버들의 신청률도 높아져요',
                   style: TextStyle(
-                    fontSize: 10,
+                    fontSize: 11,
                     color: kGrey8E8E93Color,
                   ),
                 ),

@@ -169,14 +169,14 @@ class _OneDayGatheringCapacityScreenState
                         Text(
                           '인원 안내',
                           style: TextStyle(
-                            fontSize: 11,
+                            fontSize: 13,
                             color: kGrey48484AColor,
                           ),
                         ),
                         Text(
                           '최소 2명 ~ 최대 30명',
                           style: TextStyle(
-                            fontSize: 10,
+                            fontSize: 12,
                             color: kGrey636366Color,
                           ),
                         )

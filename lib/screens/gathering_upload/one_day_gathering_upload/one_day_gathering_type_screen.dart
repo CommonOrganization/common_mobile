@@ -50,7 +50,7 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
               ),
               const SizedBox(height: 36),
               kGatheringTypeCard(GatheringType.oneDay),
-              const SizedBox(height: 12),
+              const SizedBox(height: 16),
               kGatheringTypeCard(GatheringType.clubOneDay),
               const SizedBox(height: 24),
               if (_selectedGatheringType == GatheringType.clubOneDay)
@@ -65,7 +65,9 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
                           Text(
                             '전체 공개 여부',
                             style: TextStyle(
-                                fontSize: 14, color: kGrey363639Color),
+                              fontSize: 15,
+                              color: kGrey363639Color,
+                            ),
                           ),
                           const Spacer(),
                           SizedBox(
@@ -93,7 +95,7 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
                       child: Text(
                         '설정 시 모든 사람들이 하루모임에 참여할 수 있어요.\n설정하지 않으면 선택한 클럽 멤버들만 하루모임에 참여할 수 있어요.',
                         style: TextStyle(
-                          fontSize: 10,
+                          fontSize: 11,
                           color: kGrey8E8E93Color,
                         ),
                       ),

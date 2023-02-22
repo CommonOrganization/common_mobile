@@ -1,4 +1,5 @@
 import 'package:common/screens/gathering_upload/club_gathering_upload/club_gathering_category_screen.dart';
+import 'package:common/screens/gathering_upload/club_gathering_upload/club_gathering_location_screen.dart';
 import 'package:common/screens/gathering_upload/club_gathering_upload/club_gathering_title_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -29,6 +30,7 @@ class _ClubGatheringUploadMainScreenState
   late List<String> _gatheringImageUrlList;
   late RecruitWay _gatheringRecruitWay;
   late String _gatheringRecruitQuestion;
+  late List<City> _gatheringCityList;
   late int _gatheringCapacity;
   late List<String> _gatheringTagList;
 
@@ -39,10 +41,11 @@ class _ClubGatheringUploadMainScreenState
       'detailCategory': _gatheringDetailCategory,
       'title': _gatheringTitle,
       'content': _gatheringContent,
-      'mainImageUrl': _gatheringMainImageUrl,
-      'gatheringImageUrlList': _gatheringImageUrlList,
+      'mainImage': _gatheringMainImageUrl,
+      'gatheringImage': _gatheringImageUrlList,
       'recruitWay': _gatheringRecruitWay.name,
       'recruitQuestion': _gatheringRecruitQuestion,
+      'cityList':_gatheringCityList.map((city)=>city.name).toList(),
       'capacity': _gatheringCapacity,
       'tagList': _gatheringTagList,
     };
@@ -93,6 +96,15 @@ class _ClubGatheringUploadMainScreenState
           },
         );
       case 4:
+        return ClubGatheringLocationScreen(
+          nextPressed: (List<City> cityList) {
+            setState(() {
+              _pageIndex++;
+              _gatheringCityList = cityList;
+            });
+          },
+        );
+      case 5:
         return ClubGatheringCapacityScreen(
           nextPressed: (int capacity) {
             setState(() {
@@ -101,7 +113,7 @@ class _ClubGatheringUploadMainScreenState
             });
           },
         );
-      case 5:
+      case 6:
         return ClubGatheringTagScreen(
             previewPressed: (List<String> tagList) => previewPressed(tagList));
       default:
