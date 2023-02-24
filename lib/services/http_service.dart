@@ -56,4 +56,28 @@ class HttpService {
       return false;
     }
   }
+
+  static Future<String?> searchPlaceWithKeyword(String keyword) async {
+    try {
+      final res = await http.get(
+        Uri.parse(
+            'https://dapi.kakao.com/v2/local/search/keyword.json?page=1&size=15&sort=accuracy&query=$keyword'),
+        headers: {'Authorization': 'KakaoAK $kKakaoRestAPIKey'},
+      );
+      String? result;
+      final placeSearchResult = jsonDecode(res.body);
+      List placeList = placeSearchResult['documents'];
+      if (placeList.isNotEmpty) {
+        if (placeList.first['road_address_name'].isNotEmpty) {
+          result = placeList.first['road_address_name'];
+        } else {
+          result = placeList.first['address_name'];
+        }
+      }
+      return result;
+    } catch (e) {
+      log('searchPlaceWithKeyword error : $e');
+      return null;
+    }
+  }
 }

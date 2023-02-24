@@ -49,6 +49,8 @@ class _OneDayGatheringUploadMainScreenState
   Future<void> previewPressed(List<String> tagList) async {
     try {
       _gatheringTagList = tagList;
+      String? userId = context.read<UserController>().user?.id;
+      if(userId==null) return;
       Map<String, dynamic> oneDayGatheringMap = {
         'type': _gatheringType.name,
         'category': _gatheringMainCategory.name,
@@ -68,10 +70,11 @@ class _OneDayGatheringUploadMainScreenState
         'isHaveEntryFee': _isHaveEntryFee,
         'entryFee': _isHaveEntryFee ? int.parse(_gatheringEntryFee) : 0,
         'tagList': _gatheringTagList,
+        'memberList':[userId,userId,userId],
       };
       OneDayGathering gathering = OneDayGathering.fromJson({
         'id': 'preview',
-        'organizerId': context.read<UserController>().user?.id,
+        'organizerId': userId,
         ...oneDayGatheringMap,
         'timeStamp': DateTime.now().toString(),
       });
@@ -83,6 +86,7 @@ class _OneDayGatheringUploadMainScreenState
         ),
       );
     } catch (e) {
+      print(e);
       showMessage(context, message: '입력한 정보를 다시 한번 확인해 주세요.');
     }
   }

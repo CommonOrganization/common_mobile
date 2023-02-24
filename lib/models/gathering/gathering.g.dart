@@ -1,13 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'one_day_gathering.dart';
+part of 'gathering.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-OneDayGathering _$OneDayGatheringFromJson(Map<String, dynamic> json) =>
-    OneDayGathering(
+Gathering _$GatheringFromJson(Map<String, dynamic> json) => Gathering(
       id: json['id'] as String,
       organizerId: json['organizerId'] as String,
       category: json['category'] as String,
@@ -27,15 +26,9 @@ OneDayGathering _$OneDayGatheringFromJson(Map<String, dynamic> json) =>
           .map((e) => e as String)
           .toList(),
       timeStamp: json['timeStamp'] as String,
-      type: json['type'] as String,
-      openingDate: json['openingDate'] as String,
-      place: json['place'] as Map<String, dynamic>,
-      isHaveEntryFee: json['isHaveEntryFee'] as bool,
-      entryFee: json['entryFee'] as int,
     );
 
-Map<String, dynamic> _$OneDayGatheringToJson(OneDayGathering instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$GatheringToJson(Gathering instance) => <String, dynamic>{
       'id': instance.id,
       'organizerId': instance.organizerId,
       'category': instance.category,
@@ -50,9 +43,4 @@ Map<String, dynamic> _$OneDayGatheringToJson(OneDayGathering instance) =>
       'tagList': instance.tagList,
       'memberList': instance.memberList,
       'timeStamp': instance.timeStamp,
-      'type': instance.type,
-      'openingDate': instance.openingDate,
-      'place': instance.place,
-      'isHaveEntryFee': instance.isHaveEntryFee,
-      'entryFee': instance.entryFee,
     };
