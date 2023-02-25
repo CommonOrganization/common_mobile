@@ -10,7 +10,7 @@ String getSimplyDateFromDateTime(DateTime dateTime) {
 
 String getDateDetail(String date) {
   DateTime dateTime = DateTime.parse(date);
-  return '${dateTime.month}월 ${dateTime.day}일 ${kWeekdayList[dateTime.weekday]} ${dateTime.hour > 12 ? '오후' : '오전'} ${dateTime.hour > 12 ? dateTime.hour - 12 : dateTime.hour}:${dateTime.minute.toString().padLeft(2, '0')}';
+  return '${dateTime.month}월 ${dateTime.day}일 ${kWeekdayList[dateTime.weekday-1]} ${dateTime.hour > 12 ? '오후' : '오전'} ${dateTime.hour > 12 ? dateTime.hour - 12 : dateTime.hour}:${dateTime.minute.toString().padLeft(2, '0')}';
 }
 
 String getTimeDifference(DateTime dateTime) {

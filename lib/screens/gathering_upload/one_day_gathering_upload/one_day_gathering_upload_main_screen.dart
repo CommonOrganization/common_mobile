@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:common/constants/constants_enum.dart';
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/user_place/user_place.dart';
@@ -70,7 +72,7 @@ class _OneDayGatheringUploadMainScreenState
         'isHaveEntryFee': _isHaveEntryFee,
         'entryFee': _isHaveEntryFee ? int.parse(_gatheringEntryFee) : 0,
         'tagList': _gatheringTagList,
-        'memberList':[userId,userId,userId],
+        'memberList':[userId],
       };
       OneDayGathering gathering = OneDayGathering.fromJson({
         'id': 'preview',
@@ -86,7 +88,7 @@ class _OneDayGatheringUploadMainScreenState
         ),
       );
     } catch (e) {
-      print(e);
+      log('previewPressed failed : $e');
       showMessage(context, message: '입력한 정보를 다시 한번 확인해 주세요.');
     }
   }
