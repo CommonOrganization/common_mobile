@@ -103,7 +103,7 @@ class _ResetPasswordPhoneScreenState extends State<ResetPasswordPhoneScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: ListView(
             children: [
-              const SizedBox(height: 16),
+              const SizedBox(height: 18),
               Text(
                 '가입정보 확인',
                 style: TextStyle(

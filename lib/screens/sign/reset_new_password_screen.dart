@@ -40,7 +40,7 @@ class _ResetNewPasswordScreenState extends State<ResetNewPasswordScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ListView(
                 children: [
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 18),
                   Text(
                     '비밀번호 재설정',
                     style: TextStyle(

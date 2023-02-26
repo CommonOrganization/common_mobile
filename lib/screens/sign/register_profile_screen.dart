@@ -52,6 +52,7 @@ class _RegisterProfileScreenState extends State<RegisterProfileScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ListView(
                 children: [
+                  SizedBox(height: 18),
                   Text(
                     '프로필 설정',
                     style: TextStyle(

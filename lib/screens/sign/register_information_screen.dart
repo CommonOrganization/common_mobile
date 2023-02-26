@@ -47,7 +47,7 @@ class _RegisterInformationScreenState extends State<RegisterInformationScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ListView(
                 children: [
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 18),
                   Text(
                     '가입정보 입력',
                     style: TextStyle(

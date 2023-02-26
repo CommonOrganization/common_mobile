@@ -1,10 +1,13 @@
+import 'package:common/models/club_gathering/club_gathering.dart';
+import 'package:common/screens/gathering_detail/club_gathering_detail/club_gathering_preview_screen.dart';
 import 'package:common/screens/gathering_upload/club_gathering_upload/club_gathering_category_screen.dart';
 import 'package:common/screens/gathering_upload/club_gathering_upload/club_gathering_location_screen.dart';
 import 'package:common/screens/gathering_upload/club_gathering_upload/club_gathering_title_screen.dart';
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
 import '../../../constants/constants_colors.dart';
 import '../../../constants/constants_enum.dart';
+import '../../../controllers/user_controller.dart';
 import 'club_gathering_capacity_screen.dart';
 import 'club_gathering_content_screen.dart';
 import 'club_gathering_recruit_screen.dart';
@@ -36,6 +39,8 @@ class _ClubGatheringUploadMainScreenState
 
   Future<void> previewPressed(List<String> tagList) async {
     _gatheringTagList = tagList;
+    String? userId = context.read<UserController>().user?.id;
+    if(userId==null) return;
     Map<String, dynamic> clubGatheringDataMap = {
       'category': _gatheringMainCategory.name,
       'detailCategory': _gatheringDetailCategory,
@@ -48,8 +53,24 @@ class _ClubGatheringUploadMainScreenState
       'cityList':_gatheringCityList.map((city)=>city.name).toList(),
       'capacity': _gatheringCapacity,
       'tagList': _gatheringTagList,
+      'memberList':[userId],
+      'applicantList':[],
     };
-    print(clubGatheringDataMap);
+    ClubGathering gathering = ClubGathering.fromJson({
+      'id': 'preview',
+      'organizerId': userId,
+      ...clubGatheringDataMap,
+      'timeStamp': DateTime.now().toString(),
+    });
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            ClubGatheringPreviewScreen(gathering: gathering),
+      ),
+    );
+
   }
 
   Widget getScreen() {

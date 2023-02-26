@@ -45,7 +45,7 @@ class _RegisterUserInformationScreenState
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ListView(
                 children: [
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 18),
                   Text(
                     '회원정보 입력',
                     style: TextStyle(

@@ -103,7 +103,7 @@ class _RegisterPhoneScreenState extends State<RegisterPhoneScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ListView(
                 children: [
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 18),
                   Text(
                     '전화번호 가입',
                     style: TextStyle(
@@ -145,50 +145,6 @@ class _RegisterPhoneScreenState extends State<RegisterPhoneScreen> {
                             color: kWhiteF4F4F4Color,
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          // child: DropdownButton(
-                          //   value: _country,
-                          //   elevation: 1,
-                          //   menuMaxHeight: 200,
-                          //   isDense: true,
-                          //   icon: const Icon(Icons.expand_more),
-                          //   iconSize: 20,
-                          //   dropdownColor: kWhiteColor,
-                          //   iconDisabledColor: kWhiteAEAEB2Color,
-                          //   iconEnabledColor: kWhiteAEAEB2Color,
-                          //   underline: Container(),
-                          //   borderRadius: BorderRadius.circular(10),
-                          //   selectedItemBuilder: (context){
-                          //     return Country.values.map((Country country){
-                          //       return Container(
-                          //         alignment: Alignment.center,
-                          //         child: Text(
-                          //           '+${country.code}',
-                          //           style: TextStyle(
-                          //             fontSize: 14,
-                          //             color: kGrey363639Color,
-                          //           ),
-                          //         ),
-                          //       );
-                          //     }).toList();
-                          //   },
-                          //   items: Country.values
-                          //       .map((Country country) => DropdownMenuItem(
-                          //             value: country,
-                          //             child: Text(
-                          //               country.name,
-                          //               style: TextStyle(
-                          //                 fontSize: 14,
-                          //                 color: kGrey363639Color,
-                          //               ),
-                          //             ),
-                          //           ))
-                          //       .toList(),
-                          //   onChanged: (dynamic value) {
-                          //     if (value.runtimeType == Country) {
-                          //       setState(() => _country = (value as Country));
-                          //     }
-                          //   },
-                          // ),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
