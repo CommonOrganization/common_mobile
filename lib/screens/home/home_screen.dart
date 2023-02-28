@@ -8,7 +8,6 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../constants/constants_colors.dart';
 
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -40,7 +39,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 elevation: 0,
                 title: SvgPicture.asset(
                   'assets/images/common_text_logo.svg',
-                  height: 20,
+                  height: 18,
+                  fit: BoxFit.cover,
                 ),
                 actions: [
                   SvgPicture.asset(
@@ -105,6 +105,8 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         child: SvgPicture.asset(
           'assets/icons/svg/add.svg',
+          width: 42,height: 42,
+          fit: BoxFit.cover,
         ),
       ),
     );
@@ -114,7 +116,12 @@ class _HomeScreenState extends State<HomeScreen> {
           {required String title, required Function onTap}) =>
       SpeedDialChild(
         onTap: () => onTap(),
-        child: SvgPicture.asset('assets/icons/svg/add.svg'),
+        child: SvgPicture.asset(
+          'assets/icons/svg/add.svg',
+          width: 30,
+          height: 30,
+          fit: BoxFit.cover,
+        ),
         backgroundColor: kMainColor,
         label: title,
         labelStyle: TextStyle(

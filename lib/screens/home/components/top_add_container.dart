@@ -28,14 +28,21 @@ class TopAddContainer extends StatelessWidget {
               width: 42,
               height: 42,
               decoration: BoxDecoration(
-                border: Border.all(color: kWhiteColor, width: 2),
-                borderRadius: BorderRadius.circular(42),
-                color: kMainColor,
-              ),
+                  border: Border.all(color: kWhiteColor, width: 1),
+                  borderRadius: BorderRadius.circular(42),
+                  color: kMainColor,
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset.zero,
+                      color: kMainColor.withOpacity(0.4),
+                      blurRadius: 10,
+                    ),
+                  ]),
               child: SvgPicture.asset(
                 'assets/icons/svg/add.svg',
-                width: 30,
-                height: 30,
+                width: 24,
+                height: 24,
+                fit: BoxFit.scaleDown,
               ),
             ),
             const SizedBox(height: 6),
