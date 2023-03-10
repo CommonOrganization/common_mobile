@@ -103,7 +103,7 @@ class _RegisterPhoneScreenState extends State<RegisterPhoneScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ListView(
                 children: [
-                  const SizedBox(height: 18),
+                  const SizedBox(height: 12),
                   Text(
                     '전화번호 가입',
                     style: TextStyle(

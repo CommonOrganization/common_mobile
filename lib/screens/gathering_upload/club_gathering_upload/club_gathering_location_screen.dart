@@ -8,6 +8,7 @@ import 'package:common/widgets/custom_time_picker.dart';
 import 'package:common/widgets/select_city_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../../utils/format_utils.dart';
 import '../../../widgets/custom_date_picker.dart';
 
 class ClubGatheringLocationScreen extends StatefulWidget {
@@ -23,18 +24,6 @@ class ClubGatheringLocationScreen extends StatefulWidget {
 class _ClubGatheringLocationScreenState
     extends State<ClubGatheringLocationScreen> {
   List<City> _gatheringCityList = [];
-
-  String getCityNames(List<City> cityList) {
-    String result = '';
-    for(City city in cityList){
-      if(result.isEmpty){
-        result = city.name;
-        continue;
-      }
-      result = '$result, ${city.name}';
-    }
-    return result;
-  }
 
   @override
   Widget build(BuildContext context) {

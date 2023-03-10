@@ -178,7 +178,7 @@ class _ResetNewPasswordScreenState extends State<ResetNewPasswordScreen> {
                             '비밀번호가 일치하지 않습니다.',
                             style: TextStyle(
                               fontSize: 11,
-                              color: kWarningColor,
+                              color: kNoColor,
                             ),
                           ),
                         ),

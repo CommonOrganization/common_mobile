@@ -60,9 +60,8 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
             Expanded(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 30),
+                  const SizedBox(height: kToolbarHeight+184),
                   const Text('우리지역 사람들과 함께하는 취미생활'),
                   const SizedBox(height: 16),
                   SvgPicture.asset('assets/images/common_text_logo.svg'),

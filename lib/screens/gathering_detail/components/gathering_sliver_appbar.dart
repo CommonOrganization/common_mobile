@@ -20,7 +20,7 @@ class GatheringSliverAppbar extends StatelessWidget {
     return SliverAppBar(
         foregroundColor: showAppbarBlack ? kBlackColor : kWhiteColor,
         backgroundColor: showAppbarBlack ? kWhiteColor : Colors.transparent,
-        elevation: 0.5,
+        elevation: 0.1,
         shadowColor: kWhiteF4F4F4Color,
         pinned: true,
         expandedHeight: MediaQuery.of(context).size.width,

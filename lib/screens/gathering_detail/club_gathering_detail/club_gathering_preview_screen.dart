@@ -1,9 +1,15 @@
+import 'package:common/constants/constants_enum.dart';
 import 'package:common/models/club_gathering/club_gathering.dart';
 import 'package:common/screens/gathering_detail/components/gathering_tab_bar.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants/constants_colors.dart';
+import '../../../utils/format_utils.dart';
+import '../components/gathering_content_card.dart';
+import '../components/gathering_information_card.dart';
+import '../components/gathering_organizer_card.dart';
 import '../components/gathering_sliver_appbar.dart';
+import '../components/gathering_status_card.dart';
 
 class ClubGatheringPreviewScreen extends StatefulWidget {
   final ClubGathering gathering;
@@ -79,6 +85,52 @@ class _ClubGatheringPreviewScreenState
                 : const ClampingScrollPhysics(),
             children: [
               const SizedBox(height: 16),
+              GatheringOrganizerCard(organizerId: widget.gathering.organizerId),
+              const SizedBox(height: 12),
+              GatheringContentCard(content: widget.gathering.content),
+              const SizedBox(height: 20),
+              GatheringInformationCard(
+                image: widget.gathering.recruitWay == 'firstCome'
+                    ? 'assets/icons/svg/clock_gray.svg'
+                    : 'assets/icons/svg/inbox_gray.svg',
+                title: widget.gathering.recruitWay == 'firstCome'
+                    ? '선착순 하루모임'
+                    : '승인제 하루모임',
+              ),
+              const SizedBox(height: 16),
+              GatheringInformationCard(
+                image: 'assets/icons/svg/profile_gray.svg',
+                title: '${widget.gathering.capacity}명',
+              ),
+              const SizedBox(height: 16),
+              GatheringInformationCard(
+                image: 'assets/icons/svg/profile_gray.svg',
+                title: getCityNamesString(widget.gathering.cityList),
+              ),
+              const SizedBox(height: 32),
+              GatheringStatusCard(
+                memberList: widget.gathering.memberList,
+                capacity: widget.gathering.capacity,
+              ),
+              const SizedBox(height: 30),
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('멤버소개',style: TextStyle(
+                      fontSize: 13,
+                      color: kMainColor,
+                    ),),
+                    const SizedBox(height: 2),
+                    Text('우리랑 소모임 함께 해요',style: TextStyle(
+                      fontSize: 18,fontWeight: FontWeight.bold,
+                      color: kGrey2C2C2EColor,
+                    ),),
+
+                  ],
+                ),
+              )
             ],
           ),
         ),

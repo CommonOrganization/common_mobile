@@ -137,7 +137,7 @@ class _RegisterInformationScreenState extends State<RegisterInformationScreen> {
                                   '이미 존재하는 닉네임입니다.',
                                   style: TextStyle(
                                     fontSize: 11,
-                                    color: kWarningColor,
+                                    color: kNoColor,
                                   ),
                                 ),
                               ),
@@ -264,7 +264,7 @@ class _RegisterInformationScreenState extends State<RegisterInformationScreen> {
                             '비밀번호가 일치하지 않습니다.',
                             style: TextStyle(
                               fontSize: 11,
-                              color: kWarningColor,
+                              color: kNoColor,
                             ),
                           ),
                         ),
