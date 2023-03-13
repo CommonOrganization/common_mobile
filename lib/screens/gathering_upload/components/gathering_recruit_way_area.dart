@@ -23,12 +23,13 @@ class GatheringRecruitWayArea extends StatelessWidget {
       onTap: ()=>FocusScope.of(context).unfocus(),
       child: ListView(
         children: [
+          const SizedBox(height: 12),
           Text(
             '어떻게 멤버를 모집할까요?',
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
-              color: kGrey1C1C1EColor,
+              color: kFontGray900Color,
             ),
           ),
           const SizedBox(height: 36),
@@ -44,7 +45,7 @@ class GatheringRecruitWayArea extends StatelessWidget {
                   borderRadius: BorderRadius.circular(15),
                   color: selectedRecruitWay == recruitWay
                       ? kMainColor
-                      : kWhiteF6F6F6Color,
+                      : kFontGray50Color,
                 ),
                 child: Row(
                   children: [
@@ -67,8 +68,9 @@ class GatheringRecruitWayArea extends StatelessWidget {
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
                               color: selectedRecruitWay == recruitWay
-                                  ? kWhiteColor
-                                  : kGrey48484AColor,
+                                  ? kFontGray0Color
+                                  : kFontGray600Color,
+                              height: 20/14,
                             ),
                           ),
                           const SizedBox(height: 4),
@@ -77,8 +79,9 @@ class GatheringRecruitWayArea extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 13,
                               color: selectedRecruitWay == recruitWay
-                                  ? kWhiteColor
-                                  : kGrey8E8E93Color,
+                                  ? kFontGray0Color
+                                  : kFontGray400Color,
+                              height: 18/13,
                             ),
                           ),
                         ],
@@ -99,7 +102,7 @@ class GatheringRecruitWayArea extends StatelessWidget {
                     '가입할 멤버들에게 물어볼 질문을 작성해주세요.',
                     style: TextStyle(
                       fontSize: 15,
-                      color: kGrey363639Color,
+                      color: kFontGray800Color,
                     ),
                   ),
                 ),
@@ -115,7 +118,8 @@ class GatheringRecruitWayArea extends StatelessWidget {
                         'ⓘ',
                         style: TextStyle(
                           fontSize: 11,
-                          color: kGrey8E8E93Color,
+                          color: kFontGray500Color,
+                            height: 16/11,
                         ),
                       ),
                     ),
@@ -124,7 +128,8 @@ class GatheringRecruitWayArea extends StatelessWidget {
                         '전화번호, 신청 폼 작성 요구, 타 플랫폼 요구 등\n과도한 개인 정보를 요구하는 경우 경고 및 제재를 받게 돼요.',
                         style: TextStyle(
                           fontSize: 11,
-                          color: kGrey8E8E93Color,
+                          color: kFontGray500Color,
+                          height: 16/11,
                         ),
                       ),
                     ),
@@ -137,11 +142,11 @@ class GatheringRecruitWayArea extends StatelessWidget {
                   decoration: BoxDecoration(
                       border: Border(
                           bottom: BorderSide(
-                    color: kGrey363639Color,
-                  ))),
+                    color: kFontGray800Color,
+                  ),),),
                   child: TextField(
                     controller: controller,
-                    style: TextStyle(fontSize: 14, color: kGrey363639Color),
+                    style: TextStyle(fontSize: 14, color: kFontGray800Color),
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       enabledBorder: InputBorder.none,
@@ -151,7 +156,7 @@ class GatheringRecruitWayArea extends StatelessWidget {
                       hintText: '예시: 어떤 관심사를 갖고 계신가요?',
                       hintStyle: TextStyle(
                         fontSize: 14,
-                        color: kWhiteAEAEB2Color,
+                        color: kFontGray400Color,
                       ),
                     ),
                     onChanged: (text) => textFieldOnChange(text),

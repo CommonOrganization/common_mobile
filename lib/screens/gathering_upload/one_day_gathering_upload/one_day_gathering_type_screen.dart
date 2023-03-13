@@ -25,7 +25,7 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
         Expanded(
           child: ListView(
             children: [
-              const SizedBox(height: 18),
+              const SizedBox(height: 12),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
@@ -33,7 +33,7 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: kGrey1C1C1EColor,
+                    color: kFontGray900Color,
                   ),
                 ),
               ),
@@ -44,7 +44,8 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
                   '\'하루모임\'은 원데이로 만나 활동을 하는 모임이에요.\n장기간 함께 활동하는 모임을 원하실 경우 \'소모임\'으로 열어주세요!',
                   style: TextStyle(
                     fontSize: 13,
-                    color: kGrey8E8E93Color,
+                    color: kFontGray500Color,
+                    height: 20/13,
                   ),
                 ),
               ),
@@ -66,7 +67,8 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
                             '전체 공개 여부',
                             style: TextStyle(
                               fontSize: 15,
-                              color: kGrey363639Color,
+                              color: kFontGray800Color,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                           const Spacer(),
@@ -80,7 +82,7 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
                               materialTapTargetSize:
                                   MaterialTapTargetSize.shrinkWrap,
                               activeTrackColor: kMainColor,
-                              inactiveTrackColor: kWhiteC6C6C6Color,
+                              inactiveTrackColor: kFontGray200Color,
                               onChanged: (value) {
                                 setState(() => _showAllThePeople = value);
                               },
@@ -97,6 +99,7 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
                         style: TextStyle(
                           fontSize: 11,
                           color: kGrey8E8E93Color,
+                          height: 16/11,
                         ),
                       ),
                     ),
@@ -138,7 +141,7 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
           borderRadius: BorderRadius.circular(15),
           color: _selectedGatheringType == gatheringType
               ? kMainColor
-              : kWhiteF6F6F6Color,
+              : kFontGray50Color,
         ),
         child: Row(
           children: [
@@ -162,7 +165,7 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
                       fontWeight: FontWeight.bold,
                       color: _selectedGatheringType == gatheringType
                           ? kWhiteColor
-                          : kGrey48484AColor,
+                          : kFontGray600Color,
                     ),
                   ),
                   const SizedBox(height: 4),
@@ -172,7 +175,7 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
                       fontSize: 13,
                       color: _selectedGatheringType == gatheringType
                           ? kWhiteColor
-                          : kGrey8E8E93Color,
+                          : kFontGray400Color,
                     ),
                   )
                 ],

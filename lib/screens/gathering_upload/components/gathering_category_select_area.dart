@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../constants/constants_colors.dart';
 import '../../../constants/constants_enum.dart';
@@ -72,10 +73,10 @@ class GatheringCategorySelectArea extends StatelessWidget {
                 child: Container(
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: value ? kMainBackgroundColor : kWhiteColor,
+                    color: value ? kSubColor1 : kWhiteColor,
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(
-                        color: value ? kMainColor : kWhiteF4F4F4Color),
+                        color: value ? kMainColor : kFontGray50Color),
                   ),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -89,7 +90,9 @@ class GatheringCategorySelectArea extends StatelessWidget {
                         category.title,
                         style: TextStyle(
                           fontSize: 13,
-                          color: kGrey363639Color,
+                          color: kFontGray800Color,
+                          letterSpacing: -0.5,
+                          height: 20 / 13,
                         ),
                       ),
                     ],
@@ -108,24 +111,27 @@ class GatheringCategorySelectArea extends StatelessWidget {
               width: double.infinity,
               height: 38,
               decoration: BoxDecoration(
-                color: kWhiteF6F6F6Color,
+                color: kFontGray50Color,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  const SizedBox(width: 15),
                   Text(
                     '더보기',
                     style: TextStyle(
                       fontSize: 13,
-                      color: kGrey48484AColor,
+                      color: kFontGray600Color,
                     ),
                   ),
-                  const SizedBox(width: 10),
-                  Icon(
-                    Icons.expand_more,
-                    size: 20,
-                    color: kGrey48484AColor,
+                  const SizedBox(width: 15),
+                  SvgPicture.asset(
+                    'assets/icons/svg/arrow_down_16px.svg',
+                    colorFilter: ColorFilter.mode(
+                      kFontGray600Color,
+                      BlendMode.srcIn,
+                    ),
                   ),
                 ],
               ),
@@ -135,7 +141,7 @@ class GatheringCategorySelectArea extends StatelessWidget {
           margin: const EdgeInsets.symmetric(vertical: 24),
           width: double.infinity,
           height: 1,
-          color: kWhiteF4F4F4Color,
+          color: kFontGray50Color,
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -146,7 +152,7 @@ class GatheringCategorySelectArea extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
-                  color: kGrey2C2C2EColor,
+                  color: kFontGray800Color,
                 ),
               ),
               const Spacer(),
@@ -154,7 +160,7 @@ class GatheringCategorySelectArea extends StatelessWidget {
                 '${controller.text.length}/8',
                 style: TextStyle(
                   fontSize: 14,
-                  color: kGrey636366Color,
+                  color: kFontGray500Color,
                 ),
               )
             ],
@@ -169,12 +175,12 @@ class GatheringCategorySelectArea extends StatelessWidget {
           height: 52,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
-            color: kWhiteF4F4F4Color,
+            color: kFontGray50Color,
           ),
           child: TextField(
             controller: controller,
             maxLength: 8,
-            style: TextStyle(fontSize: 14, color: kGrey363639Color),
+            style: TextStyle(fontSize: 14, color: kFontGray800Color),
             decoration: InputDecoration(
               border: InputBorder.none,
               enabledBorder: InputBorder.none,
@@ -184,7 +190,7 @@ class GatheringCategorySelectArea extends StatelessWidget {
               hintText: '세부 카테고리를 입력해주세요.(선택)',
               hintStyle: TextStyle(
                 fontSize: 14,
-                color: kWhiteAEAEB2Color,
+                color: kFontGray400Color,
               ),
             ),
             onChanged: (text) => onChanged(text),

@@ -29,7 +29,7 @@ class GatheringUploadPreviewButton extends StatelessWidget {
           child: Text(
             '미리보기',
             style: TextStyle(
-              fontSize: 18,
+              fontSize: 16,
               color: kWhiteColor,
               fontWeight: FontWeight.bold,
             ),

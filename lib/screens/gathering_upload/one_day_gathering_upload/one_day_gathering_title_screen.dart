@@ -27,15 +27,16 @@ class _OneDayGatheringTitleScreenState
         children: [
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ListView(
                 children: [
+                  SizedBox(height: 12),
                   Text(
                     '하루모임 제목을 작성해볼까요?',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: kGrey1C1C1EColor,
+                      color: kFontGray900Color,
                     ),
                   ),
                   const SizedBox(height: 36),
@@ -46,7 +47,7 @@ class _OneDayGatheringTitleScreenState
                         '${_gatheringTitleController.text.length}/20',
                         style: TextStyle(
                           fontSize: 14,
-                          color: kGrey636366Color,
+                          color: kFontGray500Color,
                         ),
                       ),
                     ],
@@ -58,11 +59,11 @@ class _OneDayGatheringTitleScreenState
                     constraints: const BoxConstraints(minHeight: 100),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
-                      color: kWhiteF6F6F6Color,
+                      color: kFontGray50Color,
                     ),
                     child: TextField(
                       controller: _gatheringTitleController,
-                      style: TextStyle(fontSize: 14, color: kGrey363639Color),
+                      style: TextStyle(fontSize: 14, color: kFontGray800Color),
                       maxLength: 20,
                       maxLines: null,
                       decoration: InputDecoration(
@@ -74,7 +75,7 @@ class _OneDayGatheringTitleScreenState
                         hintText: '하루모임을 대표할 수 있는 제목을 적어주세요.',
                         hintStyle: TextStyle(
                           fontSize: 14,
-                          color: kWhiteAEAEB2Color,
+                          color: kFontGray400Color,
                         ),
                       ),
                       onChanged: (text) => setState(() {}),

@@ -41,23 +41,27 @@ class _OneDayGatheringCapacityScreenState
 
   void onValueChanged(int value) {
     try {
-      if (value < 2 || value > 30) {
-        // 조건에 맞지 않을경우 기존에 저장된 값을 가져와서 저장한다.
+      setState(() {
+        if (value < 2 || value > 30) {
+          // 조건에 맞지 않을경우 기존에 저장된 값을 가져와서 저장한다.
+          _gatheringCapacityController.text = _gatheringCapacity.toString();
+          _gatheringCapacityController.selection = TextSelection.fromPosition(
+              TextPosition(offset: _gatheringCapacityController.text.length));
+          return;
+        }
+        // 적당한 값일경우 새로운 값으로 바꾸어준다
+        _gatheringCapacity = value;
+        _gatheringCapacityController.text = value.toString();
+        _gatheringCapacityController.selection = TextSelection.fromPosition(
+            TextPosition(offset: _gatheringCapacityController.text.length));
+      });
+    } catch (e) {
+      setState((){
+        // 에러가 발생할경우 기존에 저장된 값을 가져와서 저장한다.
         _gatheringCapacityController.text = _gatheringCapacity.toString();
         _gatheringCapacityController.selection = TextSelection.fromPosition(
             TextPosition(offset: _gatheringCapacityController.text.length));
-        return;
-      }
-      // 적당한 값일경우 새로운 값으로 바꾸어준다
-      _gatheringCapacity = value;
-      _gatheringCapacityController.text = value.toString();
-      _gatheringCapacityController.selection = TextSelection.fromPosition(
-          TextPosition(offset: _gatheringCapacityController.text.length));
-    } catch (e) {
-      // 에러가 발생할경우 기존에 저장된 값을 가져와서 저장한다.
-      _gatheringCapacityController.text = _gatheringCapacity.toString();
-      _gatheringCapacityController.selection = TextSelection.fromPosition(
-          TextPosition(offset: _gatheringCapacityController.text.length));
+      });
     }
   }
 
@@ -69,15 +73,16 @@ class _OneDayGatheringCapacityScreenState
         children: [
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ListView(
                 children: [
+                  SizedBox(height: 12),
                   Text(
                     '몇명과 함께 할까요?',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: kGrey1C1C1EColor,
+                      color: kFontGray900Color,
                     ),
                   ),
                   const SizedBox(height: 10),
@@ -85,7 +90,7 @@ class _OneDayGatheringCapacityScreenState
                     '본인을 포함한 총 참여 인원 수를 설정해 주세요.',
                     style: TextStyle(
                       fontSize: 14,
-                      color: kGrey8E8E93Color,
+                      color: kFontGray500Color,
                     ),
                   ),
                   const SizedBox(height: 36),
@@ -95,7 +100,7 @@ class _OneDayGatheringCapacityScreenState
                       width: 150,
                       height: 50,
                       decoration: BoxDecoration(
-                        border: Border.all(color: kWhiteC6C6C6Color),
+                        border: Border.all(color: kFontGray100Color),
                         borderRadius: BorderRadius.circular(50),
                       ),
                       child: Row(
@@ -111,7 +116,11 @@ class _OneDayGatheringCapacityScreenState
                               color: kWhiteColor,
                               child: Icon(
                                 Icons.remove,
-                                color: kWhiteAEAEB2Color,
+                                color: int.parse(_gatheringCapacityController
+                                            .text) ==
+                                        2
+                                    ? kFontGray100Color
+                                    : kFontGray500Color,
                               ),
                             ),
                           ),
@@ -120,9 +129,11 @@ class _OneDayGatheringCapacityScreenState
                               textAlign: TextAlign.center,
                               controller: _gatheringCapacityController,
                               style: TextStyle(
-                                fontSize: 16,
-                                color: kGrey363639Color,
+                                fontSize: 18,
+                                color: kFontGray800Color,
                                 fontWeight: FontWeight.bold,
+                                letterSpacing: -0.5,
+                                height: 20/18,
                               ),
                               keyboardType: TextInputType.number,
                               maxLength: 2,
@@ -146,7 +157,11 @@ class _OneDayGatheringCapacityScreenState
                               color: kWhiteColor,
                               child: Icon(
                                 Icons.add,
-                                color: kGrey363639Color,
+                                color: int.parse(_gatheringCapacityController
+                                            .text) ==
+                                        30
+                                    ? kFontGray100Color
+                                    : kFontGray500Color,
                               ),
                             ),
                           ),
@@ -159,7 +174,7 @@ class _OneDayGatheringCapacityScreenState
                     padding:
                         const EdgeInsets.symmetric(horizontal: 16, vertical: 9),
                     decoration: BoxDecoration(
-                      color: kWhiteF6F6F6Color,
+                      color: kFontGray50Color,
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: Column(
@@ -170,14 +185,16 @@ class _OneDayGatheringCapacityScreenState
                           '인원 안내',
                           style: TextStyle(
                             fontSize: 13,
-                            color: kGrey48484AColor,
+                            color: kFontGray600Color,
+                            height: 20/13,
                           ),
                         ),
                         Text(
                           '최소 2명 ~ 최대 30명',
                           style: TextStyle(
                             fontSize: 12,
-                            color: kGrey636366Color,
+                            color: kFontGray500Color,
+                            height: 20/12,
                           ),
                         )
                       ],

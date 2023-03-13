@@ -14,8 +14,8 @@ import 'package:common/screens/gathering_upload/one_day_gathering_upload/one_day
 import 'package:common/screens/gathering_upload/one_day_gathering_upload/one_day_gathering_type_screen.dart';
 import 'package:common/utils/local_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-
 import '../../../constants/constants_colors.dart';
 import '../../../models/one_day_gathering/one_day_gathering.dart';
 
@@ -184,8 +184,9 @@ class _OneDayGatheringUploadMainScreenState
     return Scaffold(
       backgroundColor: kWhiteColor,
       appBar: AppBar(
-        foregroundColor: kGrey363639Color,
+        foregroundColor: kFontGray800Color,
         backgroundColor: kWhiteColor,
+        leadingWidth: 48,
         leading: GestureDetector(
           onTap: () {
             if (_pageIndex == 0) {
@@ -194,10 +195,13 @@ class _OneDayGatheringUploadMainScreenState
             }
             setState(() => _pageIndex--);
           },
-          child: Icon(
-            Icons.arrow_back_ios_new,
-            size: 24,
-            color: kGrey363639Color,
+          child: Container(
+            margin: const EdgeInsets.only(left: 20),
+            alignment: Alignment.center,
+            child: SvgPicture.asset(
+              'assets/icons/svg/arrow_left_28px.svg',
+              colorFilter: ColorFilter.mode(kFontGray800Color, BlendMode.srcIn),
+            ),
           ),
         ),
         elevation: 0,

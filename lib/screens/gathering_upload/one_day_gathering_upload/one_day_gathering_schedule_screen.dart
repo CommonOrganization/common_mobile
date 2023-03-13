@@ -42,20 +42,21 @@ class _OneDayGatheringScheduleScreenState
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap:()=>FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Column(
         children: [
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20, top: 18),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ListView(
                 children: [
+                  const SizedBox(height: 12),
                   Text(
                     '하루모임 일정을 설정해볼까요?',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: kGrey1C1C1EColor,
+                      color: kFontGray900Color,
                     ),
                   ),
                   const SizedBox(height: 36),
@@ -64,7 +65,8 @@ class _OneDayGatheringScheduleScreenState
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
-                      color: kGrey2C2C2EColor,
+                      color: kFontGray800Color,
+                      height: 20 / 15,
                     ),
                   ),
                   const SizedBox(height: 12),
@@ -79,10 +81,11 @@ class _OneDayGatheringScheduleScreenState
                       if (!mounted) return;
                       if (selectedDate != null) {
                         if (selectedDate
-                            .difference(
-                                DateTime.now().subtract(const Duration(days: 1)))
+                            .difference(DateTime.now()
+                                .subtract(const Duration(days: 1)))
                             .isNegative) {
-                          showMessage(context, message: '이미 지난 날짜로는 설정할 수 없습니다');
+                          showMessage(context,
+                              message: '이미 지난 날짜로는 설정할 수 없습니다');
                           return;
                         }
                         setState(() => _gatheringDate = selectedDate);
@@ -94,12 +97,13 @@ class _OneDayGatheringScheduleScreenState
                       width: double.infinity,
                       height: 52,
                       decoration: BoxDecoration(
-                        color: kWhiteF6F6F6Color,
+                        color: kFontGray50Color,
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: Row(
                         children: [
-                          SvgPicture.asset('assets/icons/svg/calendar.svg'),
+                          SvgPicture.asset(
+                              'assets/icons/svg/calendar_24px.svg'),
                           const SizedBox(width: 8),
                           Expanded(
                             child: Builder(builder: (context) {
@@ -108,7 +112,8 @@ class _OneDayGatheringScheduleScreenState
                                   '모임 날짜를 선택해 주세요.',
                                   style: TextStyle(
                                     fontSize: 14,
-                                    color: kWhiteAEAEB2Color,
+                                    color: kFontGray400Color,
+                                    height: 20 / 14,
                                   ),
                                 );
                               }
@@ -116,16 +121,15 @@ class _OneDayGatheringScheduleScreenState
                                 '${_gatheringDate!.month}.${_gatheringDate!.day} (${kShortWeekdayList[_gatheringDate!.weekday - 1]})',
                                 style: TextStyle(
                                   fontSize: 14,
-                                  color: kGrey363639Color,
+                                  color: kFontGray800Color,
+                                  height: 20 / 14,
                                 ),
                               );
                             }),
                           ),
-                          Icon(
-                            Icons.expand_more,
-                            size: 20,
-                            color: kWhiteAEAEB2Color,
-                          )
+                          SvgPicture.asset(
+                            'assets/icons/svg/arrow_down_20px.svg',
+                          ),
                         ],
                       ),
                     ),
@@ -150,12 +154,12 @@ class _OneDayGatheringScheduleScreenState
                       width: double.infinity,
                       height: 52,
                       decoration: BoxDecoration(
-                        color: kWhiteF6F6F6Color,
+                        color: kFontGray50Color,
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: Row(
                         children: [
-                          SvgPicture.asset('assets/icons/svg/clock.svg'),
+                          SvgPicture.asset('assets/icons/svg/clock_24px.svg'),
                           const SizedBox(width: 8),
                           Expanded(
                             child: Builder(builder: (context) {
@@ -164,7 +168,8 @@ class _OneDayGatheringScheduleScreenState
                                   '모임 시간을 선택해 주세요.',
                                   style: TextStyle(
                                     fontSize: 14,
-                                    color: kWhiteAEAEB2Color,
+                                    color: kFontGray400Color,
+                                    height: 20 / 14,
                                   ),
                                 );
                               }
@@ -172,16 +177,15 @@ class _OneDayGatheringScheduleScreenState
                                 '${_gatheringTime!.hour >= 12 ? '오후' : '오전'} ${_gatheringTime!.hour > 12 ? _gatheringTime!.hour - 12 : _gatheringTime!.hour}:${_gatheringTime!.minute.toString().padLeft(2, '0')}',
                                 style: TextStyle(
                                   fontSize: 14,
-                                  color: kGrey363639Color,
+                                  color: kFontGray800Color,
+                                  height: 20 / 14,
                                 ),
                               );
                             }),
                           ),
-                          Icon(
-                            Icons.expand_more,
-                            size: 20,
-                            color: kWhiteAEAEB2Color,
-                          )
+                          SvgPicture.asset(
+                            'assets/icons/svg/arrow_down_20px.svg',
+                          ),
                         ],
                       ),
                     ),
@@ -192,7 +196,8 @@ class _OneDayGatheringScheduleScreenState
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
-                      color: kGrey2C2C2EColor,
+                      color: kFontGray800Color,
+                      height: 20 / 15,
                     ),
                   ),
                   const SizedBox(height: 12),
@@ -206,7 +211,8 @@ class _OneDayGatheringScheduleScreenState
                         builder: (context) => const SelectLocationBottomSheet(),
                       );
                       if (selectedGatheringPlace != null) {
-                        setState(() => _gatheringPlace = selectedGatheringPlace);
+                        setState(
+                            () => _gatheringPlace = selectedGatheringPlace);
                       }
                     },
                     child: Container(
@@ -215,12 +221,13 @@ class _OneDayGatheringScheduleScreenState
                       width: double.infinity,
                       height: 52,
                       decoration: BoxDecoration(
-                        color: kWhiteF6F6F6Color,
+                        color: kFontGray50Color,
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: Row(
                         children: [
-                          SvgPicture.asset('assets/icons/svg/location.svg'),
+                          SvgPicture.asset(
+                              'assets/icons/svg/location_24px.svg'),
                           const SizedBox(width: 8),
                           Expanded(
                             child: Builder(builder: (context) {
@@ -229,7 +236,8 @@ class _OneDayGatheringScheduleScreenState
                                   '모임 장소를 선택해 주세요.',
                                   style: TextStyle(
                                     fontSize: 14,
-                                    color: kWhiteAEAEB2Color,
+                                    color: kFontGray400Color,
+                                    height: 20 / 14,
                                   ),
                                 );
                               }
@@ -237,16 +245,15 @@ class _OneDayGatheringScheduleScreenState
                                 '${_gatheringPlace!.city} ${_gatheringPlace!.county}',
                                 style: TextStyle(
                                   fontSize: 14,
-                                  color: kGrey363639Color,
+                                  color: kFontGray800Color,
+                                  height: 20 / 14,
                                 ),
                               );
                             }),
                           ),
-                          Icon(
-                            Icons.expand_more,
-                            size: 20,
-                            color: kWhiteAEAEB2Color,
-                          )
+                          SvgPicture.asset(
+                            'assets/icons/svg/arrow_down_20px.svg',
+                          ),
                         ],
                       ),
                     ),
@@ -258,12 +265,16 @@ class _OneDayGatheringScheduleScreenState
                     width: double.infinity,
                     height: 52,
                     decoration: BoxDecoration(
-                      color: kWhiteF6F6F6Color,
+                      color: kFontGray50Color,
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: TextField(
                       controller: _gatheringPlaceDetailController,
-                      style: TextStyle(fontSize: 14, color: kGrey363639Color),
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: kFontGray800Color,
+                        height: 20 / 14,
+                      ),
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         enabledBorder: InputBorder.none,
@@ -273,7 +284,8 @@ class _OneDayGatheringScheduleScreenState
                         hintText: '상세주소를 입력해 주세요. ex) 역삼동 스타벅스',
                         hintStyle: TextStyle(
                           fontSize: 14,
-                          color: kWhiteAEAEB2Color,
+                          color: kFontGray400Color,
+                          height: 20 / 14,
                         ),
                       ),
                       onChanged: (text) => setState(() {}),
@@ -286,6 +298,7 @@ class _OneDayGatheringScheduleScreenState
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
                       color: kGrey2C2C2EColor,
+                      height: 20 / 15,
                     ),
                   ),
                   const SizedBox(height: 12),
@@ -304,15 +317,13 @@ class _OneDayGatheringScheduleScreenState
                       width: double.infinity,
                       height: 52,
                       decoration: BoxDecoration(
-                        color: kWhiteF6F6F6Color,
+                        color: kFontGray50Color,
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: Row(
                         children: [
                           SvgPicture.asset(
-                            'assets/icons/svg/wallet.svg',
-                            width: 24,
-                            height: 24,
+                            'assets/icons/svg/wallet_24px.svg',
                           ),
                           const SizedBox(width: 8),
                           Expanded(
@@ -320,7 +331,10 @@ class _OneDayGatheringScheduleScreenState
                               controller: _gatheringEntryFeeController,
                               keyboardType: TextInputType.number,
                               style: TextStyle(
-                                  fontSize: 13, color: kGrey363639Color),
+                                fontSize: 14,
+                                color: kFontGray800Color,
+                                height: 20 / 14,
+                              ),
                               decoration: InputDecoration(
                                 border: InputBorder.none,
                                 enabledBorder: InputBorder.none,
@@ -329,8 +343,9 @@ class _OneDayGatheringScheduleScreenState
                                 counterText: '',
                                 hintText: '예: 식사비 10,000원',
                                 hintStyle: TextStyle(
-                                  fontSize: 13,
-                                  color: kWhiteAEAEB2Color,
+                                  fontSize: 14,
+                                  color: kFontGray400Color,
+                                  height: 20 / 14,
                                 ),
                               ),
                               onChanged: (text) => setState(() {}),
@@ -376,18 +391,19 @@ class _OneDayGatheringScheduleScreenState
           height: 52,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
-            color: _isHaveEntryFee == value
-                ? kMainBackgroundColor
-                : kWhiteF6F6F6Color,
+            color: _isHaveEntryFee == value ? kSubColor1 : kFontGray50Color,
             border:
                 _isHaveEntryFee == value ? Border.all(color: kMainColor) : null,
           ),
           child: Text(
             '모임비 ${value ? '있음' : '없음'}',
             style: TextStyle(
-              color:
-                  _isHaveEntryFee == value ? kFontMainColor : kWhiteAEAEB2Color,
+              color: _isHaveEntryFee == value ? kSubColor3 : kFontGray400Color,
+              fontWeight: _isHaveEntryFee == value
+                  ? FontWeight.bold
+                  : FontWeight.normal,
               fontSize: 14,
+              height: 20 / 14,
             ),
           ),
         ),

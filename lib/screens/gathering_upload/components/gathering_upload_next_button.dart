@@ -25,13 +25,13 @@ class GatheringUploadNextButton extends StatelessWidget {
           height: 54,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(27),
-            color: value ? kMainColor : kWhiteC6C6C6Color,
+            color: value ? kMainColor : kFontGray100Color,
           ),
           child: Text(
             '다음',
             style: TextStyle(
-              fontSize: 18,
-              color: value ? kWhiteColor : kGrey8E8E93Color,
+              fontSize: 16,
+              color: value ? kWhiteColor : kFontGray200Color,
               fontWeight: FontWeight.bold,
             ),
           ),

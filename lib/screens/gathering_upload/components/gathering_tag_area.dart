@@ -1,4 +1,6 @@
+import 'package:common/constants/constants_value.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../constants/constants_colors.dart';
 
@@ -20,17 +22,19 @@ class GatheringTagArea extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: ()=>FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: ListView(
           children: [
+            SizedBox(height: 12),
             Text(
               title,
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: kGrey1C1C1EColor,
+                color: kFontGray900Color,
+                height: 1,
               ),
             ),
             const SizedBox(height: 10),
@@ -38,7 +42,8 @@ class GatheringTagArea extends StatelessWidget {
               '한글과 영어로 최대 8글자까지 입력할 수 있어요.',
               style: TextStyle(
                 fontSize: 14,
-                color: kGrey8E8E93Color,
+                color: kFontGray500Color,
+                height: 20 / 14,
               ),
             ),
             const SizedBox(height: 36),
@@ -55,7 +60,11 @@ class GatheringTagArea extends StatelessWidget {
                   Expanded(
                     child: TextField(
                       controller: controller,
-                      style: TextStyle(fontSize: 14, color: kGrey363639Color),
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: kFontGray800Color,
+                        height: 20 / 14,
+                      ),
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         enabledBorder: InputBorder.none,
@@ -65,7 +74,8 @@ class GatheringTagArea extends StatelessWidget {
                         hintText: '모임과 관련된 태그를 입력해 주세요.',
                         hintStyle: TextStyle(
                           fontSize: 14,
-                          color: kWhiteAEAEB2Color,
+                          color: kFontGray400Color,
+                          height: 20 / 14,
                         ),
                       ),
                     ),
@@ -84,7 +94,8 @@ class GatheringTagArea extends StatelessWidget {
                         '등록',
                         style: TextStyle(
                           fontSize: 13,
-                          color: kWhiteColor,
+                          color: kFontGray0Color,
+                          height: 20 / 13,
                         ),
                       ),
                     ),
@@ -100,7 +111,8 @@ class GatheringTagArea extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
-                    color: kGrey2C2C2EColor,
+                    color: kFontGray800Color,
+                    height: 20 / 15,
                   ),
                 ),
                 const SizedBox(width: 4),
@@ -108,7 +120,9 @@ class GatheringTagArea extends StatelessWidget {
                   '(관심사, 지역, 연령 등)',
                   style: TextStyle(
                     fontSize: 14,
-                    color: kWhiteAEAEB2Color,
+                    color: kFontGray400Color,
+                    height: 20 / 14,
+                    letterSpacing: -0.5,
                   ),
                 ),
               ],
@@ -117,9 +131,7 @@ class GatheringTagArea extends StatelessWidget {
             Wrap(
               spacing: 8,
               runSpacing: 8,
-              children: ['배드민턴', '등산', '서울', '2030']
-                  .map((tag) => kShowTag(tag))
-                  .toList(),
+              children: kExampleTagList.map((tag) => kShowTag(tag)).toList(),
             ),
             const SizedBox(height: 24),
             Row(
@@ -129,7 +141,8 @@ class GatheringTagArea extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
-                    color: kGrey2C2C2EColor,
+                    color: kFontGray800Color,
+                    height: 20 / 15,
                   ),
                 ),
                 const Spacer(),
@@ -137,7 +150,8 @@ class GatheringTagArea extends StatelessWidget {
                   '최대 5개',
                   style: TextStyle(
                     fontSize: 14,
-                    color: kGrey636366Color,
+                    color: kFontGray500Color,
+                    height: 20 / 14,
                   ),
                 ),
               ],
@@ -160,16 +174,18 @@ class GatheringTagArea extends StatelessWidget {
       children: [
         Container(
           alignment: Alignment.center,
-          padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 5),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(24),
-            color: kMainBackgroundColor,
+            color: kSubColor1,
           ),
           child: Text(
             tag,
             style: TextStyle(
               fontSize: 13,
-              color: kFontMainColor,
+              color: kSubColor3,
+              letterSpacing: -0.5,
+              height: 20 / 13,
             ),
           ),
         ),
@@ -183,10 +199,10 @@ class GatheringTagArea extends StatelessWidget {
       children: [
         Container(
           alignment: Alignment.center,
-          padding: const EdgeInsets.symmetric(horizontal: 13,vertical: 5),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(24),
-            color: kMainBackgroundColor,
+            color: kSubColor1,
           ),
           child: Row(
             children: [
@@ -194,24 +210,15 @@ class GatheringTagArea extends StatelessWidget {
                 tag,
                 style: TextStyle(
                   fontSize: 13,
-                  color: kFontMainColor,
+                  color: kSubColor3,
+                  letterSpacing: -0.5,
+                  height: 20 / 13,
                 ),
               ),
-              const SizedBox(width: 4),
+              const SizedBox(width: 6),
               GestureDetector(
                 onTap: () => removePressed(tag),
-                child: Container(
-                  width: 12,
-                  height: 12,
-                  decoration: BoxDecoration(
-                    color: kMainBackgroundColor,
-                  ),
-                  child: Icon(
-                    Icons.close,
-                    size: 12,
-                    color: kFontMainColor,
-                  ),
-                ),
+                child: SvgPicture.asset('assets/icons/svg/delete_6px.svg'),
               ),
             ],
           ),
