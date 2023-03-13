@@ -52,6 +52,7 @@ class _RegisterUserInformationScreenState
                       color: kFontGray900Color,
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
+                      height: 1,
                     ),
                   ),
                   const SizedBox(height: 10),
@@ -60,6 +61,7 @@ class _RegisterUserInformationScreenState
                     style: TextStyle(
                       fontSize: 14,
                       color: kFontGray500Color,
+                      height: 20 / 14,
                     ),
                   ),
                   const SizedBox(height: 36),
@@ -71,6 +73,7 @@ class _RegisterUserInformationScreenState
                           style: TextStyle(
                             fontSize: 14,
                             color: kFontGray800Color,
+                            height: 20 / 14,
                           ),
                         ),
                       ),
@@ -105,6 +108,7 @@ class _RegisterUserInformationScreenState
                                         color: _gender == gender
                                             ? kSubColor3
                                             : kFontGray400Color,
+                                        height: 20 / 14,
                                       ),
                                     ),
                                   ),
@@ -124,6 +128,7 @@ class _RegisterUserInformationScreenState
                           style: TextStyle(
                             fontSize: 14,
                             color: kFontGray800Color,
+                            height: 20 / 14,
                           ),
                         ),
                       ),
@@ -161,6 +166,7 @@ class _RegisterUserInformationScreenState
                                       color: _birthday != null
                                           ? kFontGray800Color
                                           : kFontGray400Color,
+                                      height: 20 / 14,
                                     ),
                                   ),
                                 ),
@@ -204,6 +210,7 @@ class _RegisterUserInformationScreenState
                       color: kFontGray900Color,
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
+                      height: 1,
                     ),
                   ),
                   const SizedBox(height: 10),
@@ -212,6 +219,7 @@ class _RegisterUserInformationScreenState
                     style: TextStyle(
                       fontSize: 14,
                       color: kFontGray500Color,
+                      height: 20 / 14,
                     ),
                   ),
                   const SizedBox(height: 36),
@@ -249,6 +257,7 @@ class _RegisterUserInformationScreenState
                                   style: TextStyle(
                                     fontSize: 14,
                                     color: kFontGray400Color,
+                                    height: 20 / 14,
                                   ),
                                 );
                               }
@@ -257,6 +266,7 @@ class _RegisterUserInformationScreenState
                                 style: TextStyle(
                                   fontSize: 14,
                                   color: kFontGray800Color,
+                                  height: 20 / 14,
                                 ),
                               );
                             }),

@@ -24,6 +24,7 @@ class RegisterNextButton extends StatelessWidget {
                 fontSize: 16,
                 color: value ? kWhiteColor : kFontGray200Color,
                 fontWeight: FontWeight.bold,
+                height: 20/16,
               ),
             ),
           ),

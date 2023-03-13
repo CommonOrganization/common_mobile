@@ -20,7 +20,7 @@ class GatheringRecruitWayArea extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: ()=>FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: ListView(
         children: [
           const SizedBox(height: 12),
@@ -30,6 +30,7 @@ class GatheringRecruitWayArea extends StatelessWidget {
               fontSize: 20,
               fontWeight: FontWeight.bold,
               color: kFontGray900Color,
+              height: 1,
             ),
           ),
           const SizedBox(height: 36),
@@ -56,7 +57,7 @@ class GatheringRecruitWayArea extends StatelessWidget {
                       width: 22,
                       height: 22,
                     ),
-                    const SizedBox(width: 12),
+                    const SizedBox(width: 13),
                     Expanded(
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
@@ -70,7 +71,7 @@ class GatheringRecruitWayArea extends StatelessWidget {
                               color: selectedRecruitWay == recruitWay
                                   ? kFontGray0Color
                                   : kFontGray600Color,
-                              height: 20/14,
+                              height: 20 / 14,
                             ),
                           ),
                           const SizedBox(height: 4),
@@ -81,7 +82,7 @@ class GatheringRecruitWayArea extends StatelessWidget {
                               color: selectedRecruitWay == recruitWay
                                   ? kFontGray0Color
                                   : kFontGray400Color,
-                              height: 18/13,
+                              height: 18 / 13,
                             ),
                           ),
                         ],
@@ -103,6 +104,7 @@ class GatheringRecruitWayArea extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 15,
                       color: kFontGray800Color,
+                      height: 20 / 15,
                     ),
                   ),
                 ),
@@ -119,7 +121,7 @@ class GatheringRecruitWayArea extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 11,
                           color: kFontGray500Color,
-                            height: 16/11,
+                          height: 16 / 11,
                         ),
                       ),
                     ),
@@ -129,7 +131,7 @@ class GatheringRecruitWayArea extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 11,
                           color: kFontGray500Color,
-                          height: 16/11,
+                          height: 16 / 11,
                         ),
                       ),
                     ),
@@ -140,13 +142,19 @@ class GatheringRecruitWayArea extends StatelessWidget {
                   margin: const EdgeInsets.symmetric(horizontal: 4),
                   padding: const EdgeInsets.symmetric(horizontal: 2),
                   decoration: BoxDecoration(
-                      border: Border(
-                          bottom: BorderSide(
-                    color: kFontGray800Color,
-                  ),),),
+                    border: Border(
+                      bottom: BorderSide(
+                        color: kFontGray800Color,
+                      ),
+                    ),
+                  ),
                   child: TextField(
                     controller: controller,
-                    style: TextStyle(fontSize: 14, color: kFontGray800Color),
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: kFontGray800Color,
+                      height: 20 / 14,
+                    ),
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       enabledBorder: InputBorder.none,
@@ -157,6 +165,7 @@ class GatheringRecruitWayArea extends StatelessWidget {
                       hintStyle: TextStyle(
                         fontSize: 14,
                         color: kFontGray400Color,
+                        height: 20/14,
                       ),
                     ),
                     onChanged: (text) => textFieldOnChange(text),

@@ -27,7 +27,7 @@ class GatheringCategorySelectArea extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        const SizedBox(height: 18),
+        const SizedBox(height: 12),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Text(
@@ -35,7 +35,8 @@ class GatheringCategorySelectArea extends StatelessWidget {
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
-              color: kGrey1C1C1EColor,
+              color: kFontGray900Color,
+              height: 1,
             ),
           ),
         ),
@@ -47,7 +48,8 @@ class GatheringCategorySelectArea extends StatelessWidget {
             style: TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.bold,
-              color: kGrey2C2C2EColor,
+              color: kFontGray800Color,
+              height: 20 / 15,
             ),
           ),
         ),
@@ -123,6 +125,7 @@ class GatheringCategorySelectArea extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 13,
                       color: kFontGray600Color,
+                      height: 1,
                     ),
                   ),
                   const SizedBox(width: 15),
@@ -153,6 +156,7 @@ class GatheringCategorySelectArea extends StatelessWidget {
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
                   color: kFontGray800Color,
+                  height: 20 / 15,
                 ),
               ),
               const Spacer(),
@@ -161,6 +165,7 @@ class GatheringCategorySelectArea extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 14,
                   color: kFontGray500Color,
+                  height: 20 / 14,
                 ),
               )
             ],
@@ -180,7 +185,11 @@ class GatheringCategorySelectArea extends StatelessWidget {
           child: TextField(
             controller: controller,
             maxLength: 8,
-            style: TextStyle(fontSize: 14, color: kFontGray800Color),
+            style: TextStyle(
+              fontSize: 14,
+              color: kFontGray800Color,
+              height: 20 / 14,
+            ),
             decoration: InputDecoration(
               border: InputBorder.none,
               enabledBorder: InputBorder.none,
@@ -191,6 +200,7 @@ class GatheringCategorySelectArea extends StatelessWidget {
               hintStyle: TextStyle(
                 fontSize: 14,
                 color: kFontGray400Color,
+                height: 20 / 14,
               ),
             ),
             onChanged: (text) => onChanged(text),

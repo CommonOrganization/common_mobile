@@ -57,6 +57,7 @@ class _OneDayGatheringScheduleScreenState
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: kFontGray900Color,
+                      height: 1,
                     ),
                   ),
                   const SizedBox(height: 36),

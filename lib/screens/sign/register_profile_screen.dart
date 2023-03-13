@@ -52,13 +52,14 @@ class _RegisterProfileScreenState extends State<RegisterProfileScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ListView(
                 children: [
-                  SizedBox(height: 12),
+                  const SizedBox(height: 12),
                   Text(
                     '프로필 설정',
                     style: TextStyle(
                       color: kFontGray900Color,
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
+                      height: 1,
                     ),
                   ),
                   const SizedBox(height: 10),
@@ -67,6 +68,7 @@ class _RegisterProfileScreenState extends State<RegisterProfileScreen> {
                     style: TextStyle(
                       color: kFontGray500Color,
                       fontSize: 14,
+                      height: 20 / 14,
                     ),
                   ),
                   const SizedBox(height: 36),
@@ -137,6 +139,7 @@ class _RegisterProfileScreenState extends State<RegisterProfileScreen> {
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                         color: kFontGray800Color,
+                        height: 20 / 16,
                       ),
                     ),
                   ),
@@ -144,10 +147,12 @@ class _RegisterProfileScreenState extends State<RegisterProfileScreen> {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 12),
                     decoration: BoxDecoration(
-                        border: Border(
-                            bottom: BorderSide(
-                      color: kFontGray100Color,
-                    ),),),
+                      border: Border(
+                        bottom: BorderSide(
+                          color: kFontGray100Color,
+                        ),
+                      ),
+                    ),
                     child: TextField(
                       controller: _informationController,
                       maxLines: null,
@@ -161,11 +166,13 @@ class _RegisterProfileScreenState extends State<RegisterProfileScreen> {
                         hintStyle: TextStyle(
                           fontSize: 14,
                           color: kFontGray400Color,
+                          height: 20 / 14,
                         ),
                       ),
                       style: TextStyle(
                         fontSize: 14,
                         color: kFontGray800Color,
+                        height: 20 / 14,
                       ),
                     ),
                   ),
@@ -191,6 +198,7 @@ class _RegisterProfileScreenState extends State<RegisterProfileScreen> {
                       fontSize: 16,
                       color: kFontGray0Color,
                       fontWeight: FontWeight.bold,
+                      height: 20 / 16,
                     ),
                   ),
                 ),

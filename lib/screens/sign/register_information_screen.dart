@@ -54,6 +54,7 @@ class _RegisterInformationScreenState extends State<RegisterInformationScreen> {
                       color: kFontGray900Color,
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
+                      height: 1,
                     ),
                   ),
                   const SizedBox(height: 10),
@@ -62,6 +63,7 @@ class _RegisterInformationScreenState extends State<RegisterInformationScreen> {
                     style: TextStyle(
                       fontSize: 14,
                       color: kFontGray500Color,
+                      height: 20/14,
                     ),
                   ),
                   const SizedBox(height: 36),
@@ -73,6 +75,7 @@ class _RegisterInformationScreenState extends State<RegisterInformationScreen> {
                           style: TextStyle(
                             fontSize: 14,
                             color: kFontGray800Color,
+                            height: 20/14,
                           ),
                         ),
                       ),
@@ -102,14 +105,14 @@ class _RegisterInformationScreenState extends State<RegisterInformationScreen> {
                                     hintText: '8자 이내 한글 혹은 영문',
                                     hintStyle: TextStyle(
                                       fontSize: 14,
-                                      color: kFontGray400Color,
+                                      color: kFontGray400Color,height: 20/14,
                                     ),
                                   ),
                                   onChanged: (text) =>
                                       setState(() => _canUseName = true),
                                   style: TextStyle(
                                     fontSize: 14,
-                                    color: kFontGray800Color,
+                                    color: kFontGray800Color,height: 20/14,
                                   ),
                                 ),
                               ),
@@ -142,6 +145,7 @@ class _RegisterInformationScreenState extends State<RegisterInformationScreen> {
                                   style: TextStyle(
                                     fontSize: 11,
                                     color: kNoColor,
+                                    height: 1,
                                   ),
                                 ),
                               ),
@@ -156,6 +160,7 @@ class _RegisterInformationScreenState extends State<RegisterInformationScreen> {
                           style: TextStyle(
                             fontSize: 14,
                             color: kFontGray800Color,
+                            height: 20/14,
                           ),
                         ),
                       ),
@@ -185,13 +190,13 @@ class _RegisterInformationScreenState extends State<RegisterInformationScreen> {
                                     hintText: '영문, 숫자 8자 이상',
                                     hintStyle: TextStyle(
                                       fontSize: 14,
-                                      color: kFontGray400Color,
+                                      color: kFontGray400Color,  height: 20/14,
                                     ),
                                   ),
                                   onChanged: (text) => setState(() {}),
                                   style: TextStyle(
                                     fontSize: 14,
-                                    color: kFontGray800Color,
+                                    color: kFontGray800Color,  height: 20/14,
                                   ),
                                 ),
                               ),
@@ -240,13 +245,13 @@ class _RegisterInformationScreenState extends State<RegisterInformationScreen> {
                                     hintText: '다시 입력',
                                     hintStyle: TextStyle(
                                       fontSize: 14,
-                                      color: kFontGray400Color,
+                                      color: kFontGray400Color,  height: 20/14,
                                     ),
                                   ),
                                   onChanged: (text) => setState(() {}),
                                   style: TextStyle(
                                     fontSize: 14,
-                                    color: kFontGray800Color,
+                                    color: kFontGray800Color,  height: 20/14,
                                   ),
                                 ),
                               ),
@@ -277,6 +282,7 @@ class _RegisterInformationScreenState extends State<RegisterInformationScreen> {
                             style: TextStyle(
                               fontSize: 11,
                               color: kNoColor,
+                              height: 1,
                             ),
                           ),
                         ),

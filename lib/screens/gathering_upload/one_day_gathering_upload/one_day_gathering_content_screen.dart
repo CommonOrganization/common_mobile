@@ -42,7 +42,7 @@ class _OneDayGatheringContentScreenState
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: ()=>FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Column(
         children: [
           Expanded(
@@ -57,6 +57,7 @@ class _OneDayGatheringContentScreenState
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: kFontGray900Color,
+                      height: 1,
                     ),
                   ),
                 ),
@@ -68,6 +69,7 @@ class _OneDayGatheringContentScreenState
                     style: TextStyle(
                       fontSize: 13,
                       color: kFontGray500Color,
+                      height: 20 / 13,
                     ),
                   ),
                 ),
@@ -83,7 +85,8 @@ class _OneDayGatheringContentScreenState
                       else
                         kImageSelectButton(true),
                       ..._imageUrlList
-                          .map((imageUrl) => kSelectedImageArea(imageUrl, false))
+                          .map(
+                              (imageUrl) => kSelectedImageArea(imageUrl, false))
                           .toList(),
                       kImageSelectButton(false),
                     ],
@@ -103,6 +106,7 @@ class _OneDayGatheringContentScreenState
                       fontSize: 15,
                       color: kFontGray800Color,
                       fontWeight: FontWeight.bold,
+                      height: 20 / 15,
                     ),
                   ),
                 ),
@@ -115,10 +119,14 @@ class _OneDayGatheringContentScreenState
                     borderRadius: BorderRadius.circular(15),
                     color: kFontGray50Color,
                   ),
-                  constraints: const BoxConstraints(minHeight: 150),
+                  constraints: const BoxConstraints(minHeight: 156),
                   child: TextField(
                     controller: _gatheringContentController,
-                    style: TextStyle(fontSize: 13, color: kFontGray800Color,height: 20/13,),
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: kFontGray800Color,
+                      height: 20 / 13,
+                    ),
                     maxLines: null,
                     decoration: InputDecoration(
                       border: InputBorder.none,
@@ -130,7 +138,7 @@ class _OneDayGatheringContentScreenState
                       hintStyle: TextStyle(
                         fontSize: 13,
                         color: kFontGray400Color,
-                        height: 20/13,
+                        height: 20 / 13,
                       ),
                     ),
                     onChanged: (text) => setState(() {}),
@@ -143,6 +151,7 @@ class _OneDayGatheringContentScreenState
                     style: TextStyle(
                       fontSize: 11,
                       color: kFontGray400Color,
+                      height: 16/11,
                     ),
                   ),
                 ),
@@ -154,8 +163,8 @@ class _OneDayGatheringContentScreenState
             value: _mainImageUrl != null,
             onTap: () {
               if (_mainImageUrl == null) return;
-              widget.nextPressed(
-                  _gatheringContentController.text, _mainImageUrl, _imageUrlList);
+              widget.nextPressed(_gatheringContentController.text,
+                  _mainImageUrl, _imageUrlList);
             },
           ),
         ],
@@ -188,6 +197,7 @@ class _OneDayGatheringContentScreenState
               style: TextStyle(
                 fontSize: 11,
                 color: kSubColor3,
+                height: 1,
               ),
             )
         ],
@@ -225,6 +235,7 @@ class _OneDayGatheringContentScreenState
               style: TextStyle(
                 fontSize: 11,
                 color: kSubColor3,
+                height: 1,
               ),
             )
         ],

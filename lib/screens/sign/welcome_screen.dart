@@ -28,6 +28,7 @@ class WelcomeScreen extends StatelessWidget {
             style: TextStyle(
               fontSize: 18,
               color: kSubColor3,
+              height: 20/18,
             ),
           ),
           const SizedBox(height: 328),
@@ -51,6 +52,7 @@ class WelcomeScreen extends StatelessWidget {
                       fontSize: 16,
                       color: kFontGray0Color,
                       fontWeight: FontWeight.bold,
+                      height: 20/16,
                     ),
                   ),
                 ),

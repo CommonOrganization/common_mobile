@@ -47,6 +47,7 @@ class _ResetNewPasswordScreenState extends State<ResetNewPasswordScreen> {
                       color: kFontGray900Color,
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
+                      height: 1,
                     ),
                   ),
                   const SizedBox(height: 10),
@@ -55,6 +56,7 @@ class _ResetNewPasswordScreenState extends State<ResetNewPasswordScreen> {
                     style: TextStyle(
                       fontSize: 14,
                       color: kFontGray500Color,
+                      height: 20 / 14,
                     ),
                   ),
                   const SizedBox(height: 36),
@@ -66,6 +68,7 @@ class _ResetNewPasswordScreenState extends State<ResetNewPasswordScreen> {
                           style: TextStyle(
                             fontSize: 14,
                             color: kFontGray800Color,
+                            height: 20 / 14,
                           ),
                         ),
                       ),
@@ -96,12 +99,14 @@ class _ResetNewPasswordScreenState extends State<ResetNewPasswordScreen> {
                                     hintStyle: TextStyle(
                                       fontSize: 14,
                                       color: kFontGray400Color,
+                                      height: 20 / 14,
                                     ),
                                   ),
                                   onChanged: (text) => setState(() {}),
                                   style: TextStyle(
                                     fontSize: 14,
                                     color: kFontGray800Color,
+                                    height: 20 / 14,
                                   ),
                                 ),
                               ),
@@ -151,12 +156,14 @@ class _ResetNewPasswordScreenState extends State<ResetNewPasswordScreen> {
                                     hintStyle: TextStyle(
                                       fontSize: 14,
                                       color: kFontGray400Color,
+                                      height: 20 / 14,
                                     ),
                                   ),
                                   onChanged: (text) => setState(() {}),
                                   style: TextStyle(
                                     fontSize: 14,
                                     color: kFontGray800Color,
+                                    height: 20 / 14,
                                   ),
                                 ),
                               ),
@@ -187,6 +194,7 @@ class _ResetNewPasswordScreenState extends State<ResetNewPasswordScreen> {
                             style: TextStyle(
                               fontSize: 11,
                               color: kNoColor,
+                              height: 1,
                             ),
                           ),
                         ),
@@ -215,6 +223,7 @@ class _ResetNewPasswordScreenState extends State<ResetNewPasswordScreen> {
                       fontSize: 16,
                       color: canNextPressed ? kWhiteColor : kFontGray200Color,
                       fontWeight: FontWeight.bold,
+                      height: 20/16,
                     ),
                   ),
                 ),

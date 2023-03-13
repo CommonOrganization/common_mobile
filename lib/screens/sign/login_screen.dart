@@ -64,13 +64,17 @@ class _LoginScreenState extends State<LoginScreen> {
               style: TextStyle(
                 fontSize: 14,
                 color: kSubColor3,
+                height: 20 / 14,
               ),
             ),
             const SizedBox(height: 16),
-            SvgPicture.asset(
-              'assets/images/common_text_logo.svg',
-              width: 278,
-              fit: BoxFit.scaleDown,
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 56),
+              child: SvgPicture.asset(
+                'assets/images/common_text_logo.svg',
+                width: 278,
+                fit: BoxFit.scaleDown,
+              ),
             ),
             const SizedBox(height: 50),
             Container(
@@ -95,11 +99,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   hintStyle: TextStyle(
                     fontSize: 14,
                     color: kFontGray400Color,
+                    height: 20 / 14,
                   ),
                 ),
                 style: TextStyle(
                   fontSize: 14,
                   color: kFontGray800Color,
+                  height: 20 / 14,
                 ),
               ),
             ),
@@ -126,11 +132,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   hintStyle: TextStyle(
                     fontSize: 14,
                     color: kFontGray400Color,
+                    height: 20 / 14,
                   ),
                 ),
                 style: TextStyle(
                   fontSize: 14,
                   color: kFontGray800Color,
+                  height: 20 / 14,
                 ),
               ),
             ),
@@ -154,6 +162,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       style: TextStyle(
                         fontSize: 13,
                         color: kFontGray500Color,
+                        height: 20 / 13,
+                        letterSpacing: -0.5,
                       ),
                     )
                   ],
@@ -180,6 +190,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         fontSize: 16,
                         color: kFontGray0Color,
                         fontWeight: FontWeight.bold,
+                        height: 20 / 16,
                       ),
                     ),
                   ),
@@ -203,6 +214,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           style: TextStyle(
                             fontSize: 12,
                             color: kFontGray500Color,
+                            height: 20 / 12,
+                            letterSpacing: -0.5,
                           ),
                         ),
                       ),
@@ -223,6 +236,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           style: TextStyle(
                             fontSize: 12,
                             color: kFontGray500Color,
+                            height: 20 / 12,
+                            letterSpacing: -0.5,
                           ),
                         ),
                       ),

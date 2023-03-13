@@ -34,6 +34,7 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: kFontGray900Color,
+                    height: 1,
                   ),
                 ),
               ),
@@ -69,6 +70,7 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
                               fontSize: 15,
                               color: kFontGray800Color,
                               fontWeight: FontWeight.bold,
+                              height: 20/15,
                             ),
                           ),
                           const Spacer(),
@@ -166,6 +168,7 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
                       color: _selectedGatheringType == gatheringType
                           ? kWhiteColor
                           : kFontGray600Color,
+                      height: 20/14,
                     ),
                   ),
                   const SizedBox(height: 4),
@@ -176,6 +179,7 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
                       color: _selectedGatheringType == gatheringType
                           ? kWhiteColor
                           : kFontGray400Color,
+                      height: 18/13,
                     ),
                   )
                 ],

@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 
 class RegisterCategoryScreen extends StatefulWidget {
   final Function nextPressed;
-  const RegisterCategoryScreen({Key? key, required this.nextPressed}) : super(key: key);
+  const RegisterCategoryScreen({Key? key, required this.nextPressed})
+      : super(key: key);
 
   @override
   State<RegisterCategoryScreen> createState() => _RegisterCategoryScreenState();
@@ -31,6 +32,7 @@ class _RegisterCategoryScreenState extends State<RegisterCategoryScreen> {
                     color: kFontGray900Color,
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
+                    height: 1,
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -39,6 +41,7 @@ class _RegisterCategoryScreenState extends State<RegisterCategoryScreen> {
                   style: TextStyle(
                     color: kFontGray500Color,
                     fontSize: 14,
+                    height: 20 / 14,
                   ),
                 ),
                 const SizedBox(height: 36),
@@ -72,8 +75,7 @@ class _RegisterCategoryScreenState extends State<RegisterCategoryScreen> {
                       child: Container(
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color:
-                              isIncluded ? kSubColor1 : kWhiteColor,
+                          color: isIncluded ? kSubColor1 : kWhiteColor,
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(
                               color:
@@ -93,7 +95,7 @@ class _RegisterCategoryScreenState extends State<RegisterCategoryScreen> {
                                 fontSize: 13,
                                 color: kFontGray800Color,
                                 letterSpacing: -0.5,
-                                height: 20/13,
+                                height: 20 / 13,
                               ),
                             ),
                           ],

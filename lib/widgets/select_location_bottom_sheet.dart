@@ -51,6 +51,7 @@ class _SelectLocationBottomSheetState extends State<SelectLocationBottomSheet> {
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   color: kFontGray800Color,
+                  height: 20/16,
                 ),
               ),
             ),
@@ -98,6 +99,7 @@ class _SelectLocationBottomSheetState extends State<SelectLocationBottomSheet> {
                                       style: TextStyle(
                                         fontSize: 14,
                                         color: kFontGray800Color,
+                                        height: 20/14,
                                       ),
                                     ),
                                     const Spacer(),
@@ -159,6 +161,7 @@ class _SelectLocationBottomSheetState extends State<SelectLocationBottomSheet> {
                                                           fontSize: 14,
                                                           color:
                                                               kFontGray800Color,
+                                                          height: 20/14,
                                                         ),
                                                       );
                                                     }
@@ -167,6 +170,7 @@ class _SelectLocationBottomSheetState extends State<SelectLocationBottomSheet> {
                                                       style: TextStyle(
                                                         fontSize: 14,
                                                         color: kFontGray800Color,
+                                                        height: 20/14,
                                                       ),
                                                     );
                                                   },

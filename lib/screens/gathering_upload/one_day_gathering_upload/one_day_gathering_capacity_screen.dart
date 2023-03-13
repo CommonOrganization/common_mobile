@@ -56,7 +56,7 @@ class _OneDayGatheringCapacityScreenState
             TextPosition(offset: _gatheringCapacityController.text.length));
       });
     } catch (e) {
-      setState((){
+      setState(() {
         // 에러가 발생할경우 기존에 저장된 값을 가져와서 저장한다.
         _gatheringCapacityController.text = _gatheringCapacity.toString();
         _gatheringCapacityController.selection = TextSelection.fromPosition(
@@ -83,6 +83,7 @@ class _OneDayGatheringCapacityScreenState
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: kFontGray900Color,
+                      height: 1,
                     ),
                   ),
                   const SizedBox(height: 10),
@@ -91,6 +92,7 @@ class _OneDayGatheringCapacityScreenState
                     style: TextStyle(
                       fontSize: 14,
                       color: kFontGray500Color,
+                      height: 20 / 13,
                     ),
                   ),
                   const SizedBox(height: 36),
@@ -133,7 +135,7 @@ class _OneDayGatheringCapacityScreenState
                                 color: kFontGray800Color,
                                 fontWeight: FontWeight.bold,
                                 letterSpacing: -0.5,
-                                height: 20/18,
+                                height: 20 / 18,
                               ),
                               keyboardType: TextInputType.number,
                               maxLength: 2,
@@ -186,7 +188,7 @@ class _OneDayGatheringCapacityScreenState
                           style: TextStyle(
                             fontSize: 13,
                             color: kFontGray600Color,
-                            height: 20/13,
+                            height: 20 / 13,
                           ),
                         ),
                         Text(
@@ -194,7 +196,7 @@ class _OneDayGatheringCapacityScreenState
                           style: TextStyle(
                             fontSize: 12,
                             color: kFontGray500Color,
-                            height: 20/12,
+                            height: 20 / 12,
                           ),
                         )
                       ],

@@ -182,6 +182,8 @@ class _RegisterMainScreenState extends State<RegisterMainScreen> {
                               fontSize: 14,
                               color: kFontGray0Color,
                               fontWeight: FontWeight.bold,
+                              height: 20 / 14,
+                              letterSpacing: -0.5,
                             ),
                           ),
                         ),

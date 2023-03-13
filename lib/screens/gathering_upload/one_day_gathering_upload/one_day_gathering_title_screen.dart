@@ -37,6 +37,7 @@ class _OneDayGatheringTitleScreenState
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: kFontGray900Color,
+                      height: 1,
                     ),
                   ),
                   const SizedBox(height: 36),
@@ -48,6 +49,7 @@ class _OneDayGatheringTitleScreenState
                         style: TextStyle(
                           fontSize: 14,
                           color: kFontGray500Color,
+                          height: 20 / 14,
                         ),
                       ),
                     ],
@@ -56,14 +58,18 @@ class _OneDayGatheringTitleScreenState
                   Container(
                     padding: const EdgeInsets.all(16),
                     width: double.infinity,
-                    constraints: const BoxConstraints(minHeight: 100),
+                    constraints: const BoxConstraints(minHeight: 104),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       color: kFontGray50Color,
                     ),
                     child: TextField(
                       controller: _gatheringTitleController,
-                      style: TextStyle(fontSize: 14, color: kFontGray800Color),
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: kFontGray800Color,
+                        height: 20 / 14,
+                      ),
                       maxLength: 20,
                       maxLines: null,
                       decoration: InputDecoration(
@@ -76,6 +82,7 @@ class _OneDayGatheringTitleScreenState
                         hintStyle: TextStyle(
                           fontSize: 14,
                           color: kFontGray400Color,
+                          height: 20 / 14,
                         ),
                       ),
                       onChanged: (text) => setState(() {}),
