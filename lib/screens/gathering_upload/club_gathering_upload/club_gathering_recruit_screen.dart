@@ -33,7 +33,7 @@ class _ClubGatheringRecruitScreenState
       children: [
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20, top: 18),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: GatheringRecruitWayArea(
               selectedRecruitWay: _selectedRecruitWay,
               controller: _detailQuestionController,

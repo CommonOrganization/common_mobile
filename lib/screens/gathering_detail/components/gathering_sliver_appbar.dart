@@ -1,5 +1,6 @@
 import 'package:common/models/gathering/gathering.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import '../../../constants/constants_colors.dart';
 import '../../../constants/constants_enum.dart';
 import '../../../utils/date_utils.dart';
@@ -8,36 +9,51 @@ class GatheringSliverAppbar extends StatelessWidget {
   final bool showAppbarBlack;
   final double size;
   final Gathering gathering;
-  const GatheringSliverAppbar(
-      {Key? key,
-      required this.showAppbarBlack,
-      required this.size,
-      required this.gathering})
-      : super(key: key);
+  final bool isClubGathering;
+  const GatheringSliverAppbar({
+    Key? key,
+    required this.showAppbarBlack,
+    required this.size,
+    required this.gathering,
+    required this.isClubGathering,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-        foregroundColor: showAppbarBlack ? kBlackColor : kWhiteColor,
         backgroundColor: showAppbarBlack ? kWhiteColor : Colors.transparent,
-        elevation: 0.1,
-        shadowColor: kWhiteF4F4F4Color,
+        elevation: 0,
         pinned: true,
         expandedHeight: MediaQuery.of(context).size.width,
+        leadingWidth: 48,
+        leading: GestureDetector(
+          onTap: () => Navigator.pop(context),
+          child: Container(
+            margin: const EdgeInsets.only(left: 20),
+            alignment: Alignment.center,
+            child: SvgPicture.asset(
+              showAppbarBlack
+                  ? 'assets/icons/svg/arrow_left_28px.svg'
+                  : 'assets/icons/svg/arrow_left_white_28px.svg',
+            ),
+          ),
+        ),
         actions: [
           GestureDetector(
             onTap: () {},
-            child: const Icon(
-              Icons.share_outlined,
-              size: 28,
+            child: SvgPicture.asset(
+              showAppbarBlack
+                  ? 'assets/icons/svg/share_28px.svg'
+                  : 'assets/icons/svg/share_white_28px.svg',
             ),
           ),
           const SizedBox(width: 18),
           GestureDetector(
             onTap: () {},
-            child: const Icon(
-              Icons.favorite_outline,
-              size: 28,
+            child: SvgPicture.asset(
+              showAppbarBlack
+                  ? 'assets/icons/svg/favorite_28px.svg'
+                  : 'assets/icons/svg/favorite_white_28px.svg',
             ),
           ),
           const SizedBox(width: 20),
@@ -93,14 +109,19 @@ class GatheringSliverAppbar extends StatelessWidget {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 13, vertical: 5),
                                   decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(13),
-                                      border: Border.all(
-                                          color: kWhiteColor, width: 1.25)),
+                                    borderRadius: BorderRadius.circular(13),
+                                    border: Border.all(
+                                      color: kWhiteColor,
+                                      width: 1.25,
+                                    ),
+                                  ),
                                   child: Text(
                                     tag,
                                     style: TextStyle(
                                       fontSize: 13,
                                       color: kWhiteColor,
+                                      height: 1,
+                                      letterSpacing: -0.5,
                                     ),
                                   ),
                                 ),
@@ -117,11 +138,12 @@ class GatheringSliverAppbar extends StatelessWidget {
                           minHeight: MediaQuery.of(context).size.width / 3,
                         ),
                         decoration: BoxDecoration(
-                            color: kWhiteColor,
-                            borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20),
-                            )),
+                          color: kWhiteColor,
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20),
+                          ),
+                        ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -131,27 +153,19 @@ class GatheringSliverAppbar extends StatelessWidget {
                                       gathering.category);
                               return Row(
                                 children: [
-                                  Container(
+                                  Image.asset(
+                                    category.miniImage,
                                     width: 22,
                                     height: 22,
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(22),
-                                      color: category.backgroundColor,
-                                    ),
-                                    child: Image.asset(
-                                      category.image,
-                                      width: 22,
-                                      height: 22,
-                                    ),
                                   ),
                                   const SizedBox(width: 4),
                                   Text(
                                     category.title,
                                     style: TextStyle(
                                       fontSize: 12,
-                                      color: kGrey636366Color,
+                                      color: kFontGray600Color,
                                       fontWeight: FontWeight.bold,
+                                      height: 1,
                                     ),
                                   ),
                                   Padding(
@@ -160,25 +174,28 @@ class GatheringSliverAppbar extends StatelessWidget {
                                     child: Container(
                                       width: 1,
                                       height: 10,
-                                      color: kGrey8E8E93Color,
+                                      color: kFontGray500Color,
                                     ),
                                   ),
                                   Text(
                                     gathering.detailCategory,
                                     style: TextStyle(
                                       fontSize: 12,
-                                      color: kGrey636366Color,
+                                      color: kFontGray600Color,
+                                      height: 1,
                                     ),
                                   ),
                                 ],
                               );
                             }),
+                            SizedBox(height: 4),
                             Text(
                               gathering.title,
                               style: TextStyle(
                                 fontSize: 26,
                                 fontWeight: FontWeight.bold,
-                                color: kGrey2C2C2EColor,
+                                color: kFontGray900Color,
+                                height: 1,
                               ),
                             ),
                             const SizedBox(height: 6),

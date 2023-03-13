@@ -21,7 +21,7 @@ class _ClubGatheringContentScreenState
   final ImagePicker _picker = ImagePicker();
 
   final TextEditingController _gatheringContentController =
-  TextEditingController();
+      TextEditingController();
 
   String? _mainImageUrl;
   final List<String> _imageUrlList = [];
@@ -30,7 +30,7 @@ class _ClubGatheringContentScreenState
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
     if (image == null) return;
     String? imageUrl =
-    await FirebaseGatheringService.uploadGatheringImage(image: image);
+        await FirebaseGatheringService.uploadGatheringImage(image: image);
     if (imageUrl == null) return;
     if (isMain) {
       setState(() => _mainImageUrl = imageUrl);
@@ -46,7 +46,7 @@ class _ClubGatheringContentScreenState
         Expanded(
           child: ListView(
             children: [
-              const SizedBox(height: 18),
+              const SizedBox(height: 12),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
@@ -54,7 +54,8 @@ class _ClubGatheringContentScreenState
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: kGrey1C1C1EColor,
+                    color: kFontGray900Color,
+                    height: 1,
                   ),
                 ),
               ),
@@ -64,8 +65,9 @@ class _ClubGatheringContentScreenState
                 child: Text(
                   '대표사진은 최소 1장 이상 등록해 주세요.',
                   style: TextStyle(
-                    fontSize: 14,
-                    color: kGrey8E8E93Color,
+                    fontSize: 13,
+                    color: kFontGray500Color,
+                    height: 20 / 13,
                   ),
                 ),
               ),
@@ -91,32 +93,37 @@ class _ClubGatheringContentScreenState
                 margin: const EdgeInsets.only(top: 18, bottom: 24),
                 width: double.infinity,
                 height: 1,
-                color: kWhiteF4F4F4Color,
+                color: kFontGray50Color,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                child:  Text(
+                child: Text(
                   '설명',
                   style: TextStyle(
-                    fontSize: 14,
-                    color: kGrey2C2C2EColor,
+                    fontSize: 15,
+                    color: kFontGray800Color,
                     fontWeight: FontWeight.bold,
+                    height: 20 / 15,
                   ),
                 ),
               ),
+              const SizedBox(height: 12),
               Container(
-                margin: const EdgeInsets.only(
-                    top: 12, bottom: 6, left: 20, right: 20),
+                margin: const EdgeInsets.symmetric(horizontal: 20),
                 padding: const EdgeInsets.all(16),
                 width: double.infinity,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
-                  color: kWhiteF6F6F6Color,
+                  color: kFontGray50Color,
                 ),
-                constraints: const BoxConstraints(minHeight: 150),
+                constraints: const BoxConstraints(minHeight: 156),
                 child: TextField(
                   controller: _gatheringContentController,
-                  style: TextStyle(fontSize: 14, color: kGrey363639Color),
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: kFontGray800Color,
+                    height: 20 / 14,
+                  ),
                   maxLines: null,
                   decoration: InputDecoration(
                     border: InputBorder.none,
@@ -127,19 +134,22 @@ class _ClubGatheringContentScreenState
                     hintText: '어떤 주제로 소모임을 갖고 싶은지 소개해보세요.(선택)',
                     hintStyle: TextStyle(
                       fontSize: 14,
-                      color: kWhiteAEAEB2Color,
+                      color: kFontGray400Color,
+                      height: 20 / 14,
                     ),
                   ),
                   onChanged: (text) => setState(() {}),
                 ),
               ),
+              const SizedBox(height: 8),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 26),
                 child: Text(
                   '소모임 상세 내용을 자세히 작성할수록 멤버들의 신청률도 높아져요',
                   style: TextStyle(
                     fontSize: 11,
-                    color: kGrey8E8E93Color,
+                    color: kFontGray400Color,
+                    height: 16 / 11,
                   ),
                 ),
               )
@@ -180,10 +190,7 @@ class _ClubGatheringContentScreenState
           if (isMain)
             Text(
               'ⓘ 대표',
-              style: TextStyle(
-                fontSize: 11,
-                color: kFontMainColor,
-              ),
+              style: TextStyle(fontSize: 11, color: kSubColor3, height: 1),
             )
         ],
       ),
@@ -204,11 +211,11 @@ class _ClubGatheringContentScreenState
               height: 78,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(78),
-                color: isMain ? kMainBackgroundColor : kWhiteF4F4F4Color,
+                color: isMain ? kSubColor1 : kFontGray50Color,
               ),
               child: Icon(
                 Icons.add,
-                color: isMain ? kMainColor : kWhiteAEAEB2Color,
+                color: isMain ? kMainColor : kFontGray400Color,
                 size: 30,
               ),
             ),
@@ -217,10 +224,7 @@ class _ClubGatheringContentScreenState
           if (isMain)
             Text(
               'ⓘ 대표',
-              style: TextStyle(
-                fontSize: 11,
-                color: kFontMainColor,
-              ),
+              style: TextStyle(fontSize: 11, color: kSubColor3, height: 1),
             )
         ],
       ),

@@ -4,6 +4,7 @@ import 'package:common/screens/gathering_upload/club_gathering_upload/club_gathe
 import 'package:common/screens/gathering_upload/club_gathering_upload/club_gathering_location_screen.dart';
 import 'package:common/screens/gathering_upload/club_gathering_upload/club_gathering_title_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import '../../../constants/constants_colors.dart';
 import '../../../constants/constants_enum.dart';
@@ -149,6 +150,7 @@ class _ClubGatheringUploadMainScreenState
       appBar: AppBar(
         foregroundColor: kGrey363639Color,
         backgroundColor: kWhiteColor,
+        leadingWidth: 48,
         leading: GestureDetector(
           onTap: () {
             if (_pageIndex == 0) {
@@ -157,10 +159,13 @@ class _ClubGatheringUploadMainScreenState
             }
             setState(() => _pageIndex--);
           },
-          child: Icon(
-            Icons.arrow_back_ios_new,
-            size: 24,
-            color: kGrey363639Color,
+          child: Container(
+            margin: const EdgeInsets.only(left: 20),
+            alignment: Alignment.center,
+            child: SvgPicture.asset(
+              'assets/icons/svg/arrow_left_28px.svg',
+              colorFilter: ColorFilter.mode(kFontGray800Color, BlendMode.srcIn),
+            ),
           ),
         ),
         elevation: 0,

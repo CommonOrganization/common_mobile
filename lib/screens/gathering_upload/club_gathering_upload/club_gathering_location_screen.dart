@@ -31,15 +31,17 @@ class _ClubGatheringLocationScreenState
       children: [
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20, top: 18),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: ListView(
               children: [
+                const SizedBox(height: 12),
                 Text(
                   '소모임 활동 지역을 설정해볼까요?',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: kGrey1C1C1EColor,
+                    color: kFontGray900Color,
+                    height: 1,
                   ),
                 ),
                 const SizedBox(height: 36),
@@ -48,7 +50,8 @@ class _ClubGatheringLocationScreenState
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
-                    color: kGrey2C2C2EColor,
+                    color: kFontGray800Color,
+                    height: 20/15,
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -70,12 +73,12 @@ class _ClubGatheringLocationScreenState
                     width: double.infinity,
                     height: 52,
                     decoration: BoxDecoration(
-                      color: kWhiteF6F6F6Color,
+                      color: kFontGray50Color,
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: Row(
                       children: [
-                        SvgPicture.asset('assets/icons/svg/location.svg'),
+                        SvgPicture.asset('assets/icons/svg/location_24px.svg'),
                         const SizedBox(width: 8),
                         Expanded(
                           child: Builder(builder: (context) {
@@ -84,7 +87,8 @@ class _ClubGatheringLocationScreenState
                                 '지역을 선택해주세요 (중복 가능)',
                                 style: TextStyle(
                                   fontSize: 14,
-                                  color: kWhiteAEAEB2Color,
+                                  color: kFontGray400Color,
+                                  height: 20/14,
                                 ),
                               );
                             }
@@ -92,16 +96,13 @@ class _ClubGatheringLocationScreenState
                               getCityNames(_gatheringCityList),
                               style: TextStyle(
                                 fontSize: 14,
-                                color: kGrey363639Color,
+                                color: kFontGray800Color,
+                                height: 20/14,
                               ),
                             );
                           }),
                         ),
-                        Icon(
-                          Icons.expand_more,
-                          size: 20,
-                          color: kWhiteAEAEB2Color,
-                        )
+                        SvgPicture.asset('assets/icons/svg/arrow_down_20px.svg'),
                       ],
                     ),
                   ),
@@ -119,7 +120,8 @@ class _ClubGatheringLocationScreenState
                         'ⓘ',
                         style: TextStyle(
                           fontSize: 11,
-                          color: kGrey8E8E93Color,
+                          color: kFontGray500Color,
+                          height: 16/11,
                         ),
                       ),
                     ),
@@ -128,7 +130,8 @@ class _ClubGatheringLocationScreenState
                         '소모임이 활동 지역과 가까운 사람들에게 더 많이 노출되고,\n지역 검색을 통해 확인할 수 있어요.',
                         style: TextStyle(
                           fontSize: 11,
-                          color: kGrey8E8E93Color,
+                          color: kFontGray500Color,
+                          height: 16/11,
                         ),
                       ),
                     ),

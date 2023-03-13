@@ -27,23 +27,26 @@ class _ClubGatheringCapacityScreenState
       children: [
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: ListView(
               children: [
+                const SizedBox(height: 12),
                 Text(
                   '몇명과 함께 할까요?',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: kGrey1C1C1EColor,
+                    color: kFontGray900Color,
+                    height: 1,
                   ),
                 ),
                 const SizedBox(height: 10),
                 Text(
                   '본인을 포함한 총 참여 인원 수를 설정해 주세요.',
                   style: TextStyle(
-                    fontSize: 14,
-                    color: kGrey8E8E93Color,
+                    fontSize: 13,
+                    color: kFontGray500Color,
+                    height: 20/13,
                   ),
                 ),
                 const SizedBox(height: 36),
@@ -74,7 +77,7 @@ class _ClubGatheringCapacityScreenState
                                   border: _decimalNumber == index + 1
                                       ? Border.symmetric(
                                           horizontal: BorderSide(
-                                            color: kChatLineColor,
+                                            color: kSubColor1,
                                             width: 1.5,
                                           ),
                                         )
@@ -85,12 +88,14 @@ class _ClubGatheringCapacityScreenState
                                   style: TextStyle(
                                     fontSize: 36,
                                     color: kMainColor,
+                                    height: 1,
                                   ),
                                 ),
                               ),
                             ),
                           ),
                         ),
+                        const SizedBox(width: 6),
                         Expanded(
                           child: CupertinoPicker(
                             itemExtent: 50,
@@ -111,7 +116,7 @@ class _ClubGatheringCapacityScreenState
                                   border: _digitNumber == index
                                       ? Border.symmetric(
                                     horizontal: BorderSide(
-                                      color: kChatLineColor,
+                                      color: kSubColor1,
                                       width: 1.5,
                                     ),
                                   )
@@ -122,6 +127,7 @@ class _ClubGatheringCapacityScreenState
                                   style: TextStyle(
                                     fontSize: 36,
                                     color: kMainColor,
+                                    height: 1,
                                   ),
                                 ),
                               ),
@@ -135,9 +141,9 @@ class _ClubGatheringCapacityScreenState
                 const SizedBox(height: 66),
                 Container(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 9),
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                   decoration: BoxDecoration(
-                    color: kWhiteF6F6F6Color,
+                    color: kFontGray50Color,
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: Column(
@@ -148,14 +154,16 @@ class _ClubGatheringCapacityScreenState
                         '인원 안내',
                         style: TextStyle(
                           fontSize: 13,
-                          color: kGrey48484AColor,
+                          color: kFontGray600Color,
+                          height: 20/13,
                         ),
                       ),
                       Text(
                         '최소 10명 ~ 최대 99명',
                         style: TextStyle(
                           fontSize: 12,
-                          color: kGrey636366Color,
+                          color: kFontGray500Color,
+                          height: 20/12,
                         ),
                       )
                     ],

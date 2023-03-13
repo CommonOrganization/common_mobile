@@ -28,22 +28,28 @@ class _ClubGatheringPreviewScreenState
   bool _showAppbarBlack = false;
   int _headerIndex = 0;
 
+  final int _size = 300;
+
   @override
   void initState() {
     super.initState();
-    addEventListener();
+    _scrollController.addListener(onUpdate);
   }
 
-  void addEventListener() {
-    int size = 300;
-    _scrollController.addListener(() {
-      if (_scrollController.offset < size && _showAppbarBlack) {
-        setState(() => _showAppbarBlack = false);
-      }
-      if (_scrollController.offset > size && !_showAppbarBlack) {
-        setState(() => _showAppbarBlack = true);
-      }
-    });
+  void onUpdate() {
+    if (_scrollController.offset < _size && _showAppbarBlack) {
+      setState(() => _showAppbarBlack = false);
+    }
+    if (_scrollController.offset > _size && !_showAppbarBlack) {
+      setState(() => _showAppbarBlack = true);
+    }
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(onUpdate);
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -55,9 +61,11 @@ class _ClubGatheringPreviewScreenState
         controller: _scrollController,
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
           GatheringSliverAppbar(
-              showAppbarBlack: _showAppbarBlack,
-              size: MediaQuery.of(context).size.width,
-              gathering: widget.gathering),
+            showAppbarBlack: _showAppbarBlack,
+            size: MediaQuery.of(context).size.width,
+            gathering: widget.gathering,
+            isClubGathering: true,
+          ),
           SliverPersistentHeader(
             pinned: true,
             delegate: GatheringTabBar(
@@ -118,16 +126,22 @@ class _ClubGatheringPreviewScreenState
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('멤버소개',style: TextStyle(
-                      fontSize: 13,
-                      color: kMainColor,
-                    ),),
+                    Text(
+                      '멤버소개',
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: kMainColor,
+                      ),
+                    ),
                     const SizedBox(height: 2),
-                    Text('우리랑 소모임 함께 해요',style: TextStyle(
-                      fontSize: 18,fontWeight: FontWeight.bold,
-                      color: kGrey2C2C2EColor,
-                    ),),
-
+                    Text(
+                      '우리랑 소모임 함께 해요',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: kGrey2C2C2EColor,
+                      ),
+                    ),
                   ],
                 ),
               )

@@ -47,10 +47,10 @@ class GatheringTabBar implements SliverPersistentHeaderDelegate {
       null;
 
   @override
-  FloatingHeaderSnapConfiguration? get snapConfiguration => null;
+  FloatingHeaderSnapConfiguration? get snapConfiguration => FloatingHeaderSnapConfiguration();
 
   @override
-  OverScrollHeaderStretchConfiguration? get stretchConfiguration => null;
+  OverScrollHeaderStretchConfiguration? get stretchConfiguration => OverScrollHeaderStretchConfiguration();
 
   @override
   TickerProvider? get vsync => null;

@@ -61,9 +61,11 @@ class _OneDayGatheringPreviewScreenState
         controller: _scrollController,
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
           GatheringSliverAppbar(
-              showAppbarBlack: _showAppbarBlack,
-              size: MediaQuery.of(context).size.width,
-              gathering: widget.gathering),
+            showAppbarBlack: _showAppbarBlack,
+            size: MediaQuery.of(context).size.width,
+            gathering: widget.gathering,
+            isClubGathering: false,
+          ),
         ],
         body: Container(
           decoration: BoxDecoration(

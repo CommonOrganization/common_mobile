@@ -40,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen>
   void autoLoginCheck() => Future.delayed(
         const Duration(milliseconds: 2250),
         () async {
-          bool autoLoggedIn = false;//await context.read<UserController>().autoLogin();
+          bool autoLoggedIn = await context.read<UserController>().autoLogin();
           if (!mounted) return;
           Navigator.pushReplacement(
             context,

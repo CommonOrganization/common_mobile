@@ -36,7 +36,7 @@ class _SelectCityBottomSheetState extends State<SelectCityBottomSheet> {
                 width: 60,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: kWhiteC6C6C6Color,
+                  color: kFontGray100Color,
                   borderRadius: BorderRadius.circular(5),
                 ),
               ),
@@ -48,7 +48,8 @@ class _SelectCityBottomSheetState extends State<SelectCityBottomSheet> {
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
-                  color: kGrey363639Color,
+                  color: kFontGray800Color,
+                  height: 20/16,
                 ),
               ),
             ),
@@ -56,7 +57,7 @@ class _SelectCityBottomSheetState extends State<SelectCityBottomSheet> {
             Container(
               width: double.infinity,
               height: 1,
-              color: kWhiteF4F4F4Color,
+              color: kFontGray50Color,
             ),
             Expanded(
               child: ListView(
@@ -90,13 +91,14 @@ class _SelectCityBottomSheetState extends State<SelectCityBottomSheet> {
                                 border: Border(
                                     bottom: BorderSide(
                               width: 1,
-                              color: kWhiteF4F4F4Color,
-                            ))),
+                              color: kFontGray50Color,
+                            ),),),
                             child: Text(
                               city.name,
                               style: TextStyle(
                                 fontSize: 14,
-                                color: kGrey363639Color,
+                                color: kFontGray800Color,
+                                height: 20/14,
                               ),
                             ),
                           ),
@@ -119,18 +121,19 @@ class _SelectCityBottomSheetState extends State<SelectCityBottomSheet> {
                 width: double.infinity,
                 color: _selectedCityList.isNotEmpty
                     ? kMainColor
-                    : kWhiteC6C6C6Color,
+                    : kFontGray100Color,
                 child: SafeArea(
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical: 18),
                     child: Text(
                       '선택완료',
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 16,
                         color: _selectedCityList.isNotEmpty
                             ? kWhiteColor
-                            : kGrey8E8E93Color,
+                            : kFontGray200Color,
                         fontWeight: FontWeight.bold,
+                        height: 20/16,
                       ),
                     ),
                   ),

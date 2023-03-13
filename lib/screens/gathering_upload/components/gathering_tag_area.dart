@@ -27,7 +27,7 @@ class GatheringTagArea extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: ListView(
           children: [
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             Text(
               title,
               style: TextStyle(
