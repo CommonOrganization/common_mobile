@@ -7,6 +7,7 @@ import 'package:common/screens/sign/bottom_sheets/country_select_bottom_sheet.da
 import 'package:common/services/http_service.dart';
 import 'package:common/utils/local_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import 'components/register_next_button.dart';
 
@@ -16,7 +17,8 @@ class ResetPasswordPhoneScreen extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<ResetPasswordPhoneScreen> createState() => _ResetPasswordPhoneScreenState();
+  State<ResetPasswordPhoneScreen> createState() =>
+      _ResetPasswordPhoneScreenState();
 }
 
 class _ResetPasswordPhoneScreenState extends State<ResetPasswordPhoneScreen> {
@@ -26,10 +28,10 @@ class _ResetPasswordPhoneScreenState extends State<ResetPasswordPhoneScreen> {
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _certifyFirstController = TextEditingController();
   final TextEditingController _certifySecondController =
-  TextEditingController();
+      TextEditingController();
   final TextEditingController _certifyThirdController = TextEditingController();
   final TextEditingController _certifyFourthController =
-  TextEditingController();
+      TextEditingController();
   final TextEditingController _certifyFifthController = TextEditingController();
   final TextEditingController _certifySixthController = TextEditingController();
 
@@ -43,7 +45,7 @@ class _ResetPasswordPhoneScreenState extends State<ResetPasswordPhoneScreen> {
 
   bool get checkCertificationNumber =>
       '${_certifyFirstController.text}${_certifySecondController.text}${_certifyThirdController.text}${_certifyFourthController.text}${_certifyFifthController.text}${_certifySixthController.text}' ==
-          _certificationNumber;
+      _certificationNumber;
 
   @override
   void dispose() {
@@ -97,233 +99,241 @@ class _ResetPasswordPhoneScreenState extends State<ResetPasswordPhoneScreen> {
   }
 
   Widget phoneArea() => Column(
-    children: [
-      Expanded(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: ListView(
-            children: [
-              const SizedBox(height: 18),
-              Text(
-                '가입정보 확인',
-                style: TextStyle(
-                  color: kGrey1C1C1EColor,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                '가입한 전화번호를 입력해주세요.',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: kGrey8E8E93Color,
-                ),
-              ),
-              const SizedBox(height: 36),
-              Row(
+        children: [
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: ListView(
                 children: [
-                  GestureDetector(
-                    onTap: () async {
-                      Country? selectedCountry = await showModalBottomSheet(
-                        context: context,
-                        isScrollControlled: true,
-                        backgroundColor: Colors.transparent,
-                        builder: (context) =>
-                            CountrySelectBottomSheet(country: _country),
-                      );
-                      if (selectedCountry != null) {
-                        setState(() => _country = selectedCountry);
-                      }
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      alignment: Alignment.center,
-                      constraints: const BoxConstraints(minWidth: 70),
-                      height: 52,
-                      decoration: BoxDecoration(
-                        color: kWhiteF4F4F4Color,
-                        borderRadius: BorderRadius.circular(15),
+                  const SizedBox(height: 12),
+                  Text(
+                    '가입정보 확인',
+                    style: TextStyle(
+                      color: kFontGray900Color,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    '가입한 전화번호를 입력해주세요.',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: kFontGray500Color,
+                    ),
+                  ),
+                  const SizedBox(height: 36),
+                  Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () async {
+                          Country? selectedCountry = await showModalBottomSheet(
+                            context: context,
+                            isScrollControlled: true,
+                            backgroundColor: Colors.transparent,
+                            builder: (context) =>
+                                CountrySelectBottomSheet(country: _country),
+                          );
+                          if (selectedCountry != null) {
+                            setState(() => _country = selectedCountry);
+                          }
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          alignment: Alignment.center,
+                          constraints: const BoxConstraints(minWidth: 70),
+                          height: 52,
+                          decoration: BoxDecoration(
+                            color: kFontGray50Color,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                '+${_country.code}',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: kFontGray800Color,
+                                ),
+                              ),
+                              const SizedBox(width: 4),
+                              SvgPicture.asset(
+                                'assets/icons/svg/arrow_down_20px.svg',
+                                colorFilter: ColorFilter.mode(
+                                  kFontGray400Color,
+                                  BlendMode.srcIn,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            '+${_country.code}',
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          padding: const EdgeInsets.symmetric(horizontal: 18),
+                          width: double.infinity,
+                          height: 52,
+                          decoration: BoxDecoration(
+                            color: kFontGray50Color,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: TextField(
+                            controller: _phoneController,
+                            keyboardType: TextInputType.number,
+                            maxLength: 11,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              isDense: true,
+                              counterText: '',
+                              hintText: '전화번호를 입력하세요.',
+                              hintStyle: TextStyle(
+                                fontSize: 14,
+                                color: kFontGray400Color,
+                              ),
+                            ),
+                            onChanged: (text) => setState(() {}),
                             style: TextStyle(
                               fontSize: 14,
-                              color: kGrey363639Color,
+                              color: kFontGray800Color,
                             ),
                           ),
-                          Icon(
-                            Icons.expand_more,
-                            size: 20,
-                            color: kWhiteAEAEB2Color,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.symmetric(horizontal: 18),
-                      width: double.infinity,
-                      height: 52,
-                      decoration: BoxDecoration(
-                        color: kWhiteF4F4F4Color,
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: TextField(
-                        controller: _phoneController,
-                        keyboardType: TextInputType.number,
-                        maxLength: 11,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          enabledBorder: InputBorder.none,
-                          focusedBorder: InputBorder.none,
-                          isDense: true,
-                          counterText: '',
-                          hintText: '전화번호를 입력하세요.',
-                          hintStyle: TextStyle(
-                            fontSize: 14,
-                            color: kWhiteAEAEB2Color,
-                          ),
                         ),
-                        onChanged: (text) => setState(() {}),
-                      ),
-                    ),
-                  )
+                      )
+                    ],
+                  ),
                 ],
               ),
-            ],
+            ),
           ),
-        ),
-      ),
-      RegisterNextButton(
-        value: kPhoneRegExp.hasMatch(_phoneController.text),
-        onTap: () {
-          if (kPhoneRegExp.hasMatch(_phoneController.text)) {
-            _index++;
-            sendCertificationNumber();
-            _firstFocusNode.requestFocus();
-          }
-        },
-      ),
-    ],
-  );
+          RegisterNextButton(
+            value: kPhoneRegExp.hasMatch(_phoneController.text),
+            onTap: () {
+              if (kPhoneRegExp.hasMatch(_phoneController.text)) {
+                _index++;
+                sendCertificationNumber();
+                _firstFocusNode.requestFocus();
+              }
+            },
+          ),
+        ],
+      );
 
   Widget certifyArea() => Column(
-    children: [
-      Expanded(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: ListView(
-            children: [
-              const SizedBox(height: 16),
-              Text(
-                '인증번호 입력',
-                style: TextStyle(
-                  color: kGrey1C1C1EColor,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 10),
-              RichText(
-                text: TextSpan(
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: kGrey8E8E93Color,
-                  ),
-                  children: [
-                    TextSpan(text: '${_phoneController.text} 로 '),
-                    TextSpan(
-                        text: '$_time',
-                        style: TextStyle(
-                          color: kFontMainColor,
-                        )),
-                    const TextSpan(text: '초 내로 발송됩니다.'),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 36),
-              Row(
+        children: [
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: ListView(
                 children: [
-                  kCertifyTextFieldArea(
-                      controller: _certifyFirstController,
-                      focusNode: _firstFocusNode),
-                  const SizedBox(width: 15),
-                  kCertifyTextFieldArea(
-                      controller: _certifySecondController),
-                  const SizedBox(width: 15),
-                  kCertifyTextFieldArea(
-                      controller: _certifyThirdController),
-                  const SizedBox(width: 15),
-                  kCertifyTextFieldArea(
-                      controller: _certifyFourthController),
-                  const SizedBox(width: 15),
-                  kCertifyTextFieldArea(
-                      controller: _certifyFifthController),
-                  const SizedBox(width: 15),
-                  kCertifyTextFieldArea(
-                      controller: _certifySixthController,
-                      focusNode: _lastFocusNode),
-                ],
-              ),
-              const SizedBox(height: 26),
-              Row(
-                children: [
-                  GestureDetector(
-                    onTap: () => resendCertificationNumber(),
-                    child: Container(
-                      alignment: Alignment.center,
-                      height: 30,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: kWhiteF4F4F4Color,
-                      ),
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Text(
-                        '인증 문자가 오지 않나요?',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 11,
-                          color: kGrey8E8E93Color,
-                        ),
-                      ),
+                  const SizedBox(height: 12),
+                  Text(
+                    '인증번호 입력',
+                    style: TextStyle(
+                      color: kFontGray900Color,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
+                  const SizedBox(height: 10),
+                  RichText(
+                    text: TextSpan(
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: kFontGray500Color,
+                      ),
+                      children: [
+                        TextSpan(text: '${_phoneController.text} 로 '),
+                        TextSpan(
+                          text: '$_time',
+                          style: TextStyle(
+                            color: kSubColor3,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const TextSpan(text: '초 내로 발송됩니다.'),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 36),
+                  Row(
+                    children: [
+                      kCertifyTextFieldArea(
+                          controller: _certifyFirstController,
+                          focusNode: _firstFocusNode),
+                      const SizedBox(width: 15),
+                      kCertifyTextFieldArea(
+                          controller: _certifySecondController),
+                      const SizedBox(width: 15),
+                      kCertifyTextFieldArea(
+                          controller: _certifyThirdController),
+                      const SizedBox(width: 15),
+                      kCertifyTextFieldArea(
+                          controller: _certifyFourthController),
+                      const SizedBox(width: 15),
+                      kCertifyTextFieldArea(
+                          controller: _certifyFifthController),
+                      const SizedBox(width: 15),
+                      kCertifyTextFieldArea(
+                          controller: _certifySixthController,
+                          focusNode: _lastFocusNode),
+                    ],
+                  ),
+                  const SizedBox(height: 26),
+                  Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () => resendCertificationNumber(),
+                        child: Container(
+                          alignment: Alignment.center,
+                          height: 30,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: kFontGray50Color,
+                          ),
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Text(
+                            '인증 문자가 오지 않나요?',
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: kFontGray400Color,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
-            ],
+            ),
           ),
-        ),
-      ),
-      RegisterNextButton(
-        value: checkCertificationNumber,
-        onTap: () {
-          if (!checkCertificationNumber) return;
-          if (_time <= 0) {
-            showMessage(context, message: '시간이 초과되었습니다.');
-            return;
-          }
-          widget.nextPressed(_phoneController.text);
-        },
-      ),
-    ],
-  );
+          RegisterNextButton(
+            value: checkCertificationNumber,
+            onTap: () {
+              if (!checkCertificationNumber) return;
+              if (_time <= 0) {
+                showMessage(context, message: '시간이 초과되었습니다.');
+                return;
+              }
+              widget.nextPressed(_phoneController.text);
+            },
+          ),
+        ],
+      );
 
   Widget kCertifyTextFieldArea(
-      {required TextEditingController controller, FocusNode? focusNode}) =>
+          {required TextEditingController controller, FocusNode? focusNode}) =>
       Expanded(
         child: Container(
           decoration: BoxDecoration(
             border: Border(
               bottom: BorderSide(
                 color:
-                controller.text.isNotEmpty ? kMainColor : kWhiteC6C6C6Color,
+                    controller.text.isNotEmpty ? kMainColor : kFontGray100Color,
                 width: 3,
               ),
             ),

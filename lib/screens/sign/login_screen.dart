@@ -57,106 +57,110 @@ class _LoginScreenState extends State<LoginScreen> {
         resizeToAvoidBottomInset: false,
         backgroundColor: kWhiteColor,
         body: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Expanded(
-              child: Column(
-                children: [
-                  const SizedBox(height: kToolbarHeight+184),
-                  const Text('우리지역 사람들과 함께하는 취미생활'),
-                  const SizedBox(height: 16),
-                  SvgPicture.asset('assets/images/common_text_logo.svg'),
-                  const SizedBox(height: 50),
-                  Container(
-                    alignment: Alignment.center,
-                    margin: const EdgeInsets.symmetric(horizontal: 20),
-                    padding: const EdgeInsets.symmetric(horizontal: 18),
-                    width: double.infinity,
-                    height: 52,
-                    decoration: BoxDecoration(
-                      color: kWhiteF4F4F4Color,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: TextField(
-                      controller: _phoneController,
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        enabledBorder: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                        isDense: true,
-                        hintText: '휴대폰 번호',
-                        hintStyle: TextStyle(
-                          fontSize: 15,
-                          color: kGrey8E8E93Color,
-                        ),
-                      ),
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: kGrey363639Color,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  Container(
-                    alignment: Alignment.center,
-                    margin: const EdgeInsets.symmetric(horizontal: 20),
-                    padding: const EdgeInsets.symmetric(horizontal: 18),
-                    width: double.infinity,
-                    height: 52,
-                    decoration: BoxDecoration(
-                      color: kWhiteF4F4F4Color,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: TextField(
-                      controller: _passwordController,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        enabledBorder: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                        isDense: true,
-                        hintText: '패스워드',
-                        hintStyle: TextStyle(
-                          fontSize: 15,
-                          color: kGrey8E8E93Color,
-                        ),
-                      ),
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: kGrey363639Color,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  GestureDetector(
-                    onTap: () => setState(() => _keepLogin = !_keepLogin),
-                    child: Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.symmetric(horizontal: 26),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          CustomCheckBox(
-                            value: _keepLogin,
-                            onTap: (value) =>
-                                setState(() => _keepLogin = value),
-                            size: 20,
-                          ),
-                          const SizedBox(width: 10),
-                          Text(
-                            '로그인 상태 유지',
-                            style: TextStyle(
-                              fontSize: 13,
-                              color: kGrey636366Color,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  )
-                ],
+            Text(
+              '우리지역 사람들과 함께하는 취미생활',
+              style: TextStyle(
+                fontSize: 14,
+                color: kSubColor3,
               ),
             ),
+            const SizedBox(height: 16),
+            SvgPicture.asset(
+              'assets/images/common_text_logo.svg',
+              width: 278,
+              fit: BoxFit.scaleDown,
+            ),
+            const SizedBox(height: 50),
+            Container(
+              alignment: Alignment.center,
+              margin: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 18),
+              width: double.infinity,
+              height: 52,
+              decoration: BoxDecoration(
+                color: kFontGray50Color,
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: TextField(
+                controller: _phoneController,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  isDense: true,
+                  hintText: '휴대폰 번호',
+                  hintStyle: TextStyle(
+                    fontSize: 14,
+                    color: kFontGray400Color,
+                  ),
+                ),
+                style: TextStyle(
+                  fontSize: 14,
+                  color: kFontGray800Color,
+                ),
+              ),
+            ),
+            const SizedBox(height: 12),
+            Container(
+              alignment: Alignment.center,
+              margin: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 18),
+              width: double.infinity,
+              height: 52,
+              decoration: BoxDecoration(
+                color: kFontGray50Color,
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: TextField(
+                controller: _passwordController,
+                obscureText: true,
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  isDense: true,
+                  hintText: '패스워드',
+                  hintStyle: TextStyle(
+                    fontSize: 14,
+                    color: kFontGray400Color,
+                  ),
+                ),
+                style: TextStyle(
+                  fontSize: 14,
+                  color: kFontGray800Color,
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            GestureDetector(
+              onTap: () => setState(() => _keepLogin = !_keepLogin),
+              child: Container(
+                alignment: Alignment.center,
+                padding: const EdgeInsets.symmetric(horizontal: 26),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    CustomCheckBox(
+                      value: _keepLogin,
+                      onTap: (value) => setState(() => _keepLogin = value),
+                      size: 20,
+                    ),
+                    const SizedBox(width: 10),
+                    Text(
+                      '로그인 상태 유지',
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: kFontGray500Color,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 168),
             Column(
               children: [
                 GestureDetector(
@@ -174,7 +178,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       '로그인',
                       style: TextStyle(
                         fontSize: 16,
-                        color: kWhiteColor,
+                        color: kFontGray0Color,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
@@ -197,7 +202,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           '비밀번호 재설정',
                           style: TextStyle(
                             fontSize: 12,
-                            color: kGrey636366Color,
+                            color: kFontGray500Color,
                           ),
                         ),
                       ),
@@ -217,7 +222,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           '회원가입',
                           style: TextStyle(
                             fontSize: 12,
-                            color: kGrey636366Color,
+                            color: kFontGray500Color,
                           ),
                         ),
                       ),

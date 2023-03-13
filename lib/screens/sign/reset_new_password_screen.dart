@@ -40,11 +40,11 @@ class _ResetNewPasswordScreenState extends State<ResetNewPasswordScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ListView(
                 children: [
-                  const SizedBox(height: 18),
+                  const SizedBox(height: 12),
                   Text(
                     '비밀번호 재설정',
                     style: TextStyle(
-                      color: kGrey1C1C1EColor,
+                      color: kFontGray900Color,
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
@@ -54,7 +54,7 @@ class _ResetNewPasswordScreenState extends State<ResetNewPasswordScreen> {
                     '변경할 비밀번호를 입력해주세요.',
                     style: TextStyle(
                       fontSize: 14,
-                      color: kGrey8E8E93Color,
+                      color: kFontGray500Color,
                     ),
                   ),
                   const SizedBox(height: 36),
@@ -65,7 +65,7 @@ class _ResetNewPasswordScreenState extends State<ResetNewPasswordScreen> {
                           '패스워드',
                           style: TextStyle(
                             fontSize: 14,
-                            color: kGrey363639Color,
+                            color: kFontGray800Color,
                           ),
                         ),
                       ),
@@ -77,7 +77,7 @@ class _ResetNewPasswordScreenState extends State<ResetNewPasswordScreen> {
                           width: double.infinity,
                           height: 52,
                           decoration: BoxDecoration(
-                            color: kWhiteF4F4F4Color,
+                            color: kFontGray50Color,
                             borderRadius: BorderRadius.circular(15),
                           ),
                           child: Row(
@@ -92,21 +92,25 @@ class _ResetNewPasswordScreenState extends State<ResetNewPasswordScreen> {
                                     focusedBorder: InputBorder.none,
                                     isDense: true,
                                     counterText: '',
-                                    hintText: '새 비밀번호 (영문, 숫자 8자이상)',
+                                    hintText: '새 비밀번호 (영문, 숫자 혼합 8자이상)',
                                     hintStyle: TextStyle(
                                       fontSize: 14,
-                                      color: kWhiteAEAEB2Color,
+                                      color: kFontGray400Color,
                                     ),
                                   ),
                                   onChanged: (text) => setState(() {}),
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: kFontGray800Color,
+                                  ),
                                 ),
                               ),
                               if (_passwordController.text.isNotEmpty)
                                 SvgPicture.asset(
                                   kPasswordRegExp
                                           .hasMatch(_passwordController.text)
-                                      ? 'assets/icons/svg/check_circle_green.svg'
-                                      : 'assets/icons/svg/close_circle_red.svg',
+                                      ? 'assets/icons/svg/success_26px.svg'
+                                      : 'assets/icons/svg/error_26px.svg',
                                   width: 26,
                                   height: 26,
                                 ),
@@ -128,7 +132,7 @@ class _ResetNewPasswordScreenState extends State<ResetNewPasswordScreen> {
                           width: double.infinity,
                           height: 52,
                           decoration: BoxDecoration(
-                            color: kWhiteF4F4F4Color,
+                            color: kFontGray50Color,
                             borderRadius: BorderRadius.circular(15),
                           ),
                           child: Row(
@@ -146,17 +150,21 @@ class _ResetNewPasswordScreenState extends State<ResetNewPasswordScreen> {
                                     hintText: '새 비밀번호 확인',
                                     hintStyle: TextStyle(
                                       fontSize: 14,
-                                      color: kWhiteAEAEB2Color,
+                                      color: kFontGray400Color,
                                     ),
                                   ),
                                   onChanged: (text) => setState(() {}),
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: kFontGray800Color,
+                                  ),
                                 ),
                               ),
                               if (_passwordCertifyController.text.isNotEmpty)
                                 SvgPicture.asset(
                                   !showPasswordMessage
-                                      ? 'assets/icons/svg/check_circle_green.svg'
-                                      : 'assets/icons/svg/close_circle_red.svg',
+                                      ? 'assets/icons/svg/success_26px.svg'
+                                      : 'assets/icons/svg/error_26px.svg',
                                   width: 26,
                                   height: 26,
                                 ),
@@ -197,15 +205,15 @@ class _ResetNewPasswordScreenState extends State<ResetNewPasswordScreen> {
             child: Container(
               alignment: Alignment.center,
               width: double.infinity,
-              color: canNextPressed ? kMainColor : kWhiteC6C6C6Color,
+              color: canNextPressed ? kMainColor : kFontGray100Color,
               child: SafeArea(
                 child: Container(
                   padding: const EdgeInsets.symmetric(vertical: 18),
                   child: Text(
                     '확인',
                     style: TextStyle(
-                      fontSize: 18,
-                      color: canNextPressed ? kWhiteColor : kGrey8E8E93Color,
+                      fontSize: 16,
+                      color: canNextPressed ? kWhiteColor : kFontGray200Color,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

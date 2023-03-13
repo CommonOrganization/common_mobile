@@ -21,19 +21,19 @@ class FirebaseUserService {
     }
   }
 
-  static Future<bool> register({required Map<String, dynamic> userData}) async {
+  static Future<User?> register({required Map<String, dynamic> userData}) async {
     try {
       String? id = await FirebaseUtilService.getId(path: 'user');
-      if (id == null) return false;
+      if (id == null) return null;
       Map<String, dynamic> userInfo = {
         'id': id,
         ...userData,
       };
       await FirebaseService.fireStore.collection('user').doc(id).set(userInfo);
-      return true;
+      return User.fromJson(userInfo);
     } catch (e) {
       log('FirebaseUserService - register Failed : $e');
-      return false;
+      return null;
     }
   }
 

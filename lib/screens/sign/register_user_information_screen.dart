@@ -45,11 +45,11 @@ class _RegisterUserInformationScreenState
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ListView(
                 children: [
-                  const SizedBox(height: 18),
+                  const SizedBox(height: 12),
                   Text(
                     '회원정보 입력',
                     style: TextStyle(
-                      color: kGrey1C1C1EColor,
+                      color: kFontGray900Color,
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
@@ -59,7 +59,7 @@ class _RegisterUserInformationScreenState
                     '응답하신 정보는 모두에게 공개됩니다.',
                     style: TextStyle(
                       fontSize: 14,
-                      color: kGrey8E8E93Color,
+                      color: kFontGray500Color,
                     ),
                   ),
                   const SizedBox(height: 36),
@@ -70,7 +70,7 @@ class _RegisterUserInformationScreenState
                           '성별',
                           style: TextStyle(
                             fontSize: 14,
-                            color: kGrey363639Color,
+                            color: kFontGray800Color,
                           ),
                         ),
                       ),
@@ -88,8 +88,8 @@ class _RegisterUserInformationScreenState
                                     height: 52,
                                     decoration: BoxDecoration(
                                       color: _gender == gender
-                                          ? kMainBackgroundColor
-                                          : kWhiteF6F6F6Color,
+                                          ? kSubColor1
+                                          : kFontGray50Color,
                                       border: _gender == gender
                                           ? Border.all(color: kMainColor)
                                           : null,
@@ -103,8 +103,8 @@ class _RegisterUserInformationScreenState
                                             ? FontWeight.bold
                                             : null,
                                         color: _gender == gender
-                                            ? kFontMainColor
-                                            : kWhiteAEAEB2Color,
+                                            ? kSubColor3
+                                            : kFontGray400Color,
                                       ),
                                     ),
                                   ),
@@ -123,7 +123,7 @@ class _RegisterUserInformationScreenState
                           '생년월일',
                           style: TextStyle(
                             fontSize: 14,
-                            color: kGrey363639Color,
+                            color: kFontGray800Color,
                           ),
                         ),
                       ),
@@ -146,7 +146,7 @@ class _RegisterUserInformationScreenState
                             width: double.infinity,
                             height: 52,
                             decoration: BoxDecoration(
-                              color: kWhiteF4F4F4Color,
+                              color: kFontGray50Color,
                               borderRadius: BorderRadius.circular(15),
                             ),
                             child: Row(
@@ -159,15 +159,15 @@ class _RegisterUserInformationScreenState
                                     style: TextStyle(
                                       fontSize: 14,
                                       color: _birthday != null
-                                          ? kGrey363639Color
-                                          : kWhiteAEAEB2Color,
+                                          ? kFontGray800Color
+                                          : kFontGray400Color,
                                     ),
                                   ),
                                 ),
-                                Icon(
-                                  Icons.expand_more,
-                                  size: 20,
-                                  color: kWhiteAEAEB2Color,
+                                SvgPicture.asset(
+                                  'assets/icons/svg/arrow_down_20px.svg',
+                                  colorFilter: ColorFilter.mode(
+                                      kFontGray400Color, BlendMode.srcIn),
                                 ),
                               ],
                             ),
@@ -197,11 +197,11 @@ class _RegisterUserInformationScreenState
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ListView(
                 children: [
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 12),
                   Text(
                     '거주지역 선택',
                     style: TextStyle(
-                      color: kGrey1C1C1EColor,
+                      color: kFontGray900Color,
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
@@ -211,7 +211,7 @@ class _RegisterUserInformationScreenState
                     '선택한 지역의 게시글을 모아 볼 수 있어요.',
                     style: TextStyle(
                       fontSize: 14,
-                      color: kGrey8E8E93Color,
+                      color: kFontGray500Color,
                     ),
                   ),
                   const SizedBox(height: 36),
@@ -232,12 +232,14 @@ class _RegisterUserInformationScreenState
                       width: double.infinity,
                       height: 52,
                       decoration: BoxDecoration(
-                        color: kWhiteF6F6F6Color,
+                        color: kFontGray50Color,
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: Row(
                         children: [
-                          SvgPicture.asset('assets/icons/svg/location.svg'),
+                          SvgPicture.asset(
+                            'assets/icons/svg/location_24px.svg',
+                          ),
                           const SizedBox(width: 8),
                           Expanded(
                             child: Builder(builder: (context) {
@@ -246,7 +248,7 @@ class _RegisterUserInformationScreenState
                                   '사는 지역을 선택해 주세요.',
                                   style: TextStyle(
                                     fontSize: 14,
-                                    color: kWhiteAEAEB2Color,
+                                    color: kFontGray400Color,
                                   ),
                                 );
                               }
@@ -254,16 +256,16 @@ class _RegisterUserInformationScreenState
                                 '${_userPlace!.city} ${_userPlace!.county}',
                                 style: TextStyle(
                                   fontSize: 14,
-                                  color: kGrey363639Color,
+                                  color: kFontGray800Color,
                                 ),
                               );
                             }),
                           ),
-                          Icon(
-                            Icons.expand_more,
-                            size: 20,
-                            color: kWhiteAEAEB2Color,
-                          )
+                          SvgPicture.asset(
+                            'assets/icons/svg/arrow_down_20px.svg',
+                            colorFilter: ColorFilter.mode(
+                                kFontGray400Color, BlendMode.srcIn),
+                          ),
                         ],
                       ),
                     ),

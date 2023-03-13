@@ -6,8 +6,6 @@ Color kSubMainColor = const Color(0xFFE85621);
 Color kMainBackgroundColor = const Color(0xFFFDF4F0);
 Color kSubColor = const Color(0xFF99908C);
 Color kChatLineColor = const Color(0xFFFBE4DC);
-
-
 Color kWhiteColor = const Color(0xFFFFFFFF);
 Color kBlackColor = const Color(0xFF000000);
 

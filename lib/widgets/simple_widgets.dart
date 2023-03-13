@@ -35,7 +35,7 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
           border: Border.all(
             color: widget.value
                 ? widget.activeColor ?? kMainColor
-                : widget.inactiveColor ?? kWhiteC6C6C6Color,
+                : widget.inactiveColor ?? kFontGray200Color,
           ),
         ),
         child: widget.value

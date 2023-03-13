@@ -52,11 +52,11 @@ class _RegisterProfileScreenState extends State<RegisterProfileScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ListView(
                 children: [
-                  SizedBox(height: 18),
+                  SizedBox(height: 12),
                   Text(
                     '프로필 설정',
                     style: TextStyle(
-                      color: kGrey1C1C1EColor,
+                      color: kFontGray900Color,
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                     ),
@@ -65,7 +65,7 @@ class _RegisterProfileScreenState extends State<RegisterProfileScreen> {
                   Text(
                     '프로필은 언제든 변경할 수 있어요.',
                     style: TextStyle(
-                      color: kGrey8E8E93Color,
+                      color: kFontGray500Color,
                       fontSize: 14,
                     ),
                   ),
@@ -84,15 +84,14 @@ class _RegisterProfileScreenState extends State<RegisterProfileScreen> {
                               borderRadius: BorderRadius.circular(55),
                               boxShadow: [
                                 BoxShadow(
-                                  color: kWhiteD9D9D9Color,
-                                  blurRadius: 10,
-                                  offset: const Offset(0, 5),
+                                  color: kBlackColor.withOpacity(0.08),
+                                  blurRadius: 5,
+                                  offset: const Offset(0, 2),
                                 ),
                               ],
                             ),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(55),
-                              //여기서 이미지 전환만 진행해주면 될듯
                               child: Image.network(
                                 _imageUrl,
                                 fit: BoxFit.cover,
@@ -112,14 +111,14 @@ class _RegisterProfileScreenState extends State<RegisterProfileScreen> {
                                 borderRadius: BorderRadius.circular(30),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: kWhiteD9D9D9Color,
-                                    blurRadius: 10,
-                                    offset: const Offset(0, 5),
+                                    color: kBlackColor.withOpacity(0.08),
+                                    blurRadius: 5,
+                                    offset: const Offset(0, 2),
                                   ),
                                 ],
                               ),
                               child: SvgPicture.asset(
-                                'assets/icons/svg/camera.svg',
+                                'assets/icons/svg/camera_20px.svg',
                                 width: 20,
                                 height: 20,
                                 fit: BoxFit.scaleDown,
@@ -137,7 +136,7 @@ class _RegisterProfileScreenState extends State<RegisterProfileScreen> {
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
-                        color: kGrey363639Color,
+                        color: kFontGray800Color,
                       ),
                     ),
                   ),
@@ -147,8 +146,8 @@ class _RegisterProfileScreenState extends State<RegisterProfileScreen> {
                     decoration: BoxDecoration(
                         border: Border(
                             bottom: BorderSide(
-                      color: kWhiteC6C6C6Color,
-                    ))),
+                      color: kFontGray100Color,
+                    ),),),
                     child: TextField(
                       controller: _informationController,
                       maxLines: null,
@@ -161,12 +160,12 @@ class _RegisterProfileScreenState extends State<RegisterProfileScreen> {
                         hintText: '자기소개를 입력하세요.',
                         hintStyle: TextStyle(
                           fontSize: 14,
-                          color: kWhiteAEAEB2Color,
+                          color: kFontGray400Color,
                         ),
                       ),
                       style: TextStyle(
                         fontSize: 14,
-                        color: kGrey363639Color,
+                        color: kFontGray800Color,
                       ),
                     ),
                   ),
@@ -189,8 +188,8 @@ class _RegisterProfileScreenState extends State<RegisterProfileScreen> {
                   child: Text(
                     '회원가입',
                     style: TextStyle(
-                      fontSize: 18,
-                      color: kWhiteColor,
+                      fontSize: 16,
+                      color: kFontGray0Color,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

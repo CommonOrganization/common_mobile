@@ -7,6 +7,7 @@ import 'package:common/screens/sign/bottom_sheets/country_select_bottom_sheet.da
 import 'package:common/services/http_service.dart';
 import 'package:common/utils/local_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'components/register_next_button.dart';
 
@@ -107,7 +108,7 @@ class _RegisterPhoneScreenState extends State<RegisterPhoneScreen> {
                   Text(
                     '전화번호 가입',
                     style: TextStyle(
-                      color: kGrey1C1C1EColor,
+                      color: kFontGray900Color,
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
@@ -117,7 +118,7 @@ class _RegisterPhoneScreenState extends State<RegisterPhoneScreen> {
                     '번호는 중복 가입을 막기 위해서만 사용되어요.',
                     style: TextStyle(
                       fontSize: 14,
-                      color: kGrey8E8E93Color,
+                      color: kFontGray500Color,
                     ),
                   ),
                   const SizedBox(height: 36),
@@ -142,7 +143,7 @@ class _RegisterPhoneScreenState extends State<RegisterPhoneScreen> {
                           constraints: const BoxConstraints(minWidth: 70),
                           height: 52,
                           decoration: BoxDecoration(
-                            color: kWhiteF4F4F4Color,
+                            color: kFontGray50Color,
                             borderRadius: BorderRadius.circular(15),
                           ),
                           child: Row(
@@ -152,13 +153,16 @@ class _RegisterPhoneScreenState extends State<RegisterPhoneScreen> {
                                 '+${_country.code}',
                                 style: TextStyle(
                                   fontSize: 14,
-                                  color: kGrey363639Color,
+                                  color: kFontGray800Color,
                                 ),
                               ),
-                              Icon(
-                                Icons.expand_more,
-                                size: 20,
-                                color: kWhiteAEAEB2Color,
+                              const SizedBox(width: 4),
+                              SvgPicture.asset(
+                                'assets/icons/svg/arrow_down_20px.svg',
+                                colorFilter: ColorFilter.mode(
+                                  kFontGray400Color,
+                                  BlendMode.srcIn,
+                                ),
                               ),
                             ],
                           ),
@@ -172,7 +176,7 @@ class _RegisterPhoneScreenState extends State<RegisterPhoneScreen> {
                           width: double.infinity,
                           height: 52,
                           decoration: BoxDecoration(
-                            color: kWhiteF4F4F4Color,
+                            color: kFontGray50Color,
                             borderRadius: BorderRadius.circular(15),
                           ),
                           child: TextField(
@@ -188,10 +192,14 @@ class _RegisterPhoneScreenState extends State<RegisterPhoneScreen> {
                               hintText: '전화번호를 입력하세요.',
                               hintStyle: TextStyle(
                                 fontSize: 14,
-                                color: kWhiteAEAEB2Color,
+                                color: kFontGray400Color,
                               ),
                             ),
                             onChanged: (text) => setState(() {}),
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: kFontGray800Color,
+                            ),
                           ),
                         ),
                       )
@@ -203,24 +211,20 @@ class _RegisterPhoneScreenState extends State<RegisterPhoneScreen> {
                     text: TextSpan(
                       style: TextStyle(
                         fontSize: 11,
-                        color: kGrey8E8E93Color,
+                        color: kFontGray400Color,
                       ),
                       children: [
                         const TextSpan(text: '회원가입과 동시에 '),
                         TextSpan(
-                          text: '이용약관',
+                          text: '이용약관, 개인정보 취급방침',
                           style: TextStyle(
-                            color: kFontMainColor,
+                            color: kSubColor3,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                        const TextSpan(text: ', '),
-                        TextSpan(
-                          text: '개인정보 취급방침',
-                          style: TextStyle(
-                            color: kFontMainColor,
-                          ),
+                        const TextSpan(
+                          text: '에 동의하는 것으로 간주합니다.',
                         ),
-                        const TextSpan(text: '에 동의하는 것으로 간주합니다.'),
                       ],
                     ),
                   ),
@@ -248,11 +252,11 @@ class _RegisterPhoneScreenState extends State<RegisterPhoneScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ListView(
                 children: [
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 12),
                   Text(
                     '인증번호 입력',
                     style: TextStyle(
-                      color: kGrey1C1C1EColor,
+                      color: kFontGray900Color,
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
@@ -262,15 +266,17 @@ class _RegisterPhoneScreenState extends State<RegisterPhoneScreen> {
                     text: TextSpan(
                       style: TextStyle(
                         fontSize: 14,
-                        color: kGrey8E8E93Color,
+                        color: kFontGray500Color,
                       ),
                       children: [
                         TextSpan(text: '${_phoneController.text} 로 '),
                         TextSpan(
-                            text: '$_time',
-                            style: TextStyle(
-                              color: kFontMainColor,
-                            )),
+                          text: '$_time',
+                          style: TextStyle(
+                            color: kSubColor3,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                         const TextSpan(text: '초 내로 발송됩니다.'),
                       ],
                     ),
@@ -309,15 +315,14 @@ class _RegisterPhoneScreenState extends State<RegisterPhoneScreen> {
                           height: 30,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: kWhiteF4F4F4Color,
+                            color: kFontGray50Color,
                           ),
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: Text(
                             '인증 문자가 오지 않나요?',
                             style: TextStyle(
-                              fontWeight: FontWeight.bold,
                               fontSize: 11,
-                              color: kGrey8E8E93Color,
+                              color: kFontGray400Color,
                             ),
                           ),
                         ),
@@ -350,7 +355,7 @@ class _RegisterPhoneScreenState extends State<RegisterPhoneScreen> {
             border: Border(
               bottom: BorderSide(
                 color:
-                    controller.text.isNotEmpty ? kMainColor : kWhiteC6C6C6Color,
+                    controller.text.isNotEmpty ? kMainColor : kFontGray100Color,
                 width: 3,
               ),
             ),

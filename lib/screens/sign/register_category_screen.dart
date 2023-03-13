@@ -24,11 +24,11 @@ class _RegisterCategoryScreenState extends State<RegisterCategoryScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: ListView(
               children: [
-                SizedBox(height: 18),
+                SizedBox(height: 12),
                 Text(
                   '무엇을 좋아하세요?',
                   style: TextStyle(
-                    color: kGrey1C1C1EColor,
+                    color: kFontGray900Color,
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
                   ),
@@ -37,7 +37,7 @@ class _RegisterCategoryScreenState extends State<RegisterCategoryScreen> {
                 Text(
                   '관심 있는 주제를 최대 5개까지 선택해 주세요.',
                   style: TextStyle(
-                    color: kGrey8E8E93Color,
+                    color: kFontGray500Color,
                     fontSize: 14,
                   ),
                 ),
@@ -73,11 +73,11 @@ class _RegisterCategoryScreenState extends State<RegisterCategoryScreen> {
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
                           color:
-                              isIncluded ? kMainBackgroundColor : kWhiteColor,
+                              isIncluded ? kSubColor1 : kWhiteColor,
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(
                               color:
-                                  isIncluded ? kMainColor : kWhiteF4F4F4Color),
+                                  isIncluded ? kMainColor : kFontGray50Color),
                         ),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
@@ -91,7 +91,9 @@ class _RegisterCategoryScreenState extends State<RegisterCategoryScreen> {
                               commonCategory.title,
                               style: TextStyle(
                                 fontSize: 13,
-                                color: kGrey363639Color,
+                                color: kFontGray800Color,
+                                letterSpacing: -0.5,
+                                height: 20/13,
                               ),
                             ),
                           ],

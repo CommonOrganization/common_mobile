@@ -7,12 +7,17 @@ import 'package:common/screens/sign/register_information_screen.dart';
 import 'package:common/screens/sign/register_phone_screen.dart';
 import 'package:common/screens/sign/register_profile_screen.dart';
 import 'package:common/screens/sign/register_user_information_screen.dart';
+import 'package:common/screens/sign/welcome_screen.dart';
 import 'package:common/services/firebase_user_service.dart';
 import 'package:common/utils/local_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 
 import '../../constants/constants_enum.dart';
 import '../../constants/constants_reg.dart';
+import '../../controllers/user_controller.dart';
+import '../../models/user/user.dart';
 
 class RegisterMainScreen extends StatefulWidget {
   const RegisterMainScreen({Key? key}) : super(key: key);
@@ -50,15 +55,23 @@ class _RegisterMainScreenState extends State<RegisterMainScreen> {
             _userCommonCategoryList.map((category) => category.name).toList(),
         'profileImage': imageUrl,
         'information': information.replaceAll(kMultiBlankRegExp, '\n\n'),
-        'notificationToken':'',
+        'notificationToken': '',
         'likeOneDayGatheringList': [],
         'likeClubGatheringList': [],
         'likePostList': [],
       };
-      if (await FirebaseUserService.register(userData: userData)) {
-        if(!mounted) return;
-        Navigator.pop(context);
-        showMessage(context, message: '회원가입이 완료되었습니다');
+      User? user = await FirebaseUserService.register(userData: userData);
+      if (!mounted) return;
+      if (user != null) {
+        await context.read<UserController>().setUser(user);
+        if (!mounted) return;
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const WelcomeScreen(),
+          ),
+          (route) => false,
+        );
         return;
       }
       _isLoading = false;
@@ -75,7 +88,7 @@ class _RegisterMainScreenState extends State<RegisterMainScreen> {
           nextPressed: (String phone, Country country) async {
             if (await FirebaseUserService.duplicate(
                 field: 'phone', value: phone)) {
-              if(!mounted) return;
+              if (!mounted) return;
               showMessage(context, message: '이미 가입된 번호입니다.');
               return;
             }
@@ -129,8 +142,9 @@ class _RegisterMainScreenState extends State<RegisterMainScreen> {
     return Scaffold(
       backgroundColor: kWhiteColor,
       appBar: AppBar(
-        foregroundColor: kGrey363639Color,
+        foregroundColor: kFontGray800Color,
         backgroundColor: kWhiteColor,
+        leadingWidth: 48,
         leading: GestureDetector(
           onTap: () {
             if (_pageIndex == 0) {
@@ -139,10 +153,13 @@ class _RegisterMainScreenState extends State<RegisterMainScreen> {
             }
             setState(() => _pageIndex--);
           },
-          child: Icon(
-            Icons.arrow_back_ios_new,
-            size: 24,
-            color: kGrey363639Color,
+          child: Container(
+            margin: const EdgeInsets.only(left: 20),
+            alignment: Alignment.center,
+            child: SvgPicture.asset(
+              'assets/icons/svg/arrow_left_28px.svg',
+              colorFilter: ColorFilter.mode(kFontGray800Color, BlendMode.srcIn),
+            ),
           ),
         ),
         actions: [
@@ -163,7 +180,7 @@ class _RegisterMainScreenState extends State<RegisterMainScreen> {
                             '${index + 1}',
                             style: TextStyle(
                               fontSize: 14,
-                              color: kWhiteColor,
+                              color: kFontGray0Color,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -176,7 +193,7 @@ class _RegisterMainScreenState extends State<RegisterMainScreen> {
                           height: 8,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
-                            color: kWhiteC6C6C6Color,
+                            color: kFontGray100Color,
                           ),
                         ),
                       ),

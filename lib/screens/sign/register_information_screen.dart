@@ -47,11 +47,11 @@ class _RegisterInformationScreenState extends State<RegisterInformationScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ListView(
                 children: [
-                  const SizedBox(height: 18),
+                  const SizedBox(height: 12),
                   Text(
                     '가입정보 입력',
                     style: TextStyle(
-                      color: kGrey1C1C1EColor,
+                      color: kFontGray900Color,
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
@@ -61,7 +61,7 @@ class _RegisterInformationScreenState extends State<RegisterInformationScreen> {
                     '닉네임은 언제든 변경할 수 있어요.',
                     style: TextStyle(
                       fontSize: 14,
-                      color: kGrey8E8E93Color,
+                      color: kFontGray500Color,
                     ),
                   ),
                   const SizedBox(height: 36),
@@ -72,7 +72,7 @@ class _RegisterInformationScreenState extends State<RegisterInformationScreen> {
                           '닉네임',
                           style: TextStyle(
                             fontSize: 14,
-                            color: kGrey363639Color,
+                            color: kFontGray800Color,
                           ),
                         ),
                       ),
@@ -84,7 +84,7 @@ class _RegisterInformationScreenState extends State<RegisterInformationScreen> {
                           width: double.infinity,
                           height: 52,
                           decoration: BoxDecoration(
-                            color: kWhiteF4F4F4Color,
+                            color: kFontGray50Color,
                             borderRadius: BorderRadius.circular(15),
                           ),
                           child: Row(
@@ -102,18 +102,22 @@ class _RegisterInformationScreenState extends State<RegisterInformationScreen> {
                                     hintText: '8자 이내 한글 혹은 영문',
                                     hintStyle: TextStyle(
                                       fontSize: 14,
-                                      color: kWhiteAEAEB2Color,
+                                      color: kFontGray400Color,
                                     ),
                                   ),
                                   onChanged: (text) =>
                                       setState(() => _canUseName = true),
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: kFontGray800Color,
+                                  ),
                                 ),
                               ),
                               if (_nameController.text.isNotEmpty)
                                 SvgPicture.asset(
                                   _canUseName
-                                      ? 'assets/icons/svg/check_circle_green.svg'
-                                      : 'assets/icons/svg/close_circle_red.svg',
+                                      ? 'assets/icons/svg/success_26px.svg'
+                                      : 'assets/icons/svg/error_26px.svg',
                                   width: 26,
                                   height: 26,
                                 ),
@@ -151,7 +155,7 @@ class _RegisterInformationScreenState extends State<RegisterInformationScreen> {
                           '패스워드',
                           style: TextStyle(
                             fontSize: 14,
-                            color: kGrey363639Color,
+                            color: kFontGray800Color,
                           ),
                         ),
                       ),
@@ -163,7 +167,7 @@ class _RegisterInformationScreenState extends State<RegisterInformationScreen> {
                           width: double.infinity,
                           height: 52,
                           decoration: BoxDecoration(
-                            color: kWhiteF4F4F4Color,
+                            color: kFontGray50Color,
                             borderRadius: BorderRadius.circular(15),
                           ),
                           child: Row(
@@ -181,18 +185,22 @@ class _RegisterInformationScreenState extends State<RegisterInformationScreen> {
                                     hintText: '영문, 숫자 8자 이상',
                                     hintStyle: TextStyle(
                                       fontSize: 14,
-                                      color: kWhiteAEAEB2Color,
+                                      color: kFontGray400Color,
                                     ),
                                   ),
                                   onChanged: (text) => setState(() {}),
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: kFontGray800Color,
+                                  ),
                                 ),
                               ),
                               if (_passwordController.text.isNotEmpty)
                                 SvgPicture.asset(
                                   kPasswordRegExp
                                           .hasMatch(_passwordController.text)
-                                      ? 'assets/icons/svg/check_circle_green.svg'
-                                      : 'assets/icons/svg/close_circle_red.svg',
+                                      ? 'assets/icons/svg/success_26px.svg'
+                                      : 'assets/icons/svg/error_26px.svg',
                                   width: 26,
                                   height: 26,
                                 ),
@@ -214,7 +222,7 @@ class _RegisterInformationScreenState extends State<RegisterInformationScreen> {
                           width: double.infinity,
                           height: 52,
                           decoration: BoxDecoration(
-                            color: kWhiteF4F4F4Color,
+                            color: kFontGray50Color,
                             borderRadius: BorderRadius.circular(15),
                           ),
                           child: Row(
@@ -232,17 +240,21 @@ class _RegisterInformationScreenState extends State<RegisterInformationScreen> {
                                     hintText: '다시 입력',
                                     hintStyle: TextStyle(
                                       fontSize: 14,
-                                      color: kWhiteAEAEB2Color,
+                                      color: kFontGray400Color,
                                     ),
                                   ),
                                   onChanged: (text) => setState(() {}),
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: kFontGray800Color,
+                                  ),
                                 ),
                               ),
                               if (_passwordCertifyController.text.isNotEmpty)
                                 SvgPicture.asset(
                                   !showPasswordMessage
-                                      ? 'assets/icons/svg/check_circle_green.svg'
-                                      : 'assets/icons/svg/close_circle_red.svg',
+                                      ? 'assets/icons/svg/success_26px.svg'
+                                      : 'assets/icons/svg/error_26px.svg',
                                   width: 26,
                                   height: 26,
                                 ),

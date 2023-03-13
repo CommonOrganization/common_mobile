@@ -1154,7 +1154,7 @@ extension CommonCategoryMap on CommonCategory {
     CommonCategory.book: '책ㆍ글쓰기',
     CommonCategory.social: '사교ㆍ인맥',
     CommonCategory.hiking: '등산',
-    CommonCategory.travel: '캠핑ㆍ여행',
+    CommonCategory.travel: '여행ㆍ캠핑',
     CommonCategory.making: '공예ㆍ만들기',
     CommonCategory.cooking: '요리ㆍ제조',
     CommonCategory.coffee: '맛집ㆍ카페',
@@ -1164,26 +1164,49 @@ extension CommonCategoryMap on CommonCategory {
   };
 
   static Map images = {
-    CommonCategory.language: 'assets/category_images/language.png',
-    CommonCategory.investment: 'assets/category_images/investment.png',
-    CommonCategory.study: 'assets/category_images/study.png',
-    CommonCategory.photo: 'assets/category_images/photo.png',
-    CommonCategory.game: 'assets/category_images/game.png',
-    CommonCategory.sports: 'assets/category_images/sports.png',
-    CommonCategory.music: 'assets/category_images/music.png',
-    CommonCategory.dance: 'assets/category_images/dance.png',
-    CommonCategory.concert: 'assets/category_images/concert.png',
-    CommonCategory.movie: 'assets/category_images/movie.png',
-    CommonCategory.book: 'assets/category_images/book.png',
-    CommonCategory.social: 'assets/category_images/social.png',
-    CommonCategory.hiking: 'assets/category_images/hiking.png',
-    CommonCategory.travel: 'assets/category_images/travel.png',
-    CommonCategory.making: 'assets/category_images/making.png',
-    CommonCategory.cooking: 'assets/category_images/cooking.png',
-    CommonCategory.coffee: 'assets/category_images/coffee.png',
-    CommonCategory.pet: 'assets/category_images/pet.png',
-    CommonCategory.volunteer: 'assets/category_images/volunteer.png',
-    CommonCategory.free: 'assets/category_images/free.png',
+    CommonCategory.language: 'assets/category/language.png',
+    CommonCategory.investment: 'assets/category/investment.png',
+    CommonCategory.study: 'assets/category/study.png',
+    CommonCategory.photo: 'assets/category/photo.png',
+    CommonCategory.game: 'assets/category/game.png',
+    CommonCategory.sports: 'assets/category/sports.png',
+    CommonCategory.music: 'assets/category/music.png',
+    CommonCategory.dance: 'assets/category/dance.png',
+    CommonCategory.concert: 'assets/category/concert.png',
+    CommonCategory.movie: 'assets/category/movie.png',
+    CommonCategory.book: 'assets/category/book.png',
+    CommonCategory.social: 'assets/category/social.png',
+    CommonCategory.hiking: 'assets/category/hiking.png',
+    CommonCategory.travel: 'assets/category/travel.png',
+    CommonCategory.making: 'assets/category/making.png',
+    CommonCategory.cooking: 'assets/category/cooking.png',
+    CommonCategory.coffee: 'assets/category/coffee.png',
+    CommonCategory.pet: 'assets/category/pet.png',
+    CommonCategory.volunteer: 'assets/category/volunteer.png',
+    CommonCategory.free: 'assets/category/free.png',
+  };
+
+  static Map miniImages = {
+    CommonCategory.language: 'assets/mini_category/language.png',
+    CommonCategory.investment: 'assets/mini_category/investment.png',
+    CommonCategory.study: 'assets/mini_category/study.png',
+    CommonCategory.photo: 'assets/mini_category/photo.png',
+    CommonCategory.game: 'assets/mini_category/game.png',
+    CommonCategory.sports: 'assets/mini_category/sports.png',
+    CommonCategory.music: 'assets/mini_category/music.png',
+    CommonCategory.dance: 'assets/mini_category/dance.png',
+    CommonCategory.concert: 'assets/mini_category/concert.png',
+    CommonCategory.movie: 'assets/mini_category/movie.png',
+    CommonCategory.book: 'assets/mini_category/book.png',
+    CommonCategory.social: 'assets/mini_category/social.png',
+    CommonCategory.hiking: 'assets/mini_category/hiking.png',
+    CommonCategory.travel: 'assets/mini_category/travel.png',
+    CommonCategory.making: 'assets/mini_category/making.png',
+    CommonCategory.cooking: 'assets/mini_category/cooking.png',
+    CommonCategory.coffee: 'assets/mini_category/coffee.png',
+    CommonCategory.pet: 'assets/mini_category/pet.png',
+    CommonCategory.volunteer: 'assets/mini_category/volunteer.png',
+    CommonCategory.free: 'assets/mini_category/free.png',
   };
 
   static Map backgroundColors = {
@@ -1193,18 +1216,18 @@ extension CommonCategoryMap on CommonCategory {
     CommonCategory.photo: const Color(0xFFFFB8BE),
     CommonCategory.game: const Color(0xFFD5D3D2),
     CommonCategory.sports: const Color(0xFFB3A19D),
-    CommonCategory.music:const Color(0xFFFFC2CD),
+    CommonCategory.music: const Color(0xFFFFC2CD),
     CommonCategory.dance: const Color(0xFFFFEADE),
     CommonCategory.concert: const Color(0xFFFFDCB0),
     CommonCategory.movie: const Color(0xFFDBDBD3),
     CommonCategory.book: const Color(0xFFF8E9D8),
     CommonCategory.social: const Color(0xFFCDF1FF),
     CommonCategory.hiking: const Color(0xFFAEE9C8),
-    CommonCategory.travel:const Color(0xFFCFD1FA),
-    CommonCategory.making:const Color(0xFFFFF1C5),
-    CommonCategory.cooking:const Color(0xFFFFD992),
+    CommonCategory.travel: const Color(0xFFCFD1FA),
+    CommonCategory.making: const Color(0xFFFFF1C5),
+    CommonCategory.cooking: const Color(0xFFFFD992),
     CommonCategory.coffee: const Color(0xFFCEE7FF),
-    CommonCategory.pet:const Color(0xFFE5CBB5),
+    CommonCategory.pet: const Color(0xFFE5CBB5),
     CommonCategory.volunteer: const Color(0xFFFFD5D9),
     CommonCategory.free: const Color(0xFFFFF6D9),
   };
@@ -1213,6 +1236,7 @@ extension CommonCategoryMap on CommonCategory {
   static CommonCategory getCategory(String text) => categories[text];
   String get title => titles[this];
   String get image => images[this];
+  String get miniImage => miniImages[this];
   Color get backgroundColor => backgroundColors[this];
 }
 
@@ -1239,15 +1263,14 @@ extension GatheringTypeMap on GatheringType {
     GatheringType.clubOneDay: '내가 가입했거나 운영하는 소모임의 하루모임을 열어요.',
   };
 
-
   static Map unselectedIcons = {
-    GatheringType.oneDay: 'assets/icons/svg/earth_unselected.svg',
-    GatheringType.clubOneDay: 'assets/icons/svg/group_unselected.svg',
+    GatheringType.oneDay: 'assets/icons/svg/earth_inactive_22px.svg',
+    GatheringType.clubOneDay: 'assets/icons/svg/group_inactive_22px.svg',
   };
 
   static Map selectedIcons = {
-    GatheringType.oneDay: 'assets/icons/svg/earth_selected.svg',
-    GatheringType.clubOneDay: 'assets/icons/svg/group_selected.svg',
+    GatheringType.oneDay: 'assets/icons/svg/earth_active_22px.svg',
+    GatheringType.clubOneDay: 'assets/icons/svg/group_active_22px.svg',
   };
 
   String get name => names[this];
@@ -1278,17 +1301,18 @@ extension RecruitWayMap on RecruitWay {
 
   static Map contents = {
     RecruitWay.firstCome: '멤버들의 신청과 동시에 참여가 완료돼요.\n누구나 참여할 수 있어서 신청률이 높아요.',
-    RecruitWay.approval: '호스트가 직접 멤버를 수락하거나 거절 할 수 있어요.\n질문을 통해 취향이 통하는 사람들과 만날 수 있어요.',
+    RecruitWay.approval:
+        '호스트가 직접 멤버를 수락하거나 거절 할 수 있어요.\n질문을 통해 취향이 통하는 사람들과 만날 수 있어요.',
   };
 
   static Map unselectedIcons = {
-    RecruitWay.firstCome: 'assets/icons/svg/clock_unselected.svg',
-    RecruitWay.approval: 'assets/icons/svg/inbox_unselected.svg',
+    RecruitWay.firstCome: 'assets/icons/svg/clock_inactive_22px.svg',
+    RecruitWay.approval: 'assets/icons/svg/inbox_inactive_22px.svg',
   };
 
   static Map selectedIcons = {
-    RecruitWay.firstCome: 'assets/icons/svg/clock_selected.svg',
-    RecruitWay.approval: 'assets/icons/svg/inbox_selected.svg',
+    RecruitWay.firstCome: 'assets/icons/svg/clock_active_22px.svg',
+    RecruitWay.approval: 'assets/icons/svg/inbox_active_22px.svg',
   };
 
   String get name => names[this];

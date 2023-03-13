@@ -35,18 +35,8 @@ class _BirthdayDatePickerState extends State<BirthdayDatePicker> {
         height: kBottomSheetHeight,
         color: kWhiteColor,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              alignment: Alignment.center,
-              width: double.infinity,
-              child: Container(
-                width: 60,
-                height: 4,
-                color: kWhiteC6C6C6Color,
-              ),
-            ),
+            const SizedBox(height: 20),
             Expanded(
               child: Row(
                 children: [

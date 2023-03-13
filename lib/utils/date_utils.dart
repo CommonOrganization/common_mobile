@@ -1,7 +1,7 @@
 import 'package:common/constants/constants_value.dart';
 
 String getDateFromDateTime(DateTime dateTime) {
-  return '${dateTime.year}.${dateTime.month >= 10 ? dateTime.month : '0${dateTime.month}'}.${dateTime.day >= 10 ? dateTime.day : '0${dateTime.day}'}';
+  return '${dateTime.year}년 ${dateTime.month}월 ${dateTime.day}일';
 }
 
 String getSimplyDateFromDateTime(DateTime dateTime) {
