@@ -12,7 +12,7 @@
 [V]-constants_enum
 [V]-sign
 []-home
-[]-gathering_upload(one_day_gathering)
-[]-gathering_upload(club_gathering)
+[V]-gathering_upload(one_day_gathering)
+[V]-gathering_upload(club_gathering)
 []-gathering_detail(one_day_gathering)
 []-gathering_detail(club_gathering)
