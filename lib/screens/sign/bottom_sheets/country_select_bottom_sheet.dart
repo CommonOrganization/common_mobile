@@ -50,7 +50,7 @@ class _CountrySelectBottomSheetState extends State<CountrySelectBottomSheet> {
                 width: 60,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: kWhiteC6C6C6Color,
+                  color: kFontGray100Color,
                   borderRadius: BorderRadius.circular(5),
                 ),
               ),
@@ -72,7 +72,10 @@ class _CountrySelectBottomSheetState extends State<CountrySelectBottomSheet> {
                         style: TextStyle(
                           color: Country.values[index] == widget.country
                               ? kMainColor
-                              : kGrey8E8E93Color,
+                              : kFontGray600Color,
+                          fontWeight: Country.values[index] == widget.country
+                              ? FontWeight.bold
+                              : FontWeight.normal,
                         ),
                       ),
                     ),

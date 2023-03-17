@@ -19,7 +19,7 @@ class TopAddContainer extends StatelessWidget {
         width: double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: kMainBackgroundColor,
+          color: kSubColor1,
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -50,7 +50,7 @@ class TopAddContainer extends StatelessWidget {
               title,
               style: TextStyle(
                 fontSize: 14,
-                color: kFontMainColor,
+                color: kSubColor3,
                 fontWeight: FontWeight.bold,
               ),
             )

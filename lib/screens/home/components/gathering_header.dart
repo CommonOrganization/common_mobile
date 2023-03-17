@@ -27,8 +27,8 @@ class GatheringHeader implements SliverPersistentHeaderDelegate {
           color: kWhiteColor,
           border: Border(
               bottom: BorderSide(
-            color: kWhiteF4F4F4Color,
-          ))),
+            color: kFontGray50Color,
+          ),),),
       child: Row(
         children: [
           kTabBarButton(title: '하루모임', index: 0),
@@ -71,7 +71,7 @@ class GatheringHeader implements SliverPersistentHeaderDelegate {
         child: Text(
           title,
           style: TextStyle(
-            color: currentIndex == index ? kGrey1C1C1EColor : kGrey8E8E93Color,
+            color: currentIndex == index ? kFontGray800Color : kFontGray200Color,
             fontSize: 16,
             fontWeight: FontWeight.bold,
           ),

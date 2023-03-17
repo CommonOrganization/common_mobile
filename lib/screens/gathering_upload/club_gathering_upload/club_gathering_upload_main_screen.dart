@@ -148,7 +148,7 @@ class _ClubGatheringUploadMainScreenState
     return Scaffold(
       backgroundColor: kWhiteColor,
       appBar: AppBar(
-        foregroundColor: kGrey363639Color,
+        foregroundColor: kFontGray800Color,
         backgroundColor: kWhiteColor,
         leadingWidth: 48,
         leading: GestureDetector(

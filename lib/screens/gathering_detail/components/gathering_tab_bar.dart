@@ -26,7 +26,7 @@ class GatheringTabBar implements SliverPersistentHeaderDelegate {
       decoration: BoxDecoration(
         color: kWhiteColor,
         border: Border.symmetric(
-          horizontal: BorderSide(color: kWhiteF4F4F4Color, width: 1),
+          horizontal: BorderSide(color: kFontGray50Color, width: 1),
         ),
       ),
       child: Row(

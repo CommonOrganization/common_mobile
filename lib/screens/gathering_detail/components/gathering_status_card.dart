@@ -21,9 +21,9 @@ class GatheringStatusCard extends StatelessWidget {
         color: kWhiteColor,
         boxShadow: [
           BoxShadow(
-            color: kGrey1C1C1EColor.withOpacity(0.1),
-            offset: const Offset(0, 4),
-            blurRadius: 10,
+            color: kBlackColor.withOpacity(0.08),
+            offset: const Offset(0, 2),
+            blurRadius: 5,
           )
         ],
       ),
@@ -154,7 +154,7 @@ class GatheringStatusCard extends StatelessWidget {
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: kMainBackgroundColor,
+                  color: kSubColor1,
                 ),
                 child: Text(
                   '모임장과 채팅하기',

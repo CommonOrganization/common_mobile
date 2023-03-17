@@ -29,7 +29,6 @@ class _HomeScreenState extends State<HomeScreen> {
             return [
               SliverAppBar(
                 backgroundColor: kWhiteColor,
-                foregroundColor: kGrey363639Color,
                 automaticallyImplyLeading: false,
                 centerTitle: false,
                 titleSpacing: 20,
@@ -43,14 +42,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   fit: BoxFit.cover,
                 ),
                 actions: [
+
                   SvgPicture.asset(
-                    'assets/icons/svg/menu.svg',
-                    width: 28,
-                    height: 28,
+                    'assets/icons/svg/search_26px.svg',
+                  ),
+                  SvgPicture.asset(
+                    'assets/icons/svg/menu_26px.svg',
                   ),
                   const SizedBox(width: 18),
                   SvgPicture.asset(
-                    'assets/icons/svg/notification.svg',
+                    'assets/icons/svg/notification_26px.svg',
                     width: 28,
                     height: 28,
                   ),

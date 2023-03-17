@@ -41,7 +41,7 @@ class _CustomTimePickerState extends State<CustomTimePicker> {
               child: Container(
                 width: 60,
                 height: 4,
-                color: kWhiteC6C6C6Color,
+                color: kFontGray100Color,
               ),
             ),
             Expanded(

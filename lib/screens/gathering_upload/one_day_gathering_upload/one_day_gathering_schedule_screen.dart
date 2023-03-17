@@ -298,7 +298,7 @@ class _OneDayGatheringScheduleScreenState
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
-                      color: kGrey2C2C2EColor,
+                      color: kFontGray800Color,
                       height: 20 / 15,
                     ),
                   ),

@@ -1,30 +1,8 @@
 import 'package:flutter/material.dart';
 
 Color kMainColor = const Color(0xFFFF5F24);
-Color kFontMainColor = const Color(0xFFE65620);
-Color kSubMainColor = const Color(0xFFE85621);
-Color kMainBackgroundColor = const Color(0xFFFDF4F0);
-Color kSubColor = const Color(0xFF99908C);
-Color kChatLineColor = const Color(0xFFFBE4DC);
 Color kWhiteColor = const Color(0xFFFFFFFF);
 Color kBlackColor = const Color(0xFF000000);
-
-Color kGrey1C1C1EColor = const Color(0xFF1C1C1E);
-Color kGrey2C2C2EColor = const Color(0xFF2C2C2E);
-Color kGrey363639Color = const Color(0xFF363639);
-Color kGrey48484AColor = const Color(0xFF48484A);
-Color kGrey636366Color = const Color(0xFF636366);
-Color kGrey8E8E93Color = const Color(0xFF8E8E93);
-
-Color kWhiteAEAEB2Color = const Color(0xFFAEAEB2);
-Color kWhiteC6C6C6Color = const Color(0xFFC6C6C6);
-Color kWhiteD9D9D9Color = const Color(0xFFD9D9D9);
-Color kWhiteEFF2F8Color = const Color(0xFFEFF2F8);
-Color kWhiteF4F4F4Color = const Color(0xFFF4F4F4);
-Color kWhiteF6F6F6Color = const Color(0xFFF6F6F6);
-
-//새로운 색상
-
 Color kSubColor1 = const Color(0xFFFCF4F0);
 Color kSubColor2= const Color(0xFFFFB59A);
 Color kSubColor3 = const Color(0xFFE85621);
@@ -57,6 +35,5 @@ Color kErrorLightColor = const Color(0xFFFF3939);
 Color kSuccessLightColor = const Color(0xFFF0FAEE);
 Color kWarningLightColor = const Color(0xFFFFF7E4);
 Color kActionLightColor = const Color(0xFFFFEBE5);
-
 
 Color kFlushBarBackgroundColor = const Color(0xFF323232);

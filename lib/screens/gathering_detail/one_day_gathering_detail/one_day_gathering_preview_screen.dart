@@ -71,7 +71,7 @@ class _OneDayGatheringPreviewScreenState
           decoration: BoxDecoration(
             border: Border(
               top: BorderSide(
-                color: kWhiteF4F4F4Color,
+                color: kFontGray50Color,
                 width: 1,
               ),
             ),

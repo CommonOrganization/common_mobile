@@ -80,7 +80,7 @@ class _ClubGatheringPreviewScreenState
               ? BoxDecoration(
                   border: Border(
                     top: BorderSide(
-                      color: kWhiteF4F4F4Color,
+                      color: kFontGray50Color,
                       width: 1,
                     ),
                   ),
@@ -140,7 +140,7 @@ class _ClubGatheringPreviewScreenState
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: kGrey2C2C2EColor,
+                        color: kFontGray800Color,
                         height: 25/18,
                       ),
                     ),

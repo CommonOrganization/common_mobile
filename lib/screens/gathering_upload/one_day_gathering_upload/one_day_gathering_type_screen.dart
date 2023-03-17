@@ -100,7 +100,7 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
                         '설정 시 모든 사람들이 하루모임에 참여할 수 있어요.\n설정하지 않으면 선택한 클럽 멤버들만 하루모임에 참여할 수 있어요.',
                         style: TextStyle(
                           fontSize: 11,
-                          color: kGrey8E8E93Color,
+                          color: kFontGray500Color,
                           height: 16/11,
                         ),
                       ),
@@ -109,7 +109,7 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
                     Container(
                       width: double.infinity,
                       height: 1,
-                      color: kWhiteF4F4F4Color,
+                      color: kFontGray50Color,
                     ),
                     // TODO 여기서 '내가 가입한 소모임'을 불러와서 소모임카드로 보여줄 수 있음
                     FutureBuilder(

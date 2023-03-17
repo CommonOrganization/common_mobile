@@ -82,7 +82,7 @@ class _SelectCityBottomSheetState extends State<SelectCityBottomSheet> {
                           width: double.infinity,
                           height: 48,
                           color: _selectedCityList.contains(city)
-                              ? kWhiteF4F4F4Color
+                              ? kFontGray50Color
                               : kWhiteColor,
                           child: Container(
                             alignment: Alignment.centerLeft,

@@ -26,7 +26,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   final FlutterLocalization localization = FlutterLocalization.instance;
 
   @override
@@ -48,7 +47,9 @@ class _MyAppState extends State<MyApp> {
       supportedLocales: localization.supportedLocales,
       localizationsDelegates: localization.localizationsDelegates,
       theme: ThemeData(
-          textSelectionTheme: TextSelectionThemeData(cursorColor: kGrey8E8E93Color)),
+        textSelectionTheme:
+            TextSelectionThemeData(cursorColor: kFontGray400Color),
+      ),
       builder: (context, child) {
         if (child == null) return Container();
         return MediaQuery(

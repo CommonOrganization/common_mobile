@@ -55,7 +55,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
               child: Container(
                 width: 60,
                 height: 4,
-                color: kWhiteC6C6C6Color,
+                color: kFontGray100Color,
               ),
             ),
             Expanded(
