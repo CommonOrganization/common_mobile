@@ -5,11 +5,12 @@ import '../../../services/firebase_user_service.dart';
 
 class GatheringOrganizerCard extends StatelessWidget {
   final String organizerId;
-  const GatheringOrganizerCard({Key? key, required this.organizerId}) : super(key: key);
+  const GatheringOrganizerCard({Key? key, required this.organizerId})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
+    return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20),
       child: Row(
         children: [
@@ -30,7 +31,7 @@ class GatheringOrganizerCard extends StatelessWidget {
                         snapshot.data as String,
                       ),
                     ),
-                    color: kWhiteC6C6C6Color,
+                    color: kDarkGray20Color,
                   ),
                 );
               }
@@ -39,7 +40,7 @@ class GatheringOrganizerCard extends StatelessWidget {
                 height: 36,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(36),
-                  color: kWhiteC6C6C6Color,
+                  color: kDarkGray20Color,
                 ),
               );
             },
@@ -49,7 +50,8 @@ class GatheringOrganizerCard extends StatelessWidget {
             '모임장',
             style: TextStyle(
               fontSize: 15,
-              color: kGrey363639Color,
+              color: kFontGray600Color,
+              height: 20 / 15,
             ),
           ),
           const SizedBox(width: 6),
@@ -66,16 +68,19 @@ class GatheringOrganizerCard extends StatelessWidget {
                   },
                   child: Container(
                     decoration: BoxDecoration(
-                        border: Border(
-                            bottom: BorderSide(
-                              color: kGrey48484AColor,
-                            ))),
+                      border: Border(
+                        bottom: BorderSide(
+                          color: kFontGray800Color,
+                        ),
+                      ),
+                    ),
                     child: Text(
                       snapshot.data,
                       style: TextStyle(
                         fontSize: 15,
-                        color: kGrey48484AColor,
+                        color: kFontGray800Color,
                         fontWeight: FontWeight.bold,
+                        height: 20/15,
                       ),
                     ),
                   ),

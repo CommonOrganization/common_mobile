@@ -145,7 +145,7 @@ class _RegisterInformationScreenState extends State<RegisterInformationScreen> {
                                   style: TextStyle(
                                     fontSize: 11,
                                     color: kNoColor,
-                                    height: 1,
+                                    height: 14/11,
                                   ),
                                 ),
                               ),
@@ -282,7 +282,7 @@ class _RegisterInformationScreenState extends State<RegisterInformationScreen> {
                             style: TextStyle(
                               fontSize: 11,
                               color: kNoColor,
-                              height: 1,
+                              height: 14/11,
                             ),
                           ),
                         ),

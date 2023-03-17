@@ -16,13 +16,15 @@ class GatheringContentCard extends StatelessWidget {
         width: double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: kWhiteF6F6F6Color,
+          color: kFontGray50Color,
         ),
         child: Text(
           content,
           style: TextStyle(
-            fontSize: 14,
-            color: kGrey48484AColor,
+            fontSize: 13,
+            color: kFontGray800Color,
+            height: 22 / 13,
+            letterSpacing: -0.5,
           ),
         ),
       ),

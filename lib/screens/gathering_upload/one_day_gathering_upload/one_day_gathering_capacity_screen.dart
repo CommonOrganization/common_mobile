@@ -76,7 +76,7 @@ class _OneDayGatheringCapacityScreenState
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ListView(
                 children: [
-                  SizedBox(height: 12),
+                  const SizedBox(height: 12),
                   Text(
                     '몇명과 함께 할까요?',
                     style: TextStyle(

@@ -308,7 +308,7 @@ class _ResetPasswordPhoneScreenState extends State<ResetPasswordPhoneScreen> {
                             style: TextStyle(
                               fontSize: 11,
                               color: kFontGray400Color,
-                              height: 1,
+                              height: 14/11,
                               letterSpacing: -0.5,
                             ),
                           ),
@@ -356,7 +356,7 @@ class _ResetPasswordPhoneScreenState extends State<ResetPasswordPhoneScreen> {
             style: TextStyle(
               fontSize: 36,
               color: kMainColor,
-              height: 1,
+              height: 47/36,
             ),
             decoration: const InputDecoration(
               border: InputBorder.none,

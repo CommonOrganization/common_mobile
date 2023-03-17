@@ -197,7 +197,7 @@ class _OneDayGatheringContentScreenState
               style: TextStyle(
                 fontSize: 11,
                 color: kSubColor3,
-                height: 1,
+                height: 14/11,
               ),
             )
         ],
@@ -235,7 +235,7 @@ class _OneDayGatheringContentScreenState
               style: TextStyle(
                 fontSize: 11,
                 color: kSubColor3,
-                height: 1,
+                height: 14/11,
               ),
             )
         ],

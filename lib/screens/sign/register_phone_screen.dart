@@ -120,7 +120,7 @@ class _RegisterPhoneScreenState extends State<RegisterPhoneScreen> {
                     style: TextStyle(
                       fontSize: 14,
                       color: kFontGray500Color,
-                      height: 20/14,
+                      height: 20 / 14,
                     ),
                   ),
                   const SizedBox(height: 36),
@@ -156,7 +156,7 @@ class _RegisterPhoneScreenState extends State<RegisterPhoneScreen> {
                                 style: TextStyle(
                                   fontSize: 14,
                                   color: kFontGray800Color,
-                                  height: 20/14,
+                                  height: 20 / 14,
                                 ),
                               ),
                               const SizedBox(width: 4),
@@ -196,14 +196,14 @@ class _RegisterPhoneScreenState extends State<RegisterPhoneScreen> {
                               hintStyle: TextStyle(
                                 fontSize: 14,
                                 color: kFontGray400Color,
-                                height: 20/14,
+                                height: 20 / 14,
                               ),
                             ),
                             onChanged: (text) => setState(() {}),
                             style: TextStyle(
                               fontSize: 14,
                               color: kFontGray800Color,
-                              height: 20/14,
+                              height: 20 / 14,
                             ),
                           ),
                         ),
@@ -217,7 +217,7 @@ class _RegisterPhoneScreenState extends State<RegisterPhoneScreen> {
                       style: TextStyle(
                         fontSize: 11,
                         color: kFontGray400Color,
-                        height: 20/11,
+                        height: 20 / 11,
                       ),
                       children: [
                         const TextSpan(text: '회원가입과 동시에 '),
@@ -274,7 +274,7 @@ class _RegisterPhoneScreenState extends State<RegisterPhoneScreen> {
                       style: TextStyle(
                         fontSize: 14,
                         color: kFontGray500Color,
-                        height: 20/14,
+                        height: 20 / 14,
                       ),
                       children: [
                         TextSpan(text: '${_phoneController.text} 로 '),
@@ -331,7 +331,7 @@ class _RegisterPhoneScreenState extends State<RegisterPhoneScreen> {
                             style: TextStyle(
                               fontSize: 11,
                               color: kFontGray400Color,
-                              height: 1,
+                              height: 14 / 11,
                               letterSpacing: -0.5,
                             ),
                           ),
@@ -379,7 +379,7 @@ class _RegisterPhoneScreenState extends State<RegisterPhoneScreen> {
             style: TextStyle(
               fontSize: 36,
               color: kMainColor,
-              height: 1,
+              height: 47 / 36,
             ),
             decoration: const InputDecoration(
               border: InputBorder.none,

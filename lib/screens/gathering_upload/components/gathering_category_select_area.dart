@@ -125,7 +125,7 @@ class GatheringCategorySelectArea extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 13,
                       color: kFontGray600Color,
-                      height: 1,
+                      height: 17 / 13,
                     ),
                   ),
                   const SizedBox(width: 15),

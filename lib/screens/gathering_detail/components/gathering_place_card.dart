@@ -38,6 +38,7 @@ class GatheringPlaceCard extends StatelessWidget {
             const SizedBox(width: 12),
             Expanded(
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
                     child: Column(
@@ -46,8 +47,9 @@ class GatheringPlaceCard extends StatelessWidget {
                         Text(
                           placeDetail,
                           style: TextStyle(
-                            fontSize: 15,
-                            color: kGrey363639Color,
+                            fontSize: 14,
+                            color: kFontGray600Color,
+                            height: 18 / 14,
                           ),
                         ),
                         FutureBuilder(
@@ -58,8 +60,9 @@ class GatheringPlaceCard extends StatelessWidget {
                               return Text(
                                 snapshot.data as String,
                                 style: TextStyle(
-                                  fontSize: 13,
-                                  color: kGrey8E8E93Color,
+                                  fontSize: 12,
+                                  color: kFontGray400Color,
+                                  height: 16 / 12,
                                 ),
                               );
                             }
@@ -70,10 +73,11 @@ class GatheringPlaceCard extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 10),
-                  Icon(
-                    Icons.arrow_forward_ios,
-                    size: 20,
-                    color: kWhiteC6C6C6Color,
+                  SvgPicture.asset(
+                    'assets/icons/svg/arrow_more_22px.svg',
+                    width: 20,
+                    height: 20,
+                    fit: BoxFit.scaleDown,
                   ),
                 ],
               ),

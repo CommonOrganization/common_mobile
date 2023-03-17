@@ -20,9 +20,6 @@ class _ClubGatheringCapacityScreenState
 
   @override
   Widget build(BuildContext context) {
-    CupertinoDatePicker(
-      onDateTimeChanged: (DateTime value) {},
-    );
     return Column(
       children: [
         Expanded(

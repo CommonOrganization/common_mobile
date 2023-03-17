@@ -190,7 +190,11 @@ class _ClubGatheringContentScreenState
           if (isMain)
             Text(
               'ⓘ 대표',
-              style: TextStyle(fontSize: 11, color: kSubColor3, height: 1),
+              style: TextStyle(
+                fontSize: 11,
+                color: kSubColor3,
+                height: 14 / 11,
+              ),
             )
         ],
       ),
@@ -224,7 +228,11 @@ class _ClubGatheringContentScreenState
           if (isMain)
             Text(
               'ⓘ 대표',
-              style: TextStyle(fontSize: 11, color: kSubColor3, height: 1),
+              style: TextStyle(
+                fontSize: 11,
+                color: kSubColor3,
+                height: 14 / 11,
+              ),
             )
         ],
       ),

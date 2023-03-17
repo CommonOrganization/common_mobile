@@ -109,7 +109,7 @@ class GatheringSliverAppbar extends StatelessWidget {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 13, vertical: 5),
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(13),
+                                    borderRadius: BorderRadius.circular(13.5),
                                     border: Border.all(
                                       color: kWhiteColor,
                                       width: 1.25,
@@ -120,7 +120,7 @@ class GatheringSliverAppbar extends StatelessWidget {
                                     style: TextStyle(
                                       fontSize: 13,
                                       color: kWhiteColor,
-                                      height: 1,
+                                      height: 17 / 13,
                                       letterSpacing: -0.5,
                                     ),
                                   ),
@@ -132,10 +132,10 @@ class GatheringSliverAppbar extends StatelessWidget {
                       const SizedBox(height: 16),
                       Container(
                         padding: const EdgeInsets.only(
-                            left: 20, right: 20, top: 26, bottom: 18),
+                            left: 20, right: 20, top: 24, bottom: 16),
                         width: MediaQuery.of(context).size.width,
-                        constraints: BoxConstraints(
-                          minHeight: MediaQuery.of(context).size.width / 3,
+                        constraints: const BoxConstraints(
+                          minHeight: 100,
                         ),
                         decoration: BoxDecoration(
                           color: kWhiteColor,
@@ -165,7 +165,7 @@ class GatheringSliverAppbar extends StatelessWidget {
                                       fontSize: 12,
                                       color: kFontGray600Color,
                                       fontWeight: FontWeight.bold,
-                                      height: 1,
+                                      height: 17 / 12,
                                     ),
                                   ),
                                   Padding(
@@ -182,30 +182,59 @@ class GatheringSliverAppbar extends StatelessWidget {
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: kFontGray600Color,
-                                      height: 1,
+                                      height: 17 / 12,
                                     ),
                                   ),
                                 ],
                               );
                             }),
-                            SizedBox(height: 4),
+                            const SizedBox(height: 4),
                             Text(
                               gathering.title,
                               style: TextStyle(
                                 fontSize: 26,
                                 fontWeight: FontWeight.bold,
                                 color: kFontGray900Color,
-                                height: 1,
+                                height: 37 / 26,
                               ),
                             ),
                             const SizedBox(height: 6),
                             Row(
                               children: [
+                                //TODO 소모임 단톡방 기능 개발시 여기에서 대화로
+                                Builder(
+                                  builder: (context) {
+                                    if (isClubGathering) {
+                                      return FutureBuilder(
+                                        future: null,
+                                        builder: (context, snapshot) {
+                                          return Text(
+                                            '${getTimeDifference(DateTime.parse(gathering.timeStamp))} 대화',
+                                            style: TextStyle(
+                                              fontSize: 13,
+                                              color: kMainColor,
+                                              height: 17 / 13,
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    }
+                                    return Text(
+                                      '${getTimeDifference(DateTime.parse(gathering.timeStamp))} 등록',
+                                      style: TextStyle(
+                                        fontSize: 13,
+                                        color: kMainColor,
+                                        height: 17 / 13,
+                                      ),
+                                    );
+                                  },
+                                ),
                                 Text(
-                                  '${getTimeDifference(DateTime.parse(gathering.timeStamp))} 등록ㆍ',
+                                  'ㆍ',
                                   style: TextStyle(
                                     fontSize: 13,
-                                    color: kGrey8E8E93Color,
+                                    color: kFontGray400Color,
+                                    height: 17/13,
                                   ),
                                 ),
                                 FutureBuilder(
@@ -216,14 +245,17 @@ class GatheringSliverAppbar extends StatelessWidget {
                                       text: TextSpan(
                                         style: TextStyle(
                                           fontSize: 13,
-                                          color: kGrey8E8E93Color,
+                                          color: kFontGray400Color,
+                                          height: 17/13,
                                         ),
                                         children: [
                                           TextSpan(
-                                              text: '$count명',
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                              )),
+                                            text: '$count명',
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              height: 18/13,
+                                            ),
+                                          ),
                                           const TextSpan(text: '이 찜한 모임'),
                                         ],
                                       ),

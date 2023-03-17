@@ -131,6 +131,7 @@ class _ClubGatheringPreviewScreenState
                       style: TextStyle(
                         fontSize: 13,
                         color: kMainColor,
+                        height: 17/13,
                       ),
                     ),
                     const SizedBox(height: 2),
@@ -140,8 +141,11 @@ class _ClubGatheringPreviewScreenState
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: kGrey2C2C2EColor,
+                        height: 25/18,
                       ),
                     ),
+                    SizedBox(height: 8),
+
                   ],
                 ),
               )

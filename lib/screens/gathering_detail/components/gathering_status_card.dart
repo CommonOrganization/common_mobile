@@ -34,8 +34,9 @@ class GatheringStatusCard extends StatelessWidget {
             '현재 ${memberList.length}명이 참여중에 있습니다.',
             style: TextStyle(
               fontSize: 15,
-              color: kGrey363639Color,
+              color: kFontGray800Color,
               fontWeight: FontWeight.bold,
+              height: 20 / 15,
             ),
           ),
           const SizedBox(height: 24),
@@ -63,7 +64,7 @@ class GatheringStatusCard extends StatelessWidget {
                                 height: 42,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(42),
-                                  color: kWhiteC6C6C6Color,
+                                  color: kDarkGray20Color,
                                   image: DecorationImage(
                                     image: NetworkImage(image),
                                   ),
@@ -81,10 +82,9 @@ class GatheringStatusCard extends StatelessWidget {
                                     color: kMainColor,
                                     boxShadow: [
                                       BoxShadow(
-                                        color:
-                                            kGrey1C1C1EColor.withOpacity(0.1),
-                                        offset: const Offset(0, 4),
-                                        blurRadius: 10,
+                                        color: kBlackColor.withOpacity(0.08),
+                                        offset: const Offset(0, 2),
+                                        blurRadius: 5,
                                       )
                                     ]),
                                 child: Text(
@@ -93,6 +93,7 @@ class GatheringStatusCard extends StatelessWidget {
                                     fontSize: 15,
                                     color: kWhiteColor,
                                     fontWeight: FontWeight.bold,
+                                    height: 20 / 15,
                                   ),
                                 ),
                               ),
@@ -106,7 +107,7 @@ class GatheringStatusCard extends StatelessWidget {
                       height: 42,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(42),
-                        color: kWhiteC6C6C6Color,
+                        color: kDarkGray20Color,
                         image: DecorationImage(
                           image: NetworkImage(image),
                         ),
@@ -118,7 +119,7 @@ class GatheringStatusCard extends StatelessWidget {
                     height: 42,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(42),
-                      color: kWhiteC6C6C6Color,
+                      color: kDarkGray20Color,
                     ),
                   );
                 },
@@ -129,18 +130,19 @@ class GatheringStatusCard extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
+                    height: 26 / 18,
                   ),
                   children: [
                     TextSpan(
                       text: '/ ',
                       style: TextStyle(
-                        color: kMainColor,
+                        color: kFontGray100Color,
                       ),
                     ),
                     TextSpan(
-                      text: '${capacity}',
+                      text: '$capacity',
                       style: TextStyle(
-                        color: kGrey48484AColor,
+                        color: kFontGray600Color,
                       ),
                     ),
                   ],
@@ -160,6 +162,7 @@ class GatheringStatusCard extends StatelessWidget {
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
                     color: kMainColor,
+                    height: 20 / 14,
                   ),
                 ),
               ),

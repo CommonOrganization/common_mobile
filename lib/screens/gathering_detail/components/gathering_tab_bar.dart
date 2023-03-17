@@ -25,7 +25,9 @@ class GatheringTabBar implements SliverPersistentHeaderDelegate {
       height: maxExtent,
       decoration: BoxDecoration(
         color: kWhiteColor,
-        border: Border.symmetric(horizontal: BorderSide(color: kWhiteF4F4F4Color, width: 1),),
+        border: Border.symmetric(
+          horizontal: BorderSide(color: kWhiteF4F4F4Color, width: 1),
+        ),
       ),
       child: Row(
         children: [
@@ -47,10 +49,12 @@ class GatheringTabBar implements SliverPersistentHeaderDelegate {
       null;
 
   @override
-  FloatingHeaderSnapConfiguration? get snapConfiguration => FloatingHeaderSnapConfiguration();
+  FloatingHeaderSnapConfiguration? get snapConfiguration =>
+      FloatingHeaderSnapConfiguration();
 
   @override
-  OverScrollHeaderStretchConfiguration? get stretchConfiguration => OverScrollHeaderStretchConfiguration();
+  OverScrollHeaderStretchConfiguration? get stretchConfiguration =>
+      OverScrollHeaderStretchConfiguration();
 
   @override
   TickerProvider? get vsync => null;
@@ -65,14 +69,20 @@ class GatheringTabBar implements SliverPersistentHeaderDelegate {
           decoration: BoxDecoration(
             color: kWhiteColor,
             border: currentIndex == index
-                ? Border(bottom: BorderSide(color: kMainColor, width: 2))
+                ? Border(
+                    bottom: BorderSide(
+                    color: kMainColor,
+                    width: 2,
+                  ))
                 : null,
           ),
           child: Text(
             title,
             style: TextStyle(
-              color: currentIndex == index ? kMainColor : kGrey48484AColor,
-              fontSize: 16,
+              color:
+                  currentIndex == index ? kFontGray800Color : kFontGray200Color,
+              fontSize: 14,
+              height: 20 / 14,
               fontWeight: FontWeight.bold,
             ),
           ),

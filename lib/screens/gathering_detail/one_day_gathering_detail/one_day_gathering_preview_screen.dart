@@ -82,7 +82,7 @@ class _OneDayGatheringPreviewScreenState
                 ? const AlwaysScrollableScrollPhysics()
                 : const ClampingScrollPhysics(),
             children: [
-              const SizedBox(height: 16),
+              const SizedBox(height: 20),
               GatheringOrganizerCard(organizerId: widget.gathering.organizerId),
               const SizedBox(height: 12),
               GatheringContentCard(content: widget.gathering.content),
@@ -137,7 +137,8 @@ class _OneDayGatheringPreviewScreenState
                         'ⓘ',
                         style: TextStyle(
                           fontSize: 11,
-                          color: kGrey8E8E93Color,
+                          color: kFontGray400Color,
+                          height: 16 / 11,
                         ),
                       ),
                     ),
@@ -146,15 +147,17 @@ class _OneDayGatheringPreviewScreenState
                         text: TextSpan(
                           style: TextStyle(
                             fontSize: 11,
-                            color: kGrey8E8E93Color,
+                            color: kFontGray400Color,
+                            height: 16 / 11,
                           ),
                           children: const [
                             TextSpan(text: '하루모임에 대해 궁금한 점이 있다면 '),
                             TextSpan(
-                                text: '모임장과 채팅하기',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                )),
+                              text: '모임장과 채팅하기',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                             TextSpan(text: '를 통해 물어보세요!'),
                           ],
                         ),

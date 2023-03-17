@@ -13,8 +13,8 @@ class GatheringUploadNextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => onTap(),
-      child: Padding(
-        padding: EdgeInsets.only(
+      child: Container(
+        margin: EdgeInsets.only(
           left: 20,
           right: 20,
           bottom: MediaQuery.of(context).padding.bottom + 20,

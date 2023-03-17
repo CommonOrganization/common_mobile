@@ -25,8 +25,9 @@ class GatheringInformationCard extends StatelessWidget {
           Text(
             title,
             style: TextStyle(
-              fontSize: 15,
-              color: kGrey363639Color,
+              fontSize: 14,
+              color: kFontGray600Color,
+              height: 18/14,
             ),
           ),
         ],
