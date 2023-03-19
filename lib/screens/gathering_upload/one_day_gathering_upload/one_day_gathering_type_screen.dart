@@ -1,8 +1,13 @@
 import 'package:common/constants/constants_colors.dart';
 import 'package:common/constants/constants_enum.dart';
+import 'package:common/controllers/user_controller.dart';
+import 'package:common/models/club_gathering/club_gathering.dart';
+import 'package:common/models/user/user.dart';
 import 'package:common/screens/gathering_upload/components/gathering_upload_next_button.dart';
+import 'package:common/services/firebase_club_gathering_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 class OneDayGatheringTypeScreen extends StatefulWidget {
   final Function nextPressed;
@@ -16,7 +21,29 @@ class OneDayGatheringTypeScreen extends StatefulWidget {
 
 class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
   GatheringType _selectedGatheringType = GatheringType.oneDay;
+  String? _connectedClubGatheringId = '';
   bool _showAllThePeople = true;
+
+  List<ClubGathering> clubGatheringList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    initializeClubGatheringList();
+  }
+
+  void initializeClubGatheringList() async {
+    if (context.read<UserController>().user == null) return;
+    List<ClubGathering> gatheringList = await FirebaseClubGatheringService
+        .getGatheringListWhichUserIsParticipating(
+            userId: context.read<UserController>().user!.id);
+    if (gatheringList.isNotEmpty) {
+      setState(() {
+        _connectedClubGatheringId = gatheringList.first.id;
+        clubGatheringList = gatheringList;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +73,7 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
                   style: TextStyle(
                     fontSize: 13,
                     color: kFontGray500Color,
-                    height: 20/13,
+                    height: 20 / 13,
                   ),
                 ),
               ),
@@ -70,7 +97,7 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
                               fontSize: 15,
                               color: kFontGray800Color,
                               fontWeight: FontWeight.bold,
-                              height: 20/15,
+                              height: 20 / 15,
                             ),
                           ),
                           const Spacer(),
@@ -85,9 +112,8 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
                                   MaterialTapTargetSize.shrinkWrap,
                               activeTrackColor: kMainColor,
                               inactiveTrackColor: kFontGray200Color,
-                              onChanged: (value) {
-                                setState(() => _showAllThePeople = value);
-                              },
+                              onChanged: (value) =>
+                                  setState(() => _showAllThePeople = value),
                             ),
                           ),
                         ],
@@ -101,7 +127,7 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
                         style: TextStyle(
                           fontSize: 11,
                           color: kFontGray500Color,
-                          height: 16/11,
+                          height: 16 / 11,
                         ),
                       ),
                     ),
@@ -111,12 +137,11 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
                       height: 1,
                       color: kFontGray50Color,
                     ),
-                    // TODO 여기서 '내가 가입한 소모임'을 불러와서 소모임카드로 보여줄 수 있음
-                    FutureBuilder(
-                      future: null,
-                      builder: (context, snapshot) {
-                        return Container();
-                      },
+                    Column(
+                      children: clubGatheringList
+                          .map((clubGathering) =>
+                              kClubGatheringCard(clubGathering))
+                          .toList(),
                     ),
                   ],
                 ),
@@ -126,6 +151,7 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
         GatheringUploadNextButton(
           value: true,
           onTap: () => widget.nextPressed(_selectedGatheringType),
+          title: '다음',
         ),
       ],
     );
@@ -133,7 +159,21 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
 
   Widget kGatheringTypeCard(GatheringType gatheringType) {
     return GestureDetector(
-      onTap: () => setState(() => _selectedGatheringType = gatheringType),
+      onTap: () {
+        String? newConnectedClubGatheringId;
+        if (gatheringType == GatheringType.oneDay) {
+          newConnectedClubGatheringId = null;
+        }
+        if (gatheringType == GatheringType.clubOneDay) {
+          newConnectedClubGatheringId =
+              clubGatheringList.isNotEmpty ? clubGatheringList.first.id : null;
+        }
+        setState(() {
+          _selectedGatheringType = gatheringType;
+          _showAllThePeople = true;
+          _connectedClubGatheringId = newConnectedClubGatheringId;
+        });
+      },
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20),
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -168,7 +208,7 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
                       color: _selectedGatheringType == gatheringType
                           ? kWhiteColor
                           : kFontGray600Color,
-                      height: 20/14,
+                      height: 20 / 14,
                     ),
                   ),
                   const SizedBox(height: 4),
@@ -179,12 +219,102 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
                       color: _selectedGatheringType == gatheringType
                           ? kWhiteColor
                           : kFontGray400Color,
-                      height: 18/13,
+                      height: 18 / 13,
                     ),
                   )
                 ],
               ),
             ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget kClubGatheringCard(ClubGathering clubGathering) {
+    return GestureDetector(
+      onTap: () => setState(() => _connectedClubGatheringId = clubGathering.id),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+        decoration: BoxDecoration(
+            color: kWhiteColor,
+            border: Border(
+                bottom: BorderSide(
+              color: kFontGray50Color,
+            ))),
+        child: Row(
+          children: [
+            Container(
+              width: 54,
+              height: 54,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: kDarkGray20Color,
+                image: DecorationImage(
+                  image: NetworkImage(
+                    clubGathering.mainImage,
+                  ),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    clubGathering.title,
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: kFontGray600Color,
+                      height: 20 / 14,
+                      letterSpacing: -0.5,
+                    ),
+                  ),
+                  FutureBuilder(
+                    builder: (context, snapshot) {
+                      return Text(
+                        '2개의 하루모임 운영 중',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: kFontGray400Color,
+                          height: 20 / 12,
+                          letterSpacing: -0.5,
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 12),
+            Container(
+              alignment: Alignment.center,
+              padding: const EdgeInsets.all(4),
+              width: 20,
+              height: 20,
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: _connectedClubGatheringId == clubGathering.id
+                      ? kMainColor
+                      : kFontGray200Color,
+                  width: 1.5,
+                ),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Container(
+                width: 12,
+                height: 12,
+                decoration: _connectedClubGatheringId == clubGathering.id
+                    ? BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: kMainColor,
+                      )
+                    : null,
+              ),
+            )
           ],
         ),
       ),

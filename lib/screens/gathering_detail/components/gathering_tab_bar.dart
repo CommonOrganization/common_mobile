@@ -32,7 +32,7 @@ class GatheringTabBar implements SliverPersistentHeaderDelegate {
       child: Row(
         children: [
           kTabBarButton(title: '정보', index: 0),
-          kTabBarButton(title: '하루모임', index: 1),
+          kTabBarButton(title: '모임', index: 1),
           kTabBarButton(title: '피드', index: 2),
         ],
       ),

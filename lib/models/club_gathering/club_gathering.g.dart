@@ -15,17 +15,13 @@ ClubGathering _$ClubGatheringFromJson(Map<String, dynamic> json) =>
       title: json['title'] as String,
       content: json['content'] as String,
       mainImage: json['mainImage'] as String,
-      gatheringImage: (json['gatheringImage'] as List<dynamic>)
-          .map((e) => e as String)
-          .toList(),
+      gatheringImage: json['gatheringImage'] as List<dynamic>,
       recruitWay: json['recruitWay'] as String,
       recruitQuestion: json['recruitQuestion'] as String,
       capacity: json['capacity'] as int,
-      tagList:
-          (json['tagList'] as List<dynamic>).map((e) => e as String).toList(),
-      memberList: (json['memberList'] as List<dynamic>)
-          .map((e) => e as String)
-          .toList(),
+      tagList: json['tagList'] as List<dynamic>,
+      memberList: json['memberList'] as List<dynamic>,
+      favoriteList: json['favoriteList'] as List<dynamic>,
       timeStamp: json['timeStamp'] as String,
       cityList: json['cityList'] as List<dynamic>,
       applicantList: json['applicantList'] as List<dynamic>,
@@ -46,6 +42,7 @@ Map<String, dynamic> _$ClubGatheringToJson(ClubGathering instance) =>
       'capacity': instance.capacity,
       'tagList': instance.tagList,
       'memberList': instance.memberList,
+      'favoriteList': instance.favoriteList,
       'timeStamp': instance.timeStamp,
       'cityList': instance.cityList,
       'applicantList': instance.applicantList,

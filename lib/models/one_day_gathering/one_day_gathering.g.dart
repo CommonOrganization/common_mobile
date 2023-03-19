@@ -15,23 +15,21 @@ OneDayGathering _$OneDayGatheringFromJson(Map<String, dynamic> json) =>
       title: json['title'] as String,
       content: json['content'] as String,
       mainImage: json['mainImage'] as String,
-      gatheringImage: (json['gatheringImage'] as List<dynamic>)
-          .map((e) => e as String)
-          .toList(),
+      gatheringImage: json['gatheringImage'] as List<dynamic>,
       recruitWay: json['recruitWay'] as String,
       recruitQuestion: json['recruitQuestion'] as String,
       capacity: json['capacity'] as int,
-      tagList:
-          (json['tagList'] as List<dynamic>).map((e) => e as String).toList(),
-      memberList: (json['memberList'] as List<dynamic>)
-          .map((e) => e as String)
-          .toList(),
+      tagList: json['tagList'] as List<dynamic>,
+      memberList: json['memberList'] as List<dynamic>,
+      favoriteList: json['favoriteList'] as List<dynamic>,
       timeStamp: json['timeStamp'] as String,
       type: json['type'] as String,
       openingDate: json['openingDate'] as String,
       place: json['place'] as Map<String, dynamic>,
       isHaveEntryFee: json['isHaveEntryFee'] as bool,
       entryFee: json['entryFee'] as int,
+      connectedClubGatheringId: json['connectedClubGatheringId'] as String?,
+      showAllThePeople: json['showAllThePeople'] as bool,
     );
 
 Map<String, dynamic> _$OneDayGatheringToJson(OneDayGathering instance) =>
@@ -49,10 +47,13 @@ Map<String, dynamic> _$OneDayGatheringToJson(OneDayGathering instance) =>
       'capacity': instance.capacity,
       'tagList': instance.tagList,
       'memberList': instance.memberList,
+      'favoriteList': instance.favoriteList,
       'timeStamp': instance.timeStamp,
       'type': instance.type,
       'openingDate': instance.openingDate,
       'place': instance.place,
       'isHaveEntryFee': instance.isHaveEntryFee,
       'entryFee': instance.entryFee,
+      'connectedClubGatheringId': instance.connectedClubGatheringId,
+      'showAllThePeople': instance.showAllThePeople,
     };

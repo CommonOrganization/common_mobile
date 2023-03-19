@@ -51,7 +51,7 @@ class _ClubGatheringLocationScreenState
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
                     color: kFontGray800Color,
-                    height: 20/15,
+                    height: 20 / 15,
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -88,7 +88,7 @@ class _ClubGatheringLocationScreenState
                                 style: TextStyle(
                                   fontSize: 14,
                                   color: kFontGray400Color,
-                                  height: 20/14,
+                                  height: 20 / 14,
                                 ),
                               );
                             }
@@ -97,12 +97,13 @@ class _ClubGatheringLocationScreenState
                               style: TextStyle(
                                 fontSize: 14,
                                 color: kFontGray800Color,
-                                height: 20/14,
+                                height: 20 / 14,
                               ),
                             );
                           }),
                         ),
-                        SvgPicture.asset('assets/icons/svg/arrow_down_20px.svg'),
+                        SvgPicture.asset(
+                            'assets/icons/svg/arrow_down_20px.svg'),
                       ],
                     ),
                   ),
@@ -121,7 +122,7 @@ class _ClubGatheringLocationScreenState
                         style: TextStyle(
                           fontSize: 11,
                           color: kFontGray500Color,
-                          height: 16/11,
+                          height: 16 / 11,
                         ),
                       ),
                     ),
@@ -131,7 +132,7 @@ class _ClubGatheringLocationScreenState
                         style: TextStyle(
                           fontSize: 11,
                           color: kFontGray500Color,
-                          height: 16/11,
+                          height: 16 / 11,
                         ),
                       ),
                     ),
@@ -144,9 +145,10 @@ class _ClubGatheringLocationScreenState
         GatheringUploadNextButton(
           value: _gatheringCityList.isNotEmpty,
           onTap: () {
-            if(_gatheringCityList.isEmpty) return;
+            if (_gatheringCityList.isEmpty) return;
             widget.nextPressed(_gatheringCityList);
           },
+          title: '다음',
         ),
       ],
     );

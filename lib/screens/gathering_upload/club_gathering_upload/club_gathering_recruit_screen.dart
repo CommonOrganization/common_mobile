@@ -18,14 +18,14 @@ class ClubGatheringRecruitScreen extends StatefulWidget {
 class _ClubGatheringRecruitScreenState
     extends State<ClubGatheringRecruitScreen> {
   final TextEditingController _detailQuestionController =
-  TextEditingController();
+      TextEditingController();
 
   RecruitWay _selectedRecruitWay = RecruitWay.firstCome;
 
   bool get canNextPress =>
       _selectedRecruitWay == RecruitWay.firstCome ||
-          (_selectedRecruitWay == RecruitWay.approval &&
-              _detailQuestionController.text.isNotEmpty);
+      (_selectedRecruitWay == RecruitWay.approval &&
+          _detailQuestionController.text.isNotEmpty);
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +54,7 @@ class _ClubGatheringRecruitScreenState
             widget.nextPressed(
                 _selectedRecruitWay, _detailQuestionController.text);
           },
+          title: '다음',
         ),
       ],
     );

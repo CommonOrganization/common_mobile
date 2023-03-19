@@ -35,7 +35,7 @@ class _OneDayGatheringCategoryScreenState
               onSelect: (CommonCategory category) =>
                   setState(() => _selectedCategory = category),
               showMorePressed: () => setState(() => _showMore = true),
-              onChanged: (text) =>setState((){}),
+              onChanged: (text) => setState(() {}),
             ),
           ),
           GatheringUploadNextButton(
@@ -45,6 +45,7 @@ class _OneDayGatheringCategoryScreenState
               widget.nextPressed(
                   _selectedCategory, _detailCategoryController.text);
             },
+            title: '다음',
           ),
         ],
       ),

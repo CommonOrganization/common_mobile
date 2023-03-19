@@ -163,6 +163,7 @@ class _ClubGatheringContentScreenState
             widget.nextPressed(
                 _gatheringContentController.text, _mainImageUrl, _imageUrlList);
           },
+          title: '다음',
         ),
       ],
     );

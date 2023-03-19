@@ -377,6 +377,7 @@ class _OneDayGatheringScheduleScreenState
                 _gatheringEntryFeeController.text,
               );
             },
+            title: '다음',
           ),
         ],
       ),

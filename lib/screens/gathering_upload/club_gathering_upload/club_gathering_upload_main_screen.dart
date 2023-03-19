@@ -55,6 +55,7 @@ class _ClubGatheringUploadMainScreenState
       'capacity': _gatheringCapacity,
       'tagList': _gatheringTagList,
       'memberList':[userId],
+      'favoriteList':[],
       'applicantList':[],
     };
     ClubGathering gathering = ClubGathering.fromJson({

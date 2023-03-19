@@ -54,6 +54,7 @@ class _OneDayGatheringRecruitScreenState
             widget.nextPressed(
                 _selectedRecruitWay, _detailQuestionController.text);
           },
+          title: '다음',
         ),
       ],
     );

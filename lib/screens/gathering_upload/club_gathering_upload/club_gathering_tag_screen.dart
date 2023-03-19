@@ -1,7 +1,7 @@
 import 'package:common/utils/local_utils.dart';
 import 'package:flutter/material.dart';
 import '../components/gathering_tag_area.dart';
-import '../components/gathering_upload_preview_button.dart';
+import '../components/gathering_upload_next_button.dart';
 
 class ClubGatheringTagScreen extends StatefulWidget {
   final Function previewPressed;
@@ -33,7 +33,7 @@ class _ClubGatheringTagScreenState extends State<ClubGatheringTagScreen> {
                 showMessage(context, message: '태그는 최대 5개까지 등록 가능합니다');
                 return;
               }
-              if(_tagController.text.isEmpty){
+              if (_tagController.text.isEmpty) {
                 showMessage(context, message: '태그를 입력해 주세요');
                 return;
               }
@@ -45,8 +45,10 @@ class _ClubGatheringTagScreenState extends State<ClubGatheringTagScreen> {
             removePressed: (String tag) => setState(() => _tagList.remove(tag)),
           ),
         ),
-        GatheringUploadPreviewButton(
-          onTap: () =>widget.previewPressed(_tagList)
+        GatheringUploadNextButton(
+          onTap: () => widget.previewPressed(_tagList),
+          value: true,
+          title: '미리보기',
         ),
       ],
     );

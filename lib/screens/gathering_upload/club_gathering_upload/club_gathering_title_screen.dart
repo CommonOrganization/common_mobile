@@ -97,6 +97,7 @@ class _ClubGatheringTitleScreenState extends State<ClubGatheringTitleScreen> {
               if (_gatheringTitleController.text.isEmpty) return;
               widget.nextPressed(_gatheringTitleController.text);
             },
+            title: '다음',
           )
         ],
       ),

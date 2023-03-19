@@ -5,8 +5,9 @@ import '../../../constants/constants_colors.dart';
 class GatheringUploadNextButton extends StatelessWidget {
   final bool value;
   final Function onTap;
+  final String title;
   const GatheringUploadNextButton(
-      {Key? key, required this.value, required this.onTap})
+      {Key? key, required this.value, required this.onTap, required this.title})
       : super(key: key);
 
   @override
@@ -28,12 +29,12 @@ class GatheringUploadNextButton extends StatelessWidget {
             color: value ? kMainColor : kFontGray100Color,
           ),
           child: Text(
-            '다음',
+            title,
             style: TextStyle(
               fontSize: 16,
               color: value ? kWhiteColor : kFontGray200Color,
               fontWeight: FontWeight.bold,
-              height: 20/16,
+              height: 20 / 16,
             ),
           ),
         ),

@@ -98,6 +98,7 @@ class _OneDayGatheringTitleScreenState
               if (_gatheringTitleController.text.isEmpty) return;
               widget.nextPressed(_gatheringTitleController.text);
             },
+            title: '다음',
           )
         ],
       ),

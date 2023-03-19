@@ -46,6 +46,7 @@ class _ClubGatheringCategoryScreenState
               widget.nextPressed(
                   _selectedCategory, _detailCategoryController.text);
             },
+            title: '다음',
           ),
         ],
       ),

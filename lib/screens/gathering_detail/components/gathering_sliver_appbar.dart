@@ -168,15 +168,16 @@ class GatheringSliverAppbar extends StatelessWidget {
                                       height: 17 / 12,
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 6),
-                                    child: Container(
-                                      width: 1,
-                                      height: 10,
-                                      color: kFontGray500Color,
+                                  if (gathering.detailCategory.isNotEmpty)
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 6),
+                                      child: Container(
+                                        width: 1,
+                                        height: 10,
+                                        color: kFontGray500Color,
+                                      ),
                                     ),
-                                  ),
                                   Text(
                                     gathering.detailCategory,
                                     style: TextStyle(
@@ -234,33 +235,27 @@ class GatheringSliverAppbar extends StatelessWidget {
                                   style: TextStyle(
                                     fontSize: 13,
                                     color: kFontGray400Color,
-                                    height: 17/13,
+                                    height: 17 / 13,
                                   ),
                                 ),
-                                FutureBuilder(
-                                  future: null,
-                                  builder: (context, snapshot) {
-                                    int count = 5;
-                                    return RichText(
-                                      text: TextSpan(
-                                        style: TextStyle(
-                                          fontSize: 13,
-                                          color: kFontGray400Color,
-                                          height: 17/13,
+                                RichText(
+                                  text: TextSpan(
+                                    style: TextStyle(
+                                      fontSize: 13,
+                                      color: kFontGray400Color,
+                                      height: 17 / 13,
+                                    ),
+                                    children: [
+                                      TextSpan(
+                                        text: '${gathering.favoriteList.length}명',
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          height: 18 / 13,
                                         ),
-                                        children: [
-                                          TextSpan(
-                                            text: '$count명',
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              height: 18/13,
-                                            ),
-                                          ),
-                                          const TextSpan(text: '이 찜한 모임'),
-                                        ],
                                       ),
-                                    );
-                                  },
+                                      const TextSpan(text: '이 찜한 모임'),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),

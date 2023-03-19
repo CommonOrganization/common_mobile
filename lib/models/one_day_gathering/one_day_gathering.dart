@@ -9,6 +9,8 @@ class OneDayGathering extends Gathering {
   final Map place;
   final bool isHaveEntryFee;
   final int entryFee;
+  final String? connectedClubGatheringId;
+  final bool showAllThePeople;
 
   OneDayGathering({
     required super.id,
@@ -24,15 +26,19 @@ class OneDayGathering extends Gathering {
     required super.capacity,
     required super.tagList,
     required super.memberList,
+    required super.favoriteList,
     required super.timeStamp,
     required this.type,
     required this.openingDate,
     required this.place,
     required this.isHaveEntryFee,
     required this.entryFee,
+    required this.connectedClubGatheringId,
+    required this.showAllThePeople,
   });
 
   factory OneDayGathering.fromJson(Map<String, dynamic> json) =>
       _$OneDayGatheringFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$OneDayGatheringToJson(this);
 }

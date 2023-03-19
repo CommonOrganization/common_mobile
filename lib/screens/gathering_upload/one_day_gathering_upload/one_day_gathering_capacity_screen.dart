@@ -209,6 +209,7 @@ class _OneDayGatheringCapacityScreenState
           GatheringUploadNextButton(
             value: true,
             onTap: () => widget.nextPressed(_gatheringCapacity),
+            title: '다음',
           ),
         ],
       ),

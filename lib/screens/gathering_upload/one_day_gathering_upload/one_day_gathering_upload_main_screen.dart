@@ -32,6 +32,8 @@ class _OneDayGatheringUploadMainScreenState
   int _pageIndex = 0;
 
   late GatheringType _gatheringType;
+  late String? _gatheringConnectedClubGatheringId;
+  late bool _gatheringShowAllThePeople;
   late CommonCategory _gatheringMainCategory;
   late String _gatheringDetailCategory;
   late String _gatheringTitle;
@@ -55,6 +57,8 @@ class _OneDayGatheringUploadMainScreenState
       if(userId==null) return;
       Map<String, dynamic> oneDayGatheringMap = {
         'type': _gatheringType.name,
+        'connectedClubGatheringId':_gatheringConnectedClubGatheringId,
+        'showAllThePeople':_gatheringShowAllThePeople,
         'category': _gatheringMainCategory.name,
         'detailCategory': _gatheringDetailCategory,
         'title': _gatheringTitle,
@@ -73,6 +77,7 @@ class _OneDayGatheringUploadMainScreenState
         'entryFee': _isHaveEntryFee ? int.parse(_gatheringEntryFee) : 0,
         'tagList': _gatheringTagList,
         'memberList':[userId],
+        'favoriteList':[],
       };
       OneDayGathering gathering = OneDayGathering.fromJson({
         'id': 'preview',
@@ -97,10 +102,11 @@ class _OneDayGatheringUploadMainScreenState
     switch (_pageIndex) {
       case 0:
         return OneDayGatheringTypeScreen(
-          nextPressed: (GatheringType gatheringType) {
+          nextPressed: (GatheringType gatheringType,String connectedClubGatheringId) {
             setState(() {
               _pageIndex++;
               _gatheringType = gatheringType;
+              _gatheringConnectedClubGatheringId = connectedClubGatheringId;
             });
           },
         );

@@ -151,7 +151,7 @@ class _OneDayGatheringContentScreenState
                     style: TextStyle(
                       fontSize: 11,
                       color: kFontGray400Color,
-                      height: 16/11,
+                      height: 16 / 11,
                     ),
                   ),
                 ),
@@ -166,6 +166,7 @@ class _OneDayGatheringContentScreenState
               widget.nextPressed(_gatheringContentController.text,
                   _mainImageUrl, _imageUrlList);
             },
+            title: '다음',
           ),
         ],
       ),
@@ -197,7 +198,7 @@ class _OneDayGatheringContentScreenState
               style: TextStyle(
                 fontSize: 11,
                 color: kSubColor3,
-                height: 14/11,
+                height: 14 / 11,
               ),
             )
         ],
@@ -235,7 +236,7 @@ class _OneDayGatheringContentScreenState
               style: TextStyle(
                 fontSize: 11,
                 color: kSubColor3,
-                height: 14/11,
+                height: 14 / 11,
               ),
             )
         ],

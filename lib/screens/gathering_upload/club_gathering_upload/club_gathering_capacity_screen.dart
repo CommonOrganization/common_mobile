@@ -172,7 +172,7 @@ class _ClubGatheringCapacityScreenState
         ),
         GatheringUploadNextButton(
           value: true,
-          onTap: () =>widget.nextPressed(_decimalNumber * 10 + _digitNumber),
+          onTap: () =>widget.nextPressed(_decimalNumber * 10 + _digitNumber),title: '다음',
         ),
       ],
     );

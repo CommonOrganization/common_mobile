@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 
 import '../../../constants/constants_colors.dart';
 
-class GatheringUploadPreviewButton extends StatelessWidget {
+class GatheringButton extends StatelessWidget {
+  final String title;
   final Function onTap;
-  const GatheringUploadPreviewButton({Key? key, required this.onTap})
+  const GatheringButton({Key? key, required this.title, required this.onTap})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => onTap(),
-      child: Padding(
-        padding: EdgeInsets.only(
+      child: Container(
+        margin: EdgeInsets.only(
           left: 20,
           right: 20,
           bottom: MediaQuery.of(context).padding.bottom + 20,
@@ -26,7 +27,7 @@ class GatheringUploadPreviewButton extends StatelessWidget {
             color: kMainColor,
           ),
           child: Text(
-            '미리보기',
+            title,
             style: TextStyle(
               fontSize: 16,
               color: kWhiteColor,

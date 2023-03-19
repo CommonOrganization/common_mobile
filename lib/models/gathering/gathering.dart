@@ -10,12 +10,13 @@ class Gathering {
   final String title;
   final String content;
   final String mainImage;
-  final List<String> gatheringImage;
+  final List gatheringImage;
   final String recruitWay;
   final String recruitQuestion;
   final int capacity;
-  final List<String> tagList;
-  final List<String> memberList;
+  final List tagList;
+  final List memberList;
+  final List favoriteList;
   final String timeStamp;
 
   Gathering({
@@ -32,6 +33,7 @@ class Gathering {
     required this.capacity,
     required this.tagList,
     required this.memberList,
+    required this.favoriteList,
     required this.timeStamp,
   });
 

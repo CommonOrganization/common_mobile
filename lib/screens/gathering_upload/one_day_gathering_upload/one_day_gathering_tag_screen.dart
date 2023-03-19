@@ -1,7 +1,7 @@
+import 'package:common/screens/gathering_upload/components/gathering_upload_next_button.dart';
 import 'package:common/utils/local_utils.dart';
 import 'package:flutter/material.dart';
 import '../components/gathering_tag_area.dart';
-import '../components/gathering_upload_preview_button.dart';
 
 class OneDayGatheringTagScreen extends StatefulWidget {
   final Function previewPressed;
@@ -11,7 +11,8 @@ class OneDayGatheringTagScreen extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<OneDayGatheringTagScreen> createState() => _OneDayGatheringTagScreenState();
+  State<OneDayGatheringTagScreen> createState() =>
+      _OneDayGatheringTagScreenState();
 }
 
 class _OneDayGatheringTagScreenState extends State<OneDayGatheringTagScreen> {
@@ -33,7 +34,7 @@ class _OneDayGatheringTagScreenState extends State<OneDayGatheringTagScreen> {
                 showMessage(context, message: '태그는 최대 5개까지 등록 가능합니다');
                 return;
               }
-              if(_tagController.text.isEmpty){
+              if (_tagController.text.isEmpty) {
                 showMessage(context, message: '태그를 입력해 주세요');
                 return;
               }
@@ -45,8 +46,10 @@ class _OneDayGatheringTagScreenState extends State<OneDayGatheringTagScreen> {
             removePressed: (String tag) => setState(() => _tagList.remove(tag)),
           ),
         ),
-        GatheringUploadPreviewButton(
-            onTap: () =>widget.previewPressed(_tagList)
+        GatheringUploadNextButton(
+          onTap: () => widget.previewPressed(_tagList),
+          value: true,
+          title: '미리보기',
         ),
       ],
     );
