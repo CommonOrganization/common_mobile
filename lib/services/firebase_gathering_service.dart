@@ -64,20 +64,24 @@ class FirebaseGatheringService {
       required String id,
       required String userId}) async {
     try {
+      bool applySuccess = true;
       await FirebaseService.fireStore.runTransaction((transaction) async {
         final snapshot = await transaction
             .get(FirebaseService.fireStore.collection(category).doc(id));
         if (snapshot.exists) {
           List applicantList = snapshot.get('applicantList');
-          if (applicantList.contains(userId)) return false;
+          if (applicantList.contains(userId)) {
+            applySuccess = false;
+            return;
+          }
           applicantList.add(userId);
-          transaction.update(
-              FirebaseService.fireStore.collection(category).doc(id), {
+          transaction
+              .update(FirebaseService.fireStore.collection(category).doc(id), {
             'applicantList': applicantList,
           });
         }
       });
-      return true;
+      return applySuccess;
     } catch (e) {
       log('FirebaseGatheringService - applyGathering Failed : $e');
       return false;

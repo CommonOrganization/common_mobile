@@ -54,9 +54,11 @@ class _ClubGatheringDetailScreenState extends State<ClubGatheringDetailScreen> {
       bool applySuccess = await FirebaseClubGatheringService.applyGathering(
           id: widget.gathering.id, userId: userId);
       if (!mounted) return;
-      if (applySuccess) {
-        Navigator.pop(context);
+      if (!applySuccess) {
+        showMessage(context, message: '이미 신청중인 모임입니다.');
+        return;
       }
+      Navigator.pop(context);
     } catch (e) {
       showMessage(context, message: '잠시후에 다시 신청해 주세요.');
       _loading = false;
