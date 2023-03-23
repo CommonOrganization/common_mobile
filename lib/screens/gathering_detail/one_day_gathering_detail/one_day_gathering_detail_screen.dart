@@ -1,26 +1,28 @@
+import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/one_day_gathering/one_day_gathering.dart';
 import 'package:common/services/firebase_one_day_gathering_service.dart';
 import 'package:common/utils/local_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../constants/constants_colors.dart';
 import '../components/gathering_button.dart';
 import '../components/gathering_sliver_appbar.dart';
 import 'one_day_gathering_basic_contents.dart';
 
-class OneDayGatheringPreviewScreen extends StatefulWidget {
+class OneDayGatheringDetailScreen extends StatefulWidget {
   final OneDayGathering gathering;
-  const OneDayGatheringPreviewScreen({
+  const OneDayGatheringDetailScreen({
     Key? key,
     required this.gathering,
   }) : super(key: key);
 
   @override
-  State<OneDayGatheringPreviewScreen> createState() =>
-      _OneDayGatheringPreviewScreenState();
+  State<OneDayGatheringDetailScreen> createState() =>
+      _OneDayGatheringDetailScreenState();
 }
 
-class _OneDayGatheringPreviewScreenState
-    extends State<OneDayGatheringPreviewScreen> {
+class _OneDayGatheringDetailScreenState
+    extends State<OneDayGatheringDetailScreen> {
   final ScrollController _scrollController = ScrollController();
 
   bool _showAppbarBlack = false;
@@ -45,19 +47,20 @@ class _OneDayGatheringPreviewScreenState
     });
   }
 
-  Future<void> uploadPressed() async {
+  Future<void> applyPressed() async {
+    String? userId = context.read<UserController>().user?.id;
+    if (userId == null) return;
     if (_loading) return;
     _loading = true;
     try {
-      bool uploadSuccess = await FirebaseOneDayGatheringService.uploadGathering(
-          gathering: widget.gathering);
+      bool applySuccess = await FirebaseOneDayGatheringService.applyGathering(
+          id: widget.gathering.id, userId: userId);
       if (!mounted) return;
-      if (uploadSuccess) {
-        Navigator.pop(context);
+      if (applySuccess) {
         Navigator.pop(context);
       }
     } catch (e) {
-      showMessage(context, message: '잠시후에 다시 개설해 주세요.');
+      showMessage(context, message: '잠시후에 다시 신청해 주세요.');
       _loading = false;
     }
   }
@@ -95,13 +98,13 @@ class _OneDayGatheringPreviewScreenState
                       ? const AlwaysScrollableScrollPhysics()
                       : const ClampingScrollPhysics(),
                   children: [
-                    OneDayGatheringBasicContents(gathering: widget.gathering)
+                    OneDayGatheringBasicContents(gathering: widget.gathering),
                   ],
                 ),
               ),
               GatheringButton(
-                title: '하루모임 개설하기',
-                onTap: () => uploadPressed(),
+                title: '하루모임 참여하기',
+                onTap: () => applyPressed(),
               ),
             ],
           ),

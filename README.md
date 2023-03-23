@@ -11,7 +11,7 @@
 ### 체크 할 내용
 - [V] constants_enum
 - [V] sign
-- [ ] home
+- [V] home
 - [V] gathering_upload(one_day_gathering)
 - [V] gathering_upload(club_gathering)
 - [V] gathering_detail(one_day_gathering)
@@ -20,3 +20,4 @@
 ### 개발 할 내용
 1. 소모임 -> 하루모임과 연결짓기
 2. 메인 홈 수정하기
+3. 하루모임, 소모임 상세페이지 개발하기

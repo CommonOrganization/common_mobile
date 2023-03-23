@@ -54,11 +54,11 @@ class _OneDayGatheringUploadMainScreenState
     try {
       _gatheringTagList = tagList;
       String? userId = context.read<UserController>().user?.id;
-      if(userId==null) return;
+      if (userId == null) return;
       Map<String, dynamic> oneDayGatheringMap = {
         'type': _gatheringType.name,
-        'connectedClubGatheringId':_gatheringConnectedClubGatheringId,
-        'showAllThePeople':_gatheringShowAllThePeople,
+        'connectedClubGatheringId': _gatheringConnectedClubGatheringId,
+        'showAllThePeople': _gatheringShowAllThePeople,
         'category': _gatheringMainCategory.name,
         'detailCategory': _gatheringDetailCategory,
         'title': _gatheringTitle,
@@ -76,8 +76,9 @@ class _OneDayGatheringUploadMainScreenState
         'isHaveEntryFee': _isHaveEntryFee,
         'entryFee': _isHaveEntryFee ? int.parse(_gatheringEntryFee) : 0,
         'tagList': _gatheringTagList,
-        'memberList':[userId],
-        'favoriteList':[],
+        'memberList': [userId],
+        'applicantList': [],
+        'favoriteList': [],
       };
       OneDayGathering gathering = OneDayGathering.fromJson({
         'id': 'preview',
@@ -102,11 +103,13 @@ class _OneDayGatheringUploadMainScreenState
     switch (_pageIndex) {
       case 0:
         return OneDayGatheringTypeScreen(
-          nextPressed: (GatheringType gatheringType,String connectedClubGatheringId) {
+          nextPressed: (GatheringType gatheringType,
+              String connectedClubGatheringId, bool showAllThePeople) {
             setState(() {
               _pageIndex++;
               _gatheringType = gatheringType;
               _gatheringConnectedClubGatheringId = connectedClubGatheringId;
+              _gatheringShowAllThePeople = showAllThePeople;
             });
           },
         );

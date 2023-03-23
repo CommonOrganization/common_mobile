@@ -26,4 +26,25 @@ class FirebaseOneDayGatheringService {
       return false;
     }
   }
+
+  static Future<List<OneDayGathering>> getGathering() async {
+    try {
+      return (await FirebaseGatheringService.getGathering(category: _category))
+          .docs
+          .map((snapshot) => OneDayGathering.fromJson(snapshot.data()))
+          .toList();
+    } catch (e) {
+      log('FirebaseOneDayGatheringService - getGathering Failed : $e');
+      return [];
+    }
+  }
+
+  static Future<bool> applyGathering({required String id,required String userId}) async {
+    try {
+      return await FirebaseGatheringService.applyGathering(category: _category,id: id,userId: userId);
+    } catch (e) {
+      log('FirebaseOneDayGatheringService - applyGathering Failed : $e');
+      return false;
+    }
+  }
 }

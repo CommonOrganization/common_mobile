@@ -2,7 +2,6 @@ import 'package:common/constants/constants_colors.dart';
 import 'package:common/constants/constants_enum.dart';
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/club_gathering/club_gathering.dart';
-import 'package:common/models/user/user.dart';
 import 'package:common/screens/gathering_upload/components/gathering_upload_next_button.dart';
 import 'package:common/services/firebase_club_gathering_service.dart';
 import 'package:flutter/material.dart';
@@ -150,7 +149,11 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
         ),
         GatheringUploadNextButton(
           value: true,
-          onTap: () => widget.nextPressed(_selectedGatheringType),
+          onTap: () => widget.nextPressed(
+            _selectedGatheringType,
+            _connectedClubGatheringId,
+            _showAllThePeople,
+          ),
           title: '다음',
         ),
       ],

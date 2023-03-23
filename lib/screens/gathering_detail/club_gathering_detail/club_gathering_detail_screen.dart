@@ -1,25 +1,26 @@
 import 'package:common/models/club_gathering/club_gathering.dart';
 import 'package:common/screens/gathering_detail/components/gathering_tab_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../constants/constants_colors.dart';
+import '../../../controllers/user_controller.dart';
 import '../../../services/firebase_club_gathering_service.dart';
 import '../../../utils/local_utils.dart';
 import '../components/gathering_button.dart';
 import '../components/gathering_sliver_appbar.dart';
 import 'club_gathering_basic_contents.dart';
 
-class ClubGatheringPreviewScreen extends StatefulWidget {
+class ClubGatheringDetailScreen extends StatefulWidget {
   final ClubGathering gathering;
-  const ClubGatheringPreviewScreen({Key? key, required this.gathering})
+  const ClubGatheringDetailScreen({Key? key, required this.gathering})
       : super(key: key);
 
   @override
-  State<ClubGatheringPreviewScreen> createState() =>
-      _ClubGatheringPreviewScreenState();
+  State<ClubGatheringDetailScreen> createState() =>
+      _ClubGatheringDetailScreenState();
 }
 
-class _ClubGatheringPreviewScreenState
-    extends State<ClubGatheringPreviewScreen> {
+class _ClubGatheringDetailScreenState extends State<ClubGatheringDetailScreen> {
   final ScrollController _scrollController = ScrollController();
 
   bool _showAppbarBlack = false;
@@ -44,19 +45,20 @@ class _ClubGatheringPreviewScreenState
     }
   }
 
-  Future<void> uploadPressed() async {
+  Future<void> applyPressed() async {
+    String? userId = context.read<UserController>().user?.id;
+    if (userId == null) return;
     if (_loading) return;
     _loading = true;
     try {
-      bool uploadSuccess = await FirebaseClubGatheringService.uploadGathering(
-          gathering: widget.gathering);
+      bool applySuccess = await FirebaseClubGatheringService.applyGathering(
+          id: widget.gathering.id, userId: userId);
       if (!mounted) return;
-      if (uploadSuccess) {
-        Navigator.pop(context);
+      if (applySuccess) {
         Navigator.pop(context);
       }
     } catch (e) {
-      showMessage(context, message: '잠시후에 다시 개설해 주세요.');
+      showMessage(context, message: '잠시후에 다시 신청해 주세요.');
       _loading = false;
     }
   }
@@ -119,8 +121,8 @@ class _ClubGatheringPreviewScreenState
                 child: getPage(),
               ),
               GatheringButton(
-                title: '소모임 개설하기',
-                onTap: () => uploadPressed(),
+                title: '소모임 참여하기',
+                onTap: () => applyPressed(),
               ),
             ],
           ),

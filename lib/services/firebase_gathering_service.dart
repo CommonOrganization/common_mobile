@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:common/services/firebase_service.dart';
 import 'package:common/services/firebase_upload_service.dart';
 import 'package:image_picker/image_picker.dart';
@@ -57,4 +58,34 @@ class FirebaseGatheringService {
       return false;
     }
   }
+
+  static Future<bool> applyGathering(
+      {required String category,
+      required String id,
+      required String userId}) async {
+    try {
+      await FirebaseService.fireStore.runTransaction((transaction) async {
+        final snapshot = await transaction
+            .get(FirebaseService.fireStore.collection(category).doc(id));
+        if (snapshot.exists) {
+          List applicantList = snapshot.get('applicantList');
+          if (applicantList.contains(userId)) return false;
+          applicantList.add(userId);
+          transaction.update(
+              FirebaseService.fireStore.collection(category).doc(id), {
+            'applicantList': applicantList,
+          });
+        }
+      });
+      return true;
+    } catch (e) {
+      log('FirebaseGatheringService - applyGathering Failed : $e');
+      return false;
+    }
+  }
+
+  static Future<QuerySnapshot<Map<String, dynamic>>> getGathering({
+    required String category,
+  }) async =>
+      await FirebaseService.fireStore.collection(category).get();
 }

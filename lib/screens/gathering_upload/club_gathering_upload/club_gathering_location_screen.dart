@@ -1,15 +1,10 @@
 import 'package:common/constants/constants_colors.dart';
 import 'package:common/constants/constants_enum.dart';
-import 'package:common/constants/constants_value.dart';
-import 'package:common/models/user_place/user_place.dart';
 import 'package:common/screens/gathering_upload/components/gathering_upload_next_button.dart';
-import 'package:common/utils/local_utils.dart';
-import 'package:common/widgets/custom_time_picker.dart';
 import 'package:common/widgets/select_city_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../utils/format_utils.dart';
-import '../../../widgets/custom_date_picker.dart';
 
 class ClubGatheringLocationScreen extends StatefulWidget {
   final Function nextPressed;

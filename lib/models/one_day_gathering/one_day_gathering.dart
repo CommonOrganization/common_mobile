@@ -28,6 +28,7 @@ class OneDayGathering extends Gathering {
     required super.memberList,
     required super.favoriteList,
     required super.timeStamp,
+    required super.applicantList,
     required this.type,
     required this.openingDate,
     required this.place,

@@ -31,7 +31,7 @@ class GatheringPlaceCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SvgPicture.asset(
-              'assets/icons/svg/location_gray.svg',
+              'assets/icons/svg/location_20px.svg',
               width: 20,
               height: 20,
             ),

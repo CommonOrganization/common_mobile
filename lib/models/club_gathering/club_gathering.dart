@@ -5,7 +5,6 @@ part 'club_gathering.g.dart';
 @JsonSerializable()
 class ClubGathering extends Gathering {
   final List cityList;
-  final List applicantList;
 
   ClubGathering({
     required super.id,
@@ -23,8 +22,8 @@ class ClubGathering extends Gathering {
     required super.memberList,
     required super.favoriteList,
     required super.timeStamp,
+    required super.applicantList,
     required this.cityList,
-    required this.applicantList,
   });
 
   factory ClubGathering.fromJson(Map<String, dynamic> json) =>

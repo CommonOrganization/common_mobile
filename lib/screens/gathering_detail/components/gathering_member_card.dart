@@ -1,7 +1,6 @@
 import 'package:common/constants/constants_colors.dart';
 import 'package:common/services/firebase_user_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class GatheringMemberCard extends StatelessWidget {
   final String memberId;
@@ -79,6 +78,7 @@ class GatheringMemberCard extends StatelessWidget {
                 color: kDarkGray20Color,
                 image: DecorationImage(
                   image: NetworkImage(snapshot.data as String),
+                  fit: BoxFit.cover,
                 ),
               ),
             );

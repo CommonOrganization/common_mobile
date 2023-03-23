@@ -22,8 +22,8 @@ class GatheringOrganizerCard extends StatelessWidget {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return Container(
-                  width: 36,
-                  height: 36,
+                  width: 42,
+                  height: 42,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(36),
                     image: DecorationImage(
@@ -36,8 +36,8 @@ class GatheringOrganizerCard extends StatelessWidget {
                 );
               }
               return Container(
-                width: 36,
-                height: 36,
+                width: 42,
+                height: 42,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(36),
                   color: kDarkGray20Color,
@@ -45,7 +45,7 @@ class GatheringOrganizerCard extends StatelessWidget {
               );
             },
           ),
-          const SizedBox(width: 8),
+          const SizedBox(width: 10),
           Text(
             '모임장',
             style: TextStyle(

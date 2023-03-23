@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'package:common/models/club_gathering/club_gathering.dart';
-import 'package:common/models/one_day_gathering/one_day_gathering.dart';
 import 'package:common/services/firebase_gathering_service.dart';
 import 'package:common/services/firebase_service.dart';
 
@@ -43,6 +42,27 @@ class FirebaseClubGatheringService {
     } catch (e) {
       log('FirebaseClubGatheringService - getGatheringListWhichUserIsParticipating Failed : $e');
       return [];
+    }
+  }
+
+  static Future<List<ClubGathering>> getGathering() async {
+    try {
+      return (await FirebaseGatheringService.getGathering(category: _category))
+          .docs
+          .map((snapshot) => ClubGathering.fromJson(snapshot.data()))
+          .toList();
+    } catch (e) {
+      log('FirebaseClubGatheringService - getGathering Failed : $e');
+      return [];
+    }
+  }
+
+  static Future<bool> applyGathering({required String id,required String userId}) async {
+    try {
+      return await FirebaseGatheringService.applyGathering(category: _category,id: id,userId: userId);
+    } catch (e) {
+      log('FirebaseClubGatheringService - applyGathering Failed : $e');
+      return false;
     }
   }
 }

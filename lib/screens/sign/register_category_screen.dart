@@ -25,7 +25,7 @@ class _RegisterCategoryScreenState extends State<RegisterCategoryScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: ListView(
               children: [
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                 Text(
                   '무엇을 좋아하세요?',
                   style: TextStyle(

@@ -18,6 +18,7 @@ class Gathering {
   final List memberList;
   final List favoriteList;
   final String timeStamp;
+  final List applicantList;
 
   Gathering({
     required this.id,
@@ -35,6 +36,7 @@ class Gathering {
     required this.memberList,
     required this.favoriteList,
     required this.timeStamp,
+    required this.applicantList,
   });
 
   factory Gathering.fromJson(Map<String, dynamic> json) =>

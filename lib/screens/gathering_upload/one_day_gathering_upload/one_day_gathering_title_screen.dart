@@ -30,7 +30,7 @@ class _OneDayGatheringTitleScreenState
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ListView(
                 children: [
-                  SizedBox(height: 12),
+                  const SizedBox(height: 12),
                   Text(
                     '하루모임 제목을 작성해볼까요?',
                     style: TextStyle(
