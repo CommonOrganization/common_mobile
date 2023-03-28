@@ -1,4 +1,5 @@
 import 'package:common/models/club_gathering/club_gathering.dart';
+import 'package:common/screens/gathering_detail/club_gathering_detail/club_gathering_connected_gathering_contents.dart';
 import 'package:common/screens/gathering_detail/components/gathering_tab_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -75,8 +76,9 @@ class _ClubGatheringDetailScreenState extends State<ClubGatheringDetailScreen> {
   Widget getPage() {
     switch (_headerIndex) {
       case 0:
-        return informationArea();
+        return ClubGatheringBasicContents(gathering: widget.gathering);
       case 1:
+        return ClubGatheringConnectedGatheringContents(gatheringId: widget.gathering.id);
       case 2:
       default:
         return Container();
@@ -120,7 +122,13 @@ class _ClubGatheringDetailScreenState extends State<ClubGatheringDetailScreen> {
           child: Column(
             children: [
               Expanded(
-                child: getPage(),
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  physics: _showAppbarBlack
+                      ? const AlwaysScrollableScrollPhysics()
+                      : const ClampingScrollPhysics(),
+                  children: [getPage()],
+                ),
               ),
               GatheringButton(
                 title: '소모임 참여하기',
@@ -132,14 +140,4 @@ class _ClubGatheringDetailScreenState extends State<ClubGatheringDetailScreen> {
       ),
     );
   }
-
-  Widget informationArea() => ListView(
-        padding: EdgeInsets.zero,
-        physics: _showAppbarBlack
-            ? const AlwaysScrollableScrollPhysics()
-            : const ClampingScrollPhysics(),
-        children: [
-          ClubGatheringBasicContents(gathering: widget.gathering),
-        ],
-      );
 }

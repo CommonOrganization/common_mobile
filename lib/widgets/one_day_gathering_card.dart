@@ -173,11 +173,17 @@ class OneDayGatheringCard extends StatelessWidget {
             Container(
               alignment: Alignment.centerLeft,
               padding: const EdgeInsets.symmetric(horizontal: 18),
-              child: Wrap(
-                runSpacing: 8,
-                children: gathering.tagList
-                    .map((tag) => ContentsTag(tag: tag))
-                    .toList(),
+              child: SingleChildScrollView(
+                physics: const NeverScrollableScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: gathering.tagList
+                      .map((tag) => Container(
+                    padding: const EdgeInsets.only(right: 8),
+                            child: ContentsTag(tag: tag),
+                          ))
+                      .toList(),
+                ),
               ),
             ),
           ],

@@ -48,7 +48,9 @@ class _GatheringMemberListState extends State<GatheringMemberList> {
             ),
           ),
           const SizedBox(height: 8),
-          ...(widget.memberList.length > 5 && !_showMore ? widget.memberList.sublist(0, 5) : widget.memberList)
+          ...(widget.memberList.length > 5 && !_showMore
+                  ? widget.memberList.sublist(0, 5)
+                  : widget.memberList)
               .map(
                 (memberId) => GatheringMemberCard(
                   memberId: memberId,
@@ -75,9 +77,10 @@ class _GatheringMemberListState extends State<GatheringMemberList> {
                     Text(
                       '더보기',
                       style: TextStyle(
-                          fontSize: 13,
-                          height: 17 / 13,
-                          color: kFontGray600Color),
+                        fontSize: 13,
+                        height: 17 / 13,
+                        color: kFontGray600Color,
+                      ),
                     ),
                     const SizedBox(width: 15),
                     SvgPicture.asset(

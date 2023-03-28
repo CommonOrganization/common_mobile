@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:common/models/one_day_gathering/one_day_gathering.dart';
 import 'package:common/services/firebase_gathering_service.dart';
 
@@ -39,9 +40,28 @@ class FirebaseOneDayGatheringService {
     }
   }
 
-  static Future<bool> applyGathering({required String id,required String userId}) async {
+  static Future<List<OneDayGathering>> getConnectedGathering(
+      {required String clubGatheringId}) async {
     try {
-      return await FirebaseGatheringService.applyGathering(category: _category,id: id,userId: userId);
+      final snapshot = await FirebaseFirestore.instance
+          .collection(_category)
+          .where(_category)
+          .where('connectedClubGatheringId', isEqualTo: clubGatheringId)
+          .get();
+      return snapshot.docs
+          .map((snapshot) => OneDayGathering.fromJson(snapshot.data()))
+          .toList();
+    } catch (e) {
+      log('FirebaseOneDayGatheringService - getConnectedGathering Failed : $e');
+      return [];
+    }
+  }
+
+  static Future<bool> applyGathering(
+      {required String id, required String userId}) async {
+    try {
+      return await FirebaseGatheringService.applyGathering(
+          category: _category, id: id, userId: userId);
     } catch (e) {
       log('FirebaseOneDayGatheringService - applyGathering Failed : $e');
       return false;

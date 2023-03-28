@@ -71,7 +71,7 @@ class _ClubGatheringPreviewScreenState
   Widget getPage() {
     switch (_headerIndex) {
       case 0:
-        return informationArea();
+        return ClubGatheringBasicContents(gathering: widget.gathering);
       case 1:
       case 2:
       default:
@@ -116,7 +116,13 @@ class _ClubGatheringPreviewScreenState
           child: Column(
             children: [
               Expanded(
-                child: getPage(),
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  physics: _showAppbarBlack
+                      ? const AlwaysScrollableScrollPhysics()
+                      : const ClampingScrollPhysics(),
+                  children: [getPage()],
+                ),
               ),
               GatheringButton(
                 title: '소모임 개설하기',
@@ -128,14 +134,4 @@ class _ClubGatheringPreviewScreenState
       ),
     );
   }
-
-  Widget informationArea() => ListView(
-        padding: EdgeInsets.zero,
-        physics: _showAppbarBlack
-            ? const AlwaysScrollableScrollPhysics()
-            : const ClampingScrollPhysics(),
-        children: [
-          ClubGatheringBasicContents(gathering: widget.gathering),
-        ],
-      );
 }
