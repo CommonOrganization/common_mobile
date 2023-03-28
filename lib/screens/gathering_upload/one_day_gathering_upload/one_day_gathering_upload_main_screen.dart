@@ -104,7 +104,7 @@ class _OneDayGatheringUploadMainScreenState
       case 0:
         return OneDayGatheringTypeScreen(
           nextPressed: (GatheringType gatheringType,
-              String connectedClubGatheringId, bool showAllThePeople) {
+              String? connectedClubGatheringId, bool showAllThePeople) {
             setState(() {
               _pageIndex++;
               _gatheringType = gatheringType;
