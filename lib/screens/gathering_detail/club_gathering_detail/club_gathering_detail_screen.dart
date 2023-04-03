@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../constants/constants_colors.dart';
 import '../../../controllers/user_controller.dart';
+import '../../../models/one_day_gathering/one_day_gathering.dart';
 import '../../../services/firebase_club_gathering_service.dart';
+import '../../../services/firebase_one_day_gathering_service.dart';
 import '../../../utils/local_utils.dart';
 import '../components/gathering_button.dart';
 import '../components/gathering_sliver_appbar.dart';
@@ -31,10 +33,13 @@ class _ClubGatheringDetailScreenState extends State<ClubGatheringDetailScreen> {
 
   bool _loading = false;
 
+  List<OneDayGathering> _gatheringList = [];
+
   @override
   void initState() {
     super.initState();
     _scrollController.addListener(onUpdate);
+    initializeGatheringList();
   }
 
   void onUpdate() {
@@ -44,6 +49,13 @@ class _ClubGatheringDetailScreenState extends State<ClubGatheringDetailScreen> {
     if (_scrollController.offset > _size && !_showAppbarBlack) {
       setState(() => _showAppbarBlack = true);
     }
+  }
+
+  void initializeGatheringList() async {
+    List<OneDayGathering> gatheringList =
+        await FirebaseOneDayGatheringService.getConnectedGathering(
+            clubGatheringId: widget.gathering.id);
+    setState(() => _gatheringList = gatheringList);
   }
 
   Future<void> applyPressed() async {
@@ -78,7 +90,8 @@ class _ClubGatheringDetailScreenState extends State<ClubGatheringDetailScreen> {
       case 0:
         return ClubGatheringBasicContents(gathering: widget.gathering);
       case 1:
-        return ClubGatheringConnectedGatheringContents(gatheringId: widget.gathering.id);
+        return ClubGatheringConnectedGatheringContents(
+            gatheringList: _gatheringList);
       case 2:
       default:
         return Container();
