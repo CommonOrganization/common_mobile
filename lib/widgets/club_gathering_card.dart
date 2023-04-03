@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../constants/constants_enum.dart';
 import '../screens/gathering_detail/club_gathering_detail/club_gathering_detail_screen.dart';
+import '../utils/widget_utils.dart';
 
 class ClubGatheringCard extends StatelessWidget {
   final ClubGathering gathering;
@@ -157,11 +158,17 @@ class ClubGatheringCard extends StatelessWidget {
             Container(
               alignment: Alignment.centerLeft,
               padding: const EdgeInsets.symmetric(horizontal: 18),
-              child: Wrap(
-                runSpacing: 8,
-                children: gathering.tagList
-                    .map((tag) => ContentsTag(tag: tag))
-                    .toList(),
+              child: SingleChildScrollView(
+                physics: const NeverScrollableScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: getGatheringCardTagList(gathering.tagList)
+                      .map((tag) => Container(
+                            padding: const EdgeInsets.only(right: 8),
+                            child: ContentsTag(tag: tag),
+                          ))
+                      .toList(),
+                ),
               ),
             ),
           ],

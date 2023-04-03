@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../constants/constants_enum.dart';
 import '../screens/gathering_detail/one_day_gathering_detail/one_day_gathering_detail_screen.dart';
+import '../utils/widget_utils.dart';
 
 class OneDayGatheringCard extends StatelessWidget {
   final OneDayGathering gathering;
@@ -177,9 +178,9 @@ class OneDayGatheringCard extends StatelessWidget {
                 physics: const NeverScrollableScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: gathering.tagList
+                  children: getGatheringCardTagList(gathering.tagList)
                       .map((tag) => Container(
-                    padding: const EdgeInsets.only(right: 8),
+                            padding: const EdgeInsets.only(right: 8),
                             child: ContentsTag(tag: tag),
                           ))
                       .toList(),
