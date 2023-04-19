@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../constants/constants_value.dart';
 import '../home/home_screen.dart';
+import 'components/main_upload_bottom_sheet.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -59,96 +60,8 @@ class _MainScreenState extends State<MainScreen> {
                       context: context,
                       isScrollControlled: true,
                       backgroundColor: Colors.transparent,
-                      builder: (context) => ClipRRect(
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(18),
-                          topRight: Radius.circular(18),
-                        ),
-                        child: Container(
-                          height: kBottomSheetHeight,
-                          color: kWhiteColor,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 10),
-                                alignment: Alignment.center,
-                                width: double.infinity,
-                                child: Container(
-                                  width: 60,
-                                  height: 4,
-                                  decoration: BoxDecoration(
-                                    color: kFontGray100Color,
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 22),
-                              Container(
-                                width: double.infinity,
-                                height: 1,
-                                color: kFontGray50Color,
-                              ),
-                              Expanded(
-                                child: ListView(
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () => Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              const OneDayGatheringUploadMainScreen(),
-                                        ),
-                                      ),
-                                      child: Container(
-                                        alignment: Alignment.centerLeft,
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 20),
-                                        width: double.infinity,
-                                        height: 48,
-                                        decoration: BoxDecoration(
-                                          border: Border(
-                                            bottom: BorderSide(
-                                              color: kFontGray50Color,
-                                            ),
-                                          ),
-                                        ),
-                                        child: const Text('새로운 하루모임 만들기'),
-                                      ),
-                                    ),
-                                    GestureDetector(
-                                      onTap: () => Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              const ClubGatheringUploadMainScreen(),
-                                        ),
-                                      ),
-                                      child: Container(
-                                        alignment: Alignment.centerLeft,
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 20),
-                                        width: double.infinity,
-                                        height: 48,
-                                        decoration: BoxDecoration(
-                                          border: Border(
-                                            bottom: BorderSide(
-                                              color: kFontGray50Color,
-                                            ),
-                                          ),
-                                        ),
-                                        child: const Text('새로운 소모임 만들기'),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
+                      builder: (context) => const MainUploadBottomSheet(),
+                    ).then((value) => setState(() {})),
                     child: Container(
                       color: kWhiteColor,
                       child: SvgPicture.asset(

@@ -72,4 +72,101 @@ class FirebaseClubGatheringService {
       return [];
     }
   }
+
+  /// 소모임 콘텐츠
+  static Future<List<ClubGathering>> getTrendingOnGathering(
+      {required String city}) async {
+    try {
+      final snapshot = await FirebaseService.fireStore
+          .collection(_category)
+          .where('cityList', arrayContains: city)
+          .get();
+
+      List<ClubGathering> gatheringList = snapshot.docs
+          .map((element) => ClubGathering.fromJson(element.data()))
+          .toList();
+
+      gatheringList.sort((gathering1, gathering2) =>
+          gathering2.favoriteList.length - gathering1.favoriteList.length);
+
+      return gatheringList;
+    } catch (e) {
+      log('FirebaseClubGatheringService - getTrendingOnGathering Failed : $e');
+      return [];
+    }
+  }
+
+  static Future<List<ClubGathering>> getRecommendGathering(
+      {required String category, required String city}) async {
+    try {
+      final snapshot = await FirebaseService.fireStore
+          .collection(_category)
+          .where('cityList', arrayContains: city)
+          .where('category', isEqualTo: category)
+          .get();
+
+      return snapshot.docs
+          .map((element) => ClubGathering.fromJson(element.data()))
+          .toList();
+    } catch (e) {
+      log('FirebaseClubGatheringService - getRecommendGathering Failed : $e');
+      return [];
+    }
+  }
+
+  static Future<List<ClubGathering>> getImmediatelyAbleToParticipateGathering(
+      {required String city}) async {
+    try {
+      final snapshot = await FirebaseService.fireStore
+          .collection(_category)
+          .where('cityList', arrayContains: city)
+          .where('recruitWay', isEqualTo: 'firstCome')
+          .get();
+
+      return snapshot.docs
+          .map((element) => ClubGathering.fromJson(element.data()))
+          .toList();
+    } catch (e) {
+      log('FirebaseClubGatheringService - getImmediatelyAbleToParticipateGathering Failed : $e');
+      return [];
+    }
+  }
+
+  static Future<List<ClubGathering>> getNearGathering(
+      {required String city}) async {
+    try {
+      final snapshot = await FirebaseService.fireStore
+          .collection(_category)
+          .where('cityList', arrayContains: city)
+          .get();
+
+      return snapshot.docs
+          .map((element) => ClubGathering.fromJson(element.data()))
+          .toList();
+    } catch (e) {
+      log('FirebaseClubGatheringService - getNearGathering Failed : $e');
+      return [];
+    }
+  }
+
+  static Future<List<ClubGathering>> getNewGathering(
+      {required String city}) async {
+    try {
+      DateTime nowDate = DateTime.now();
+
+      final snapshot = await FirebaseService.fireStore
+          .collection(_category)
+          .where('timeStamp',
+              isGreaterThanOrEqualTo:
+                  nowDate.subtract(const Duration(days: 7)).toString())
+          .get();
+
+      return snapshot.docs
+          .map((element) => ClubGathering.fromJson(element.data()))
+          .toList();
+    } catch (e) {
+      log('FirebaseClubGatheringService - getNewGathering Failed : $e');
+      return [];
+    }
+  }
 }

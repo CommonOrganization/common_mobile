@@ -33,10 +33,10 @@ class FirebaseOneDayGatheringService {
 
   static Future<List<OneDayGathering>> getGathering() async {
     try {
-      final snapshot = await FirebaseService.fireStore.collection(_category).get();
+      final snapshot =
+          await FirebaseService.fireStore.collection(_category).get();
 
-      return snapshot
-          .docs
+      return snapshot.docs
           .map((snapshot) => OneDayGathering.fromJson(snapshot.data()))
           .toList();
     } catch (e) {
@@ -94,7 +94,8 @@ class FirebaseOneDayGatheringService {
   }
 
   /// 하루모임 콘텐츠
-  static Future<List<OneDayGathering>> getTodayGathering({required String city}) async {
+  static Future<List<OneDayGathering>> getTodayGathering(
+      {required String city}) async {
     try {
       DateTime nowDate = DateTime.now();
       final snapshot = await FirebaseService.fireStore
@@ -111,6 +112,26 @@ class FirebaseOneDayGatheringService {
           .toList();
     } catch (e) {
       log('FirebaseOneDayGatheringService - getTodayGathering Failed : $e');
+      return [];
+    }
+  }
+
+  static Future<List<OneDayGathering>> getDailyGathering(
+      {required String city, required DateTime dateTime}) async {
+    try {
+      final snapshot = await FirebaseService.fireStore
+          .collection(_category)
+          .where('openingDate', isGreaterThanOrEqualTo: dateTime.toString())
+          .where('openingDate',
+              isLessThan: dateTime.add(const Duration(days: 1)).toString())
+          .get();
+
+      return snapshot.docs
+          .map((element) => OneDayGathering.fromJson(element.data()))
+          .where((element) => element.place['city'] == city)
+          .toList();
+    } catch (e) {
+      log('FirebaseOneDayGatheringService - getDailyGathering Failed : $e');
       return [];
     }
   }

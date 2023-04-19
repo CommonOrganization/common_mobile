@@ -65,16 +65,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ];
           },
-          body: RefreshIndicator(
-            color: kMainColor,
-            onRefresh: () async => await Future.delayed(
-              const Duration(milliseconds: 500),
-              () => setState(() {}),
-            ),
-            child: (_headerIndex == 0
-                ? const HomeOneDayGatheringScreen()
-                : const HomeClubGatheringScreen()),
-          ),
+          body: (_headerIndex == 0
+              ? const HomeOneDayGatheringScreen()
+              : const HomeClubGatheringScreen()),
         ),
       ),
     );
