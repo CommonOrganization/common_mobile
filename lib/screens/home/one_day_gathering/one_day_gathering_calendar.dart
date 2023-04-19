@@ -143,6 +143,7 @@ class _OneDayGatheringCalendarState extends State<OneDayGatheringCalendar> {
                       double height = gatheringSize > 1
                           ? (gatheringSize - 1) * 118 + 53
                           : 53;
+
                       return SizedBox(
                         height: height,
                         child: Stack(

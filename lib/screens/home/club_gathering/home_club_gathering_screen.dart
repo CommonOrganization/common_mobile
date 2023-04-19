@@ -1,18 +1,15 @@
 import 'dart:math';
-
 import 'package:common/constants/constants_value.dart';
-import 'package:common/models/club_gathering/club_gathering.dart';
 import 'package:common/services/firebase_club_gathering_service.dart';
-import 'package:common/widgets/club_gathering_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../../constants/constants_colors.dart';
 import '../../../constants/constants_enum.dart';
 import '../../../controllers/user_controller.dart';
 import '../../../models/user_place/user_place.dart';
 import '../components/gathering_category_container.dart';
 import 'club_gathering_contents_area.dart';
+import 'club_gathering_ranking.dart';
 
 class HomeClubGatheringScreen extends StatefulWidget {
   const HomeClubGatheringScreen({Key? key}) : super(key: key);
@@ -58,6 +55,7 @@ class _HomeClubGatheringScreenState extends State<HomeClubGatheringScreen> {
                   title: '추천하는 ${category.title} 하루모임',
                 );
               }),
+              const ClubGatheringRanking(),
               ClubGatheringContentsArea(
                 future: FirebaseClubGatheringService
                     .getImmediatelyAbleToParticipateGathering(

@@ -114,6 +114,24 @@ class FirebaseClubGatheringService {
     }
   }
 
+  static Future<List<ClubGathering>> getInterestGathering(
+      {required List category, required String city}) async {
+    try {
+      final snapshot = await FirebaseService.fireStore
+          .collection(_category)
+          .where('cityList', arrayContains: city)
+          .where('category',whereIn: category)
+          .get();
+
+      return snapshot.docs
+          .map((element) => ClubGathering.fromJson(element.data()))
+          .toList();
+    } catch (e) {
+      log('FirebaseClubGatheringService - getInterestGathering Failed : $e');
+      return [];
+    }
+  }
+
   static Future<List<ClubGathering>> getImmediatelyAbleToParticipateGathering(
       {required String city}) async {
     try {
