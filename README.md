@@ -18,3 +18,5 @@
 - [V] gathering_detail(club_gathering)
 
 ### 개발 할 내용
+- [ ] 하루모임 메인페이지
+- [ ] 소모임 메인페이지

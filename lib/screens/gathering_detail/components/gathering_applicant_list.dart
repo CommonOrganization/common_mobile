@@ -96,9 +96,9 @@ class GatheringApplicantList extends StatelessWidget {
       return Text(
         snapshot.data ?? '',
         style: TextStyle(
-          fontSize: 10,
+          fontSize: 12,
           color: kFontGray800Color,
-          height: 13/10,
+          height: 16/12,
         ),
         maxLines: 1,
         overflow: TextOverflow.ellipsis,

@@ -104,48 +104,53 @@ class GatheringCategorySelectArea extends StatelessWidget {
             }).toList(),
           ),
         ),
-        if (!showMore)
-          GestureDetector(
-            onTap: () => showMorePressed(),
-            child: Container(
-              margin: const EdgeInsets.symmetric(vertical: 22, horizontal: 20),
-              alignment: Alignment.center,
-              width: double.infinity,
-              height: 38,
-              decoration: BoxDecoration(
-                color: kFontGray50Color,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const SizedBox(width: 15),
-                  Text(
-                    '더보기',
+        GestureDetector(
+          onTap: () => showMorePressed(),
+          child: Container(
+            margin: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
+            alignment: Alignment.center,
+            width: double.infinity,
+            height: 38,
+            decoration: BoxDecoration(
+              color: kFontGray50Color,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const SizedBox(width: 15),
+                Container(
+                  alignment: Alignment.center,
+                  width: 50,
+                  child: Text(
+                    showMore ? '닫기' : '더보기',
                     style: TextStyle(
                       fontSize: 13,
                       color: kFontGray600Color,
                       height: 17 / 13,
                     ),
                   ),
-                  const SizedBox(width: 15),
-                  SvgPicture.asset(
+                ),
+                RotatedBox(
+                  quarterTurns: showMore ? 90 : 0,
+                  child: SvgPicture.asset(
                     'assets/icons/svg/arrow_down_16px.svg',
                     colorFilter: ColorFilter.mode(
                       kFontGray600Color,
                       BlendMode.srcIn,
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
+        ),
         Container(
-          margin: const EdgeInsets.symmetric(vertical: 24),
           width: double.infinity,
           height: 1,
           color: kFontGray50Color,
         ),
+        SizedBox(height: 24),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Row(

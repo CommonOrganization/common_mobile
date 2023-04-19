@@ -1,8 +1,13 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:common/constants/constants_value.dart';
+import 'package:common/models/gathering/gathering.dart';
+import 'package:common/models/one_day_gathering/one_day_gathering.dart';
 import 'package:common/services/firebase_service.dart';
 import 'package:common/services/firebase_upload_service.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../models/club_gathering/club_gathering.dart';
 
 //모임 공통 기능
 class FirebaseGatheringService {
@@ -88,8 +93,38 @@ class FirebaseGatheringService {
     }
   }
 
-  static Future<QuerySnapshot<Map<String, dynamic>>> getGathering({
-    required String category,
-  }) async =>
-      await FirebaseService.fireStore.collection(category).get();
+  static Future<dynamic> get(
+      {required String category,
+      required String id,
+      required String field}) async {
+    try {
+      final snapshot =
+          await FirebaseService.fireStore.collection(category).doc(id).get();
+      if (snapshot.exists) {
+        return snapshot.get(field);
+      }
+      return null;
+    } catch (e) {
+      log('FirebaseGatheringService - get Failed : $e');
+      return false;
+    }
+  }
+
+  static Future<bool> update(
+      {required String category,
+      required String id,
+      required String field,
+      required dynamic value}) async {
+    try {
+      await FirebaseService.fireStore
+          .collection(category)
+          .doc(id)
+          .update({field: value});
+      return true;
+    } catch (e) {
+      log('FirebaseGatheringService - update Failed : $e');
+      return false;
+    }
+  }
+
 }

@@ -35,7 +35,7 @@ class _ClubGatheringCategoryScreenState
               selectedCategory: _selectedCategory,
               onSelect: (CommonCategory category) =>
                   setState(() => _selectedCategory = category),
-              showMorePressed: () => setState(() => _showMore = true),
+              showMorePressed: () => setState(() => _showMore = !_showMore),
               onChanged: (text) => setState(() {}),
             ),
           ),

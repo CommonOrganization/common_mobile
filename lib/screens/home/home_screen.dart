@@ -1,6 +1,6 @@
 import 'package:common/screens/home/components/gathering_header.dart';
-import 'package:common/screens/home/home_club_gathering_screen.dart';
-import 'package:common/screens/home/home_one_day_gathering_screen.dart';
+import 'package:common/screens/home/club_gathering/home_club_gathering_screen.dart';
+import 'package:common/screens/home/one_day_gathering/home_one_day_gathering_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../constants/constants_colors.dart';

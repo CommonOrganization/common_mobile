@@ -41,6 +41,8 @@ dependencies:
 
   url_launcher: ^6.1.10
 
+  dotted_border: ^2.0.0+3
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
