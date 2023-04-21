@@ -117,7 +117,7 @@ class _ClubGatheringRankingCardState extends State<ClubGatheringRankingCard> {
                                   'assets/icons/svg/people_15px.svg'),
                               const SizedBox(width: 4),
                               Text(
-                                '${widget.gathering.memberList.length}명',
+                                '${widget.gathering.capacity}명',
                                 style: TextStyle(
                                   fontSize: 12,
                                   height: 16 / 12,

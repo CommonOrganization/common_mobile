@@ -188,7 +188,9 @@ class FirebaseOneDayGatheringService {
 
       return snapshot.docs
           .map((element) => OneDayGathering.fromJson(element.data()))
-          // .where((element) => element.place['city'] == city)
+          .where((element) => nowDate
+              .difference(DateTime.parse(element.openingDate))
+              .isNegative)
           .toList();
     } catch (e) {
       log('FirebaseOneDayGatheringService - getNewGathering Failed : $e');
