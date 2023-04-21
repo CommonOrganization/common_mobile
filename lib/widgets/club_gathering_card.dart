@@ -4,9 +4,13 @@ import 'package:common/services/firebase_user_service.dart';
 import 'package:common/widgets/contents_tag.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import '../constants/constants_enum.dart';
+import '../constants/constants_value.dart';
+import '../controllers/user_controller.dart';
 import '../screens/gathering_detail/club_gathering_detail/club_gathering_detail_screen.dart';
 import '../utils/widget_utils.dart';
+import 'gathering_favorite_button.dart';
 
 class ClubGatheringCard extends StatelessWidget {
   final ClubGathering gathering;
@@ -59,34 +63,37 @@ class ClubGatheringCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          Builder(builder: (context) {
-                            CommonCategory category =
-                                CommonCategoryMap.getCategory(
-                                    gathering.category);
-                            return Row(
-                              children: [
-                                Image.asset(
-                                  category.miniImage,
-                                  width: 22,
-                                  height: 22,
+                      Builder(builder: (context) {
+                        CommonCategory category =
+                            CommonCategoryMap.getCategory(gathering.category);
+                        return Row(
+                          children: [
+                            Image.asset(
+                              category.miniImage,
+                              width: 22,
+                              height: 22,
+                            ),
+                            const SizedBox(width: 4),
+                            Expanded(
+                              child: Text(
+                                category.title,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: kFontGray600Color,
+                                  fontWeight: FontWeight.bold,
+                                  height: 17 / 12,
                                 ),
-                                const SizedBox(width: 4),
-                                Text(
-                                  category.title,
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: kFontGray600Color,
-                                    fontWeight: FontWeight.bold,
-                                    height: 17 / 12,
-                                  ),
-                                ),
-                              ],
-                            );
-                          }),
-                        ],
-                      ),
+                              ),
+                            ),
+                            GatheringFavoriteButton(
+                              category: kClubGatheringCategory,
+                              gatheringId: gathering.id,
+                              userId: context.read<UserController>().user!.id,
+                            ),
+                            const SizedBox(width: 16),
+                          ],
+                        );
+                      }),
                       Text(
                         gathering.title,
                         style: TextStyle(

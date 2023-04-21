@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../constants/constants_colors.dart';
-import '../../../services/firebase_gathering_service.dart';
+import '../constants/constants_colors.dart';
+import '../services/firebase_gathering_service.dart';
 
 class GatheringFavoriteButton extends StatefulWidget {
   final String category;
   final String gatheringId;
   final String userId;
-  const GatheringFavoriteButton(
-      {Key? key,
-      required this.category,
-      required this.gatheringId,
-      required this.userId})
-      : super(key: key);
+  final double size;
+  const GatheringFavoriteButton({
+    Key? key,
+    required this.category,
+    required this.gatheringId,
+    required this.userId,
+    this.size = 20,
+  }) : super(key: key);
 
   @override
   State<GatheringFavoriteButton> createState() =>
@@ -34,6 +36,7 @@ class _GatheringFavoriteButtonState extends State<GatheringFavoriteButton> {
           bool value = favoriteList.contains(widget.userId);
 
           return GestureDetector(
+            behavior: HitTestBehavior.opaque,
             onTap: () async {
               if (value) {
                 favoriteList.remove(widget.userId);
@@ -48,18 +51,20 @@ class _GatheringFavoriteButtonState extends State<GatheringFavoriteButton> {
               ).then((value) => setState(() {}));
             },
             child: Container(
-              width: 20,
-              height: 20,
+              width: widget.size,
+              height: widget.size,
               color: kWhiteColor,
               child: SvgPicture.asset(
                 'assets/icons/svg/favorite_${value ? 'active' : 'inactive'}_20px.svg',
+                width: widget.size,
+                height: widget.size,
               ),
             ),
           );
         }
         return Container(
-          width: 20,
-          height: 20,
+          width: widget.size,
+          height: widget.size,
           color: kWhiteColor,
           child: SvgPicture.asset(
             'assets/icons/svg/favorite_inactive_20px.svg',

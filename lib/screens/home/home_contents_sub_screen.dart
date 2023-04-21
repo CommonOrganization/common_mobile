@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 import '../../constants/constants_colors.dart';
 import '../../constants/constants_enum.dart';
 import '../gathering_detail/one_day_gathering_detail/one_day_gathering_detail_screen.dart';
-import 'components/gathering_favorite_button.dart';
+import '../../widgets/gathering_favorite_button.dart';
 
 class HomeContentsSubScreen extends StatelessWidget {
   final String category;

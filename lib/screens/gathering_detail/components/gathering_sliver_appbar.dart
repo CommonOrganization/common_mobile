@@ -1,6 +1,10 @@
+import 'package:common/constants/constants_value.dart';
+import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/gathering/gathering.dart';
+import 'package:common/widgets/gathering_favorite_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 import '../../../constants/constants_colors.dart';
 import '../../../constants/constants_enum.dart';
 import '../../../utils/date_utils.dart';
@@ -55,8 +59,8 @@ class GatheringSliverAppbar extends StatelessWidget {
             onTap: () {},
             child: SvgPicture.asset(
               showAppbarBlack
-                  ? 'assets/icons/svg/favorite_28px.svg'
-                  : 'assets/icons/svg/favorite_white_28px.svg',
+                  ? 'assets/icons/svg/more_28px.svg'
+                  : 'assets/icons/svg/more_white_28px.svg',
             ),
           ),
           const SizedBox(width: 20),
@@ -193,14 +197,28 @@ class GatheringSliverAppbar extends StatelessWidget {
                               );
                             }),
                             const SizedBox(height: 4),
-                            Text(
-                              gathering.title,
-                              style: TextStyle(
-                                fontSize: 26,
-                                fontWeight: FontWeight.bold,
-                                color: kFontGray900Color,
-                                height: 37 / 26,
-                              ),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    gathering.title,
+                                    style: TextStyle(
+                                      fontSize: 26,
+                                      fontWeight: FontWeight.bold,
+                                      color: kFontGray900Color,
+                                      height: 37 / 26,
+                                    ),
+                                  ),
+                                ),
+                                GatheringFavoriteButton(
+                                  category: isClubGathering
+                                      ? kClubGatheringCategory
+                                      : kOneDayGatheringCategory,
+                                  gatheringId: gathering.id,
+                                  userId: context.read<UserController>().user!.id,
+                                  size: 28,
+                                ),
+                              ],
                             ),
                             const SizedBox(height: 6),
                             Row(

@@ -11,6 +11,7 @@ class LocalController {
 
   static const String _userInfoKey = 'userInfo';
   static const String _userPhoneKey = 'userPhone';
+  static const String _searchWorkKey = 'searchWord';
 
   static Future<void> _setSharedPreferences() async {
     _sharedPreferences = await SharedPreferences.getInstance();
@@ -93,6 +94,67 @@ class LocalController {
     } catch (e) {
       log('LocalController - getUserPhone Failed : $e');
       return null;
+    }
+  }
+
+  static Future<bool> addSearchWord(String text) async {
+    try {
+      if (_sharedPreferences == null) {
+        await _setSharedPreferences();
+      }
+      List<String> searchWordList = await getSearchWord();
+
+      await _sharedPreferences
+          ?.setStringList(_searchWorkKey, [text, ...searchWordList]);
+      return true;
+    } catch (e) {
+      log('LocalController - addSearchWord Failed : $e');
+      return false;
+    }
+  }
+
+  static Future<bool> removeSearchWord(String text) async {
+    try {
+      if (_sharedPreferences == null) {
+        await _setSharedPreferences();
+      }
+
+      List<String> searchWordList = await getSearchWord();
+      searchWordList.remove(text);
+
+      await _sharedPreferences?.setStringList(_searchWorkKey, searchWordList);
+      return true;
+    } catch (e) {
+      log('LocalController - removeSearchWord Failed : $e');
+      return false;
+    }
+  }
+
+  static Future<bool> clearSearchWord() async {
+    try {
+      if (_sharedPreferences == null) {
+        await _setSharedPreferences();
+      }
+
+      await _sharedPreferences?.remove(_searchWorkKey);
+      return true;
+    } catch (e) {
+      log('LocalController - clearSearchWord Failed : $e');
+      return false;
+    }
+  }
+
+  static Future<List<String>> getSearchWord() async {
+    try {
+      if (_sharedPreferences == null) {
+        await _setSharedPreferences();
+      }
+      List<String> searchWordList =
+          _sharedPreferences?.getStringList(_searchWorkKey) ?? [];
+      return searchWordList;
+    } catch (e) {
+      log('LocalController - getSearchWord Failed : $e');
+      return [];
     }
   }
 }

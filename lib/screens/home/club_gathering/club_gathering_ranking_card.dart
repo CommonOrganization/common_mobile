@@ -6,7 +6,7 @@ import 'package:common/screens/gathering_detail/club_gathering_detail/club_gathe
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../utils/format_utils.dart';
-import '../components/gathering_favorite_button.dart';
+import '../../../widgets/gathering_favorite_button.dart';
 
 class ClubGatheringRankingCard extends StatefulWidget {
   final ClubGathering gathering;

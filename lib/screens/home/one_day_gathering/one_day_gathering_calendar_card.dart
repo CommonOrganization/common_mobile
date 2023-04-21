@@ -1,6 +1,6 @@
 import 'package:common/models/one_day_gathering/one_day_gathering.dart';
 import 'package:common/screens/gathering_detail/one_day_gathering_detail/one_day_gathering_detail_screen.dart';
-import 'package:common/screens/home/components/gathering_favorite_button.dart';
+import 'package:common/widgets/gathering_favorite_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../constants/constants_colors.dart';

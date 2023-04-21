@@ -8,7 +8,7 @@ class ContentsTag extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
+    return Container(
       padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(24),
