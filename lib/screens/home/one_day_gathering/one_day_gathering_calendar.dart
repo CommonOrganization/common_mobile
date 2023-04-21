@@ -20,8 +20,6 @@ class OneDayGatheringCalendar extends StatefulWidget {
 class _OneDayGatheringCalendarState extends State<OneDayGatheringCalendar> {
   late DateTime _nowDate;
 
-  final double _calendarHeight = 486;
-
   int _selectedAddDay = 0;
 
   @override
@@ -35,13 +33,12 @@ class _OneDayGatheringCalendarState extends State<OneDayGatheringCalendar> {
     return Container(
       margin: const EdgeInsets.only(bottom: 60),
       width: MediaQuery.of(context).size.width,
-      height: _calendarHeight,
-      child: Stack(
+      child: Column(
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+            padding: const EdgeInsets.only(top: 30,bottom: 20, left: 20,right: 20),
             width: double.infinity,
-            height: 197,
+            height: 150,
             color: kMainColor,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -140,36 +137,35 @@ class _OneDayGatheringCalendarState extends State<OneDayGatheringCalendar> {
                       int gatheringSize =
                           gatheringList.length > 3 ? 3 : gatheringList.length;
 
-                      return Positioned(
-                        top: 144,
+                      return Container(
+                        padding: const EdgeInsets.only(left: 20,right: 20,bottom: 20),
+                        color: kMainColor,
                         child: Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 20),
                           width: MediaQuery.of(context).size.width - 40,
-                          height: 342,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
-                            color: kWhiteColor,
+                            color: kMainColor,
                           ),
                           child: Column(
                             children: gatheringList
                                 .sublist(0, gatheringSize)
                                 .map(
                                   (gathering) => OneDayGatheringCalendarCard(
-                                    count: count++,
-                                    gathering: gathering,
-                                    gatheringSize: gatheringSize,
-                                    userId: controller.user!.id,
-                                  ),
-                                )
+                                count: count++,
+                                gathering: gathering,
+                                gatheringSize: gatheringSize,
+                                userId: controller.user!.id,
+                              ),
+                            )
                                 .toList(),
                           ),
                         ),
                       );
                     }
-                    return Positioned(
-                      top: 144,
+                    return Container(
+                      padding: const EdgeInsets.only(left: 20,right: 20,bottom: 20),
+                      color: kMainColor,
                       child: Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 20),
                         padding: const EdgeInsets.all(18),
                         width: MediaQuery.of(context).size.width - 40,
                         height: 342,
@@ -210,7 +206,7 @@ class _OneDayGatheringCalendarState extends State<OneDayGatheringCalendar> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      const OneDayGatheringUploadMainScreen(),
+                                  const OneDayGatheringUploadMainScreen(),
                                 ),
                               ),
                               child: Container(

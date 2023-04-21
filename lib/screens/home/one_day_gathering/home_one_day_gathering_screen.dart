@@ -65,9 +65,7 @@ class _HomeOneDayGatheringScreenState extends State<HomeOneDayGatheringScreen> {
                 const OneDayGatheringCalendar(),
                 OneDayGatheringContentsArea(
                   future: FirebaseOneDayGatheringService.getNearGathering(
-                    city: userPlace.city,
-                    county: userPlace.county,
-                  ),
+                      city: userPlace.city),
                   title: '나와 가까운 하루모임',
                 ),
                 OneDayGatheringContentsArea(

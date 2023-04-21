@@ -1,3 +1,4 @@
+import 'package:common/constants/constants_value.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -66,8 +67,8 @@ class GatheringCategorySelectArea extends StatelessWidget {
               childAspectRatio: 3 / 2,
             ),
             children: (showMore
-                    ? CommonCategory.values
-                    : CommonCategory.values.sublist(0, 9))
+                    ? kEachCommonCategoryList
+                    : kEachCommonCategoryList.sublist(0, 9))
                 .map((category) {
               bool value = selectedCategory == category;
               return GestureDetector(

@@ -156,7 +156,7 @@ class FirebaseOneDayGatheringService {
   }
 
   static Future<List<OneDayGathering>> getNearGathering(
-      {required String city, required String county}) async {
+      {required String city}) async {
     try {
       DateTime nowDate = DateTime.now();
       final snapshot = await FirebaseService.fireStore
@@ -167,7 +167,6 @@ class FirebaseOneDayGatheringService {
       return snapshot.docs
           .map((element) => OneDayGathering.fromJson(element.data()))
           .where((element) => element.place['city'] == city)
-          .where((element) => element.place['county'] == county)
           .toList();
     } catch (e) {
       log('FirebaseOneDayGatheringService - getNearGathering Failed : $e');
@@ -184,6 +183,7 @@ class FirebaseOneDayGatheringService {
           .where('timeStamp',
               isGreaterThanOrEqualTo:
                   nowDate.subtract(const Duration(days: 7)).toString())
+          .orderBy('timeStamp', descending: true)
           .get();
 
       return snapshot.docs

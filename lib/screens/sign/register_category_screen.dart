@@ -1,5 +1,6 @@
 import 'package:common/constants/constants_colors.dart';
 import 'package:common/constants/constants_enum.dart';
+import 'package:common/constants/constants_value.dart';
 import 'package:common/screens/sign/components/register_next_button.dart';
 import 'package:common/utils/local_utils.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +55,7 @@ class _RegisterCategoryScreenState extends State<RegisterCategoryScreen> {
                     mainAxisSpacing: 16,
                     crossAxisSpacing: 16,
                   ),
-                  children: CommonCategory.values.map((commonCategory) {
+                  children: kEachCommonCategoryList.map((commonCategory) {
                     bool isIncluded =
                         _selectedCategoryList.contains(commonCategory);
                     return GestureDetector(

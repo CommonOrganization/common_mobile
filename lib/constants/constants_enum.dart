@@ -1071,6 +1071,7 @@ extension CityMap on City {
 }
 
 enum CommonCategory {
+  all,
   language,
   investment,
   study,
@@ -1095,6 +1096,7 @@ enum CommonCategory {
 
 extension CommonCategoryMap on CommonCategory {
   static Map names = {
+    CommonCategory.all: 'all',
     CommonCategory.language: 'language',
     CommonCategory.investment: 'investment',
     CommonCategory.study: 'study',
@@ -1118,6 +1120,7 @@ extension CommonCategoryMap on CommonCategory {
   };
 
   static Map categories = {
+    'all': CommonCategory.all,
     'language': CommonCategory.language,
     'investment': CommonCategory.investment,
     'study': CommonCategory.study,
@@ -1141,6 +1144,7 @@ extension CommonCategoryMap on CommonCategory {
   };
 
   static Map titles = {
+    CommonCategory.all: '전체',
     CommonCategory.language: '외국ㆍ언어',
     CommonCategory.investment: '주식ㆍ재테크',
     CommonCategory.study: '스터디',
@@ -1164,6 +1168,7 @@ extension CommonCategoryMap on CommonCategory {
   };
 
   static Map images = {
+    CommonCategory.all: 'assets/category/all.png',
     CommonCategory.language: 'assets/category/language.png',
     CommonCategory.investment: 'assets/category/investment.png',
     CommonCategory.study: 'assets/category/study.png',
@@ -1187,6 +1192,7 @@ extension CommonCategoryMap on CommonCategory {
   };
 
   static Map miniImages = {
+    CommonCategory.all: null,
     CommonCategory.language: 'assets/mini_category/language.png',
     CommonCategory.investment: 'assets/mini_category/investment.png',
     CommonCategory.study: 'assets/mini_category/study.png',
@@ -1210,6 +1216,7 @@ extension CommonCategoryMap on CommonCategory {
   };
 
   static Map backgroundColors = {
+    CommonCategory.all: null,
     CommonCategory.language: const Color(0xFFB0E1FF),
     CommonCategory.investment: const Color(0xFFFFC0B2),
     CommonCategory.study: const Color(0xFFFFD0D0),

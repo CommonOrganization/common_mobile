@@ -1,7 +1,9 @@
+import 'package:common/constants/constants_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../constants/constants_colors.dart';
+import '../../constants/constants_value.dart';
 import '../../controllers/local_controller.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -48,6 +50,7 @@ class _SearchScreenState extends State<SearchScreen> {
         ),
         body: ListView(
           children: [
+            // 검색창 및 검색어
             const SizedBox(height: 12),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -98,6 +101,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 ],
               ),
             ),
+            // 최근검색어
             const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -157,6 +161,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 );
               },
             ),
+            // 추천검색어
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
@@ -203,6 +208,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 );
               },
             ),
+            // 배너 공간
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 20),
               width: double.infinity,
@@ -213,6 +219,7 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
             ),
             const SizedBox(height: 24),
+            // 실시간 인기 검색어
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
@@ -291,6 +298,32 @@ class _SearchScreenState extends State<SearchScreen> {
                 );
               },
             ),
+            // 카테고리별 모임 찾기
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                '카테고리별 모임 찾기',
+                style: TextStyle(
+                  fontSize: 15,
+                  height: 20 / 15,
+                  color: kFontGray900Color,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  children: kAllCommonCategoryList
+                      .map((category) => kCategoryButton(category))
+                      .toList(),
+                ),
+              ),
+            ),
+            const SizedBox(height: 40),
           ],
         ),
       ),
@@ -376,4 +409,37 @@ class _SearchScreenState extends State<SearchScreen> {
           )
         ],
       );
+
+  Widget kCategoryButton(CommonCategory category) {
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: (){},
+      child: Container(
+        margin: const EdgeInsets.only(right: 38),
+        child: Column(
+          children: [
+            SizedBox(
+              width: 40,
+              height: 40,
+              child: Image.asset(
+                category.image,
+                width: 40,
+                height: 40,
+              ),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              category.title,
+              style: TextStyle(
+                fontSize: 12,
+                height: 20 / 12,
+                letterSpacing: -0.5,
+                color: kFontGray800Color,
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
 }
