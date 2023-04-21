@@ -200,6 +200,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     GestureDetector(
+                      behavior: HitTestBehavior.opaque,
                       onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -222,6 +223,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     const SizedBox(width: 40),
                     GestureDetector(
+                      behavior: HitTestBehavior.opaque,
                       onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(

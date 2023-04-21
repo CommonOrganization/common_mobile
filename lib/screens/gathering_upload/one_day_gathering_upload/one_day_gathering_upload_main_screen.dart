@@ -207,12 +207,17 @@ class _OneDayGatheringUploadMainScreenState
           child: Container(
             margin: const EdgeInsets.only(left: 20),
             alignment: Alignment.center,
-            child: SvgPicture.asset(
-              'assets/icons/svg/arrow_left_28px.svg',
-              colorFilter: ColorFilter.mode(kFontGray800Color, BlendMode.srcIn),
-            ),
+            child: SvgPicture.asset('assets/icons/svg/arrow_left_28px.svg'),
           ),
         ),
+        actions: [
+          GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () =>Navigator.pop(context),
+            child: SvgPicture.asset('assets/icons/svg/close_28px.svg'),
+          ),
+          const SizedBox(width: 20),
+        ],
         elevation: 0,
       ),
       body: getScreen(),

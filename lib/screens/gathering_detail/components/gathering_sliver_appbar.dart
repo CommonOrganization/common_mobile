@@ -27,6 +27,7 @@ class GatheringSliverAppbar extends StatelessWidget {
         expandedHeight: MediaQuery.of(context).size.width,
         leadingWidth: 48,
         leading: GestureDetector(
+          behavior: HitTestBehavior.opaque,
           onTap: () => Navigator.pop(context),
           child: Container(
             margin: const EdgeInsets.only(left: 20),
@@ -40,6 +41,7 @@ class GatheringSliverAppbar extends StatelessWidget {
         ),
         actions: [
           GestureDetector(
+            behavior: HitTestBehavior.opaque,
             onTap: () {},
             child: SvgPicture.asset(
               showAppbarBlack
@@ -49,6 +51,7 @@ class GatheringSliverAppbar extends StatelessWidget {
           ),
           const SizedBox(width: 18),
           GestureDetector(
+            behavior: HitTestBehavior.opaque,
             onTap: () {},
             child: SvgPicture.asset(
               showAppbarBlack
@@ -247,7 +250,8 @@ class GatheringSliverAppbar extends StatelessWidget {
                                     ),
                                     children: [
                                       TextSpan(
-                                        text: '${gathering.favoriteList.length}명',
+                                        text:
+                                            '${gathering.favoriteList.length}명',
                                         style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           height: 18 / 13,

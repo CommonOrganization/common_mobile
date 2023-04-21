@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class InterestingCategoryContainer extends StatelessWidget {
-  const InterestingCategoryContainer({Key? key}) : super(key: key);
+  final String gatheringCategory;
+  const InterestingCategoryContainer({Key? key, required this.gatheringCategory}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class InterestingCategoryContainer extends StatelessWidget {
         return SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 20),
+            margin: const EdgeInsets.only(left: 20,right: 20,top: 20),
             child: Row(
               children: controller.user!.interestCategory.map((category) {
                 CommonCategory commonCategory =

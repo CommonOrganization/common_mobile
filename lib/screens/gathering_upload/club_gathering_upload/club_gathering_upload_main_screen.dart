@@ -153,6 +153,7 @@ class _ClubGatheringUploadMainScreenState
         backgroundColor: kWhiteColor,
         leadingWidth: 48,
         leading: GestureDetector(
+          behavior: HitTestBehavior.opaque,
           onTap: () {
             if (_pageIndex == 0) {
               Navigator.pop(context);
@@ -169,6 +170,14 @@ class _ClubGatheringUploadMainScreenState
             ),
           ),
         ),
+        actions: [
+          GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () =>Navigator.pop(context),
+            child: SvgPicture.asset('assets/icons/svg/close_28px.svg'),
+          ),
+          const SizedBox(width: 20),
+        ],
         elevation: 0,
       ),
       body: getScreen(),

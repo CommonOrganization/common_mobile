@@ -1316,7 +1316,7 @@ extension RecruitWayMap on RecruitWay {
   };
 
   String get name => names[this];
-  RecruitWay getRecruitWay(String text) => recruitWays[text];
+  static RecruitWay getRecruitWay(String text) => recruitWays[text];
   String get title => titles[this];
   String get content => contents[this];
   String get selectedIcon => selectedIcons[this];

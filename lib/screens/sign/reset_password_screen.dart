@@ -19,11 +19,12 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   late String _userPhone;
   late String _userNewPassword;
 
-  Future<void> resetPasswordPressed(String newPassword) async{
+  Future<void> resetPasswordPressed(String newPassword) async {
     _userNewPassword = newPassword;
-    bool value = await FirebaseUserService.updatePassword(phone: _userPhone, newPassword: _userNewPassword);
-    if(!mounted) return;
-    if(value){
+    bool value = await FirebaseUserService.updatePassword(
+        phone: _userPhone, newPassword: _userNewPassword);
+    if (!mounted) return;
+    if (value) {
       Navigator.pop(context);
       showMessage(context, message: '비밀번호가 변경되었습니다');
       return;
@@ -59,6 +60,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         backgroundColor: kWhiteColor,
         leadingWidth: 48,
         leading: GestureDetector(
+          behavior: HitTestBehavior.opaque,
           onTap: () {
             if (_pageIndex == 0) {
               Navigator.pop(context);
@@ -69,12 +71,17 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
           child: Container(
             margin: const EdgeInsets.only(left: 20),
             alignment: Alignment.center,
-            child: SvgPicture.asset(
-              'assets/icons/svg/arrow_left_28px.svg',
-              colorFilter: ColorFilter.mode(kFontGray800Color, BlendMode.srcIn),
-            ),
+            child: SvgPicture.asset('assets/icons/svg/arrow_left_28px.svg'),
           ),
         ),
+        actions: [
+          GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () =>Navigator.pop(context),
+            child: SvgPicture.asset('assets/icons/svg/close_28px.svg'),
+          ),
+          const SizedBox(width: 20),
+        ],
         elevation: 0,
       ),
       body: getScreen(),

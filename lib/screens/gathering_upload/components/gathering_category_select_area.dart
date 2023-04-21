@@ -150,7 +150,7 @@ class GatheringCategorySelectArea extends StatelessWidget {
           height: 1,
           color: kFontGray50Color,
         ),
-        SizedBox(height: 24),
+        const SizedBox(height: 24),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Row(

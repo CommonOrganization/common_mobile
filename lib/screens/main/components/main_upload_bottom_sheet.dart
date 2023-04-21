@@ -83,6 +83,7 @@ class MainUploadBottomSheet extends StatelessWidget {
       required String title,
       required String subtitle}) {
     return GestureDetector(
+      behavior: HitTestBehavior.opaque,
       onTap: () => onPressed(),
       child: Container(
         alignment: Alignment.centerLeft,

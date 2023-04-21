@@ -1,14 +1,10 @@
 import 'package:common/constants/constants_colors.dart';
-import 'package:common/constants/constants_enum.dart';
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/one_day_gathering/one_day_gathering.dart';
 import 'package:common/screens/gathering_upload/one_day_gathering_upload/one_day_gathering_upload_main_screen.dart';
 import 'package:common/screens/home/one_day_gathering/one_day_gathering_calendar_card.dart';
-import 'package:common/services/firebase_gathering_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-
 import '../../../constants/constants_value.dart';
 import '../../../models/user_place/user_place.dart';
 import '../../../services/firebase_one_day_gathering_service.dart';
@@ -24,6 +20,8 @@ class OneDayGatheringCalendar extends StatefulWidget {
 class _OneDayGatheringCalendarState extends State<OneDayGatheringCalendar> {
   late DateTime _nowDate;
 
+  final double _calendarHeight = 486;
+
   int _selectedAddDay = 0;
 
   @override
@@ -37,7 +35,8 @@ class _OneDayGatheringCalendarState extends State<OneDayGatheringCalendar> {
     return Container(
       margin: const EdgeInsets.only(bottom: 60),
       width: MediaQuery.of(context).size.width,
-      child: Column(
+      height: _calendarHeight,
+      child: Stack(
         children: [
           Container(
             padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
@@ -135,54 +134,78 @@ class _OneDayGatheringCalendarState extends State<OneDayGatheringCalendar> {
                   if (snapshot.hasData) {
                     List<OneDayGathering> gatheringList =
                         snapshot.data as List<OneDayGathering>;
+
                     if (gatheringList.isNotEmpty) {
-                      int count = 0;
+                      int count = 1;
                       int gatheringSize =
                           gatheringList.length > 3 ? 3 : gatheringList.length;
 
-                      double height = gatheringSize > 1
-                          ? (gatheringSize - 1) * 118 + 53
-                          : 53;
-
-                      return SizedBox(
-                        height: height,
-                        child: Stack(
-                          clipBehavior: Clip.none,
-                          children: [
-                            Positioned(
-                              top: -53,
-                              child: Container(
-                                margin:
-                                    const EdgeInsets.symmetric(horizontal: 20),
-                                width: MediaQuery.of(context).size.width - 40,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: kWhiteColor,
-                                ),
-                                child: Column(
-                                  children: gatheringList
-                                      .sublist(0, gatheringSize)
-                                      .map((gathering) =>
-                                          OneDayGatheringCalendarCard(
-                                            count: count++,
-                                            gathering: gathering,
-                                          ))
-                                      .toList(),
-                                ),
-                              ),
-                            ),
-                          ],
+                      return Positioned(
+                        top: 144,
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 20),
+                          width: MediaQuery.of(context).size.width - 40,
+                          height: 342,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: kWhiteColor,
+                          ),
+                          child: Column(
+                            children: gatheringList
+                                .sublist(0, gatheringSize)
+                                .map(
+                                  (gathering) => OneDayGatheringCalendarCard(
+                                    count: count++,
+                                    gathering: gathering,
+                                    gatheringSize: gatheringSize,
+                                    userId: controller.user!.id,
+                                  ),
+                                )
+                                .toList(),
+                          ),
                         ),
                       );
                     }
-                    return SizedBox(
-                      height: 53,
-                      child: Stack(
-                        clipBehavior: Clip.none,
-                        children: [
-                          Positioned(
-                            top: -53,
-                            child: GestureDetector(
+                    return Positioned(
+                      top: 144,
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 20),
+                        padding: const EdgeInsets.all(18),
+                        width: MediaQuery.of(context).size.width - 40,
+                        height: 342,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: kWhiteColor,
+                          border: Border.all(
+                            color: kFontGray50Color,
+                            width: 0.5,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              offset: const Offset(0, 2),
+                              blurRadius: 5,
+                              color: kBlackColor.withOpacity(0.08),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          children: [
+                            const SizedBox(height: 8),
+                            Expanded(
+                              child: Center(
+                                child: Text(
+                                  '해당일에 하루모임이 없어요...\n하루모임을 직접 만들어 보세요!',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    height: 24 / 16,
+                                    letterSpacing: -0.5,
+                                    color: kFontGray400Color,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
+                            GestureDetector(
                               onTap: () => Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -191,54 +214,26 @@ class _OneDayGatheringCalendarState extends State<OneDayGatheringCalendar> {
                                 ),
                               ),
                               child: Container(
-                                margin:
-                                    const EdgeInsets.symmetric(horizontal: 20),
-                                width: MediaQuery.of(context).size.width - 40,
-                                height: 106,
+                                width: double.infinity,
+                                height: 50,
+                                alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: kWhiteColor,
+                                  borderRadius: BorderRadius.circular(27),
+                                  color: kMainColor,
                                 ),
-                                child: Container(
-                                  width: double.infinity,
-                                  height: 106,
-                                  decoration: BoxDecoration(
-                                    color: kWhiteColor,
-                                    borderRadius: BorderRadius.circular(15),
-                                    border: Border.all(
-                                        color: kFontGray50Color, width: 0.5),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        offset: const Offset(0, 2),
-                                        blurRadius: 5,
-                                        color: kBlackColor.withOpacity(0.08),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        '하루모임 만들러 가기',
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          height: 22 / 16,
-                                          fontWeight: FontWeight.bold,
-                                          letterSpacing: -0.5,
-                                          color: kFontGray800Color,
-                                        ),
-                                      ),
-                                      const SizedBox(width: 10),
-                                      SvgPicture.asset(
-                                        'assets/icons/svg/arrow_more_22px.svg',
-                                      ),
-                                    ],
+                                child: Text(
+                                  '하루모임 만들기',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    height: 20 / 16,
+                                    color: kFontGray0Color,
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     );
                   }

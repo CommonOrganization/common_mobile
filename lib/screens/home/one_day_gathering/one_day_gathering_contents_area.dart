@@ -1,4 +1,6 @@
 import 'package:common/constants/constants_colors.dart';
+import 'package:common/constants/constants_value.dart';
+import 'package:common/screens/home/home_contents_sub_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -20,6 +22,10 @@ class OneDayGatheringContentsArea extends StatelessWidget {
         if (snapshot.hasData) {
           List<OneDayGathering> gatheringList =
               snapshot.data as List<OneDayGathering>;
+
+          int gatheringSize =
+              gatheringList.length > 5 ? 5 : gatheringList.length;
+
           if (gatheringList.isEmpty) return Container();
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,7 +45,22 @@ class OneDayGatheringContentsArea extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SvgPicture.asset('assets/icons/svg/arrow_more_22px.svg'),
+                    GestureDetector(
+                      behavior: HitTestBehavior.opaque,
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HomeContentsSubScreen(
+                            category: kOneDayGatheringCategory,
+                            future: future,
+                            title: title,
+                          ),
+                        ),
+                      ),
+                      child: SvgPicture.asset(
+                        'assets/icons/svg/arrow_more_22px.svg',
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -52,6 +73,7 @@ class OneDayGatheringContentsArea extends StatelessWidget {
                     children: [
                       const SizedBox(width: 20),
                       ...gatheringList
+                          .sublist(0, gatheringSize)
                           .map((gathering) => Container(
                                 margin: const EdgeInsets.only(right: 16),
                                 child:
@@ -66,7 +88,7 @@ class OneDayGatheringContentsArea extends StatelessWidget {
             ],
           );
         }
-        return Container();
+        return const SizedBox(height: 300);
       },
     );
   }

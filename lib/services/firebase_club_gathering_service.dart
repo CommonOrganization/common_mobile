@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'package:common/constants/constants_value.dart';
 import 'package:common/models/club_gathering/club_gathering.dart';
 import 'package:common/services/firebase_gathering_service.dart';
 import 'package:common/services/firebase_service.dart';
@@ -115,12 +114,11 @@ class FirebaseClubGatheringService {
   }
 
   static Future<List<ClubGathering>> getInterestGathering(
-      {required List category, required String city}) async {
+      {required String category}) async {
     try {
       final snapshot = await FirebaseService.fireStore
           .collection(_category)
-          .where('cityList', arrayContains: city)
-          .where('category',whereIn: category)
+          .where('category',isEqualTo: category)
           .get();
 
       return snapshot.docs

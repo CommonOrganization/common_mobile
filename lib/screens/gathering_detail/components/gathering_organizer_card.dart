@@ -64,7 +64,7 @@ class GatheringOrganizerCard extends StatelessWidget {
               if (snapshot.hasData) {
                 return GestureDetector(
                   onTap: () {
-                    print('프로필로 이동하기');
+                   //TODO 프로필로 이동
                   },
                   child: Container(
                     decoration: BoxDecoration(

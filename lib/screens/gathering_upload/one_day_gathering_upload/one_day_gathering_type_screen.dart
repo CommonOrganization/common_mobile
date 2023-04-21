@@ -1,15 +1,14 @@
 import 'package:common/constants/constants_colors.dart';
 import 'package:common/constants/constants_enum.dart';
-import 'package:common/constants/constants_value.dart';
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/club_gathering/club_gathering.dart';
+import 'package:common/models/one_day_gathering/one_day_gathering.dart';
 import 'package:common/screens/gathering_upload/components/gathering_upload_next_button.dart';
 import 'package:common/services/firebase_club_gathering_service.dart';
+import 'package:common/services/firebase_one_day_gathering_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-
-import '../../../services/firebase_gathering_service.dart';
 
 class OneDayGatheringTypeScreen extends StatefulWidget {
   final Function nextPressed;
@@ -36,10 +35,9 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
 
   void initializeClubGatheringList() async {
     if (context.read<UserController>().user == null) return;
-    List<ClubGathering> gatheringList =
-        await FirebaseClubGatheringService.getGatheringListWhichUserIsParticipating(
-
-                userId: context.read<UserController>().user!.id);
+    List<ClubGathering> gatheringList = await FirebaseClubGatheringService
+        .getGatheringListWhichUserIsParticipating(
+            userId: context.read<UserController>().user!.id);
     if (gatheringList.isNotEmpty) {
       setState(() {
         _connectedClubGatheringId = gatheringList.first.id;
@@ -281,9 +279,13 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
                     ),
                   ),
                   FutureBuilder(
+                    future:
+                        FirebaseOneDayGatheringService.getConnectedGathering(
+                            clubGatheringId: clubGathering.id),
                     builder: (context, snapshot) {
+                      int gatheringCount = snapshot.hasData ? (snapshot.data as List<OneDayGathering>).length : 0;
                       return Text(
-                        '2개의 하루모임 운영 중',
+                        '$gatheringCount개의 하루모임 운영 중',
                         style: TextStyle(
                           fontSize: 12,
                           color: kFontGray400Color,

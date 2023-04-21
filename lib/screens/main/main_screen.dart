@@ -1,10 +1,6 @@
 import 'package:common/constants/constants_colors.dart';
-import 'package:common/screens/gathering_upload/club_gathering_upload/club_gathering_upload_main_screen.dart';
-import 'package:common/screens/gathering_upload/one_day_gathering_upload/one_day_gathering_upload_main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
-import '../../constants/constants_value.dart';
 import '../home/home_screen.dart';
 import 'components/main_upload_bottom_sheet.dart';
 

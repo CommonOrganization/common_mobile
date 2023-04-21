@@ -9,9 +9,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-
 import '../../../models/gathering/gathering.dart';
-import '../../../services/firebase_gathering_service.dart';
 
 class GatheringCategoryContainer extends StatelessWidget {
   final String category;

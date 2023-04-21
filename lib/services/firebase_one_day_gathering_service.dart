@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:common/constants/constants_value.dart';
 import 'package:common/models/one_day_gathering/one_day_gathering.dart';
 import 'package:common/services/firebase_gathering_service.dart';
 

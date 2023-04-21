@@ -1,13 +1,7 @@
 import 'dart:developer';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:common/constants/constants_value.dart';
-import 'package:common/models/gathering/gathering.dart';
-import 'package:common/models/one_day_gathering/one_day_gathering.dart';
 import 'package:common/services/firebase_service.dart';
 import 'package:common/services/firebase_upload_service.dart';
 import 'package:image_picker/image_picker.dart';
-
-import '../models/club_gathering/club_gathering.dart';
 
 //모임 공통 기능
 class FirebaseGatheringService {

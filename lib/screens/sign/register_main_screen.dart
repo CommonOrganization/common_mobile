@@ -146,6 +146,7 @@ class _RegisterMainScreenState extends State<RegisterMainScreen> {
         backgroundColor: kWhiteColor,
         leadingWidth: 48,
         leading: GestureDetector(
+          behavior: HitTestBehavior.opaque,
           onTap: () {
             if (_pageIndex == 0) {
               Navigator.pop(context);
@@ -156,10 +157,7 @@ class _RegisterMainScreenState extends State<RegisterMainScreen> {
           child: Container(
             margin: const EdgeInsets.only(left: 20),
             alignment: Alignment.center,
-            child: SvgPicture.asset(
-              'assets/icons/svg/arrow_left_28px.svg',
-              colorFilter: ColorFilter.mode(kFontGray800Color, BlendMode.srcIn),
-            ),
+            child: SvgPicture.asset('assets/icons/svg/arrow_left_28px.svg'),
           ),
         ),
         actions: [

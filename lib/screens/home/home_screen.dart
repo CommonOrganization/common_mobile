@@ -1,6 +1,7 @@
 import 'package:common/screens/home/components/gathering_header.dart';
 import 'package:common/screens/home/club_gathering/home_club_gathering_screen.dart';
 import 'package:common/screens/home/one_day_gathering/home_one_day_gathering_screen.dart';
+import 'package:common/screens/search/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../constants/constants_colors.dart';
@@ -39,8 +40,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   fit: BoxFit.cover,
                 ),
                 actions: [
-                  SvgPicture.asset(
-                    'assets/icons/svg/search_26px.svg',
+                  GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SearchScreen(),
+                      ),
+                    ),
+                    child: SvgPicture.asset(
+                      'assets/icons/svg/search_26px.svg',
+                    ),
                   ),
                   const SizedBox(width: 16),
                   SvgPicture.asset(
