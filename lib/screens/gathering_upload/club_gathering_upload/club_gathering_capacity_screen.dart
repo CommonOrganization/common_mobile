@@ -26,6 +26,7 @@ class _ClubGatheringCapacityScreenState
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: ListView(
+              physics: const ClampingScrollPhysics(),
               children: [
                 const SizedBox(height: 12),
                 Text(
@@ -43,7 +44,7 @@ class _ClubGatheringCapacityScreenState
                   style: TextStyle(
                     fontSize: 13,
                     color: kFontGray500Color,
-                    height: 20/13,
+                    height: 20 / 13,
                   ),
                 ),
                 const SizedBox(height: 36),
@@ -104,7 +105,7 @@ class _ClubGatheringCapacityScreenState
                               capStartEdge: false,
                             ),
                             onSelectedItemChanged: (index) =>
-                                setState(() =>_digitNumber = index),
+                                setState(() => _digitNumber = index),
                             children: List.generate(
                               10,
                               (index) => Container(
@@ -112,11 +113,11 @@ class _ClubGatheringCapacityScreenState
                                 decoration: BoxDecoration(
                                   border: _digitNumber == index
                                       ? Border.symmetric(
-                                    horizontal: BorderSide(
-                                      color: kSubColor1,
-                                      width: 1.5,
-                                    ),
-                                  )
+                                          horizontal: BorderSide(
+                                            color: kSubColor1,
+                                            width: 1.5,
+                                          ),
+                                        )
                                       : null,
                                 ),
                                 child: Text(
@@ -152,7 +153,7 @@ class _ClubGatheringCapacityScreenState
                         style: TextStyle(
                           fontSize: 13,
                           color: kFontGray600Color,
-                          height: 20/13,
+                          height: 20 / 13,
                         ),
                       ),
                       Text(
@@ -160,7 +161,7 @@ class _ClubGatheringCapacityScreenState
                         style: TextStyle(
                           fontSize: 12,
                           color: kFontGray500Color,
-                          height: 20/12,
+                          height: 20 / 12,
                         ),
                       )
                     ],
@@ -172,7 +173,8 @@ class _ClubGatheringCapacityScreenState
         ),
         GatheringUploadNextButton(
           value: true,
-          onTap: () =>widget.nextPressed(_decimalNumber * 10 + _digitNumber),title: '다음',
+          onTap: () => widget.nextPressed(_decimalNumber * 10 + _digitNumber),
+          title: '다음',
         ),
       ],
     );

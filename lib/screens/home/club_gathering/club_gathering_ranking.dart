@@ -9,28 +9,30 @@ import '../../../models/club_gathering/club_gathering.dart';
 class ClubGatheringRanking extends StatelessWidget {
   final String category;
   final String userId;
-  const ClubGatheringRanking({Key? key, required this.category, required this.userId}) : super(key: key);
+  const ClubGatheringRanking(
+      {Key? key, required this.category, required this.userId})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: FirebaseClubGatheringService.getInterestGathering(
-          category: category),
+      future:
+          FirebaseClubGatheringService.getInterestGathering(category: category),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<ClubGathering> gatheringList =
-          snapshot.data as List<ClubGathering>;
+              snapshot.data as List<ClubGathering>;
           if (gatheringList.isEmpty) return Container();
-
+          if (gatheringList.length < 3) return Container();
           int gatheringSize =
-          gatheringList.length > 3 ? 3 : gatheringList.length;
+              gatheringList.length > 3 ? 3 : gatheringList.length;
 
           double height = (gatheringSize * 104) + 20;
 
           int rank = 1;
 
           return Container(
-            margin: const EdgeInsets.only(left: 10,right: 10,bottom: 60),
+            margin: const EdgeInsets.only(left: 10, right: 10, bottom: 60),
             padding: const EdgeInsets.symmetric(vertical: 10),
             width: 334,
             height: height + 4,
@@ -63,12 +65,12 @@ class ClubGatheringRanking extends StatelessWidget {
                           .sublist(0, gatheringSize)
                           .map(
                             (gathering) => ClubGatheringRankingCard(
-                          gathering: gathering,
-                          rank: rank++,
-                          gatheringSize: gatheringSize,
-                          userId: userId,
-                        ),
-                      )
+                              gathering: gathering,
+                              rank: rank++,
+                              gatheringSize: gatheringSize,
+                              userId: userId,
+                            ),
+                          )
                           .toList(),
                     ),
                   ),
@@ -86,10 +88,11 @@ class ClubGatheringRanking extends StatelessWidget {
                       child: Builder(builder: (context) {
                         String category = gatheringList.first.category;
                         CommonCategory commonCategory =
-                        CommonCategoryMap.getCategory(category);
-                        
-                        String title = commonCategory.title.replaceAll('ㆍ', '\n');
-                        if(title == '반려동물') title = '반려\n동물';
+                            CommonCategoryMap.getCategory(category);
+
+                        String title =
+                            commonCategory.title.replaceAll('ㆍ', '\n');
+                        if (title == '반려동물') title = '반려\n동물';
                         return Text(
                           title,
                           style: TextStyle(

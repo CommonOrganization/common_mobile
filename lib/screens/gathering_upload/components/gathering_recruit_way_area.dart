@@ -22,6 +22,7 @@ class GatheringRecruitWayArea extends StatelessWidget {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: ListView(
+        physics: const ClampingScrollPhysics(),
         children: [
           const SizedBox(height: 12),
           Text(
@@ -165,7 +166,7 @@ class GatheringRecruitWayArea extends StatelessWidget {
                       hintStyle: TextStyle(
                         fontSize: 14,
                         color: kFontGray400Color,
-                        height: 20/14,
+                        height: 20 / 14,
                       ),
                     ),
                     onChanged: (text) => textFieldOnChange(text),

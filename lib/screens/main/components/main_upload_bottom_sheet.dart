@@ -37,6 +37,7 @@ class MainUploadBottomSheet extends StatelessWidget {
             const SizedBox(height: 8),
             Expanded(
               child: ListView(
+                physics: const ClampingScrollPhysics(),
                 children: [
                   kUploadButton(
                     onPressed: () => Navigator.pushReplacement(

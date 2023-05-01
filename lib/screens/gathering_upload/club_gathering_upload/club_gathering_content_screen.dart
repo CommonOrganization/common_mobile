@@ -39,12 +39,16 @@ class _ClubGatheringContentScreenState
     setState(() => _imageUrlList.add(imageUrl));
   }
 
+  bool get canNextPress =>
+      _mainImageUrl != null && _gatheringContentController.text.isNotEmpty;
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Expanded(
           child: ListView(
+            physics: const ClampingScrollPhysics(),
             children: [
               const SizedBox(height: 12),
               Padding(
@@ -131,7 +135,7 @@ class _ClubGatheringContentScreenState
                     focusedBorder: InputBorder.none,
                     isDense: true,
                     counterText: '',
-                    hintText: '어떤 주제로 소모임을 갖고 싶은지 소개해보세요.(선택)',
+                    hintText: '어떤 주제로 소모임을 갖고 싶은지 소개해보세요.',
                     hintStyle: TextStyle(
                       fontSize: 14,
                       color: kFontGray400Color,
@@ -157,9 +161,9 @@ class _ClubGatheringContentScreenState
           ),
         ),
         GatheringUploadNextButton(
-          value: _mainImageUrl != null,
+          value: canNextPress,
           onTap: () {
-            if (_mainImageUrl == null) return;
+            if (!canNextPress) return;
             widget.nextPressed(
                 _gatheringContentController.text, _mainImageUrl, _imageUrlList);
           },

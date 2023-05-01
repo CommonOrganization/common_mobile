@@ -48,20 +48,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         builder: (context) => const SearchScreen(),
                       ),
                     ),
-                    child: SvgPicture.asset(
-                      'assets/icons/svg/search_26px.svg',
-                    ),
+                    child: SvgPicture.asset('assets/icons/nav/search_26px.svg'),
                   ),
                   const SizedBox(width: 16),
-                  SvgPicture.asset(
-                    'assets/icons/svg/menu_26px.svg',
-                  ),
+                  SvgPicture.asset('assets/icons/nav/hamburger_26px.svg'),
                   const SizedBox(width: 16),
-                  SvgPicture.asset(
-                    'assets/icons/svg/notification_26px.svg',
-                    width: 28,
-                    height: 28,
-                  ),
+                  SvgPicture.asset('assets/icons/nav/alert_26px.svg'),
                   const SizedBox(width: 20),
                 ],
               ),

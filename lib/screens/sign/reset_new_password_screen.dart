@@ -39,6 +39,7 @@ class _ResetNewPasswordScreenState extends State<ResetNewPasswordScreen> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ListView(
+                physics: const ClampingScrollPhysics(),
                 children: [
                   const SizedBox(height: 12),
                   Text(
@@ -194,7 +195,7 @@ class _ResetNewPasswordScreenState extends State<ResetNewPasswordScreen> {
                             style: TextStyle(
                               fontSize: 11,
                               color: kNoColor,
-                              height: 14/11,
+                              height: 14 / 11,
                             ),
                           ),
                         ),
@@ -223,7 +224,7 @@ class _ResetNewPasswordScreenState extends State<ResetNewPasswordScreen> {
                       fontSize: 16,
                       color: canNextPressed ? kWhiteColor : kFontGray200Color,
                       fontWeight: FontWeight.bold,
-                      height: 20/16,
+                      height: 20 / 16,
                     ),
                   ),
                 ),

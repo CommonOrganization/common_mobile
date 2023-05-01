@@ -86,6 +86,7 @@ class _OneDayGatheringUploadMainScreenState
         ...oneDayGatheringMap,
         'timeStamp': DateTime.now().toString(),
       });
+
       Navigator.push(
         context,
         MaterialPageRoute(

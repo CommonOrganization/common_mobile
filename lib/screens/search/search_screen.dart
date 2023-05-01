@@ -49,6 +49,7 @@ class _SearchScreenState extends State<SearchScreen> {
           elevation: 0,
         ),
         body: ListView(
+          physics: const ClampingScrollPhysics(),
           children: [
             // 검색창 및 검색어
             const SizedBox(height: 12),
@@ -413,7 +414,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget kCategoryButton(CommonCategory category) {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      onTap: (){},
+      onTap: () {},
       child: Container(
         margin: const EdgeInsets.only(right: 38),
         child: Column(

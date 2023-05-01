@@ -27,6 +27,7 @@ class GatheringCategorySelectArea extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
+      physics: const ClampingScrollPhysics(),
       children: [
         const SizedBox(height: 12),
         Padding(

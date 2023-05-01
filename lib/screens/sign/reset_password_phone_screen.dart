@@ -104,6 +104,7 @@ class _ResetPasswordPhoneScreenState extends State<ResetPasswordPhoneScreen> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ListView(
+                physics: const ClampingScrollPhysics(),
                 children: [
                   const SizedBox(height: 12),
                   Text(
@@ -234,6 +235,7 @@ class _ResetPasswordPhoneScreenState extends State<ResetPasswordPhoneScreen> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ListView(
+                physics: const ClampingScrollPhysics(),
                 children: [
                   const SizedBox(height: 12),
                   Text(
@@ -251,7 +253,7 @@ class _ResetPasswordPhoneScreenState extends State<ResetPasswordPhoneScreen> {
                       style: TextStyle(
                         fontSize: 14,
                         color: kFontGray500Color,
-                        height: 20/14,
+                        height: 20 / 14,
                       ),
                       children: [
                         TextSpan(text: '${_phoneController.text} 로 '),
@@ -308,7 +310,7 @@ class _ResetPasswordPhoneScreenState extends State<ResetPasswordPhoneScreen> {
                             style: TextStyle(
                               fontSize: 11,
                               color: kFontGray400Color,
-                              height: 14/11,
+                              height: 14 / 11,
                               letterSpacing: -0.5,
                             ),
                           ),
@@ -356,7 +358,7 @@ class _ResetPasswordPhoneScreenState extends State<ResetPasswordPhoneScreen> {
             style: TextStyle(
               fontSize: 36,
               color: kMainColor,
-              height: 47/36,
+              height: 47 / 36,
             ),
             decoration: const InputDecoration(
               border: InputBorder.none,

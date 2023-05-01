@@ -51,7 +51,7 @@ class _SelectLocationBottomSheetState extends State<SelectLocationBottomSheet> {
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   color: kFontGray800Color,
-                  height: 20/16,
+                  height: 20 / 16,
                 ),
               ),
             ),
@@ -63,6 +63,7 @@ class _SelectLocationBottomSheetState extends State<SelectLocationBottomSheet> {
             ),
             Expanded(
               child: ListView(
+                physics: const ClampingScrollPhysics(),
                 children: City.values
                     .map(
                       (city) => Column(
@@ -99,12 +100,13 @@ class _SelectLocationBottomSheetState extends State<SelectLocationBottomSheet> {
                                       style: TextStyle(
                                         fontSize: 14,
                                         color: kFontGray800Color,
-                                        height: 20/14,
+                                        height: 20 / 14,
                                       ),
                                     ),
                                     const Spacer(),
                                     Transform.rotate(
-                                      angle: getRadianFromDegree(_selectedCity == city?180:0),
+                                      angle: getRadianFromDegree(
+                                          _selectedCity == city ? 180 : 0),
                                       child: SvgPicture.asset(
                                         'assets/icons/svg/arrow_down_20px.svg',
                                         colorFilter: ColorFilter.mode(
@@ -144,11 +146,14 @@ class _SelectLocationBottomSheetState extends State<SelectLocationBottomSheet> {
                                             child: Row(
                                               children: [
                                                 Transform.rotate(
-                                                  angle: getRadianFromDegree(45),
+                                                  angle:
+                                                      getRadianFromDegree(45),
                                                   child: SvgPicture.asset(
                                                     'assets/icons/svg/arrow_down_20px.svg',
-                                                    colorFilter: ColorFilter.mode(
-                                                        kFontGray100Color, BlendMode.srcIn),
+                                                    colorFilter:
+                                                        ColorFilter.mode(
+                                                            kFontGray100Color,
+                                                            BlendMode.srcIn),
                                                   ),
                                                 ),
                                                 const SizedBox(width: 6),
@@ -161,7 +166,7 @@ class _SelectLocationBottomSheetState extends State<SelectLocationBottomSheet> {
                                                           fontSize: 14,
                                                           color:
                                                               kFontGray800Color,
-                                                          height: 20/14,
+                                                          height: 20 / 14,
                                                         ),
                                                       );
                                                     }
@@ -169,8 +174,9 @@ class _SelectLocationBottomSheetState extends State<SelectLocationBottomSheet> {
                                                       county,
                                                       style: TextStyle(
                                                         fontSize: 14,
-                                                        color: kFontGray800Color,
-                                                        height: 20/14,
+                                                        color:
+                                                            kFontGray800Color,
+                                                        height: 20 / 14,
                                                       ),
                                                     );
                                                   },

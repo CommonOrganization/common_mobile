@@ -44,6 +44,7 @@ class _RegisterUserInformationScreenState
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ListView(
+                physics: const ClampingScrollPhysics(),
                 children: [
                   const SizedBox(height: 12),
                   Text(
@@ -202,6 +203,7 @@ class _RegisterUserInformationScreenState
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ListView(
+                physics: const ClampingScrollPhysics(),
                 children: [
                   const SizedBox(height: 12),
                   Text(

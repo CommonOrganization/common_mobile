@@ -47,7 +47,7 @@ class _SelectCityBottomSheetState extends State<SelectCityBottomSheet> {
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   color: kFontGray800Color,
-                  height: 20/16,
+                  height: 20 / 16,
                 ),
               ),
             ),
@@ -59,6 +59,7 @@ class _SelectCityBottomSheetState extends State<SelectCityBottomSheet> {
             ),
             Expanded(
               child: ListView(
+                physics: const ClampingScrollPhysics(),
                 children: City.values
                     .map(
                       (city) => GestureDetector(
@@ -86,17 +87,19 @@ class _SelectCityBottomSheetState extends State<SelectCityBottomSheet> {
                             alignment: Alignment.centerLeft,
                             width: double.infinity,
                             decoration: BoxDecoration(
-                                border: Border(
-                                    bottom: BorderSide(
-                              width: 1,
-                              color: kFontGray50Color,
-                            ),),),
+                              border: Border(
+                                bottom: BorderSide(
+                                  width: 1,
+                                  color: kFontGray50Color,
+                                ),
+                              ),
+                            ),
                             child: Text(
                               city.name,
                               style: TextStyle(
                                 fontSize: 14,
                                 color: kFontGray800Color,
-                                height: 20/14,
+                                height: 20 / 14,
                               ),
                             ),
                           ),
@@ -131,7 +134,7 @@ class _SelectCityBottomSheetState extends State<SelectCityBottomSheet> {
                             ? kWhiteColor
                             : kFontGray200Color,
                         fontWeight: FontWeight.bold,
-                        height: 20/16,
+                        height: 20 / 16,
                       ),
                     ),
                   ),

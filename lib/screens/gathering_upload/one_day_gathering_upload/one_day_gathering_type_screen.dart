@@ -27,6 +27,11 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
 
   List<ClubGathering> clubGatheringList = [];
 
+  bool get canNextPress =>
+      _selectedGatheringType == GatheringType.oneDay ||
+      (_selectedGatheringType == GatheringType.clubOneDay &&
+          _connectedClubGatheringId != null);
+
   @override
   void initState() {
     super.initState();
@@ -52,6 +57,7 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
       children: [
         Expanded(
           child: ListView(
+            physics: const ClampingScrollPhysics(),
             children: [
               const SizedBox(height: 12),
               Padding(
@@ -150,12 +156,15 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
           ),
         ),
         GatheringUploadNextButton(
-          value: true,
-          onTap: () => widget.nextPressed(
-            _selectedGatheringType,
-            _connectedClubGatheringId,
-            _showAllThePeople,
-          ),
+          value: canNextPress,
+          onTap: () {
+            if(!canNextPress) return;
+            widget.nextPressed(
+              _selectedGatheringType,
+              _connectedClubGatheringId,
+              _showAllThePeople,
+            );
+          },
           title: '다음',
         ),
       ],
@@ -283,7 +292,9 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
                         FirebaseOneDayGatheringService.getConnectedGathering(
                             clubGatheringId: clubGathering.id),
                     builder: (context, snapshot) {
-                      int gatheringCount = snapshot.hasData ? (snapshot.data as List<OneDayGathering>).length : 0;
+                      int gatheringCount = snapshot.hasData
+                          ? (snapshot.data as List<OneDayGathering>).length
+                          : 0;
                       return Text(
                         '$gatheringCount개의 하루모임 운영 중',
                         style: TextStyle(
