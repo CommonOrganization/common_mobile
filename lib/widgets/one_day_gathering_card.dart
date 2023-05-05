@@ -107,7 +107,8 @@ class OneDayGatheringCard extends StatelessWidget {
                           letterSpacing: -0.5,
                           fontWeight: FontWeight.bold,
                           color: kFontGray800Color,
-                        ),
+                        ),maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                       FutureBuilder(
                         future: FirebaseUserService.get(

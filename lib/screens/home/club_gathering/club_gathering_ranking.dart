@@ -27,15 +27,13 @@ class ClubGatheringRanking extends StatelessWidget {
           int gatheringSize =
               gatheringList.length > 3 ? 3 : gatheringList.length;
 
-          double height = (gatheringSize * 104) + 20;
-
           int rank = 1;
 
           return Container(
             margin: const EdgeInsets.only(left: 10, right: 10, bottom: 60),
             padding: const EdgeInsets.symmetric(vertical: 10),
             width: 334,
-            height: height + 4,
+            height: 336,
             child: Stack(
               clipBehavior: Clip.none,
               children: [
@@ -43,7 +41,7 @@ class ClubGatheringRanking extends StatelessWidget {
                   top: 4,
                   child: Container(
                     width: 334,
-                    height: height,
+                    height: 332,
                     decoration: BoxDecoration(
                       color: kWhiteColor,
                       border: Border.all(

@@ -118,9 +118,7 @@ class _ClubGatheringPreviewScreenState
               Expanded(
                 child: ListView(
                   padding: EdgeInsets.zero,
-                  physics: _showAppbarBlack
-                      ? const AlwaysScrollableScrollPhysics()
-                      : const ClampingScrollPhysics(),
+                  physics: const ClampingScrollPhysics(),
                   children: [getPage()],
                 ),
               ),

@@ -137,9 +137,7 @@ class _ClubGatheringDetailScreenState extends State<ClubGatheringDetailScreen> {
               Expanded(
                 child: ListView(
                   padding: EdgeInsets.zero,
-                  physics: _showAppbarBlack
-                      ? const AlwaysScrollableScrollPhysics()
-                      : const ClampingScrollPhysics(),
+                  physics: const ClampingScrollPhysics(),
                   children: [getPage()],
                 ),
               ),

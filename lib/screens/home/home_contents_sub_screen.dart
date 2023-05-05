@@ -71,7 +71,8 @@ class HomeContentsSubScreen extends StatelessWidget {
 
               if (gatheringList.isNotEmpty) {
                 return ListView(
-                  padding: const EdgeInsets.only(bottom: 60),
+                  padding: const EdgeInsets.only(bottom: 10),
+                  physics: const ClampingScrollPhysics(),
                   children: gatheringList
                       .map((gathering) => (category == kOneDayGatheringCategory
                           ? kOneDayGatheringCard(
@@ -104,8 +105,7 @@ class HomeContentsSubScreen extends StatelessWidget {
       onTap: () => Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) =>
-              ClubGatheringDetailScreen(gathering: gathering),
+          builder: (context) => ClubGatheringDetailScreen(gathering: gathering),
         ),
       ),
       child: Container(
@@ -138,8 +138,7 @@ class HomeContentsSubScreen extends StatelessWidget {
                   Builder(
                     builder: (context) {
                       CommonCategory category =
-                      CommonCategoryMap.getCategory(
-                          gathering.category);
+                          CommonCategoryMap.getCategory(gathering.category);
                       return Row(
                         children: [
                           SizedBox(
@@ -192,8 +191,7 @@ class HomeContentsSubScreen extends StatelessWidget {
                       children: [
                         customIconTextArea(
                           icon: 'assets/icons/svg/location_18px.svg',
-                          title:
-                          getCityNamesString(gathering.cityList),
+                          title: getCityNamesString(gathering.cityList),
                         ),
                         const SizedBox(width: 12),
                         customIconTextArea(
@@ -255,8 +253,7 @@ class HomeContentsSubScreen extends StatelessWidget {
                   Builder(
                     builder: (context) {
                       CommonCategory category =
-                      CommonCategoryMap.getCategory(
-                          gathering.category);
+                          CommonCategoryMap.getCategory(gathering.category);
                       return Row(
                         children: [
                           SizedBox(
@@ -310,7 +307,7 @@ class HomeContentsSubScreen extends StatelessWidget {
                         customIconTextArea(
                           icon: 'assets/icons/svg/location_18px.svg',
                           title:
-                          '${gathering.place['county']} ${gathering.place['dong']}',
+                              '${gathering.place['county']} ${gathering.place['dong']}',
                         ),
                         const SizedBox(width: 12),
                         customIconTextArea(
@@ -320,11 +317,10 @@ class HomeContentsSubScreen extends StatelessWidget {
                         const SizedBox(width: 12),
                         Builder(builder: (context) {
                           DateTime openingDate =
-                          DateTime.parse(gathering.openingDate);
+                              DateTime.parse(gathering.openingDate);
                           return customIconTextArea(
                             icon: 'assets/icons/svg/calendar_18px.svg',
-                            title:
-                            '${openingDate.month}월 ${openingDate.day}일',
+                            title: '${openingDate.month}월 ${openingDate.day}일',
                           );
                         }),
                       ],

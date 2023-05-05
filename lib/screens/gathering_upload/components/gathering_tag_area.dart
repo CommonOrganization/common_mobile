@@ -79,6 +79,7 @@ class GatheringTagArea extends StatelessWidget {
                           height: 20 / 14,
                         ),
                       ),
+                      onSubmitted: (text)=>submitPressed(),
                     ),
                   ),
                   GestureDetector(

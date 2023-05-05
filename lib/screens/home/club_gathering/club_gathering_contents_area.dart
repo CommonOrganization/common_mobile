@@ -30,38 +30,38 @@ class ClubGatheringContentsArea extends StatelessWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        title,
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          height: 20 / 18,
-                          color: kFontGray900Color,
-                        ),
-                      ),
+              GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HomeContentsSubScreen(
+                      category: kClubGatheringCategory,
+                      future: future,
+                      title: title,
                     ),
-                    GestureDetector(
-                      behavior: HitTestBehavior.opaque,
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => HomeContentsSubScreen(
-                            category: kClubGatheringCategory,
-                            future: future,
-                            title: title,
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          title,
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            height: 20 / 18,
+                            color: kFontGray900Color,
                           ),
                         ),
                       ),
-                      child: SvgPicture.asset(
+                      SvgPicture.asset(
                         'assets/icons/svg/arrow_more_22px.svg',
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               SingleChildScrollView(

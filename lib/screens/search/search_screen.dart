@@ -1,4 +1,6 @@
 import 'package:common/constants/constants_enum.dart';
+import 'package:common/screens/search/keyword_search_screen.dart';
+import 'package:common/services/firebase_data_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -17,6 +19,19 @@ class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _searchController = TextEditingController();
 
   bool _searchWordAutoSave = true;
+
+  Future<bool> searchWord(String word) async {
+    try {
+      if (_searchWordAutoSave) {
+        await LocalController.addSearchWord(_searchController.text);
+      }
+      FirebaseDataService.addSearchGatheringWord(word: _searchController.text);
+      setState(() => _searchController.clear());
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,19 +100,38 @@ class _SearchScreenState extends State<SearchScreen> {
                         color: kFontGray800Color,
                         height: 20 / 14,
                       ),
+                      onSubmitted: (text) async {
+                        bool value = await searchWord(text);
+                        if (!mounted) return;
+                        if (!value) return;
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => KeywordSearchScreen(
+                              keyword: text,
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   ),
                   GestureDetector(
                     behavior: HitTestBehavior.opaque,
-                    onTap: () {
-                      LocalController.addSearchWord(_searchController.text)
-                          .then(
-                        (value) => setState(() => _searchController.clear()),
+                    onTap: () async {
+                      String keyword = _searchController.text;
+                      bool value = await searchWord(_searchController.text);
+                      if (!mounted) return;
+                      if (!value) return;
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => KeywordSearchScreen(
+                            keyword: keyword,
+                          ),
+                        ),
                       );
                     },
-                    child: SvgPicture.asset(
-                      'assets/icons/svg/search_24px.svg',
-                    ),
+                    child: SvgPicture.asset('assets/icons/svg/search_24px.svg'),
                   ),
                 ],
               ),
@@ -150,14 +184,16 @@ class _SearchScreenState extends State<SearchScreen> {
               builder: (context, snapshot) {
                 List<String> wordList = snapshot.data ?? [];
                 if (wordList.isEmpty) return Container();
+                int index = 0;
                 return Container(
                   margin:
                       const EdgeInsets.only(left: 20, right: 20, bottom: 32),
                   child: Wrap(
                     spacing: 10,
                     runSpacing: 10,
-                    children:
-                        wordList.map((word) => kSearchWordTag(word)).toList(),
+                    children: wordList
+                        .map((word) => kSearchWordTag(word, index++))
+                        .toList(),
                   ),
                 );
               },
@@ -248,55 +284,46 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
             ),
             const SizedBox(height: 20),
-            //TODO 여기서 spring을 통해 서버로부터 데이터를 받아와서 띄워줄것
             FutureBuilder(
-              future: null,
+              future: FirebaseDataService.getSearchGatheringPopularWord(),
               builder: (context, snapshot) {
-                List<String> wordList = [
-                  '볼링',
-                  '서울',
-                  '클라이밍',
-                  '산책',
-                  '부산',
-                  '베이킹',
-                  '스터디모임',
-                  '웨이트',
-                  '강릉',
-                  '배틀그라운드'
-                ];
-                if (wordList.isEmpty) return Container();
-                return Container(
-                  margin:
-                      const EdgeInsets.only(left: 20, right: 20, bottom: 36),
-                  width: double.infinity,
-                  height: 172,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [0, 1, 2, 3, 4]
-                              .map((index) => kRankingWord(
-                                    ranking: index + 1,
-                                    title: wordList[index],
-                                  ))
-                              .toList(),
+                if (snapshot.hasData) {
+                  List wordList = snapshot.data!;
+                  if (wordList.isEmpty) return Container();
+                  return Container(
+                    margin:
+                        const EdgeInsets.only(left: 20, right: 20, bottom: 36),
+                    width: double.infinity,
+                    height: 172,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [0, 1, 2, 3, 4]
+                                .map((index) => kRankingWord(
+                                      ranking: index + 1,
+                                      title: wordList[index],
+                                    ))
+                                .toList(),
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [5, 6, 7, 8, 9]
-                              .map((index) => kRankingWord(
-                                    ranking: index + 1,
-                                    title: wordList[index],
-                                  ))
-                              .toList(),
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [5, 6, 7, 8, 9]
+                                .map((index) => kRankingWord(
+                                      ranking: index + 1,
+                                      title: wordList[index],
+                                    ))
+                                .toList(),
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                );
+                      ],
+                    ),
+                  );
+                }
+                return Container();
               },
             ),
             // 카테고리별 모임 찾기
@@ -315,6 +342,7 @@ class _SearchScreenState extends State<SearchScreen> {
             const SizedBox(height: 20),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
+              physics: const ClampingScrollPhysics(),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
@@ -331,7 +359,7 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 
-  Widget kSearchWordTag(String word) {
+  Widget kSearchWordTag(String word, int index) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       decoration: BoxDecoration(
@@ -353,7 +381,7 @@ class _SearchScreenState extends State<SearchScreen> {
           const SizedBox(width: 6),
           GestureDetector(
             behavior: HitTestBehavior.opaque,
-            onTap: () => LocalController.removeSearchWord(word)
+            onTap: () => LocalController.removeSearchWord(index)
                 .then((value) => setState(() {})),
             child: SvgPicture.asset(
               'assets/icons/svg/close_6px.svg',

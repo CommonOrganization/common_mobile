@@ -118,7 +118,7 @@ class FirebaseClubGatheringService {
     try {
       final snapshot = await FirebaseService.fireStore
           .collection(_category)
-          .where('category',isEqualTo: category)
+          .where('category', isEqualTo: category)
           .get();
 
       return snapshot.docs
@@ -127,6 +127,26 @@ class FirebaseClubGatheringService {
     } catch (e) {
       log('FirebaseClubGatheringService - getInterestGathering Failed : $e');
       return [];
+    }
+  }
+
+  static Future<bool> canShowGatheringRanking(
+      {required List interestCategory}) async {
+    try {
+      bool result = false;
+      for (var category in interestCategory) {
+        final snapshot = await FirebaseService.fireStore
+            .collection(_category)
+            .where('category', isEqualTo: category)
+            .get();
+        if (snapshot.size >= 3) {
+          result = true;
+        }
+      }
+      return result;
+    } catch (e) {
+      log('FirebaseClubGatheringService - canShowGatheringRanking Failed : $e');
+      return false;
     }
   }
 
@@ -175,6 +195,7 @@ class FirebaseClubGatheringService {
           .where('timeStamp',
               isGreaterThanOrEqualTo:
                   nowDate.subtract(const Duration(days: 7)).toString())
+          .orderBy('timeStamp', descending: true)
           .get();
 
       return snapshot.docs

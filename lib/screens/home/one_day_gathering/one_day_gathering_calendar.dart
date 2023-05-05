@@ -35,11 +35,8 @@ class _OneDayGatheringCalendarState extends State<OneDayGatheringCalendar> {
       width: MediaQuery.of(context).size.width,
       child: Column(
         children: [
-          Container(
-            padding: const EdgeInsets.only(top: 30,bottom: 20, left: 20,right: 20),
-            width: double.infinity,
-            height: 150,
-            color: kMainColor,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -49,7 +46,7 @@ class _OneDayGatheringCalendarState extends State<OneDayGatheringCalendar> {
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                     height: 20 / 18,
-                    color: kFontGray0Color,
+                    color: kFontGray900Color,
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -67,7 +64,7 @@ class _OneDayGatheringCalendarState extends State<OneDayGatheringCalendar> {
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(6),
                                   color: _selectedAddDay == day
-                                      ? kSubColor3
+                                      ? kMainColor
                                       : null,
                                 ),
                                 child: Column(
@@ -78,7 +75,9 @@ class _OneDayGatheringCalendarState extends State<OneDayGatheringCalendar> {
                                       style: TextStyle(
                                         fontSize: 14,
                                         height: 20 / 14,
-                                        color: kFontGray0Color,
+                                        color: _selectedAddDay == day
+                                            ? kFontGray0Color
+                                            : kFontGray400Color,
                                       ),
                                     ),
                                     const SizedBox(height: 4),
@@ -89,7 +88,7 @@ class _OneDayGatheringCalendarState extends State<OneDayGatheringCalendar> {
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(22),
                                         color: _selectedAddDay == day
-                                            ? kWhiteColor
+                                            ? kFontGray0Color
                                             : null,
                                       ),
                                       child: Text(
@@ -98,8 +97,8 @@ class _OneDayGatheringCalendarState extends State<OneDayGatheringCalendar> {
                                           fontSize: 14,
                                           fontWeight: FontWeight.bold,
                                           color: _selectedAddDay == day
-                                              ? kSubColor3
-                                              : kFontGray100Color,
+                                              ? kMainColor
+                                              : kFontGray400Color,
                                         ),
                                       ),
                                     )
@@ -110,6 +109,7 @@ class _OneDayGatheringCalendarState extends State<OneDayGatheringCalendar> {
                           }))
                       .toList(),
                 ),
+                const SizedBox(height: 20),
               ],
             ),
           ),
@@ -138,13 +138,13 @@ class _OneDayGatheringCalendarState extends State<OneDayGatheringCalendar> {
                           gatheringList.length > 3 ? 3 : gatheringList.length;
 
                       return Container(
-                        padding: const EdgeInsets.only(left: 20,right: 20,bottom: 20),
-                        color: kMainColor,
+                        padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 26),
+                        color: kDarkGray20Color,
                         child: Container(
                           width: MediaQuery.of(context).size.width - 40,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
-                            color: kMainColor,
+                            color: kDarkGray20Color,
                           ),
                           child: Column(
                             children: gatheringList
@@ -163,8 +163,8 @@ class _OneDayGatheringCalendarState extends State<OneDayGatheringCalendar> {
                       );
                     }
                     return Container(
-                      padding: const EdgeInsets.only(left: 20,right: 20,bottom: 20),
-                      color: kMainColor,
+                      padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 26),
+                      color: kDarkGray20Color,
                       child: Container(
                         padding: const EdgeInsets.all(18),
                         width: MediaQuery.of(context).size.width - 40,

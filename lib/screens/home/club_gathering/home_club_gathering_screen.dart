@@ -43,7 +43,8 @@ class _HomeClubGatheringScreenState extends State<HomeClubGatheringScreen> {
               children: [
                 const GatheringCategoryContainer(
                     category: kClubGatheringCategory),
-                 const InterestingCategoryContainer(gatheringCategory: kClubGatheringCategory),
+                const InterestingCategoryContainer(
+                    gatheringCategory: kClubGatheringCategory),
                 const SizedBox(height: 45),
                 ClubGatheringContentsArea(
                   future: FirebaseClubGatheringService.getTrendingOnGathering(
@@ -53,8 +54,8 @@ class _HomeClubGatheringScreenState extends State<HomeClubGatheringScreen> {
                 Builder(builder: (context) {
                   List userInterestCategory = controller.user!.interestCategory;
                   int index = Random().nextInt(userInterestCategory.length);
-                  CommonCategory category =
-                      CommonCategoryMap.getCategory(userInterestCategory[index]);
+                  CommonCategory category = CommonCategoryMap.getCategory(
+                      userInterestCategory[index]);
 
                   return ClubGatheringContentsArea(
                     future: FirebaseClubGatheringService.getRecommendGathering(
@@ -92,39 +93,51 @@ class _HomeClubGatheringScreenState extends State<HomeClubGatheringScreen> {
 
   Widget kRankingArea(
           {required List interestCategory, required String userId}) =>
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Text(
-              '나의 취미 소모임 랭킹',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                height: 20 / 18,
-                color: kFontGray900Color,
-              ),
-            ),
-          ),
-          const SizedBox(height: 20),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
+      FutureBuilder(
+        future: FirebaseClubGatheringService.canShowGatheringRanking(
+            interestCategory: interestCategory),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            bool value = snapshot.data as bool;
+            if (value) {
+              return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: interestCategory
-                    .map(
-                      (category) => ClubGatheringRanking(
-                        category: category,
-                        userId: userId,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Text(
+                      '나의 취미 소모임 랭킹',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        height: 20 / 18,
+                        color: kFontGray900Color,
                       ),
-                    )
-                    .toList(),
-              ),
-            ),
-          ),
-        ],
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: interestCategory
+                            .map(
+                              (category) => ClubGatheringRanking(
+                                category: category,
+                                userId: userId,
+                              ),
+                            )
+                            .toList(),
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            }
+          }
+          return Container();
+        },
       );
 }

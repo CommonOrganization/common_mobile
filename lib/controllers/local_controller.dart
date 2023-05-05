@@ -103,7 +103,9 @@ class LocalController {
         await _setSharedPreferences();
       }
       List<String> searchWordList = await getSearchWord();
-
+      if (searchWordList.contains(text)) {
+        searchWordList.remove(text);
+      }
       await _sharedPreferences
           ?.setStringList(_searchWorkKey, [text, ...searchWordList]);
       return true;
@@ -113,14 +115,14 @@ class LocalController {
     }
   }
 
-  static Future<bool> removeSearchWord(String text) async {
+  static Future<bool> removeSearchWord(int index) async {
     try {
       if (_sharedPreferences == null) {
         await _setSharedPreferences();
       }
 
       List<String> searchWordList = await getSearchWord();
-      searchWordList.remove(text);
+      searchWordList.removeAt(index);
 
       await _sharedPreferences?.setStringList(_searchWorkKey, searchWordList);
       return true;
@@ -151,7 +153,8 @@ class LocalController {
       }
       List<String> searchWordList =
           _sharedPreferences?.getStringList(_searchWorkKey) ?? [];
-      return searchWordList;
+      int listSize = searchWordList.length > 10 ? 10 : searchWordList.length;
+      return searchWordList.sublist(0, listSize);
     } catch (e) {
       log('LocalController - getSearchWord Failed : $e');
       return [];

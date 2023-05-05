@@ -103,6 +103,8 @@ class ClubGatheringCard extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           color: kFontGray800Color,
                         ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                       FutureBuilder(
                         future: FirebaseUserService.get(
