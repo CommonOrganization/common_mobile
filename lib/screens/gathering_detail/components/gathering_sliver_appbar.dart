@@ -49,8 +49,8 @@ class GatheringSliverAppbar extends StatelessWidget {
             onTap: () {},
             child: SvgPicture.asset(
               showAppbarBlack
-                  ? 'assets/icons/svg/share_28px.svg'
-                  : 'assets/icons/svg/share_white_28px.svg',
+                  ? 'assets/icons/svg/share_26px.svg'
+                  : 'assets/icons/svg/share_white_26px.svg',
             ),
           ),
           const SizedBox(width: 18),
@@ -59,8 +59,8 @@ class GatheringSliverAppbar extends StatelessWidget {
             onTap: () {},
             child: SvgPicture.asset(
               showAppbarBlack
-                  ? 'assets/icons/svg/more_28px.svg'
-                  : 'assets/icons/svg/more_white_28px.svg',
+                  ? 'assets/icons/svg/more_26px.svg'
+                  : 'assets/icons/svg/more_white_26px.svg',
             ),
           ),
           const SizedBox(width: 20),

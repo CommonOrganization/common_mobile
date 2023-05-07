@@ -37,7 +37,7 @@ class _GatheringFavoriteButtonState extends State<GatheringFavoriteButton> {
 
           return GestureDetector(
             behavior: HitTestBehavior.opaque,
-            onTap: () async {
+            onTap: () {
               if (value) {
                 favoriteList.remove(widget.userId);
               } else {
@@ -50,25 +50,17 @@ class _GatheringFavoriteButtonState extends State<GatheringFavoriteButton> {
                 value: favoriteList,
               ).then((value) => setState(() {}));
             },
-            child: Container(
+            child: SvgPicture.asset(
+              'assets/icons/svg/favorite_${value ? 'active' : 'inactive'}_${widget.size.toInt()}px.svg',
               width: widget.size,
               height: widget.size,
-              color: kWhiteColor,
-              child: SvgPicture.asset(
-                'assets/icons/svg/favorite_${value ? 'active' : 'inactive'}_20px.svg',
-                width: widget.size,
-                height: widget.size,
-              ),
             ),
           );
         }
-        return Container(
+        return SvgPicture.asset(
+          'assets/icons/svg/favorite_inactive_20px.svg',
           width: widget.size,
           height: widget.size,
-          color: kWhiteColor,
-          child: SvgPicture.asset(
-            'assets/icons/svg/favorite_inactive_20px.svg',
-          ),
         );
       },
     );

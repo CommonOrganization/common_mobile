@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:common/constants/constants_enum.dart';
 import 'package:common/screens/search/keyword_search_screen.dart';
 import 'package:common/services/firebase_data_service.dart';
@@ -20,16 +22,27 @@ class _SearchScreenState extends State<SearchScreen> {
 
   bool _searchWordAutoSave = true;
 
-  Future<bool> searchWord(String word) async {
+  Future<void> searchWord(String word) async {
     try {
+      if (word.isEmpty) return;
       if (_searchWordAutoSave) {
-        await LocalController.addSearchWord(_searchController.text);
+        await LocalController.addSearchWord(word);
       }
-      FirebaseDataService.addSearchGatheringWord(word: _searchController.text);
+      FirebaseDataService.addSearchGatheringWord(word: word);
       setState(() => _searchController.clear());
-      return true;
+
+      if (!mounted) return;
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => KeywordSearchScreen(
+            keyword: word,
+          ),
+        ),
+      );
     } catch (e) {
-      return false;
+      log('검색 실패 : $e');
+      return;
     }
   }
 
@@ -45,6 +58,7 @@ class _SearchScreenState extends State<SearchScreen> {
           leadingWidth: 48,
           leading: GestureDetector(
             onTap: () => Navigator.pop(context),
+            behavior: HitTestBehavior.opaque,
             child: Container(
               margin: const EdgeInsets.only(left: 20),
               alignment: Alignment.center,
@@ -100,37 +114,12 @@ class _SearchScreenState extends State<SearchScreen> {
                         color: kFontGray800Color,
                         height: 20 / 14,
                       ),
-                      onSubmitted: (text) async {
-                        bool value = await searchWord(text);
-                        if (!mounted) return;
-                        if (!value) return;
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => KeywordSearchScreen(
-                              keyword: text,
-                            ),
-                          ),
-                        );
-                      },
+                      onSubmitted: (text) => searchWord(text),
                     ),
                   ),
                   GestureDetector(
                     behavior: HitTestBehavior.opaque,
-                    onTap: () async {
-                      String keyword = _searchController.text;
-                      bool value = await searchWord(_searchController.text);
-                      if (!mounted) return;
-                      if (!value) return;
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => KeywordSearchScreen(
-                            keyword: keyword,
-                          ),
-                        ),
-                      );
-                    },
+                    onTap: () => searchWord(_searchController.text),
                     child: SvgPicture.asset('assets/icons/svg/search_24px.svg'),
                   ),
                 ],
@@ -303,7 +292,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             children: [0, 1, 2, 3, 4]
                                 .map((index) => kRankingWord(
                                       ranking: index + 1,
-                                      title: wordList[index],
+                                      word: wordList[index],
                                     ))
                                 .toList(),
                           ),
@@ -314,7 +303,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             children: [5, 6, 7, 8, 9]
                                 .map((index) => kRankingWord(
                                       ranking: index + 1,
-                                      title: wordList[index],
+                                      word: wordList[index],
                                     ))
                                 .toList(),
                           ),
@@ -359,59 +348,63 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 
-  Widget kSearchWordTag(String word, int index) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(13.5),
-        border: Border.all(color: kFontGray200Color),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
+  Widget kSearchWordTag(String word, int index) => GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () => searchWord(word),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(13.5),
+            border: Border.all(color: kFontGray200Color),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                word,
+                style: TextStyle(
+                  fontSize: 13,
+                  height: 17 / 13,
+                  letterSpacing: -0.5,
+                  color: kFontGray600Color,
+                ),
+              ),
+              const SizedBox(width: 6),
+              GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () => LocalController.removeSearchWord(index)
+                    .then((value) => setState(() {})),
+                child: SvgPicture.asset(
+                  'assets/icons/svg/close_6px.svg',
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+
+  Widget kRecommendWordTag(String word) => GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () => searchWord(word),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(13.5),
+            color: kSubColor1,
+          ),
+          child: Text(
             word,
             style: TextStyle(
               fontSize: 13,
-              height: 17 / 13,
+              color: kSubColor3,
               letterSpacing: -0.5,
-              color: kFontGray600Color,
+              height: 17 / 13,
             ),
           ),
-          const SizedBox(width: 6),
-          GestureDetector(
-            behavior: HitTestBehavior.opaque,
-            onTap: () => LocalController.removeSearchWord(index)
-                .then((value) => setState(() {})),
-            child: SvgPicture.asset(
-              'assets/icons/svg/close_6px.svg',
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget kRecommendWordTag(String word) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(13.5),
-        color: kSubColor1,
-      ),
-      child: Text(
-        word,
-        style: TextStyle(
-          fontSize: 13,
-          color: kSubColor3,
-          letterSpacing: -0.5,
-          height: 17 / 13,
         ),
-      ),
-    );
-  }
+      );
 
-  Widget kRankingWord({required int ranking, required String title}) => Row(
+  Widget kRankingWord({required int ranking, required String word}) => Row(
         children: [
           SizedBox(
             width: 20,
@@ -428,12 +421,16 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
           ),
           const SizedBox(width: 16),
-          Text(
-            title,
-            style: TextStyle(
-              fontSize: 14,
-              height: 20 / 14,
-              color: kFontGray800Color,
+          GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () => searchWord(word),
+            child: Text(
+              word,
+              style: TextStyle(
+                fontSize: 14,
+                height: 20 / 14,
+                color: kFontGray800Color,
+              ),
             ),
           )
         ],

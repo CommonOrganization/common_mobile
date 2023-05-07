@@ -3,6 +3,8 @@ import 'package:common/models/club_gathering/club_gathering.dart';
 import 'package:common/services/firebase_gathering_service.dart';
 import 'package:common/services/firebase_service.dart';
 
+import '../utils/gathering_utils.dart';
+
 class FirebaseClubGatheringService {
   static final FirebaseClubGatheringService _instance =
       FirebaseClubGatheringService();
@@ -25,20 +27,6 @@ class FirebaseClubGatheringService {
     } catch (e) {
       log('FirebaseClubGatheringService - uploadGathering Failed : $e');
       return false;
-    }
-  }
-
-  static Future<List<ClubGathering>> getGathering() async {
-    try {
-      final snapshot =
-          await FirebaseService.fireStore.collection(_category).get();
-
-      return snapshot.docs
-          .map((snapshot) => ClubGathering.fromJson(snapshot.data()))
-          .toList();
-    } catch (e) {
-      log('FirebaseClubGatheringService - getGathering Failed : $e');
-      return [];
     }
   }
 
@@ -203,6 +191,24 @@ class FirebaseClubGatheringService {
           .toList();
     } catch (e) {
       log('FirebaseClubGatheringService - getNewGathering Failed : $e');
+      return [];
+    }
+  }
+
+  /// 소모임 검색
+  static Future<List<ClubGathering>> searchGatheringWithKeyword(
+      {required String keyword}) async {
+    try {
+      final snapshot =
+          await FirebaseService.fireStore.collection(_category).get();
+
+      return snapshot.docs
+          .map((element) => ClubGathering.fromJson(element.data()))
+          .where((element) =>
+              hasKeywordClubGathering(gathering: element, keyword: keyword))
+          .toList();
+    } catch (e) {
+      log('FirebaseClubGatheringService - searchGatheringWithKeyword Failed : $e');
       return [];
     }
   }

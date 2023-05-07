@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:common/models/one_day_gathering/one_day_gathering.dart';
 import 'package:common/services/firebase_gathering_service.dart';
 
+import '../utils/gathering_utils.dart';
 import 'firebase_service.dart';
 
 class FirebaseOneDayGatheringService {
@@ -27,20 +28,6 @@ class FirebaseOneDayGatheringService {
     } catch (e) {
       log('FirebaseOneDayGatheringService - uploadGathering Failed : $e');
       return false;
-    }
-  }
-
-  static Future<List<OneDayGathering>> getGathering() async {
-    try {
-      final snapshot =
-          await FirebaseService.fireStore.collection(_category).get();
-
-      return snapshot.docs
-          .map((snapshot) => OneDayGathering.fromJson(snapshot.data()))
-          .toList();
-    } catch (e) {
-      log('FirebaseOneDayGatheringService - getGathering Failed : $e');
-      return [];
     }
   }
 
@@ -194,6 +181,27 @@ class FirebaseOneDayGatheringService {
           .toList();
     } catch (e) {
       log('FirebaseOneDayGatheringService - getNewGathering Failed : $e');
+      return [];
+    }
+  }
+
+  /// 하루모임 검색
+  static Future<List<OneDayGathering>> searchGatheringWithKeyword(
+      {required String keyword}) async {
+    try {
+      DateTime nowDate = DateTime.now();
+      final snapshot = await FirebaseService.fireStore
+          .collection(_category)
+          .where('openingDate', isGreaterThanOrEqualTo: nowDate.toString())
+          .get();
+
+      return snapshot.docs
+          .map((element) => OneDayGathering.fromJson(element.data()))
+          .where((element) =>
+              hasKeywordOneDayGathering(gathering: element, keyword: keyword))
+          .toList();
+    } catch (e) {
+      log('FirebaseOneDayGatheringService - searchGatheringWithKeyword Failed : $e');
       return [];
     }
   }
