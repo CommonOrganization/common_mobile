@@ -118,15 +118,12 @@ class _KeywordSearchScreenState extends State<KeywordSearchScreen> {
       ),
       body: Column(
         children: [
-          SizedBox(
-            width: double.infinity,
-            child: Row(
-              children: [
-                kTabContainer(index: 0, title: '하루모임'),
-                kTabContainer(index: 1, title: '소모임'),
-                kTabContainer(index: 2, title: '피드'),
-              ],
-            ),
+          Row(
+            children: [
+              kTabContainer(index: 0, title: '하루모임'),
+              kTabContainer(index: 1, title: '소모임'),
+              kTabContainer(index: 2, title: '피드'),
+            ],
           ),
           _getScreen(),
         ],
