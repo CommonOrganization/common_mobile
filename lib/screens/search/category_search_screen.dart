@@ -1,6 +1,14 @@
 import 'package:common/constants/constants_enum.dart';
+import 'package:common/controllers/user_controller.dart';
+import 'package:common/models/club_gathering/club_gathering.dart';
+import 'package:common/models/one_day_gathering/one_day_gathering.dart';
+import 'package:common/services/firebase_club_gathering_service.dart';
+import 'package:common/services/firebase_one_day_gathering_service.dart';
+import 'package:common/widgets/club_gathering_row_card.dart';
+import 'package:common/widgets/one_day_gathering_row_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 
 import '../../constants/constants_colors.dart';
 import '../../constants/constants_value.dart';
@@ -24,12 +32,12 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
     _selectedCategory = widget.category;
   }
 
-  Widget getScreen() {
+  Widget getScreen({required String city, required String userId}) {
     switch (_categoryIndex) {
       case 0:
-        return kOneDayGatheringArea();
+        return kOneDayGatheringArea(city: city, userId: userId);
       case 1:
-        return kClubGatheringArea();
+        return kClubGatheringArea(city: city, userId: userId);
       default:
         return Container();
     }
@@ -83,6 +91,7 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
           ),
           Expanded(
             child: ListView(
+              physics: const ClampingScrollPhysics(),
               children: [
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
@@ -97,7 +106,12 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
                     ),
                   ),
                 ),
-                getScreen(),
+                Consumer<UserController>(builder: (context, controller, child) {
+                  if (controller.user == null) return Container();
+                  String city = controller.user!.userPlace['city'];
+                  String userId = controller.user!.id;
+                  return getScreen(city: city, userId: userId);
+                }),
               ],
             ),
           ),
@@ -186,17 +200,167 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
     );
   }
 
-  Widget kOneDayGatheringArea() {
+  Widget kOneDayGatheringArea({required String city, required String userId}) {
     return ListView(
+      physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      children: [],
+      children: [
+        FutureBuilder(
+          future: FirebaseOneDayGatheringService.getNewGatheringWithCategory(
+              city: city, category: _selectedCategory.name),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              List<OneDayGathering> gatheringList =
+                  snapshot.data as List<OneDayGathering>;
+              if (gatheringList.isEmpty) return Container();
+              return ListView(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Text(
+                      'NEW 하루모임',
+                      style: TextStyle(
+                        fontSize: 18,
+                        height: 25 / 18,
+                        color: kFontGray800Color,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  ...gatheringList
+                      .map((gathering) => OneDayGatheringRowCard(
+                          gathering: gathering, userId: userId))
+                      .toList(),
+                  const SizedBox(height: 24),
+                ],
+              );
+            }
+            return Container();
+          },
+        ),
+        //TODO 이곳에 인기피드 들어갈 예정
+        FutureBuilder(
+          future: FirebaseOneDayGatheringService.getAllGatheringWithCategory(
+              city: city, category: _selectedCategory.name),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              List<OneDayGathering> gatheringList =
+                  snapshot.data as List<OneDayGathering>;
+              if (gatheringList.isEmpty) return Container();
+              return ListView(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Text(
+                      '전체 하루모임',
+                      style: TextStyle(
+                        fontSize: 18,
+                        height: 25 / 18,
+                        color: kFontGray800Color,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  ...gatheringList
+                      .map((gathering) => OneDayGatheringRowCard(
+                          gathering: gathering, userId: userId))
+                      .toList(),
+                  const SizedBox(height: 24),
+                ],
+              );
+            }
+            return Container();
+          },
+        ),
+      ],
     );
   }
 
-  Widget kClubGatheringArea() {
+  Widget kClubGatheringArea({required String city, required String userId}) {
     return ListView(
+      physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      children: [],
+      children: [
+        FutureBuilder(
+          future: FirebaseClubGatheringService.getNewGatheringWithCategory(
+              city: city, category: _selectedCategory.name),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              List<ClubGathering> gatheringList =
+              snapshot.data as List<ClubGathering>;
+              if (gatheringList.isEmpty) return Container();
+              return ListView(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Text(
+                      'NEW 소모임',
+                      style: TextStyle(
+                        fontSize: 18,
+                        height: 25 / 18,
+                        color: kFontGray800Color,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  ...gatheringList
+                      .map((gathering) => ClubGatheringRowCard(
+                      gathering: gathering, userId: userId))
+                      .toList(),
+                  const SizedBox(height: 24),
+                ],
+              );
+            }
+            return Container();
+          },
+        ),
+        //TODO 이곳에 인기피드 들어갈 예정
+        FutureBuilder(
+          future: FirebaseClubGatheringService.getAllGatheringWithCategory(
+              city: city, category: _selectedCategory.name),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              List<ClubGathering> gatheringList =
+              snapshot.data as List<ClubGathering>;
+              if (gatheringList.isEmpty) return Container();
+              return ListView(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Text(
+                      '전체 소모임',
+                      style: TextStyle(
+                        fontSize: 18,
+                        height: 25 / 18,
+                        color: kFontGray800Color,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  ...gatheringList
+                      .map((gathering) => ClubGatheringRowCard(
+                      gathering: gathering, userId: userId))
+                      .toList(),
+                  const SizedBox(height: 24),
+                ],
+              );
+            }
+            return Container();
+          },
+        ),
+      ],
     );
   }
 }

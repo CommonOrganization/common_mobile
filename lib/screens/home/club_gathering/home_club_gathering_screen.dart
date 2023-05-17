@@ -66,6 +66,7 @@ class _HomeClubGatheringScreenState extends State<HomeClubGatheringScreen> {
                 kRankingArea(
                   interestCategory: interestCategory,
                   userId: controller.user!.id,
+                  city:userPlace.city,
                 ),
                 ClubGatheringContentsArea(
                   future: FirebaseClubGatheringService
@@ -92,7 +93,7 @@ class _HomeClubGatheringScreenState extends State<HomeClubGatheringScreen> {
   }
 
   Widget kRankingArea(
-          {required List interestCategory, required String userId}) =>
+          {required List interestCategory, required String userId,required String city}) =>
       FutureBuilder(
         future: FirebaseClubGatheringService.canShowGatheringRanking(
             interestCategory: interestCategory),
@@ -127,6 +128,7 @@ class _HomeClubGatheringScreenState extends State<HomeClubGatheringScreen> {
                               (category) => ClubGatheringRanking(
                                 category: category,
                                 userId: userId,
+                                  city:city,
                               ),
                             )
                             .toList(),

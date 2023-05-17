@@ -9,15 +9,19 @@ import '../../../models/club_gathering/club_gathering.dart';
 class ClubGatheringRanking extends StatelessWidget {
   final String category;
   final String userId;
+  final String city;
   const ClubGatheringRanking(
-      {Key? key, required this.category, required this.userId})
+      {Key? key,
+      required this.category,
+      required this.userId,
+      required this.city})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future:
-          FirebaseClubGatheringService.getInterestGathering(category: category),
+      future: FirebaseClubGatheringService.getInterestGathering(
+          category: category, city: city),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<ClubGathering> gatheringList =

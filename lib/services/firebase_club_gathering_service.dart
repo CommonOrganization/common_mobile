@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:common/models/club_gathering/club_gathering.dart';
 import 'package:common/services/firebase_gathering_service.dart';
 import 'package:common/services/firebase_service.dart';
@@ -102,10 +103,11 @@ class FirebaseClubGatheringService {
   }
 
   static Future<List<ClubGathering>> getInterestGathering(
-      {required String category}) async {
+      {required String category, required String city}) async {
     try {
       final snapshot = await FirebaseService.fireStore
           .collection(_category)
+          .where('cityList', arrayContains: city)
           .where('category', isEqualTo: category)
           .get();
 
@@ -180,6 +182,7 @@ class FirebaseClubGatheringService {
 
       final snapshot = await FirebaseService.fireStore
           .collection(_category)
+          .where('cityList', arrayContains: city)
           .where('timeStamp',
               isGreaterThanOrEqualTo:
                   nowDate.subtract(const Duration(days: 7)).toString())
@@ -197,10 +200,12 @@ class FirebaseClubGatheringService {
 
   /// 소모임 검색
   static Future<List<ClubGathering>> searchGatheringWithKeyword(
-      {required String keyword}) async {
+      {required String keyword, required String city}) async {
     try {
-      final snapshot =
-          await FirebaseService.fireStore.collection(_category).get();
+      final snapshot = await FirebaseService.fireStore
+          .collection(_category)
+          .where('cityList', arrayContains: city)
+          .get();
 
       return snapshot.docs
           .map((element) => ClubGathering.fromJson(element.data()))
@@ -209,6 +214,68 @@ class FirebaseClubGatheringService {
           .toList();
     } catch (e) {
       log('FirebaseClubGatheringService - searchGatheringWithKeyword Failed : $e');
+      return [];
+    }
+  }
+
+  /// 카테고리 검색
+  static Future<List<ClubGathering>> getNewGatheringWithCategory(
+      {required String city, required String category}) async {
+    try {
+      DateTime nowDate = DateTime.now();
+      late QuerySnapshot<Map<String, dynamic>> snapshot;
+      if (category == 'all') {
+        snapshot = await FirebaseService.fireStore
+            .collection(_category)
+            .where('cityList', arrayContains: city)
+            .where('timeStamp',
+                isGreaterThanOrEqualTo:
+                    nowDate.subtract(const Duration(days: 7)).toString())
+            .orderBy('timeStamp', descending: true)
+            .get();
+      } else {
+        snapshot = await FirebaseService.fireStore
+            .collection(_category)
+            .where('category', isEqualTo: category)
+            .where('cityList', arrayContains: city)
+            .where('timeStamp',
+                isGreaterThanOrEqualTo:
+                    nowDate.subtract(const Duration(days: 7)).toString())
+            .orderBy('timeStamp', descending: true)
+            .get();
+      }
+
+      return snapshot.docs
+          .map((element) => ClubGathering.fromJson(element.data()))
+          .toList();
+    } catch (e) {
+      log('FirebaseClubGatheringService - getNewGatheringWithCategory Failed : $e');
+      return [];
+    }
+  }
+
+  static Future<List<ClubGathering>> getAllGatheringWithCategory(
+      {required String city, required String category}) async {
+    try {
+      late QuerySnapshot<Map<String, dynamic>> snapshot;
+      if (category == 'all') {
+        snapshot = await FirebaseService.fireStore
+            .collection(_category)
+            .where('cityList', arrayContains: city)
+            .get();
+      } else {
+        snapshot = await FirebaseService.fireStore
+            .collection(_category)
+            .where('cityList', arrayContains: city)
+            .where('category', isEqualTo: category)
+            .get();
+      }
+
+      return snapshot.docs
+          .map((element) => ClubGathering.fromJson(element.data()))
+          .toList();
+    } catch (e) {
+      log('FirebaseClubGatheringService - getAllGatheringWithCategory Failed : $e');
       return [];
     }
   }

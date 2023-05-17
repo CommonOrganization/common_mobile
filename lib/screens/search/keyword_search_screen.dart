@@ -33,12 +33,12 @@ class _KeywordSearchScreenState extends State<KeywordSearchScreen> {
     _searchWordController.text = widget.keyword;
   }
 
-  Widget _getScreen() {
+  Widget _getScreen(String city) {
     switch (_categoryIndex) {
       case 0:
-        return kOneDayGatheringArea();
+        return kOneDayGatheringArea(city);
       case 1:
-        return kClubGatheringArea();
+        return kClubGatheringArea(city);
       //TODO 피드 개발시 넣기
       case 2:
         return Container();
@@ -125,16 +125,22 @@ class _KeywordSearchScreenState extends State<KeywordSearchScreen> {
               kTabContainer(index: 2, title: '피드'),
             ],
           ),
-          _getScreen(),
+          Consumer<UserController>(builder: (context, controller, child) {
+            if (controller.user == null) return Container();
+            String userCity = controller.user!.userPlace['city'];
+            return _getScreen(userCity);
+          }),
         ],
       ),
     );
   }
 
-  Widget kOneDayGatheringArea() {
+  Widget kOneDayGatheringArea(String city) {
     return FutureBuilder(
       future: FirebaseOneDayGatheringService.searchGatheringWithKeyword(
-          keyword: _searchWord),
+        keyword: _searchWord,
+        city: city,
+      ),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<OneDayGathering> gatheringList =
@@ -159,14 +165,16 @@ class _KeywordSearchScreenState extends State<KeywordSearchScreen> {
     );
   }
 
-  Widget kClubGatheringArea() {
+  Widget kClubGatheringArea(String city) {
     return FutureBuilder(
       future: FirebaseClubGatheringService.searchGatheringWithKeyword(
-          keyword: _searchWord),
+        keyword: _searchWord,
+        city: city,
+      ),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<ClubGathering> gatheringList =
-          snapshot.data as List<ClubGathering>;
+              snapshot.data as List<ClubGathering>;
 
           String userId = context.read<UserController>().user!.id;
           return Expanded(
@@ -175,9 +183,9 @@ class _KeywordSearchScreenState extends State<KeywordSearchScreen> {
               physics: const ClampingScrollPhysics(),
               children: gatheringList
                   .map((gathering) => ClubGatheringRowCard(
-                gathering: gathering,
-                userId: userId,
-              ))
+                        gathering: gathering,
+                        userId: userId,
+                      ))
                   .toList(),
             ),
           );

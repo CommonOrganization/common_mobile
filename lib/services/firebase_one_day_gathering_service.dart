@@ -165,6 +165,7 @@ class FirebaseOneDayGatheringService {
       {required String city}) async {
     try {
       DateTime nowDate = DateTime.now();
+      //TODO 쿼리에 timeStamp와 openingDate를 못넣는 이유 - Firestore 이슈 -> 스프링 전환시 동시 처리 예정
       final snapshot = await FirebaseService.fireStore
           .collection(_category)
           .where('timeStamp',
@@ -178,6 +179,7 @@ class FirebaseOneDayGatheringService {
           .where((element) => nowDate
               .difference(DateTime.parse(element.openingDate))
               .isNegative)
+          .where((element) => element.place['city'] == city)
           .toList();
     } catch (e) {
       log('FirebaseOneDayGatheringService - getNewGathering Failed : $e');
@@ -187,7 +189,7 @@ class FirebaseOneDayGatheringService {
 
   /// 하루모임 검색
   static Future<List<OneDayGathering>> searchGatheringWithKeyword(
-      {required String keyword}) async {
+      {required String keyword,required String city}) async {
     try {
       DateTime nowDate = DateTime.now();
       final snapshot = await FirebaseService.fireStore
@@ -199,9 +201,77 @@ class FirebaseOneDayGatheringService {
           .map((element) => OneDayGathering.fromJson(element.data()))
           .where((element) =>
               hasKeywordOneDayGathering(gathering: element, keyword: keyword))
+          .where((element) => element.place['city'] == city)
           .toList();
     } catch (e) {
       log('FirebaseOneDayGatheringService - searchGatheringWithKeyword Failed : $e');
+      return [];
+    }
+  }
+
+  /// 카테고리 검색
+  static Future<List<OneDayGathering>> getNewGatheringWithCategory(
+      {required String city, required String category}) async {
+    try {
+      DateTime nowDate = DateTime.now();
+      //TODO 쿼리에 timeStamp와 openingDate를 못넣는 이유 - Firestore 이슈 -> 스프링 전환시 동시 처리 예정
+      late QuerySnapshot<Map<String, dynamic>> snapshot;
+      if (category == 'all') {
+        snapshot = await FirebaseService.fireStore
+            .collection(_category)
+            .where('timeStamp',
+                isGreaterThanOrEqualTo:
+                    nowDate.subtract(const Duration(days: 7)).toString())
+            .orderBy('timeStamp', descending: true)
+            .get();
+      } else {
+        snapshot = await FirebaseService.fireStore
+            .collection(_category)
+            .where('category', isEqualTo: category)
+            .where('timeStamp',
+                isGreaterThanOrEqualTo:
+                    nowDate.subtract(const Duration(days: 7)).toString())
+            .orderBy('timeStamp', descending: true)
+            .get();
+      }
+
+      return snapshot.docs
+          .map((element) => OneDayGathering.fromJson(element.data()))
+          .where((element) => nowDate
+              .difference(DateTime.parse(element.openingDate))
+              .isNegative)
+          .where((element) => element.place['city'] == city)
+          .toList();
+    } catch (e) {
+      log('FirebaseOneDayGatheringService - getNewGatheringWithCategory Failed : $e');
+      return [];
+    }
+  }
+
+  static Future<List<OneDayGathering>> getAllGatheringWithCategory(
+      {required String city, required String category}) async {
+    try {
+      DateTime nowDate = DateTime.now();
+      late QuerySnapshot<Map<String, dynamic>> snapshot;
+      if (category == 'all') {
+        snapshot = await FirebaseService.fireStore
+            .collection(_category)
+            .where('openingDate', isGreaterThanOrEqualTo: nowDate.toString())
+            .get();
+      } else {
+        snapshot = await FirebaseService.fireStore
+            .collection(_category)
+            .where('category', isEqualTo: category)
+            .where('openingDate', isGreaterThanOrEqualTo: nowDate.toString())
+            .get();
+      }
+
+      return snapshot.docs
+          .map((element) => OneDayGathering.fromJson(element.data()))
+          .where((element) => element.place['city'] == city)
+          .toList();
+    } catch (e) {
+      log('FirebaseOneDayGatheringService - getAllGatheringWithCategory Failed : $e');
       return [];
     }
   }
