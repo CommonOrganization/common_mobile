@@ -2,6 +2,7 @@ import 'package:common/constants/constants_enum.dart';
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/club_gathering/club_gathering.dart';
 import 'package:common/models/one_day_gathering/one_day_gathering.dart';
+import 'package:common/screens/search/search_screen.dart';
 import 'package:common/services/firebase_club_gathering_service.dart';
 import 'package:common/services/firebase_one_day_gathering_service.dart';
 import 'package:common/widgets/club_gathering_row_card.dart';
@@ -15,8 +16,12 @@ import '../../constants/constants_value.dart';
 
 class CategorySearchScreen extends StatefulWidget {
   final CommonCategory category;
-  const CategorySearchScreen({Key? key, required this.category})
-      : super(key: key);
+  final String? gatheringCategory;
+  const CategorySearchScreen({
+    Key? key,
+    required this.category,
+    this.gatheringCategory,
+  }) : super(key: key);
 
   @override
   State<CategorySearchScreen> createState() => _CategorySearchScreenState();
@@ -30,6 +35,12 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
   void initState() {
     super.initState();
     _selectedCategory = widget.category;
+    // 소모임, 피드를 통해 넘어올경우 해당 인덱스로 수정
+    if (widget.gatheringCategory != null) {
+      if (widget.gatheringCategory == kClubGatheringCategory) {
+        _categoryIndex = 1;
+      }
+    }
   }
 
   Widget getScreen({required String city, required String userId}) {
@@ -73,8 +84,17 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
           ),
         ),
         actions: [
-          SvgPicture.asset(
-            'assets/icons/svg/search_26px.svg',
+          GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const SearchScreen(),
+              ),
+            ),
+            child: SvgPicture.asset(
+              'assets/icons/svg/search_26px.svg',
+            ),
           ),
           const SizedBox(width: 20),
         ],
@@ -293,7 +313,7 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               List<ClubGathering> gatheringList =
-              snapshot.data as List<ClubGathering>;
+                  snapshot.data as List<ClubGathering>;
               if (gatheringList.isEmpty) return Container();
               return ListView(
                 shrinkWrap: true,
@@ -314,7 +334,7 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
                   const SizedBox(height: 4),
                   ...gatheringList
                       .map((gathering) => ClubGatheringRowCard(
-                      gathering: gathering, userId: userId))
+                          gathering: gathering, userId: userId))
                       .toList(),
                   const SizedBox(height: 24),
                 ],
@@ -330,7 +350,7 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               List<ClubGathering> gatheringList =
-              snapshot.data as List<ClubGathering>;
+                  snapshot.data as List<ClubGathering>;
               if (gatheringList.isEmpty) return Container();
               return ListView(
                 shrinkWrap: true,
@@ -351,7 +371,7 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
                   const SizedBox(height: 4),
                   ...gatheringList
                       .map((gathering) => ClubGatheringRowCard(
-                      gathering: gathering, userId: userId))
+                          gathering: gathering, userId: userId))
                       .toList(),
                   const SizedBox(height: 24),
                 ],

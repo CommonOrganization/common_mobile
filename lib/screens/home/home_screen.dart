@@ -1,6 +1,8 @@
+import 'package:common/constants/constants_enum.dart';
 import 'package:common/screens/home/components/gathering_header.dart';
 import 'package:common/screens/home/club_gathering/home_club_gathering_screen.dart';
 import 'package:common/screens/home/one_day_gathering/home_one_day_gathering_screen.dart';
+import 'package:common/screens/search/category_search_screen.dart';
 import 'package:common/screens/search/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -51,7 +53,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: SvgPicture.asset('assets/icons/svg/search_26px.svg'),
                   ),
                   const SizedBox(width: 16),
-                  SvgPicture.asset('assets/icons/svg/menu_26px.svg'),
+                  GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const CategorySearchScreen(
+                            category: CommonCategory.all),
+                      ),
+                    ),
+                    child: SvgPicture.asset('assets/icons/svg/menu_26px.svg'),
+                  ),
                   const SizedBox(width: 16),
                   SvgPicture.asset('assets/icons/svg/notification_26px.svg'),
                   const SizedBox(width: 20),

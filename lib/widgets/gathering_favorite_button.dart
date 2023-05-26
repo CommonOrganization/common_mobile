@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
-import '../constants/constants_colors.dart';
 import '../services/firebase_gathering_service.dart';
 
 class GatheringFavoriteButton extends StatefulWidget {

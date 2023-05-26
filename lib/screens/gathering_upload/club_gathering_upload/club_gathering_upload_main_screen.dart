@@ -1,5 +1,5 @@
 import 'package:common/models/club_gathering/club_gathering.dart';
-import 'package:common/screens/gathering_detail/club_gathering_detail/club_gathering_preview_screen.dart';
+import 'package:common/screens/gathering_detail/club_gathering_detail/club_gathering_detail_screen.dart';
 import 'package:common/screens/gathering_upload/club_gathering_upload/club_gathering_category_screen.dart';
 import 'package:common/screens/gathering_upload/club_gathering_upload/club_gathering_location_screen.dart';
 import 'package:common/screens/gathering_upload/club_gathering_upload/club_gathering_title_screen.dart';
@@ -41,7 +41,7 @@ class _ClubGatheringUploadMainScreenState
   Future<void> previewPressed(List<String> tagList) async {
     _gatheringTagList = tagList;
     String? userId = context.read<UserController>().user?.id;
-    if(userId==null) return;
+    if (userId == null) return;
     Map<String, dynamic> clubGatheringDataMap = {
       'category': _gatheringMainCategory.name,
       'detailCategory': _gatheringDetailCategory,
@@ -51,12 +51,12 @@ class _ClubGatheringUploadMainScreenState
       'gatheringImage': _gatheringImageUrlList,
       'recruitWay': _gatheringRecruitWay.name,
       'recruitQuestion': _gatheringRecruitQuestion,
-      'cityList':_gatheringCityList.map((city)=>city.name).toList(),
+      'cityList': _gatheringCityList.map((city) => city.name).toList(),
       'capacity': _gatheringCapacity,
       'tagList': _gatheringTagList,
-      'memberList':[userId],
-      'favoriteList':[],
-      'applicantList':[],
+      'memberList': [userId],
+      'favoriteList': [],
+      'applicantList': [],
     };
     ClubGathering gathering = ClubGathering.fromJson({
       'id': 'preview',
@@ -69,10 +69,9 @@ class _ClubGatheringUploadMainScreenState
       context,
       MaterialPageRoute(
         builder: (context) =>
-            ClubGatheringPreviewScreen(gathering: gathering),
+            ClubGatheringDetailScreen(gathering: gathering, isPreview: true),
       ),
     );
-
   }
 
   Widget getScreen() {
@@ -173,7 +172,7 @@ class _ClubGatheringUploadMainScreenState
         actions: [
           GestureDetector(
             behavior: HitTestBehavior.opaque,
-            onTap: () =>Navigator.pop(context),
+            onTap: () => Navigator.pop(context),
             child: SvgPicture.asset('assets/icons/svg/close_28px.svg'),
           ),
           const SizedBox(width: 20),

@@ -65,73 +65,78 @@ class ConnectedGatheringCard extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 12),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Builder(
-                        builder: (context) {
-                          CommonCategory category =
-                              CommonCategoryMap.getCategory(gathering.category);
-                          return Row(
-                            children: [
-                              SizedBox(
-                                width: 22,
-                                height: 22,
-                                child: Image.asset(category.miniImage),
-                              ),
-                              const SizedBox(width: 4),
-                              Text(
-                                category.title,
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  height: 17 / 12,
-                                  color: kFontGray600Color,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Builder(
+                          builder: (context) {
+                            CommonCategory category =
+                                CommonCategoryMap.getCategory(
+                                    gathering.category);
+                            return Row(
+                              children: [
+                                SizedBox(
+                                  width: 22,
+                                  height: 22,
+                                  child: Image.asset(category.miniImage),
                                 ),
-                              ),
-                            ],
-                          );
-                        },
-                      ),
-                      const SizedBox(height: 2),
-                      Text(
-                        gathering.title,
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: kFontGray800Color,
-                          height: 25 / 18,
+                                const SizedBox(width: 4),
+                                Text(
+                                  category.title,
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                    height: 17 / 12,
+                                    color: kFontGray600Color,
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
                         ),
-                      ),
-                      const SizedBox(height: 5),
-                      Row(
-                        children: [
-                          SvgPicture.asset(
-                              'assets/icons/svg/location_18px.svg'),
-                          Text(
-                            '${gathering.place['city']} ${gathering.place['county']}',
-                            style: TextStyle(
-                              fontSize: 13,
-                              color: kFontGray500Color,
-                              height: 17 / 13,
-                              letterSpacing: -0.5,
-                            ),
+                        const SizedBox(height: 2),
+                        Text(
+                          gathering.title,
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: kFontGray800Color,
+                            height: 25 / 18,
                           ),
-                          const SizedBox(width: 12),
-                          SvgPicture.asset(
-                              'assets/icons/svg/calendar_18px.svg'),
-                          Text(
-                            getSimplyDateDetail(gathering.openingDate),
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: kFontGray500Color,
-                              height: 16 / 12,
-                              letterSpacing: -0.5,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
+                        const SizedBox(height: 5),
+                        Row(
+                          children: [
+                            SvgPicture.asset(
+                                'assets/icons/svg/location_18px.svg'),
+                            Text(
+                              '${gathering.place['city']} ${gathering.place['county']}',
+                              style: TextStyle(
+                                fontSize: 13,
+                                color: kFontGray500Color,
+                                height: 17 / 13,
+                                letterSpacing: -0.5,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
+                            const SizedBox(width: 12),
+                            SvgPicture.asset(
+                                'assets/icons/svg/calendar_18px.svg'),
+                            Text(
+                              getSimplyDateDetail(gathering.openingDate),
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: kFontGray500Color,
+                                height: 16 / 12,
+                                letterSpacing: -0.5,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   )
                 ],
               ),

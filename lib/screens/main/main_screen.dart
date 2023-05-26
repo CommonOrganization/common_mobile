@@ -1,6 +1,7 @@
 import 'package:common/constants/constants_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../chat/chat_screen.dart';
 import '../home/home_screen.dart';
 import 'components/main_upload_bottom_sheet.dart';
 
@@ -19,6 +20,7 @@ class _MainScreenState extends State<MainScreen> {
       case 0:
         return const HomeScreen();
       case 1:
+        return const ChatScreen();
       case 2:
       case 3:
       default:

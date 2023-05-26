@@ -15,7 +15,9 @@ import 'club_gathering_basic_contents.dart';
 
 class ClubGatheringDetailScreen extends StatefulWidget {
   final ClubGathering gathering;
-  const ClubGatheringDetailScreen({Key? key, required this.gathering})
+  final bool isPreview;
+  const ClubGatheringDetailScreen(
+      {Key? key, required this.gathering, this.isPreview = false})
       : super(key: key);
 
   @override
@@ -43,12 +45,21 @@ class _ClubGatheringDetailScreenState extends State<ClubGatheringDetailScreen> {
   }
 
   void onUpdate() {
-    if (_scrollController.offset < _size && _showAppbarBlack) {
-      setState(() => _showAppbarBlack = false);
-    }
-    if (_scrollController.offset > _size && !_showAppbarBlack) {
-      setState(() => _showAppbarBlack = true);
-    }
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      if (_scrollController.offset < _size && _showAppbarBlack) {
+        setState(() => _showAppbarBlack = false);
+      }
+      if (_scrollController.offset > _size && !_showAppbarBlack) {
+        setState(() => _showAppbarBlack = true);
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(onUpdate);
+    _scrollController.dispose();
+    super.dispose();
   }
 
   void initializeGatheringList() async {
@@ -78,11 +89,21 @@ class _ClubGatheringDetailScreenState extends State<ClubGatheringDetailScreen> {
     }
   }
 
-  @override
-  void dispose() {
-    _scrollController.removeListener(onUpdate);
-    _scrollController.dispose();
-    super.dispose();
+  Future<void> previewPressed() async {
+    if (_loading) return;
+    _loading = true;
+    try {
+      bool uploadSuccess = await FirebaseClubGatheringService.uploadGathering(
+          gathering: widget.gathering);
+      if (!mounted) return;
+      if (uploadSuccess) {
+        Navigator.pop(context);
+        Navigator.pop(context);
+      }
+    } catch (e) {
+      showMessage(context, message: '잠시후에 다시 개설해 주세요.');
+      _loading = false;
+    }
   }
 
   Widget getPage() {
@@ -141,10 +162,16 @@ class _ClubGatheringDetailScreenState extends State<ClubGatheringDetailScreen> {
                   children: [getPage()],
                 ),
               ),
-              GatheringButton(
-                title: '소모임 참여하기',
-                onTap: () => applyPressed(),
-              ),
+              if (widget.isPreview)
+                GatheringButton(
+                  title: '소모임 개설하기',
+                  onTap: () => previewPressed(),
+                )
+              else
+                GatheringButton(
+                  title: '소모임 참여하기',
+                  onTap: () => applyPressed(),
+                ),
             ],
           ),
         ),

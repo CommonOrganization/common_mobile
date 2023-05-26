@@ -1,12 +1,11 @@
 import 'dart:developer';
-
 import 'package:common/constants/constants_enum.dart';
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/user_place/user_place.dart';
+import 'package:common/screens/gathering_detail/one_day_gathering_detail/one_day_gathering_detail_screen.dart';
 import 'package:common/screens/gathering_upload/one_day_gathering_upload/one_day_gathering_capacity_screen.dart';
 import 'package:common/screens/gathering_upload/one_day_gathering_upload/one_day_gathering_category_screen.dart';
 import 'package:common/screens/gathering_upload/one_day_gathering_upload/one_day_gathering_content_screen.dart';
-import 'package:common/screens/gathering_detail/one_day_gathering_detail/one_day_gathering_preview_screen.dart';
 import 'package:common/screens/gathering_upload/one_day_gathering_upload/one_day_gathering_recruit_screen.dart';
 import 'package:common/screens/gathering_upload/one_day_gathering_upload/one_day_gathering_schedule_screen.dart';
 import 'package:common/screens/gathering_upload/one_day_gathering_upload/one_day_gathering_tag_screen.dart';
@@ -91,7 +90,7 @@ class _OneDayGatheringUploadMainScreenState
         context,
         MaterialPageRoute(
           builder: (context) =>
-              OneDayGatheringPreviewScreen(gathering: gathering),
+              OneDayGatheringDetailScreen(gathering: gathering,isPreview: true),
         ),
       );
     } catch (e) {

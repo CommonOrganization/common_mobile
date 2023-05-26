@@ -11,9 +11,11 @@ import 'one_day_gathering_basic_contents.dart';
 
 class OneDayGatheringDetailScreen extends StatefulWidget {
   final OneDayGathering gathering;
+  final bool isPreview;
   const OneDayGatheringDetailScreen({
     Key? key,
     required this.gathering,
+    this.isPreview = false,
   }) : super(key: key);
 
   @override
@@ -67,6 +69,23 @@ class _OneDayGatheringDetailScreenState
     }
   }
 
+  Future<void> previewPressed() async {
+    if (_loading) return;
+    _loading = true;
+    try {
+      bool uploadSuccess = await FirebaseOneDayGatheringService.uploadGathering(
+          gathering: widget.gathering);
+      if (!mounted) return;
+      if (uploadSuccess) {
+        Navigator.pop(context);
+        Navigator.pop(context);
+      }
+    } catch (e) {
+      showMessage(context, message: '잠시후에 다시 개설해 주세요.');
+      _loading = false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -102,10 +121,16 @@ class _OneDayGatheringDetailScreenState
                   ],
                 ),
               ),
-              GatheringButton(
-                title: '하루모임 참여하기',
-                onTap: () => applyPressed(),
-              ),
+              if (widget.isPreview)
+                GatheringButton(
+                  title: '하루모임 개설하기',
+                  onTap: () => previewPressed(),
+                )
+              else
+                GatheringButton(
+                  title: '하루모임 참여하기',
+                  onTap: () => applyPressed(),
+                ),
             ],
           ),
         ),
