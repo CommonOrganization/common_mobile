@@ -100,21 +100,18 @@ class ClubGatheringRowCard extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 6),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        customIconTextArea(
-                          icon: 'assets/icons/svg/location_18px.svg',
-                          title: getCityNamesString(gathering.cityList),
-                        ),
-                        const SizedBox(width: 12),
-                        customIconTextArea(
-                          icon: 'assets/icons/svg/people_18px.svg',
-                          title: '${gathering.capacity}명',
-                        ),
-                      ],
-                    ),
+                  Row(
+                    children: [
+                      customIconTextArea(
+                        icon: 'assets/icons/svg/location_18px.svg',
+                        title: getCityNamesString(gathering.cityList),
+                      ),
+                      const SizedBox(width: 12),
+                      customIconTextArea(
+                        icon: 'assets/icons/svg/people_18px.svg',
+                        title: '${gathering.capacity}명',
+                      ),
+                    ],
                   )
                 ],
               ),
@@ -130,13 +127,18 @@ class ClubGatheringRowCard extends StatelessWidget {
       children: [
         SvgPicture.asset(icon),
         const SizedBox(width: 3),
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: 13,
-            height: 17 / 13,
-            letterSpacing: -0.5,
-            color: kFontGray500Color,
+        Container(
+          constraints: const BoxConstraints(
+            maxWidth: 150,
+          ),
+          child: Text(
+            title,
+            style: TextStyle(
+              fontSize: 13,
+              height: 17 / 13,
+              letterSpacing: -0.5,
+              color: kFontGray500Color,
+            ),overflow: TextOverflow.ellipsis,
           ),
         )
       ],

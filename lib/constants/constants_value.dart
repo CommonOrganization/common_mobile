@@ -7,6 +7,7 @@ const String kSENSSecretKey = 'xcCu4cBzvoRbChlXXroyOBDoAtzdTxpLaqW7XVAi';
 const String kKakaoRestAPIKey = 'fc0ad4a3411161995e5b2bbe9381c594';
 
 const double kBottomSheetHeight = 350;
+const double kScreenDefaultHeight = 700;
 
 const List<String> kShortWeekdayList = ['월', '화', '수', '목', '금', '토', '일'];
 const List<String> kWeekdayList = [

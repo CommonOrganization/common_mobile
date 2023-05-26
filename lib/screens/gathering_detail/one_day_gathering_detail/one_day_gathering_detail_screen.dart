@@ -91,50 +91,32 @@ class _OneDayGatheringDetailScreenState
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: kWhiteColor,
-      body: NestedScrollView(
+      body: CustomScrollView(
+        physics: const ClampingScrollPhysics(),
         controller: _scrollController,
-        headerSliverBuilder: (context, innerBoxIsScrolled) => [
+        slivers: [
           GatheringSliverAppbar(
             showAppbarBlack: _showAppbarBlack,
             size: MediaQuery.of(context).size.width,
             gathering: widget.gathering,
             isClubGathering: false,
           ),
-        ],
-        body: Container(
-          decoration: BoxDecoration(
-            border: Border(
-              top: BorderSide(
-                color: kFontGray50Color,
-                width: 1,
-              ),
+          SliverToBoxAdapter(
+            child: OneDayGatheringBasicContents(
+              gathering: widget.gathering,
             ),
-          ),
-          child: Column(
-            children: [
-              Expanded(
-                child: ListView(
-                  padding: EdgeInsets.zero,
-                  physics: const ClampingScrollPhysics(),
-                  children: [
-                    OneDayGatheringBasicContents(gathering: widget.gathering),
-                  ],
-                ),
-              ),
-              if (widget.isPreview)
-                GatheringButton(
-                  title: '하루모임 개설하기',
-                  onTap: () => previewPressed(),
-                )
-              else
-                GatheringButton(
-                  title: '하루모임 참여하기',
-                  onTap: () => applyPressed(),
-                ),
-            ],
-          ),
-        ),
+          )
+        ],
       ),
+      bottomNavigationBar: widget.isPreview
+          ? GatheringButton(
+              title: '하루모임 개설하기',
+              onTap: () => previewPressed(),
+            )
+          : GatheringButton(
+              title: '하루모임 참여하기',
+              onTap: () => applyPressed(),
+            ),
     );
   }
 }

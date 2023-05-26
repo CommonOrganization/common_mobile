@@ -101,31 +101,28 @@ class OneDayGatheringRowCard extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 6),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        customIconTextArea(
-                          icon: 'assets/icons/svg/location_18px.svg',
-                          title:
-                              '${gathering.place['city']} ${gathering.place['county']}',
-                        ),
-                        const SizedBox(width: 12),
-                        customIconTextArea(
-                          icon: 'assets/icons/svg/people_18px.svg',
-                          title: '${gathering.capacity}명',
-                        ),
-                        const SizedBox(width: 12),
-                        Builder(builder: (context) {
-                          DateTime openingDate =
-                              DateTime.parse(gathering.openingDate);
-                          return customIconTextArea(
-                            icon: 'assets/icons/svg/calendar_18px.svg',
-                            title: '${openingDate.month}월 ${openingDate.day}일',
-                          );
-                        }),
-                      ],
-                    ),
+                  Row(
+                    children: [
+                      customIconTextArea(
+                        icon: 'assets/icons/svg/location_18px.svg',
+                        title:
+                            '${gathering.place['city']} ${gathering.place['county']}',
+                      ),
+                      const SizedBox(width: 12),
+                      customIconTextArea(
+                        icon: 'assets/icons/svg/people_18px.svg',
+                        title: '${gathering.capacity}명',
+                      ),
+                      const SizedBox(width: 12),
+                      Builder(builder: (context) {
+                        DateTime openingDate =
+                            DateTime.parse(gathering.openingDate);
+                        return customIconTextArea(
+                          icon: 'assets/icons/svg/calendar_18px.svg',
+                          title: '${openingDate.month}월 ${openingDate.day}일',
+                        );
+                      }),
+                    ],
                   )
                 ],
               ),
@@ -138,16 +135,23 @@ class OneDayGatheringRowCard extends StatelessWidget {
 
   Widget customIconTextArea({required String icon, required String title}) {
     return Row(
+      mainAxisSize: MainAxisSize.min,
       children: [
         SvgPicture.asset(icon),
         const SizedBox(width: 3),
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: 13,
-            height: 17 / 13,
-            letterSpacing: -0.5,
-            color: kFontGray500Color,
+        Container(
+          constraints: const BoxConstraints(
+            maxWidth: 70,
+          ),
+          child: Text(
+            title,
+            style: TextStyle(
+              fontSize: 13,
+              height: 17 / 13,
+              letterSpacing: -0.5,
+              color: kFontGray500Color,
+            ),
+            overflow: TextOverflow.ellipsis,
           ),
         )
       ],
