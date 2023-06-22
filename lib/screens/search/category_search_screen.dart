@@ -29,12 +29,19 @@ class CategorySearchScreen extends StatefulWidget {
 
 class _CategorySearchScreenState extends State<CategorySearchScreen> {
   late CommonCategory _selectedCategory;
+  late List<CommonCategory> _categoryList;
   int _categoryIndex = 0;
 
   @override
   void initState() {
     super.initState();
     _selectedCategory = widget.category;
+    // 선택된 취미 카테고리가 가장 앞으로 나올 수 있도록
+    _categoryList = [
+      CommonCategory.all,
+      widget.category,
+      ...kEachCommonCategoryList.where((element) => element != widget.category)
+    ];
     // 소모임, 피드를 통해 넘어올경우 해당 인덱스로 수정
     if (widget.gatheringCategory != null) {
       if (widget.gatheringCategory == kClubGatheringCategory) {
@@ -120,7 +127,7 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
                     padding: const EdgeInsets.only(
                         left: 20, right: 20, top: 16, bottom: 20),
                     child: Row(
-                      children: kAllCommonCategoryList
+                      children: _categoryList
                           .map((category) => kCategoryButton(category))
                           .toList(),
                     ),

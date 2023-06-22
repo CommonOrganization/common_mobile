@@ -17,46 +17,49 @@ class InterestingCategoryContainer extends StatelessWidget {
       builder: (context, controller, child) {
         if (controller.user == null) return Container();
         int countIndex = 0;
-        return SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Container(
-            margin: const EdgeInsets.only(left: 20, right: 20, top: 20),
-            child: Row(
-              children: controller.user!.interestCategory.map((category) {
-                CommonCategory commonCategory =
-                    CommonCategoryMap.getCategory(category);
-                return GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => CategorySearchScreen(
-                        category: commonCategory,
-                        gatheringCategory: gatheringCategory,
-                      ),
+        double sizeWidth = MediaQuery.of(context).size.width;
+        double spaceWidth = (sizeWidth - 340) / 4;
+        return Container(
+          width: double.infinity,
+          margin: const EdgeInsets.only(left: 20, right: 20, top: 20),
+          child: Row(
+            children: controller.user!.interestCategory.map((category) {
+              CommonCategory commonCategory =
+                  CommonCategoryMap.getCategory(category);
+              return GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CategorySearchScreen(
+                      category: commonCategory,
+                      gatheringCategory: gatheringCategory,
                     ),
                   ),
-                  child: Row(
-                    children: [
-                      Column(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(9),
-                            width: 58,
-                            height: 58,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: kSubColor1,
-                            ),
-                            child: Image.asset(
-                              commonCategory.image,
-                              width: 40,
-                              height: 40,
-                              fit: BoxFit.contain,
-                            ),
+                ),
+                child: Row(
+                  children: [
+                    Column(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(9),
+                          width: 58,
+                          height: 58,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: kSubColor1,
                           ),
-                          const SizedBox(height: 8),
-                          Text(
+                          child: Image.asset(
+                            commonCategory.image,
+                            width: 40,
+                            height: 40,
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        SizedBox(
+                          width: 60,
+                          child: Text(
                             commonCategory.title,
                             style: TextStyle(
                               fontSize: 12,
@@ -64,15 +67,16 @@ class InterestingCategoryContainer extends StatelessWidget {
                               letterSpacing: -0.5,
                               color: kFontGray800Color,
                             ),
+                            textAlign: TextAlign.center,
                           ),
-                        ],
-                      ),
-                      if (countIndex++ < 4) const SizedBox(width: 15),
-                    ],
-                  ),
-                );
-              }).toList(),
-            ),
+                        ),
+                      ],
+                    ),
+                    if (countIndex++ < 4) SizedBox(width: spaceWidth),
+                  ],
+                ),
+              );
+            }).toList(),
           ),
         );
       },
