@@ -85,6 +85,8 @@ class GatheringRecruitWayArea extends StatelessWidget {
                                   : kFontGray400Color,
                               height: 18 / 13,
                             ),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ],
                       ),

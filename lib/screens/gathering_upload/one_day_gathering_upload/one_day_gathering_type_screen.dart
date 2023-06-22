@@ -235,6 +235,8 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
                           : kFontGray400Color,
                       height: 18 / 13,
                     ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   )
                 ],
               ),

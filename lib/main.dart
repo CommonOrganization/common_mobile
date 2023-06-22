@@ -47,6 +47,7 @@ class _MyAppState extends State<MyApp> {
       supportedLocales: localization.supportedLocales,
       localizationsDelegates: localization.localizationsDelegates,
       theme: ThemeData(
+        fontFamily: 'AppleSDGothicNeo',
         textSelectionTheme:
             TextSelectionThemeData(cursorColor: kFontGray400Color),
       ),
