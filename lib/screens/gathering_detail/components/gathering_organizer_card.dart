@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
 import '../../../constants/constants_colors.dart';
-import '../../../services/firebase_user_service.dart';
+import '../../../services/user_service.dart';
 
 class GatheringOrganizerCard extends StatelessWidget {
   final String organizerId;
@@ -15,7 +14,7 @@ class GatheringOrganizerCard extends StatelessWidget {
       child: Row(
         children: [
           FutureBuilder(
-            future: FirebaseUserService.get(
+            future: UserService.get(
               id: organizerId,
               field: 'profileImage',
             ),
@@ -56,7 +55,7 @@ class GatheringOrganizerCard extends StatelessWidget {
           ),
           const SizedBox(width: 6),
           FutureBuilder(
-            future: FirebaseUserService.get(
+            future: UserService.get(
               id: organizerId,
               field: 'name',
             ),

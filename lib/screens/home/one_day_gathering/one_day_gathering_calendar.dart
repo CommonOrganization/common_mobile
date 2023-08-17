@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../constants/constants_value.dart';
 import '../../../models/user_place/user_place.dart';
-import '../../../services/firebase_one_day_gathering_service.dart';
+import '../../../services/one_day_gathering_service.dart';
 
 class OneDayGatheringCalendar extends StatefulWidget {
   const OneDayGatheringCalendar({Key? key}) : super(key: key);
@@ -125,7 +125,7 @@ class _OneDayGatheringCalendarState extends State<OneDayGatheringCalendar> {
                   DateTime(addedDate.year, addedDate.month, addedDate.day);
 
               return FutureBuilder(
-                future: FirebaseOneDayGatheringService.getDailyGathering(
+                future: OneDayGatheringService.getDailyGathering(
                     city: userPlace.city, dateTime: dateTime),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {

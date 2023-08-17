@@ -1,26 +1,26 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:common/models/club_gathering/club_gathering.dart';
-import 'package:common/services/firebase_gathering_service.dart';
 import 'package:common/services/firebase_service.dart';
-
 import '../utils/gathering_utils.dart';
+import 'gathering_service.dart';
 
-class FirebaseClubGatheringService {
-  static final FirebaseClubGatheringService _instance =
-      FirebaseClubGatheringService();
-  factory FirebaseClubGatheringService() => _instance;
+class ClubGatheringService {
+  static final ClubGatheringService _instance =
+      ClubGatheringService._internal();
+  factory ClubGatheringService() => _instance;
+  ClubGatheringService._internal();
 
   static const String _category = 'clubGathering';
 
   static Future<bool> uploadGathering(
       {required ClubGathering gathering}) async {
     try {
-      String? id = await FirebaseGatheringService.getId(category: _category);
+      String? id = await GatheringService.getId(category: _category);
       if (id == null) return false;
       Map<String, dynamic> gatheringData = gathering.toJson();
       gatheringData['id'] = id;
-      return await FirebaseGatheringService.uploadGathering(
+      return await GatheringService.uploadGathering(
         category: _category,
         id: id,
         data: gatheringData,
@@ -34,7 +34,7 @@ class FirebaseClubGatheringService {
   static Future<bool> applyGathering(
       {required String id, required String userId}) async {
     try {
-      return await FirebaseGatheringService.applyGathering(
+      return await GatheringService.applyGathering(
           category: _category, id: id, userId: userId);
     } catch (e) {
       log('FirebaseClubGatheringService - applyGathering Failed : $e');

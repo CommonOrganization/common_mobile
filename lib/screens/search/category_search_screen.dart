@@ -3,16 +3,15 @@ import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/club_gathering/club_gathering.dart';
 import 'package:common/models/one_day_gathering/one_day_gathering.dart';
 import 'package:common/screens/search/search_screen.dart';
-import 'package:common/services/firebase_club_gathering_service.dart';
-import 'package:common/services/firebase_one_day_gathering_service.dart';
 import 'package:common/widgets/club_gathering_row_card.dart';
 import 'package:common/widgets/one_day_gathering_row_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-
 import '../../constants/constants_colors.dart';
 import '../../constants/constants_value.dart';
+import '../../services/club_gathering_service.dart';
+import '../../services/one_day_gathering_service.dart';
 
 class CategorySearchScreen extends StatefulWidget {
   final CommonCategory category;
@@ -233,7 +232,7 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
       shrinkWrap: true,
       children: [
         FutureBuilder(
-          future: FirebaseOneDayGatheringService.getNewGatheringWithCategory(
+          future: OneDayGatheringService.getNewGatheringWithCategory(
               city: city, category: _selectedCategory.name),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
@@ -270,7 +269,7 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
         ),
         //TODO 이곳에 인기피드 들어갈 예정
         FutureBuilder(
-          future: FirebaseOneDayGatheringService.getAllGatheringWithCategory(
+          future: OneDayGatheringService.getAllGatheringWithCategory(
               city: city, category: _selectedCategory.name),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
@@ -315,7 +314,7 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
       shrinkWrap: true,
       children: [
         FutureBuilder(
-          future: FirebaseClubGatheringService.getNewGatheringWithCategory(
+          future: ClubGatheringService.getNewGatheringWithCategory(
               city: city, category: _selectedCategory.name),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
@@ -352,7 +351,7 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
         ),
         //TODO 이곳에 인기피드 들어갈 예정
         FutureBuilder(
-          future: FirebaseClubGatheringService.getAllGatheringWithCategory(
+          future: ClubGatheringService.getAllGatheringWithCategory(
               city: city, category: _selectedCategory.name),
           builder: (context, snapshot) {
             if (snapshot.hasData) {

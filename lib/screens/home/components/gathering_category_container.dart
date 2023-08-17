@@ -3,13 +3,13 @@ import 'package:common/constants/constants_value.dart';
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/screens/gathering_upload/club_gathering_upload/club_gathering_upload_main_screen.dart';
 import 'package:common/screens/gathering_upload/one_day_gathering_upload/one_day_gathering_upload_main_screen.dart';
-import 'package:common/services/firebase_club_gathering_service.dart';
-import 'package:common/services/firebase_one_day_gathering_service.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import '../../../models/gathering/gathering.dart';
+import '../../../services/club_gathering_service.dart';
+import '../../../services/one_day_gathering_service.dart';
 
 class GatheringCategoryContainer extends StatelessWidget {
   final String category;
@@ -68,13 +68,13 @@ class GatheringCategoryContainer extends StatelessWidget {
             late Future future;
             switch (category) {
               case kClubGatheringCategory:
-                future = FirebaseClubGatheringService
+                future = ClubGatheringService
                     .getGatheringListWhichUserIsParticipating(
                         userId: controller.user!.id);
                 break;
               case kOneDayGatheringCategory:
               default:
-                future = FirebaseOneDayGatheringService
+                future = OneDayGatheringService
                     .getGatheringListWhichUserIsParticipating(
                         userId: controller.user!.id);
                 break;

@@ -1,11 +1,10 @@
 import 'package:common/screens/sign/reset_new_password_screen.dart';
 import 'package:common/screens/sign/reset_password_phone_screen.dart';
-import 'package:common/services/firebase_user_service.dart';
 import 'package:common/utils/local_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
 import '../../constants/constants_colors.dart';
+import '../../services/user_service.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   const ResetPasswordScreen({Key? key}) : super(key: key);
@@ -21,7 +20,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
   Future<void> resetPasswordPressed(String newPassword) async {
     _userNewPassword = newPassword;
-    bool value = await FirebaseUserService.updatePassword(
+    bool value = await UserService.updatePassword(
         phone: _userPhone, newPassword: _userNewPassword);
     if (!mounted) return;
     if (value) {

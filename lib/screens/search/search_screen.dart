@@ -1,15 +1,13 @@
 import 'dart:developer';
-
 import 'package:common/constants/constants_enum.dart';
 import 'package:common/screens/search/category_search_screen.dart';
 import 'package:common/screens/search/keyword_search_screen.dart';
-import 'package:common/services/firebase_data_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
 import '../../constants/constants_colors.dart';
 import '../../constants/constants_value.dart';
 import '../../controllers/local_controller.dart';
+import '../../services/data_service.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -29,7 +27,7 @@ class _SearchScreenState extends State<SearchScreen> {
       if (_searchWordAutoSave) {
         await LocalController.addSearchWord(word);
       }
-      FirebaseDataService.addSearchGatheringWord(word: word);
+      DataService.addSearchGatheringWord(word: word);
       setState(() => _searchController.clear());
 
       if (!mounted) return;
@@ -284,7 +282,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   ),
                   const SizedBox(height: 20),
                   FutureBuilder(
-                    future: FirebaseDataService.getSearchGatheringPopularWord(),
+                    future: DataService.getSearchGatheringPopularWord(),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         List wordList = snapshot.data!;

@@ -1,10 +1,10 @@
 import 'package:common/constants/constants_enum.dart';
 import 'package:common/screens/home/club_gathering/club_gathering_ranking_card.dart';
-import 'package:common/services/firebase_club_gathering_service.dart';
 import 'package:common/widgets/custom_paint_badge.dart';
 import 'package:flutter/material.dart';
 import '../../../constants/constants_colors.dart';
 import '../../../models/club_gathering/club_gathering.dart';
+import '../../../services/club_gathering_service.dart';
 
 class ClubGatheringRanking extends StatelessWidget {
   final String category;
@@ -20,7 +20,7 @@ class ClubGatheringRanking extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: FirebaseClubGatheringService.getInterestGathering(
+      future: ClubGatheringService.getInterestGathering(
           category: category, city: city),
       builder: (context, snapshot) {
         if (snapshot.hasData) {

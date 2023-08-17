@@ -3,7 +3,7 @@ import 'package:common/controllers/local_controller.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import '../models/user/user.dart';
-import '../services/firebase_user_service.dart';
+import '../services/user_service.dart';
 
 class UserController extends ChangeNotifier {
   User? user;
@@ -11,7 +11,7 @@ class UserController extends ChangeNotifier {
   Future<bool> autoLogin() async {
     User? userInfo = await LocalController.getUserInfo();
     if (userInfo == null) return false;
-    User? loginUserInfo = await FirebaseUserService.login(
+    User? loginUserInfo = await UserService.login(
         phone: userInfo.phone, password: userInfo.password);
     if (loginUserInfo == null) return false;
     user = loginUserInfo;
@@ -34,7 +34,7 @@ class UserController extends ChangeNotifier {
   Future<bool> refreshUser() async {
     try {
       if (user == null) return false;
-      User? newUser = await FirebaseUserService.refresh(id: user!.id);
+      User? newUser = await UserService.refresh(id: user!.id);
       if (newUser == null) return false;
       user = newUser;
       notifyListeners();
@@ -54,7 +54,7 @@ class UserController extends ChangeNotifier {
     if (user == null) return;
     String? token = await FirebaseMessaging.instance.getToken();
     if (token != null) {
-      await FirebaseUserService.update(
+      await UserService.update(
           id: user!.id, field: 'notificationToken', value: token);
     }
   }

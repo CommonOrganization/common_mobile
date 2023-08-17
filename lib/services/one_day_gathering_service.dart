@@ -1,26 +1,26 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:common/models/one_day_gathering/one_day_gathering.dart';
-import 'package:common/services/firebase_gathering_service.dart';
-
 import '../utils/gathering_utils.dart';
 import 'firebase_service.dart';
+import 'gathering_service.dart';
 
-class FirebaseOneDayGatheringService {
-  static final FirebaseOneDayGatheringService _instance =
-      FirebaseOneDayGatheringService();
-  factory FirebaseOneDayGatheringService() => _instance;
+class OneDayGatheringService {
+  static final OneDayGatheringService _instance =
+  OneDayGatheringService._internal();
+  factory OneDayGatheringService() => _instance;
+  OneDayGatheringService._internal();
 
   static const String _category = 'oneDayGathering';
 
   static Future<bool> uploadGathering(
       {required OneDayGathering gathering}) async {
     try {
-      String? id = await FirebaseGatheringService.getId(category: _category);
+      String? id = await GatheringService.getId(category: _category);
       if (id == null) return false;
       Map<String, dynamic> gatheringData = gathering.toJson();
       gatheringData['id'] = id;
-      return await FirebaseGatheringService.uploadGathering(
+      return await GatheringService.uploadGathering(
         category: _category,
         id: id,
         data: gatheringData,
@@ -50,7 +50,7 @@ class FirebaseOneDayGatheringService {
   static Future<bool> applyGathering(
       {required String id, required String userId}) async {
     try {
-      return await FirebaseGatheringService.applyGathering(
+      return await GatheringService.applyGathering(
           category: _category, id: id, userId: userId);
     } catch (e) {
       log('FirebaseOneDayGatheringService - applyGathering Failed : $e');

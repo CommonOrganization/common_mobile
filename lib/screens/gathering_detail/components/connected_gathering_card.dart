@@ -1,13 +1,11 @@
 import 'dart:ui';
-
 import 'package:common/models/one_day_gathering/one_day_gathering.dart';
 import 'package:common/screens/gathering_detail/one_day_gathering_detail/one_day_gathering_detail_screen.dart';
-import 'package:common/services/firebase_user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
 import '../../../constants/constants_colors.dart';
 import '../../../constants/constants_enum.dart';
+import '../../../services/user_service.dart';
 import '../../../utils/date_utils.dart';
 import '../../../widgets/contents_tag.dart';
 
@@ -199,8 +197,7 @@ class ConnectedGatheringCard extends StatelessWidget {
             return Positioned(
               right: rightMargin,
               child: FutureBuilder(
-                  future: FirebaseUserService.get(
-                      id: memberId, field: 'profileImage'),
+                  future: UserService.get(id: memberId, field: 'profileImage'),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       String image = snapshot.data;
@@ -268,8 +265,7 @@ class ConnectedGatheringCard extends StatelessWidget {
           return Positioned(
             right: rightMargin,
             child: FutureBuilder(
-                future: FirebaseUserService.get(
-                    id: memberId, field: 'profileImage'),
+                future: UserService.get(id: memberId, field: 'profileImage'),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     String image = snapshot.data;

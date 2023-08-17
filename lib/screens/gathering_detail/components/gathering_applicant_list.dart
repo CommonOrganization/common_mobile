@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../constants/constants_colors.dart';
-import '../../../services/firebase_user_service.dart';
+import '../../../services/user_service.dart';
 
 class GatheringApplicantList extends StatelessWidget {
   final List applicantList;
@@ -63,7 +63,7 @@ class GatheringApplicantList extends StatelessWidget {
   }
 
   Widget getProfileArea(String userId) => FutureBuilder(
-    future: FirebaseUserService.get(id: userId, field: 'profileImage'),
+    future: UserService.get(id: userId, field: 'profileImage'),
     builder: (context, snapshot) {
       if (snapshot.hasData) {
         return Container(
@@ -91,7 +91,7 @@ class GatheringApplicantList extends StatelessWidget {
   );
 
   Widget getNameArea(String userId) => FutureBuilder(
-    future: FirebaseUserService.get(id: userId, field: 'name'),
+    future: UserService.get(id: userId, field: 'name'),
     builder: (context, snapshot) {
       return Text(
         snapshot.data ?? '',

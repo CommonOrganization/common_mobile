@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:common/constants/constants_colors.dart';
 import 'package:common/models/user_place/user_place.dart';
 import 'package:common/screens/sign/register_category_screen.dart';
@@ -8,16 +7,15 @@ import 'package:common/screens/sign/register_phone_screen.dart';
 import 'package:common/screens/sign/register_profile_screen.dart';
 import 'package:common/screens/sign/register_user_information_screen.dart';
 import 'package:common/screens/sign/welcome_screen.dart';
-import 'package:common/services/firebase_user_service.dart';
 import 'package:common/utils/local_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-
 import '../../constants/constants_enum.dart';
 import '../../constants/constants_reg.dart';
 import '../../controllers/user_controller.dart';
 import '../../models/user/user.dart';
+import '../../services/user_service.dart';
 
 class RegisterMainScreen extends StatefulWidget {
   const RegisterMainScreen({Key? key}) : super(key: key);
@@ -60,7 +58,7 @@ class _RegisterMainScreenState extends State<RegisterMainScreen> {
         'likeClubGatheringList': [],
         'likePostList': [],
       };
-      User? user = await FirebaseUserService.register(userData: userData);
+      User? user = await UserService.register(userData: userData);
       if (!mounted) return;
       if (user != null) {
         await context.read<UserController>().setUser(user);
@@ -86,7 +84,7 @@ class _RegisterMainScreenState extends State<RegisterMainScreen> {
       case 0:
         return RegisterPhoneScreen(
           nextPressed: (String phone, Country country) async {
-            if (await FirebaseUserService.duplicate(
+            if (await UserService.duplicate(
                 field: 'phone', value: phone)) {
               if (!mounted) return;
               showMessage(context, message: '이미 가입된 번호입니다.');

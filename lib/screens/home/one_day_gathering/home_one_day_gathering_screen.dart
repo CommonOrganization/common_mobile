@@ -3,10 +3,10 @@ import 'package:common/constants/constants_enum.dart';
 import 'package:common/constants/constants_value.dart';
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/user_place/user_place.dart';
-import 'package:common/services/firebase_one_day_gathering_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../constants/constants_colors.dart';
+import '../../../services/one_day_gathering_service.dart';
 import '../components/gathering_category_container.dart';
 import '../components/interesting_category_container.dart';
 import 'one_day_gathering_calendar.dart';
@@ -45,7 +45,7 @@ class _HomeOneDayGatheringScreenState extends State<HomeOneDayGatheringScreen> {
                     gatheringCategory: kOneDayGatheringCategory),
                 const SizedBox(height: 45),
                 OneDayGatheringContentsArea(
-                  future: FirebaseOneDayGatheringService.getTodayGathering(
+                  future: OneDayGatheringService.getTodayGathering(
                       city: userPlace.city),
                   title: '오늘 당장 만날 수 있는 하루모임',
                 ),
@@ -57,19 +57,19 @@ class _HomeOneDayGatheringScreenState extends State<HomeOneDayGatheringScreen> {
 
                   return OneDayGatheringContentsArea(
                     future:
-                        FirebaseOneDayGatheringService.getRecommendGathering(
+                    OneDayGatheringService.getRecommendGathering(
                             category: category.name, city: userPlace.city),
                     title: '추천하는 ${category.title} 하루모임',
                   );
                 }),
                 const OneDayGatheringCalendar(),
                 OneDayGatheringContentsArea(
-                  future: FirebaseOneDayGatheringService.getNearGathering(
+                  future: OneDayGatheringService.getNearGathering(
                       city: userPlace.city),
                   title: '나와 가까운 하루모임',
                 ),
                 OneDayGatheringContentsArea(
-                  future: FirebaseOneDayGatheringService.getNewGathering(
+                  future: OneDayGatheringService.getNewGathering(
                       city: userPlace.city),
                   title: '새로 열린 하루모임',
                 ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import '../services/firebase_gathering_service.dart';
+
+import '../services/gathering_service.dart';
 
 class GatheringFavoriteButton extends StatefulWidget {
   final String category;
@@ -24,7 +25,7 @@ class _GatheringFavoriteButtonState extends State<GatheringFavoriteButton> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: FirebaseGatheringService.get(
+      future: GatheringService.get(
           category: widget.category,
           id: widget.gatheringId,
           field: 'favoriteList'),
@@ -41,7 +42,7 @@ class _GatheringFavoriteButtonState extends State<GatheringFavoriteButton> {
               } else {
                 favoriteList.add(widget.userId);
               }
-              FirebaseGatheringService.update(
+              GatheringService.update(
                 category: widget.category,
                 id: widget.gatheringId,
                 field: 'favoriteList',

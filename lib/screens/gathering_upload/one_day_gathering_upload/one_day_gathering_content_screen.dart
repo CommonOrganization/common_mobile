@@ -1,8 +1,8 @@
 import 'package:common/constants/constants_colors.dart';
 import 'package:common/screens/gathering_upload/components/gathering_upload_next_button.dart';
-import 'package:common/services/firebase_gathering_service.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../../services/gathering_service.dart';
 
 class OneDayGatheringContentScreen extends StatefulWidget {
   final Function nextPressed;
@@ -30,7 +30,7 @@ class _OneDayGatheringContentScreenState
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
     if (image == null) return;
     String? imageUrl =
-        await FirebaseGatheringService.uploadGatheringImage(image: image);
+        await GatheringService.uploadGatheringImage(image: image);
     if (imageUrl == null) return;
     if (isMain) {
       setState(() => _mainImageUrl = imageUrl);

@@ -1,13 +1,12 @@
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/club_gathering/club_gathering.dart';
 import 'package:common/models/one_day_gathering/one_day_gathering.dart';
-import 'package:common/services/firebase_club_gathering_service.dart';
-import 'package:common/services/firebase_one_day_gathering_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-
 import '../../constants/constants_colors.dart';
+import '../../services/club_gathering_service.dart';
+import '../../services/one_day_gathering_service.dart';
 import '../../widgets/club_gathering_row_card.dart';
 import '../../widgets/one_day_gathering_row_card.dart';
 
@@ -137,7 +136,7 @@ class _KeywordSearchScreenState extends State<KeywordSearchScreen> {
 
   Widget kOneDayGatheringArea(String city) {
     return FutureBuilder(
-      future: FirebaseOneDayGatheringService.searchGatheringWithKeyword(
+      future: OneDayGatheringService.searchGatheringWithKeyword(
         keyword: _searchWord,
         city: city,
       ),
@@ -167,7 +166,7 @@ class _KeywordSearchScreenState extends State<KeywordSearchScreen> {
 
   Widget kClubGatheringArea(String city) {
     return FutureBuilder(
-      future: FirebaseClubGatheringService.searchGatheringWithKeyword(
+      future: ClubGatheringService.searchGatheringWithKeyword(
         keyword: _searchWord,
         city: city,
       ),

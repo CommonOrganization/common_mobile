@@ -1,15 +1,14 @@
 import 'package:common/constants/constants_colors.dart';
 import 'package:common/models/one_day_gathering/one_day_gathering.dart';
-import 'package:common/services/firebase_user_service.dart';
 import 'package:common/widgets/contents_tag.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-
 import '../constants/constants_enum.dart';
 import '../constants/constants_value.dart';
 import '../controllers/user_controller.dart';
 import '../screens/gathering_detail/one_day_gathering_detail/one_day_gathering_detail_screen.dart';
+import '../services/user_service.dart';
 import '../utils/widget_utils.dart';
 import 'gathering_favorite_button.dart';
 
@@ -111,7 +110,7 @@ class OneDayGatheringCard extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                       ),
                       FutureBuilder(
-                        future: FirebaseUserService.get(
+                        future: UserService.get(
                             id: gathering.organizerId, field: 'name'),
                         builder: (context, snapshot) {
                           return Text(

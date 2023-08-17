@@ -1,18 +1,19 @@
 import 'dart:developer';
 import 'package:common/services/firebase_service.dart';
-import 'package:common/services/firebase_upload_service.dart';
+import 'package:common/services/upload_service.dart';
 import 'package:image_picker/image_picker.dart';
 
 //모임 공통 기능
-class FirebaseGatheringService {
-  static final FirebaseGatheringService _instance = FirebaseGatheringService();
-  factory FirebaseGatheringService() => _instance;
+class GatheringService {
+  static final GatheringService _instance = GatheringService._internal();
+  factory GatheringService() => _instance;
+  GatheringService._internal();
 
   static Future<String?> uploadGatheringImage({required XFile image}) async {
     try {
       DateTime nowDate = DateTime.now();
       String imageRef = '/gathering/${nowDate.microsecondsSinceEpoch}';
-      return await FirebaseUploadService.uploadImage(
+      return await UploadService.uploadImage(
           image: image, imageRef: imageRef);
     } catch (e) {
       log('FirebaseGatheringService - uploadGatheringImage Failed : $e');

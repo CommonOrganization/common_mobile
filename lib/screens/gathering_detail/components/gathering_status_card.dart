@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
 import '../../../constants/constants_colors.dart';
-import '../../../services/firebase_user_service.dart';
+import '../../../services/user_service.dart';
 
 class GatheringStatusCard extends StatelessWidget {
   final List memberList;
@@ -44,7 +43,7 @@ class GatheringStatusCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               FutureBuilder(
-                future: FirebaseUserService.get(
+                future: UserService.get(
                   id: memberList.last,
                   field: 'profileImage',
                 ),

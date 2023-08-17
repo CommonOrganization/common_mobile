@@ -1,19 +1,20 @@
 import 'dart:developer';
 import 'package:common/models/user/user.dart';
-import 'package:common/services/firebase_upload_service.dart';
+import 'package:common/services/upload_service.dart';
+import 'package:common/services/util_service.dart';
 import 'package:image_picker/image_picker.dart';
 import 'firebase_service.dart';
-import 'firebase_util_service.dart';
 
-class FirebaseUserService {
-  static final FirebaseUserService _instance = FirebaseUserService();
-  factory FirebaseUserService() => _instance;
+class UserService {
+  static final UserService _instance = UserService._internal();
+  factory UserService() => _instance;
+  UserService._internal();
 
   static Future<String?> uploadProfileImage({required XFile image}) async {
     try {
       DateTime nowDate = DateTime.now();
       String imageRef = '/user/${nowDate.microsecondsSinceEpoch}';
-      return await FirebaseUploadService.uploadImage(
+      return await UploadService.uploadImage(
           image: image, imageRef: imageRef);
     } catch (e) {
       log('FirebaseUserService - uploadUserImage Failed : $e');
@@ -23,7 +24,7 @@ class FirebaseUserService {
 
   static Future<User?> register({required Map<String, dynamic> userData}) async {
     try {
-      String? id = await FirebaseUtilService.getId(path: 'user');
+      String? id = await UtilService.getId(path: 'user');
       if (id == null) return null;
       Map<String, dynamic> userInfo = {
         'id': id,

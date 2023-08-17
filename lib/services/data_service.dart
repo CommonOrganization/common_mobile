@@ -1,9 +1,10 @@
 import 'dart:developer';
 import 'firebase_service.dart';
 
-class FirebaseDataService {
-  static final FirebaseDataService _instance = FirebaseDataService();
-  factory FirebaseDataService() => _instance;
+class DataService {
+  static final DataService _instance = DataService._internal();
+  factory DataService() => _instance;
+  DataService._internal();
   //Data
   //Search - gathering, feed, etc
 

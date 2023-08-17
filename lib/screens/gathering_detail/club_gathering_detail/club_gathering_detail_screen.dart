@@ -5,8 +5,8 @@ import 'package:provider/provider.dart';
 import '../../../constants/constants_colors.dart';
 import '../../../controllers/user_controller.dart';
 import '../../../models/one_day_gathering/one_day_gathering.dart';
-import '../../../services/firebase_club_gathering_service.dart';
-import '../../../services/firebase_one_day_gathering_service.dart';
+import '../../../services/club_gathering_service.dart';
+import '../../../services/one_day_gathering_service.dart';
 import '../../../utils/local_utils.dart';
 import '../components/gathering_button.dart';
 import '../components/gathering_sliver_appbar.dart';
@@ -61,7 +61,7 @@ class _ClubGatheringDetailScreenState extends State<ClubGatheringDetailScreen> {
 
   void initializeGatheringList() async {
     List<OneDayGathering> gatheringList =
-        await FirebaseOneDayGatheringService.getConnectedGathering(
+        await OneDayGatheringService.getConnectedGathering(
             clubGatheringId: widget.gathering.id);
     setState(() => _gatheringList = gatheringList);
   }
@@ -72,7 +72,7 @@ class _ClubGatheringDetailScreenState extends State<ClubGatheringDetailScreen> {
     if (_loading) return;
     _loading = true;
     try {
-      bool applySuccess = await FirebaseClubGatheringService.applyGathering(
+      bool applySuccess = await ClubGatheringService.applyGathering(
           id: widget.gathering.id, userId: userId);
       if (!mounted) return;
       if (!applySuccess) {
@@ -90,7 +90,7 @@ class _ClubGatheringDetailScreenState extends State<ClubGatheringDetailScreen> {
     if (_loading) return;
     _loading = true;
     try {
-      bool uploadSuccess = await FirebaseClubGatheringService.uploadGathering(
+      bool uploadSuccess = await ClubGatheringService.uploadGathering(
           gathering: widget.gathering);
       if (!mounted) return;
       if (uploadSuccess) {

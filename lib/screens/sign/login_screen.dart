@@ -5,12 +5,11 @@ import 'package:common/models/user/user.dart';
 import 'package:common/screens/main/main_screen.dart';
 import 'package:common/screens/sign/register_main_screen.dart';
 import 'package:common/screens/sign/reset_password_screen.dart';
-import 'package:common/services/firebase_user_service.dart';
 import 'package:common/utils/local_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-
+import '../../services/user_service.dart';
 import '../../widgets/custom_check_box.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -31,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
       showMessage(context, message: '전화번호와 비밀번호를 모두 입력해 주세요');
       return;
     }
-    User? user = await FirebaseUserService.login(
+    User? user = await UserService.login(
         phone: _phoneController.text, password: _passwordController.text);
     if (!mounted) return;
     if (user == null) {

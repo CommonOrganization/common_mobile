@@ -4,11 +4,12 @@ import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/club_gathering/club_gathering.dart';
 import 'package:common/models/one_day_gathering/one_day_gathering.dart';
 import 'package:common/screens/gathering_upload/components/gathering_upload_next_button.dart';
-import 'package:common/services/firebase_club_gathering_service.dart';
-import 'package:common/services/firebase_one_day_gathering_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+
+import '../../../services/club_gathering_service.dart';
+import '../../../services/one_day_gathering_service.dart';
 
 class OneDayGatheringTypeScreen extends StatefulWidget {
   final Function nextPressed;
@@ -40,7 +41,7 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
 
   void initializeClubGatheringList() async {
     if (context.read<UserController>().user == null) return;
-    List<ClubGathering> gatheringList = await FirebaseClubGatheringService
+    List<ClubGathering> gatheringList = await ClubGatheringService
         .getGatheringListWhichUserIsParticipating(
             userId: context.read<UserController>().user!.id);
     if (gatheringList.isNotEmpty) {
@@ -291,7 +292,7 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
                   ),
                   FutureBuilder(
                     future:
-                        FirebaseOneDayGatheringService.getConnectedGathering(
+                    OneDayGatheringService.getConnectedGathering(
                             clubGatheringId: clubGathering.id),
                     builder: (context, snapshot) {
                       int gatheringCount = snapshot.hasData

@@ -1,10 +1,10 @@
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/one_day_gathering/one_day_gathering.dart';
-import 'package:common/services/firebase_one_day_gathering_service.dart';
 import 'package:common/utils/local_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../constants/constants_colors.dart';
+import '../../../services/one_day_gathering_service.dart';
 import '../components/gathering_button.dart';
 import '../components/gathering_sliver_appbar.dart';
 import 'one_day_gathering_basic_contents.dart';
@@ -55,7 +55,7 @@ class _OneDayGatheringDetailScreenState
     if (_loading) return;
     _loading = true;
     try {
-      bool applySuccess = await FirebaseOneDayGatheringService.applyGathering(
+      bool applySuccess = await OneDayGatheringService.applyGathering(
           id: widget.gathering.id, userId: userId);
       if (!mounted) return;
       if (!applySuccess) {
@@ -73,7 +73,7 @@ class _OneDayGatheringDetailScreenState
     if (_loading) return;
     _loading = true;
     try {
-      bool uploadSuccess = await FirebaseOneDayGatheringService.uploadGathering(
+      bool uploadSuccess = await OneDayGatheringService.uploadGathering(
           gathering: widget.gathering);
       if (!mounted) return;
       if (uploadSuccess) {

@@ -1,9 +1,10 @@
 import 'dart:developer';
 import 'firebase_service.dart';
 
-class FirebaseUtilService {
-  static final FirebaseUtilService _instance = FirebaseUtilService();
-  factory FirebaseUtilService() => _instance;
+class UtilService {
+  static final UtilService _instance = UtilService._internal();
+  factory UtilService() => _instance;
+  UtilService._internal();
 
   static Future<String?> getId({required String path}) async {
     try {

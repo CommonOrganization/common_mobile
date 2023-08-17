@@ -1,12 +1,12 @@
 import 'dart:math';
 import 'package:common/constants/constants_value.dart';
-import 'package:common/services/firebase_club_gathering_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../constants/constants_colors.dart';
 import '../../../constants/constants_enum.dart';
 import '../../../controllers/user_controller.dart';
 import '../../../models/user_place/user_place.dart';
+import '../../../services/club_gathering_service.dart';
 import '../components/gathering_category_container.dart';
 import '../components/interesting_category_container.dart';
 import 'club_gathering_contents_area.dart';
@@ -47,7 +47,7 @@ class _HomeClubGatheringScreenState extends State<HomeClubGatheringScreen> {
                     gatheringCategory: kClubGatheringCategory),
                 const SizedBox(height: 45),
                 ClubGatheringContentsArea(
-                  future: FirebaseClubGatheringService.getTrendingOnGathering(
+                  future: ClubGatheringService.getTrendingOnGathering(
                       city: userPlace.city),
                   title: '인기 급상승 소모임',
                 ),
@@ -58,7 +58,7 @@ class _HomeClubGatheringScreenState extends State<HomeClubGatheringScreen> {
                       userInterestCategory[index]);
 
                   return ClubGatheringContentsArea(
-                    future: FirebaseClubGatheringService.getRecommendGathering(
+                    future: ClubGatheringService.getRecommendGathering(
                         category: category.name, city: userPlace.city),
                     title: '추천하는 ${category.title} 하루모임',
                   );
@@ -69,18 +69,18 @@ class _HomeClubGatheringScreenState extends State<HomeClubGatheringScreen> {
                   city:userPlace.city,
                 ),
                 ClubGatheringContentsArea(
-                  future: FirebaseClubGatheringService
+                  future: ClubGatheringService
                       .getImmediatelyAbleToParticipateGathering(
                           city: userPlace.city),
                   title: '바로 참여 가능한 소모임',
                 ),
                 ClubGatheringContentsArea(
-                  future: FirebaseClubGatheringService.getNearGathering(
+                  future: ClubGatheringService.getNearGathering(
                       city: userPlace.city),
                   title: '나와 가까운 소모임',
                 ),
                 ClubGatheringContentsArea(
-                  future: FirebaseClubGatheringService.getNewGathering(
+                  future: ClubGatheringService.getNewGathering(
                       city: userPlace.city),
                   title: '새로 열린 소모임',
                 ),
@@ -95,7 +95,7 @@ class _HomeClubGatheringScreenState extends State<HomeClubGatheringScreen> {
   Widget kRankingArea(
           {required List interestCategory, required String userId,required String city}) =>
       FutureBuilder(
-        future: FirebaseClubGatheringService.canShowGatheringRanking(
+        future: ClubGatheringService.canShowGatheringRanking(
             interestCategory: interestCategory),
         builder: (context, snapshot) {
           if (snapshot.hasData) {

@@ -1,9 +1,9 @@
 import 'package:common/constants/constants_url.dart';
-import 'package:common/services/firebase_user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../constants/constants_colors.dart';
+import '../../services/user_service.dart';
 
 class RegisterProfileScreen extends StatefulWidget {
   final String userName;
@@ -36,7 +36,7 @@ class _RegisterProfileScreenState extends State<RegisterProfileScreen> {
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
     if (image == null) return;
     String? imageUrl =
-        await FirebaseUserService.uploadProfileImage(image: image);
+        await UserService.uploadProfileImage(image: image);
     if (imageUrl == null) return;
     setState(() => _imageUrl = imageUrl);
   }
