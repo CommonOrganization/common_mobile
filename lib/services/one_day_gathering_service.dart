@@ -7,7 +7,7 @@ import 'gathering_service.dart';
 
 class OneDayGatheringService {
   static final OneDayGatheringService _instance =
-  OneDayGatheringService._internal();
+      OneDayGatheringService._internal();
   factory OneDayGatheringService() => _instance;
   OneDayGatheringService._internal();
 
@@ -27,6 +27,21 @@ class OneDayGatheringService {
       );
     } catch (e) {
       log('FirebaseOneDayGatheringService - uploadGathering Failed : $e');
+      return false;
+    }
+  }
+
+  static Future<bool> updateGathering(
+      {required OneDayGathering gathering}) async {
+    try {
+      Map<String, dynamic> gatheringData = gathering.toJson();
+      return await GatheringService.updateGathering(
+        category: _category,
+        id: gathering.id,
+        data: gatheringData,
+      );
+    } catch (e) {
+      log('FirebaseOneDayGatheringService - updateGathering Failed : $e');
       return false;
     }
   }
@@ -189,7 +204,7 @@ class OneDayGatheringService {
 
   /// 하루모임 검색
   static Future<List<OneDayGathering>> searchGatheringWithKeyword(
-      {required String keyword,required String city}) async {
+      {required String keyword, required String city}) async {
     try {
       DateTime nowDate = DateTime.now();
       final snapshot = await FirebaseService.fireStore

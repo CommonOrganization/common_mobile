@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../constants/constants_colors.dart';
 import '../../utils/date_utils.dart';
 import '../../widgets/birthday_date_picker.dart';
-import '../../widgets/select_location_bottom_sheet.dart';
+import '../../widgets/bottom_sheets/select_location_bottom_sheet.dart';
 import 'components/register_next_button.dart';
 
 class RegisterUserInformationScreen extends StatefulWidget {

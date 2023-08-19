@@ -12,9 +12,13 @@ import '../../../services/club_gathering_service.dart';
 import '../../../services/one_day_gathering_service.dart';
 
 class OneDayGatheringTypeScreen extends StatefulWidget {
+  final OneDayGathering? gathering;
   final Function nextPressed;
-  const OneDayGatheringTypeScreen({Key? key, required this.nextPressed})
-      : super(key: key);
+  const OneDayGatheringTypeScreen({
+    Key? key,
+    this.gathering,
+    required this.nextPressed,
+  }) : super(key: key);
 
   @override
   State<OneDayGatheringTypeScreen> createState() =>
@@ -36,13 +40,14 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
   @override
   void initState() {
     super.initState();
+    setGatheringInformation();
     initializeClubGatheringList();
   }
 
   void initializeClubGatheringList() async {
     if (context.read<UserController>().user == null) return;
-    List<ClubGathering> gatheringList = await ClubGatheringService
-        .getGatheringListWhichUserIsParticipating(
+    List<ClubGathering> gatheringList =
+        await ClubGatheringService.getGatheringListWhichUserIsParticipating(
             userId: context.read<UserController>().user!.id);
     if (gatheringList.isNotEmpty) {
       setState(() {
@@ -50,6 +55,12 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
         clubGatheringList = gatheringList;
       });
     }
+  }
+
+  void setGatheringInformation() {
+    if (widget.gathering == null) return;
+    _connectedClubGatheringId = widget.gathering!.connectedClubGatheringId;
+    _showAllThePeople = widget.gathering!.showAllThePeople;
   }
 
   @override
@@ -159,7 +170,7 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
         GatheringUploadNextButton(
           value: canNextPress,
           onTap: () {
-            if(!canNextPress) return;
+            if (!canNextPress) return;
             widget.nextPressed(
               _selectedGatheringType,
               _connectedClubGatheringId,
@@ -291,9 +302,8 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
                     ),
                   ),
                   FutureBuilder(
-                    future:
-                    OneDayGatheringService.getConnectedGathering(
-                            clubGatheringId: clubGathering.id),
+                    future: OneDayGatheringService.getConnectedGathering(
+                        clubGatheringId: clubGathering.id),
                     builder: (context, snapshot) {
                       int gatheringCount = snapshot.hasData
                           ? (snapshot.data as List<OneDayGathering>).length

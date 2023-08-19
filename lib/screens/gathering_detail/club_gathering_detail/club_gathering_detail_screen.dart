@@ -1,3 +1,4 @@
+import 'package:common/constants/constants_enum.dart';
 import 'package:common/models/club_gathering/club_gathering.dart';
 import 'package:common/screens/gathering_detail/club_gathering_detail/club_gathering_connected_gathering_contents.dart';
 import 'package:flutter/material.dart';
@@ -132,7 +133,8 @@ class _ClubGatheringDetailScreenState extends State<ClubGatheringDetailScreen> {
             showAppbarBlack: _showAppbarBlack,
             size: MediaQuery.of(context).size.width,
             gathering: widget.gathering,
-            isClubGathering: true,
+            gatheringType: GatheringType.club,
+            isPreview:widget.isPreview,
           ),
           SliverAppBar(
             primary: false,

@@ -3,10 +3,16 @@ import 'package:common/screens/gathering_upload/components/gathering_category_se
 import 'package:common/screens/gathering_upload/components/gathering_upload_next_button.dart';
 import 'package:flutter/material.dart';
 
+import '../../../models/one_day_gathering/one_day_gathering.dart';
+
 class OneDayGatheringCategoryScreen extends StatefulWidget {
+  final OneDayGathering? gathering;
   final Function nextPressed;
-  const OneDayGatheringCategoryScreen({Key? key, required this.nextPressed})
-      : super(key: key);
+  const OneDayGatheringCategoryScreen({
+    Key? key,
+    this.gathering,
+    required this.nextPressed,
+  }) : super(key: key);
 
   @override
   State<OneDayGatheringCategoryScreen> createState() =>
@@ -19,6 +25,19 @@ class _OneDayGatheringCategoryScreenState
   CommonCategory? _selectedCategory;
   final TextEditingController _detailCategoryController =
       TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    setGatheringInformation();
+  }
+
+  void setGatheringInformation() {
+    if (widget.gathering == null) return;
+    _selectedCategory =
+        CommonCategoryMap.getCategory(widget.gathering!.category);
+    _detailCategoryController.text = widget.gathering!.detailCategory;
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -6,13 +6,18 @@ import 'package:common/utils/local_utils.dart';
 import 'package:common/widgets/custom_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../../models/one_day_gathering/one_day_gathering.dart';
 import '../../../widgets/custom_date_picker.dart';
-import '../../../widgets/select_location_bottom_sheet.dart';
+import '../../../widgets/bottom_sheets/select_location_bottom_sheet.dart';
 
 class OneDayGatheringScheduleScreen extends StatefulWidget {
+  final OneDayGathering? gathering;
   final Function nextPressed;
-  const OneDayGatheringScheduleScreen({Key? key, required this.nextPressed})
-      : super(key: key);
+  const OneDayGatheringScheduleScreen({
+    Key? key,
+    this.gathering,
+    required this.nextPressed,
+  }) : super(key: key);
 
   @override
   State<OneDayGatheringScheduleScreen> createState() =>
@@ -38,6 +43,29 @@ class _OneDayGatheringScheduleScreenState
       ((_isHaveEntryFee ?? false)
           ? _gatheringEntryFeeController.text.isNotEmpty
           : true);
+
+  @override
+  void initState() {
+    super.initState();
+    setGatheringInformation();
+  }
+
+  void setGatheringInformation() {
+    if (widget.gathering == null) return;
+    _gatheringPlaceDetailController.text = widget.gathering!.place['detail'];
+    _gatheringEntryFeeController.text = widget.gathering!.entryFee.toString();
+    DateTime gatheringDateTime = DateTime.parse(widget.gathering!.openingDate);
+    _gatheringDate = DateTime(
+        gatheringDateTime.year, gatheringDateTime.month, gatheringDateTime.day);
+    _gatheringTime = TimeOfDay(
+        hour: gatheringDateTime.hour, minute: gatheringDateTime.minute);
+    _gatheringPlace = UserPlace(
+      city: widget.gathering!.place['city'],
+      county: widget.gathering!.place['county'],
+      dong: widget.gathering!.place['dong'],
+    );
+    _isHaveEntryFee = widget.gathering!.isHaveEntryFee;
+  }
 
   @override
   Widget build(BuildContext context) {

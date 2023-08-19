@@ -1,7 +1,7 @@
 import 'package:common/constants/constants_colors.dart';
 import 'package:common/constants/constants_enum.dart';
 import 'package:common/screens/gathering_upload/components/gathering_upload_next_button.dart';
-import 'package:common/widgets/select_city_bottom_sheet.dart';
+import 'package:common/widgets/bottom_sheets/select_city_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../utils/format_utils.dart';

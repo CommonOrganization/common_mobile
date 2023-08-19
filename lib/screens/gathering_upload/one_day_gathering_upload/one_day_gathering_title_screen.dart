@@ -1,11 +1,14 @@
 import 'package:common/constants/constants_colors.dart';
 import 'package:common/screens/gathering_upload/components/gathering_upload_next_button.dart';
 import 'package:flutter/material.dart';
+import '../../../models/one_day_gathering/one_day_gathering.dart';
 
 class OneDayGatheringTitleScreen extends StatefulWidget {
+  final OneDayGathering? gathering;
   final Function nextPressed;
   const OneDayGatheringTitleScreen({
     Key? key,
+    this.gathering,
     required this.nextPressed,
   }) : super(key: key);
 
@@ -18,6 +21,17 @@ class _OneDayGatheringTitleScreenState
     extends State<OneDayGatheringTitleScreen> {
   final TextEditingController _gatheringTitleController =
       TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    setGatheringInformation();
+  }
+
+  void setGatheringInformation() {
+    if (widget.gathering == null) return;
+    _gatheringTitleController.text = widget.gathering!.title;
+  }
 
   @override
   Widget build(BuildContext context) {

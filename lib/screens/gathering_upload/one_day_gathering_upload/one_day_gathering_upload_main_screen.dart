@@ -19,7 +19,9 @@ import '../../../constants/constants_colors.dart';
 import '../../../models/one_day_gathering/one_day_gathering.dart';
 
 class OneDayGatheringUploadMainScreen extends StatefulWidget {
-  const OneDayGatheringUploadMainScreen({Key? key}) : super(key: key);
+  final OneDayGathering? gathering;
+  const OneDayGatheringUploadMainScreen({Key? key, this.gathering})
+      : super(key: key);
 
   @override
   State<OneDayGatheringUploadMainScreen> createState() =>
@@ -38,7 +40,7 @@ class _OneDayGatheringUploadMainScreenState
   late String _gatheringTitle;
   late String _gatheringContent;
   late String _gatheringMainImageUrl;
-  late List<String> _gatheringImageUrlList;
+  late List _gatheringImageUrlList;
   late RecruitWay _gatheringRecruitWay;
   late String _gatheringRecruitQuestion;
   late int _gatheringCapacity;
@@ -47,9 +49,9 @@ class _OneDayGatheringUploadMainScreenState
   late String _gatheringPlaceDetail;
   late bool _isHaveEntryFee;
   late String _gatheringEntryFee;
-  late List<String> _gatheringTagList;
+  late List _gatheringTagList;
 
-  Future<void> previewPressed(List<String> tagList) async {
+  Future<void> previewPressed(List tagList) async {
     try {
       _gatheringTagList = tagList;
       String? userId = context.read<UserController>().user?.id;
@@ -79,8 +81,61 @@ class _OneDayGatheringUploadMainScreenState
         'applicantList': [],
         'favoriteList': [],
       };
+
       OneDayGathering gathering = OneDayGathering.fromJson({
         'id': 'preview',
+        'organizerId': userId,
+        ...oneDayGatheringMap,
+        'timeStamp': DateTime.now().toString(),
+      });
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => OneDayGatheringDetailScreen(
+            gathering: gathering,
+            isPreview: true,
+          ),
+        ),
+      );
+    } catch (e) {
+      log('previewPressed failed : $e');
+      showMessage(context, message: '입력한 정보를 다시 한번 확인해 주세요.');
+    }
+  }
+
+  Future<void> updatePressed(List tagList) async {
+    try {
+      _gatheringTagList = tagList;
+      String? userId = context.read<UserController>().user?.id;
+      if (userId == null || widget.gathering == null) return;
+      Map<String, dynamic> oneDayGatheringMap = {
+        'type': _gatheringType.name,
+        'connectedClubGatheringId': _gatheringConnectedClubGatheringId,
+        'showAllThePeople': _gatheringShowAllThePeople,
+        'category': _gatheringMainCategory.name,
+        'detailCategory': _gatheringDetailCategory,
+        'title': _gatheringTitle,
+        'content': _gatheringContent,
+        'mainImage': _gatheringMainImageUrl,
+        'gatheringImage': _gatheringImageUrlList,
+        'recruitWay': _gatheringRecruitWay.name,
+        'recruitQuestion': _gatheringRecruitQuestion,
+        'capacity': _gatheringCapacity,
+        'openingDate': _gatheringOpeningDate.toString(),
+        'place': {
+          ..._gatheringPlace.toJson(),
+          'detail': _gatheringPlaceDetail,
+        },
+        'isHaveEntryFee': _isHaveEntryFee,
+        'entryFee': _isHaveEntryFee ? int.parse(_gatheringEntryFee) : 0,
+        'tagList': _gatheringTagList,
+        'memberList': widget.gathering!.memberList,
+        'applicantList': widget.gathering!.applicantList,
+        'favoriteList': widget.gathering!.favoriteList,
+      };
+
+      OneDayGathering gathering = OneDayGathering.fromJson({
+        'id': widget.gathering!.id,
         'organizerId': userId,
         ...oneDayGatheringMap,
         'timeStamp': DateTime.now().toString(),
@@ -89,8 +144,11 @@ class _OneDayGatheringUploadMainScreenState
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) =>
-              OneDayGatheringDetailScreen(gathering: gathering,isPreview: true),
+          builder: (context) => OneDayGatheringDetailScreen(
+            gathering: gathering,
+            isPreview: true,
+            isEdit: true,
+          ),
         ),
       );
     } catch (e) {
@@ -103,6 +161,7 @@ class _OneDayGatheringUploadMainScreenState
     switch (_pageIndex) {
       case 0:
         return OneDayGatheringTypeScreen(
+          gathering: widget.gathering,
           nextPressed: (GatheringType gatheringType,
               String? connectedClubGatheringId, bool showAllThePeople) {
             setState(() {
@@ -115,6 +174,7 @@ class _OneDayGatheringUploadMainScreenState
         );
       case 1:
         return OneDayGatheringCategoryScreen(
+          gathering: widget.gathering,
           nextPressed: (CommonCategory category, String detailCategory) {
             setState(() {
               _pageIndex++;
@@ -125,6 +185,7 @@ class _OneDayGatheringUploadMainScreenState
         );
       case 2:
         return OneDayGatheringTitleScreen(
+          gathering: widget.gathering,
           nextPressed: (String title) {
             setState(() {
               _pageIndex++;
@@ -134,8 +195,9 @@ class _OneDayGatheringUploadMainScreenState
         );
       case 3:
         return OneDayGatheringContentScreen(
+          gathering: widget.gathering,
           nextPressed:
-              (String content, String mainImageUrl, List<String> imageUrlList) {
+              (String content, String mainImageUrl, List imageUrlList) {
             setState(() {
               _pageIndex++;
               _gatheringContent = content;
@@ -146,6 +208,7 @@ class _OneDayGatheringUploadMainScreenState
         );
       case 4:
         return OneDayGatheringRecruitScreen(
+          gathering: widget.gathering,
           nextPressed: (RecruitWay recruitWay, String recruitQuestion) {
             setState(() {
               _pageIndex++;
@@ -156,6 +219,7 @@ class _OneDayGatheringUploadMainScreenState
         );
       case 5:
         return OneDayGatheringCapacityScreen(
+          gathering: widget.gathering,
           nextPressed: (int capacity) {
             setState(() {
               _pageIndex++;
@@ -165,6 +229,7 @@ class _OneDayGatheringUploadMainScreenState
         );
       case 6:
         return OneDayGatheringScheduleScreen(
+          gathering: widget.gathering,
           nextPressed: (DateTime dateTime,
               UserPlace gatheringPlace,
               String gatheringPlaceDetail,
@@ -182,7 +247,11 @@ class _OneDayGatheringUploadMainScreenState
         );
       case 7:
         return OneDayGatheringTagScreen(
-            previewPressed: (List<String> tagList) => previewPressed(tagList));
+          gathering: widget.gathering,
+          previewPressed: (List tagList) => widget.gathering != null
+              ? updatePressed(tagList)
+              : previewPressed(tagList),
+        );
       default:
         return Container();
     }
@@ -213,7 +282,7 @@ class _OneDayGatheringUploadMainScreenState
         actions: [
           GestureDetector(
             behavior: HitTestBehavior.opaque,
-            onTap: () =>Navigator.pop(context),
+            onTap: () => Navigator.pop(context),
             child: SvgPicture.asset('assets/icons/svg/close_28px.svg'),
           ),
           const SizedBox(width: 20),

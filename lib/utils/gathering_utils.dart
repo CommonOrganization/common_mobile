@@ -1,7 +1,14 @@
+import 'package:common/constants/constants_enum.dart';
 import 'package:common/models/club_gathering/club_gathering.dart';
 import 'package:common/models/one_day_gathering/one_day_gathering.dart';
 
-bool hasKeywordOneDayGathering({required OneDayGathering gathering, required String keyword}) {
+GatheringType getGatheringType(String gatheringId) {
+  if (gatheringId.startsWith('club')) return GatheringType.club;
+  return GatheringType.oneDay;
+}
+
+bool hasKeywordOneDayGathering(
+    {required OneDayGathering gathering, required String keyword}) {
   if (gathering.tagList.contains(keyword)) return true;
   if (gathering.detailCategory.contains(keyword)) return true;
   if ((gathering.place['city'] as String).contains(keyword)) return true;
@@ -11,7 +18,8 @@ bool hasKeywordOneDayGathering({required OneDayGathering gathering, required Str
   return false;
 }
 
-bool hasKeywordClubGathering({required ClubGathering gathering, required String keyword}) {
+bool hasKeywordClubGathering(
+    {required ClubGathering gathering, required String keyword}) {
   if (gathering.tagList.contains(keyword)) return true;
   if (gathering.detailCategory.contains(keyword)) return true;
   if (gathering.cityList.contains(keyword)) return true;

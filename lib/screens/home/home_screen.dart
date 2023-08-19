@@ -21,78 +21,89 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kWhiteColor,
-      body: SafeArea(
-        child: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              backgroundColor: kWhiteColor,
-              automaticallyImplyLeading: false,
-              centerTitle: false,
-              titleSpacing: 20,
-              floating: true,
-              elevation: 0,
-              title: SvgPicture.asset(
-                'assets/images/common_text_logo.svg',
-                height: 18,
-                fit: BoxFit.cover,
+      body: RefreshIndicator(
+        color: kMainColor,
+        onRefresh: () async => await Future.delayed(
+          const Duration(milliseconds: 500),
+          () => setState(() {}),
+        ),
+        child: SafeArea(
+          child: NestedScrollView(
+            headerSliverBuilder: (context, innerBoxScrolled) => [
+              SliverAppBar(
+                backgroundColor: kWhiteColor,
+                automaticallyImplyLeading: false,
+                centerTitle: false,
+                titleSpacing: 20,
+                floating: true,
+                elevation: 0,
+                title: SvgPicture.asset(
+                  'assets/images/common_text_logo.svg',
+                  height: 18,
+                  fit: BoxFit.cover,
+                ),
+                actions: [
+                  GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SearchScreen(),
+                      ),
+                    ),
+                    child: SvgPicture.asset('assets/icons/svg/search_26px.svg'),
+                  ),
+                  const SizedBox(width: 16),
+                  GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const CategorySearchScreen(
+                            category: CommonCategory.all),
+                      ),
+                    ),
+                    child: SvgPicture.asset('assets/icons/svg/menu_26px.svg'),
+                  ),
+                  const SizedBox(width: 16),
+                  SvgPicture.asset('assets/icons/svg/notification_26px.svg'),
+                  const SizedBox(width: 20),
+                ],
               ),
-              actions: [
-                GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const SearchScreen(),
+              SliverAppBar(
+                primary: false,
+                toolbarHeight: 48,
+                pinned: true,
+                automaticallyImplyLeading: false,
+                titleSpacing: 0,
+                elevation: 0,
+                title: Container(
+                  height: 48,
+                  decoration: BoxDecoration(
+                    color: kWhiteColor,
+                    border: Border(
+                      bottom: BorderSide(color: kFontGray50Color, width: 1),
                     ),
                   ),
-                  child: SvgPicture.asset('assets/icons/svg/search_26px.svg'),
-                ),
-                const SizedBox(width: 16),
-                GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const CategorySearchScreen(
-                          category: CommonCategory.all),
-                    ),
+                  child: Row(
+                    children: [
+                      kTabBarButton(title: '하루모임', index: 0),
+                      kTabBarButton(title: '소모임', index: 1),
+                    ],
                   ),
-                  child: SvgPicture.asset('assets/icons/svg/menu_26px.svg'),
-                ),
-                const SizedBox(width: 16),
-                SvgPicture.asset('assets/icons/svg/notification_26px.svg'),
-                const SizedBox(width: 20),
-              ],
-            ),
-            SliverAppBar(
-              primary: false,
-              toolbarHeight: 48,
-              pinned: true,
-              automaticallyImplyLeading: false,
-              titleSpacing: 0,
-              elevation: 0,
-              title: Container(
-                height: 48,
-                decoration: BoxDecoration(
-                  color: kWhiteColor,
-                  border: Border(
-                    bottom: BorderSide(color: kFontGray50Color, width: 1),
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    kTabBarButton(title: '하루모임', index: 0),
-                    kTabBarButton(title: '소모임', index: 1),
-                  ],
                 ),
               ),
-            ),
-            SliverToBoxAdapter(
-              child: (_headerIndex == 0
-                  ? const HomeOneDayGatheringScreen()
-                  : const HomeClubGatheringScreen()),
-            )
-          ],
+            ],
+            body: RefreshIndicator(
+                color: kMainColor,
+                onRefresh: () async => await Future.delayed(
+                      const Duration(milliseconds: 500),
+                      () => setState(() {}),
+                    ),
+                child: (_headerIndex == 0
+                    ? const HomeOneDayGatheringScreen()
+                    : const HomeClubGatheringScreen())),
+          ),
         ),
       ),
     );

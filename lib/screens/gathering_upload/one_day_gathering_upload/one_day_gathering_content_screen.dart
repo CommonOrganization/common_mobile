@@ -2,12 +2,15 @@ import 'package:common/constants/constants_colors.dart';
 import 'package:common/screens/gathering_upload/components/gathering_upload_next_button.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../../models/one_day_gathering/one_day_gathering.dart';
 import '../../../services/gathering_service.dart';
 
 class OneDayGatheringContentScreen extends StatefulWidget {
+  final OneDayGathering? gathering;
   final Function nextPressed;
   const OneDayGatheringContentScreen({
     Key? key,
+    this.gathering,
     required this.nextPressed,
   }) : super(key: key);
 
@@ -24,7 +27,7 @@ class _OneDayGatheringContentScreenState
       TextEditingController();
 
   String? _mainImageUrl;
-  final List<String> _imageUrlList = [];
+  final List _imageUrlList = [];
 
   void selectImage(bool isMain) async {
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
@@ -41,6 +44,19 @@ class _OneDayGatheringContentScreenState
 
   bool get canNextPress =>
       _mainImageUrl != null && _gatheringContentController.text.isNotEmpty;
+
+  @override
+  void initState() {
+    super.initState();
+    setGatheringInformation();
+  }
+
+  void setGatheringInformation() {
+    if (widget.gathering == null) return;
+    _gatheringContentController.text = widget.gathering!.content;
+    _mainImageUrl = widget.gathering!.mainImage;
+    _imageUrlList.addAll(widget.gathering!.gatheringImage);
+  }
 
   @override
   Widget build(BuildContext context) {

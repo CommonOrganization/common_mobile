@@ -1,7 +1,7 @@
 import 'package:common/constants/constants_enum.dart';
 import 'package:common/utils/local_utils.dart';
 import 'package:flutter/material.dart';
-import '../../../constants/constants_colors.dart';
+import '../../../../constants/constants_colors.dart';
 
 class SelectCityBottomSheet extends StatefulWidget {
   const SelectCityBottomSheet({Key? key}) : super(key: key);

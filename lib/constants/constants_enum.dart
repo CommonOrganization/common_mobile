@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:common/constants/constants_value.dart';
+
 enum Country {
   ghana,
   gabon,
@@ -1253,16 +1255,19 @@ extension GatheringTypeMap on GatheringType {
   static Map names = {
     GatheringType.oneDay: 'oneDay',
     GatheringType.clubOneDay: 'clubOneDay',
+    GatheringType.club:'club',
   };
 
   static Map types = {
     'oneDay': GatheringType.oneDay,
     'clubOneDay': GatheringType.clubOneDay,
+    'club':GatheringType.club,
   };
 
   static Map titles = {
     GatheringType.oneDay: '하루모임',
     GatheringType.clubOneDay: '소모임의 하루모임',
+    GatheringType.club: '소모임',
   };
 
   static Map contents = {
@@ -1280,12 +1285,18 @@ extension GatheringTypeMap on GatheringType {
     GatheringType.clubOneDay: 'assets/icons/svg/group_active_22px.svg',
   };
 
+  static Map gatheringCategory = {
+    GatheringType.oneDay: kOneDayGatheringCategory,
+    GatheringType.club: kClubGatheringCategory,
+  };
+
   String get name => names[this];
   GatheringType getType(String text) => types[text];
   String get title => titles[this];
   String get content => contents[this];
   String get unselectedIcon => unselectedIcons[this];
   String get selectedIcon => selectedIcons[this];
+  String get category => gatheringCategory[this];
 }
 
 enum RecruitWay { firstCome, approval }

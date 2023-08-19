@@ -13,8 +13,7 @@ class GatheringService {
     try {
       DateTime nowDate = DateTime.now();
       String imageRef = '/gathering/${nowDate.microsecondsSinceEpoch}';
-      return await UploadService.uploadImage(
-          image: image, imageRef: imageRef);
+      return await UploadService.uploadImage(image: image, imageRef: imageRef);
     } catch (e) {
       log('FirebaseGatheringService - uploadGatheringImage Failed : $e');
       return null;
@@ -55,6 +54,22 @@ class GatheringService {
       return true;
     } catch (e) {
       log('FirebaseGatheringService - uploadGathering Failed : $e');
+      return false;
+    }
+  }
+
+  static Future<bool> updateGathering(
+      {required String category,
+      required String id,
+      required Map<String, dynamic> data}) async {
+    try {
+      data.remove('memberList');
+      data.remove('favoriteList');
+      data.remove('applicantList');
+      await FirebaseService.fireStore.collection(category).doc(id).update(data);
+      return true;
+    } catch (e) {
+      log('FirebaseGatheringService - updateGathering Failed : $e');
       return false;
     }
   }
@@ -121,5 +136,4 @@ class GatheringService {
       return false;
     }
   }
-
 }

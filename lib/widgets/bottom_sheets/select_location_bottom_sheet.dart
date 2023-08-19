@@ -3,8 +3,8 @@ import 'package:common/models/user_place/user_place.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../constants/constants_colors.dart';
-import '../utils/format_utils.dart';
+import '../../../../constants/constants_colors.dart';
+import '../../utils/format_utils.dart';
 
 class SelectLocationBottomSheet extends StatefulWidget {
   const SelectLocationBottomSheet({Key? key}) : super(key: key);

@@ -1,12 +1,15 @@
 import 'package:common/screens/gathering_upload/components/gathering_upload_next_button.dart';
 import 'package:common/utils/local_utils.dart';
 import 'package:flutter/material.dart';
+import '../../../models/one_day_gathering/one_day_gathering.dart';
 import '../components/gathering_tag_area.dart';
 
 class OneDayGatheringTagScreen extends StatefulWidget {
+  final OneDayGathering? gathering;
   final Function previewPressed;
   const OneDayGatheringTagScreen({
     Key? key,
+    this.gathering,
     required this.previewPressed,
   }) : super(key: key);
 
@@ -18,7 +21,18 @@ class OneDayGatheringTagScreen extends StatefulWidget {
 class _OneDayGatheringTagScreenState extends State<OneDayGatheringTagScreen> {
   final TextEditingController _tagController = TextEditingController();
 
-  final List<String> _tagList = [];
+  final List _tagList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    setGatheringInformation();
+  }
+
+  void setGatheringInformation() {
+    if (widget.gathering == null) return;
+    _tagList.addAll(widget.gathering!.tagList);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +64,7 @@ class _OneDayGatheringTagScreenState extends State<OneDayGatheringTagScreen> {
           onTap: () => widget.previewPressed(_tagList),
           value: true,
           title: '미리보기',
-        ),
+        )
       ],
     );
   }

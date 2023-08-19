@@ -7,7 +7,7 @@ import '../../../constants/constants_colors.dart';
 class GatheringTagArea extends StatelessWidget {
   final String title;
   final TextEditingController controller;
-  final List<String> tagList;
+  final List tagList;
   final Function submitPressed;
   final Function removePressed;
   const GatheringTagArea({

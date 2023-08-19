@@ -1,6 +1,6 @@
-import 'package:common/constants/constants_value.dart';
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/gathering/gathering.dart';
+import 'package:common/utils/gathering_utils.dart';
 import 'package:common/widgets/gathering_favorite_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -8,22 +8,26 @@ import 'package:provider/provider.dart';
 import '../../../constants/constants_colors.dart';
 import '../../../constants/constants_enum.dart';
 import '../../../utils/date_utils.dart';
+import '../../../widgets/bottom_sheets/gathering_edit_bottom_sheet.dart';
 
 class GatheringSliverAppbar extends StatelessWidget {
   final bool showAppbarBlack;
   final double size;
   final Gathering gathering;
-  final bool isClubGathering;
+  final GatheringType gatheringType;
+  final bool isPreview;
   const GatheringSliverAppbar({
     Key? key,
     required this.showAppbarBlack,
     required this.size,
     required this.gathering,
-    required this.isClubGathering,
+    required this.gatheringType,
+    required this.isPreview,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    GatheringType gatheringType = getGatheringType(gathering.id);
     return SliverAppBar(
         backgroundColor: showAppbarBlack ? kWhiteColor : Colors.transparent,
         elevation: 0,
@@ -43,28 +47,45 @@ class GatheringSliverAppbar extends StatelessWidget {
             ),
           ),
         ),
-        actions: [
-          GestureDetector(
-            behavior: HitTestBehavior.opaque,
-            onTap: () {},
-            child: SvgPicture.asset(
-              showAppbarBlack
-                  ? 'assets/icons/svg/share_26px.svg'
-                  : 'assets/icons/svg/share_white_26px.svg',
-            ),
-          ),
-          const SizedBox(width: 18),
-          GestureDetector(
-            behavior: HitTestBehavior.opaque,
-            onTap: () {},
-            child: SvgPicture.asset(
-              showAppbarBlack
-                  ? 'assets/icons/svg/more_26px.svg'
-                  : 'assets/icons/svg/more_white_26px.svg',
-            ),
-          ),
-          const SizedBox(width: 20),
-        ],
+        actions: isPreview
+            ? null
+            : [
+                GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () {},
+                  child: SvgPicture.asset(
+                    showAppbarBlack
+                        ? 'assets/icons/svg/share_26px.svg'
+                        : 'assets/icons/svg/share_white_26px.svg',
+                  ),
+                ),
+                const SizedBox(width: 18),
+                GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () {
+                    switch (gatheringType) {
+                      case GatheringType.oneDay:
+                        showModalBottomSheet(
+                          context: context,
+                          backgroundColor: Colors.transparent,
+                          builder: (context) => GatheringEditBottomSheet(
+                            gathering: gathering,
+                          ),
+                        );
+                        return;
+                      case GatheringType.club:
+                      default:
+                        return;
+                    }
+                  },
+                  child: SvgPicture.asset(
+                    showAppbarBlack
+                        ? 'assets/icons/svg/more_26px.svg'
+                        : 'assets/icons/svg/more_white_26px.svg',
+                  ),
+                ),
+                const SizedBox(width: 20),
+              ],
         flexibleSpace: FlexibleSpaceBar(
           collapseMode: CollapseMode.pin,
           background: SizedBox(
@@ -211,11 +232,10 @@ class GatheringSliverAppbar extends StatelessWidget {
                                   ),
                                 ),
                                 GatheringFavoriteButton(
-                                  category: isClubGathering
-                                      ? kClubGatheringCategory
-                                      : kOneDayGatheringCategory,
+                                  category: gatheringType.category,
                                   gatheringId: gathering.id,
-                                  userId: context.read<UserController>().user!.id,
+                                  userId:
+                                      context.read<UserController>().user!.id,
                                   size: 28,
                                 ),
                               ],
@@ -226,7 +246,7 @@ class GatheringSliverAppbar extends StatelessWidget {
                                 //TODO 소모임 단톡방 기능 개발시 여기에서 대화로
                                 Builder(
                                   builder: (context) {
-                                    if (isClubGathering) {
+                                    if (gatheringType == GatheringType.club) {
                                       return FutureBuilder(
                                         future: null,
                                         builder: (context, snapshot) {

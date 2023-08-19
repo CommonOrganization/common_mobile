@@ -2,10 +2,16 @@ import 'package:common/constants/constants_colors.dart';
 import 'package:common/screens/gathering_upload/components/gathering_upload_next_button.dart';
 import 'package:flutter/material.dart';
 
+import '../../../models/one_day_gathering/one_day_gathering.dart';
+
 class OneDayGatheringCapacityScreen extends StatefulWidget {
+  final OneDayGathering? gathering;
   final Function nextPressed;
-  const OneDayGatheringCapacityScreen({Key? key, required this.nextPressed})
-      : super(key: key);
+  const OneDayGatheringCapacityScreen({
+    Key? key,
+    this.gathering,
+    required this.nextPressed,
+  }) : super(key: key);
 
   @override
   State<OneDayGatheringCapacityScreen> createState() =>
@@ -63,6 +69,18 @@ class _OneDayGatheringCapacityScreenState
             TextPosition(offset: _gatheringCapacityController.text.length));
       });
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setGatheringInformation();
+  }
+
+  void setGatheringInformation() {
+    if (widget.gathering == null) return;
+    _gatheringCapacityController.text = widget.gathering!.capacity.toString();
+    _gatheringCapacity = widget.gathering!.capacity;
   }
 
   @override

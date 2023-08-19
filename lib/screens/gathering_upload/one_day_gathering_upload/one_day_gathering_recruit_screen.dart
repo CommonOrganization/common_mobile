@@ -3,10 +3,14 @@ import 'package:common/screens/gathering_upload/components/gathering_recruit_way
 import 'package:common/screens/gathering_upload/components/gathering_upload_next_button.dart';
 import 'package:flutter/material.dart';
 
+import '../../../models/one_day_gathering/one_day_gathering.dart';
+
 class OneDayGatheringRecruitScreen extends StatefulWidget {
+  final OneDayGathering? gathering;
   final Function nextPressed;
   const OneDayGatheringRecruitScreen({
     Key? key,
+    this.gathering,
     required this.nextPressed,
   }) : super(key: key);
 
@@ -26,6 +30,19 @@ class _OneDayGatheringRecruitScreenState
       _selectedRecruitWay == RecruitWay.firstCome ||
       (_selectedRecruitWay == RecruitWay.approval &&
           _detailQuestionController.text.isNotEmpty);
+
+  @override
+  void initState() {
+    super.initState();
+    setGatheringInformation();
+  }
+
+  void setGatheringInformation() {
+    if (widget.gathering == null) return;
+    _detailQuestionController.text = widget.gathering!.recruitQuestion;
+    _selectedRecruitWay =
+        RecruitWayMap.getRecruitWay(widget.gathering!.recruitWay);
+  }
 
   @override
   Widget build(BuildContext context) {

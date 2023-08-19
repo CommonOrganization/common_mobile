@@ -1,3 +1,4 @@
+import 'package:common/constants/constants_enum.dart';
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/one_day_gathering/one_day_gathering.dart';
 import 'package:common/utils/local_utils.dart';
@@ -12,10 +13,12 @@ import 'one_day_gathering_basic_contents.dart';
 class OneDayGatheringDetailScreen extends StatefulWidget {
   final OneDayGathering gathering;
   final bool isPreview;
+  final bool isEdit;
   const OneDayGatheringDetailScreen({
     Key? key,
     required this.gathering,
     this.isPreview = false,
+    this.isEdit = false,
   }) : super(key: key);
 
   @override
@@ -86,6 +89,42 @@ class _OneDayGatheringDetailScreenState
     }
   }
 
+  Future<void> updatePressed()async{
+    if (_loading) return;
+    _loading = true;
+    try {
+      bool updateSuccess = await OneDayGatheringService.updateGathering(
+          gathering: widget.gathering);
+      if (!mounted) return;
+      if (updateSuccess) {
+        Navigator.pop(context);
+        Navigator.pop(context);
+      }
+    } catch (e) {
+      showMessage(context, message: '잠시후에 다시 시도해 주세요.');
+      _loading = false;
+    }
+  }
+
+  Widget getActionButton(){
+    if(!widget.isPreview) {
+      return  GatheringButton(
+        title: '하루모임 참여하기',
+        onTap: () => applyPressed(),
+      );
+    }
+    if(!widget.isEdit){
+      return GatheringButton(
+        title: '하루모임 개설하기',
+        onTap: () => previewPressed(),
+      );
+    }
+    return GatheringButton(
+      title: '수정하기',
+      onTap: () => updatePressed(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,7 +138,8 @@ class _OneDayGatheringDetailScreenState
             showAppbarBlack: _showAppbarBlack,
             size: MediaQuery.of(context).size.width,
             gathering: widget.gathering,
-            isClubGathering: false,
+            gatheringType: GatheringType.oneDay,
+            isPreview:widget.isPreview,
           ),
           SliverToBoxAdapter(
             child: OneDayGatheringBasicContents(
@@ -108,15 +148,7 @@ class _OneDayGatheringDetailScreenState
           )
         ],
       ),
-      bottomNavigationBar: widget.isPreview
-          ? GatheringButton(
-              title: '하루모임 개설하기',
-              onTap: () => previewPressed(),
-            )
-          : GatheringButton(
-              title: '하루모임 참여하기',
-              onTap: () => applyPressed(),
-            ),
+      bottomNavigationBar: getActionButton(),
     );
   }
 }
