@@ -40,7 +40,8 @@ class OneDayGatheringBasicContents extends StatelessWidget {
             image: gathering.recruitWay == 'firstCome'
                 ? 'assets/icons/svg/clock_20px.svg'
                 : 'assets/icons/svg/inbox_20px.svg',
-            title: gathering.recruitWay == 'firstCome' ? '선착순 하루모임' : '승인제 하루모임',
+            title:
+                gathering.recruitWay == 'firstCome' ? '선착순 하루모임' : '승인제 하루모임',
           ),
           const SizedBox(height: 16),
           GatheringInformationCard(
@@ -120,7 +121,11 @@ class OneDayGatheringBasicContents extends StatelessWidget {
             organizerId: gathering.organizerId,
           ),
           const SizedBox(height: 36),
-          GatheringApplicantList(applicantList: gathering.applicantList),
+          GatheringApplicantList(
+            category: kOneDayGatheringCategory,
+            gatheringId: gathering.id,
+            applicantList: gathering.applicantList,
+          ),
           const SizedBox(height: 40),
         ],
       ),

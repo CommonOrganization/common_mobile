@@ -112,6 +112,53 @@ class GatheringService {
     }
   }
 
+  static Future<void> approveGathering(
+      {required String category,
+      required String id,
+      required String applicantId}) async {
+    try {
+      await FirebaseService.fireStore.runTransaction((transaction) async {
+        final snapshot = await transaction
+            .get(FirebaseService.fireStore.collection(category).doc(id));
+        if (snapshot.exists) {
+          List applicantList = snapshot.get('applicantList');
+          List memberList = snapshot.get('memberList');
+          applicantList.remove(applicantId);
+          memberList.add(applicantId);
+          transaction
+              .update(FirebaseService.fireStore.collection(category).doc(id), {
+            'applicantList': applicantList,
+            'memberList': memberList,
+          });
+        }
+      });
+    } catch (e) {
+      log('FirebaseGatheringService - approveGathering Failed : $e');
+    }
+  }
+
+  static Future<void> disapproveGathering(
+      {required String category,
+        required String id,
+        required String applicantId}) async {
+    try {
+      await FirebaseService.fireStore.runTransaction((transaction) async {
+        final snapshot = await transaction
+            .get(FirebaseService.fireStore.collection(category).doc(id));
+        if (snapshot.exists) {
+          List applicantList = snapshot.get('applicantList');
+          applicantList.remove(applicantId);
+          transaction
+              .update(FirebaseService.fireStore.collection(category).doc(id), {
+            'applicantList': applicantList,
+          });
+        }
+      });
+    } catch (e) {
+      log('FirebaseGatheringService - disapproveGathering Failed : $e');
+    }
+  }
+
   static Future<dynamic> get(
       {required String category,
       required String id,

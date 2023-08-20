@@ -1,11 +1,14 @@
+import 'package:common/screens/gathering_detail/gathering_applicant_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../constants/constants_colors.dart';
 import '../../../services/user_service.dart';
 
 class GatheringApplicantList extends StatelessWidget {
+  final String category;
+  final String gatheringId;
   final List applicantList;
-  const GatheringApplicantList({Key? key, required this.applicantList})
+  const GatheringApplicantList({Key? key, required this.applicantList, required this.category, required this.gatheringId})
       : super(key: key);
 
   @override
@@ -24,26 +27,38 @@ class GatheringApplicantList extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 2),
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  '모임장의 승인을 기다리고 있어요',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: kFontGray800Color,
-                    height: 25 / 18,
-                  ),
+          GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => GatheringApplicantScreen(
+                  gatheringId: gatheringId,
+                  category: category,
                 ),
               ),
-              SvgPicture.asset('assets/icons/svg/arrow_more_22px.svg'),
-            ],
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    '모임장의 승인을 기다리고 있어요',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: kFontGray800Color,
+                      height: 25 / 18,
+                    ),
+                  ),
+                ),
+                SvgPicture.asset('assets/icons/svg/arrow_more_22px.svg'),
+              ],
+            ),
           ),
           const SizedBox(height: 16),
           Wrap(
             spacing: 16,
-          runSpacing: 16,
+            runSpacing: 16,
             children: applicantList
                 .map((userId) => SizedBox(
                       width: 42,
@@ -63,46 +78,46 @@ class GatheringApplicantList extends StatelessWidget {
   }
 
   Widget getProfileArea(String userId) => FutureBuilder(
-    future: UserService.get(id: userId, field: 'profileImage'),
-    builder: (context, snapshot) {
-      if (snapshot.hasData) {
-        return Container(
-          width: 42,
-          height: 42,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(42),
-            color: kDarkGray20Color,
-            image: DecorationImage(
-              image: NetworkImage(snapshot.data as String),
-              fit: BoxFit.cover,
+        future: UserService.get(id: userId, field: 'profileImage'),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return Container(
+              width: 42,
+              height: 42,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(42),
+                color: kDarkGray20Color,
+                image: DecorationImage(
+                  image: NetworkImage(snapshot.data as String),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            );
+          }
+          return Container(
+            width: 42,
+            height: 42,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(42),
+              color: kDarkGray20Color,
             ),
-          ),
-        );
-      }
-      return Container(
-        width: 42,
-        height: 42,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(42),
-          color: kDarkGray20Color,
-        ),
+          );
+        },
       );
-    },
-  );
 
   Widget getNameArea(String userId) => FutureBuilder(
-    future: UserService.get(id: userId, field: 'name'),
-    builder: (context, snapshot) {
-      return Text(
-        snapshot.data ?? '',
-        style: TextStyle(
-          fontSize: 12,
-          color: kFontGray800Color,
-          height: 16/12,
-        ),
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
+        future: UserService.get(id: userId, field: 'name'),
+        builder: (context, snapshot) {
+          return Text(
+            snapshot.data ?? '',
+            style: TextStyle(
+              fontSize: 12,
+              color: kFontGray800Color,
+              height: 16 / 12,
+            ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          );
+        },
       );
-    },
-  );
 }
