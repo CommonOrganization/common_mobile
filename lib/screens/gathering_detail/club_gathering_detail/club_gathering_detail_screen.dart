@@ -16,9 +16,13 @@ import 'club_gathering_basic_contents.dart';
 class ClubGatheringDetailScreen extends StatefulWidget {
   final ClubGathering gathering;
   final bool isPreview;
-  const ClubGatheringDetailScreen(
-      {Key? key, required this.gathering, this.isPreview = false})
-      : super(key: key);
+  final bool isEdit;
+  const ClubGatheringDetailScreen({
+    Key? key,
+    required this.gathering,
+    this.isPreview = false,
+    this.isEdit = false,
+  }) : super(key: key);
 
   @override
   State<ClubGatheringDetailScreen> createState() =>
@@ -120,6 +124,43 @@ class _ClubGatheringDetailScreenState extends State<ClubGatheringDetailScreen> {
     }
   }
 
+  Future<void> updatePressed() async {
+    if (_loading) return;
+    _loading = true;
+    try {
+      bool updateSuccess = await ClubGatheringService.updateGathering(
+          gathering: widget.gathering);
+      if (!mounted) return;
+      if (updateSuccess) {
+        Navigator.pop(context);
+        Navigator.pop(context);
+        showMessage(context, message: '모임을 수정했습니다.');
+      }
+    } catch (e) {
+      showMessage(context, message: '잠시후에 다시 시도해 주세요.');
+      _loading = false;
+    }
+  }
+
+  Widget getActionButton() {
+    if (!widget.isPreview) {
+      return GatheringButton(
+        title: '소모임 참여하기',
+        onTap: () => applyPressed(),
+      );
+    }
+    if (!widget.isEdit) {
+      return GatheringButton(
+        title: '소모임 개설하기',
+        onTap: () => previewPressed(),
+      );
+    }
+    return GatheringButton(
+      title: '수정하기',
+      onTap: () => updatePressed(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -134,7 +175,7 @@ class _ClubGatheringDetailScreenState extends State<ClubGatheringDetailScreen> {
             size: MediaQuery.of(context).size.width,
             gathering: widget.gathering,
             gatheringType: GatheringType.club,
-            isPreview:widget.isPreview,
+            isPreview: widget.isPreview,
           ),
           SliverAppBar(
             primary: false,
@@ -163,15 +204,7 @@ class _ClubGatheringDetailScreenState extends State<ClubGatheringDetailScreen> {
           SliverToBoxAdapter(child: getPage()),
         ],
       ),
-      bottomNavigationBar: widget.isPreview
-          ? GatheringButton(
-              title: '소모임 개설하기',
-              onTap: () => previewPressed(),
-            )
-          : GatheringButton(
-              title: '소모임 참여하기',
-              onTap: () => applyPressed(),
-            ),
+      bottomNavigationBar:  getActionButton(),
     );
   }
 

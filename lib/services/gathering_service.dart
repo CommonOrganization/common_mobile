@@ -74,6 +74,15 @@ class GatheringService {
     }
   }
 
+  static Future<void> deleteGathering(
+      {required String category, required String id}) async {
+    try {
+      await FirebaseService.fireStore.collection(category).doc(id).delete();
+    } catch (e) {
+      log('FirebaseGatheringService - deleteGathering Failed : $e');
+    }
+  }
+
   static Future<bool> applyGathering(
       {required String category,
       required String id,

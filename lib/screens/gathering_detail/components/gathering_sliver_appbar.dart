@@ -1,6 +1,7 @@
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/gathering/gathering.dart';
 import 'package:common/utils/gathering_utils.dart';
+import 'package:common/widgets/bottom_sheets/gathering_report_bottom_sheet.dart';
 import 'package:common/widgets/gathering_favorite_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -63,20 +64,26 @@ class GatheringSliverAppbar extends StatelessWidget {
                 GestureDetector(
                   behavior: HitTestBehavior.opaque,
                   onTap: () {
-                    switch (gatheringType) {
-                      case GatheringType.oneDay:
-                        showModalBottomSheet(
-                          context: context,
-                          backgroundColor: Colors.transparent,
-                          builder: (context) => GatheringEditBottomSheet(
-                            gathering: gathering,
-                          ),
-                        );
-                        return;
-                      case GatheringType.club:
-                      default:
-                        return;
+                    String? userId = context.read<UserController>().user?.id;
+                    if(userId==null) return;
+                    if(userId == gathering.organizerId){
+                      showModalBottomSheet(
+                        context: context,
+                        backgroundColor: Colors.transparent,
+                        builder: (context) => GatheringEditBottomSheet(
+                          gathering: gathering,
+                        ),
+                      );
+                      return;
                     }
+                    showModalBottomSheet(
+                      context: context,
+                      backgroundColor: Colors.transparent,
+                      builder: (context) => GatheringReportBottomSheet(
+                        gathering: gathering,
+                      ),
+                    );
+
                   },
                   child: SvgPicture.asset(
                     showAppbarBlack

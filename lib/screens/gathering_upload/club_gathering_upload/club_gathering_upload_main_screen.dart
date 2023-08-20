@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:common/models/club_gathering/club_gathering.dart';
 import 'package:common/screens/gathering_detail/club_gathering_detail/club_gathering_detail_screen.dart';
 import 'package:common/screens/gathering_upload/club_gathering_upload/club_gathering_category_screen.dart';
@@ -9,13 +11,16 @@ import 'package:provider/provider.dart';
 import '../../../constants/constants_colors.dart';
 import '../../../constants/constants_enum.dart';
 import '../../../controllers/user_controller.dart';
+import '../../../utils/local_utils.dart';
 import 'club_gathering_capacity_screen.dart';
 import 'club_gathering_content_screen.dart';
 import 'club_gathering_recruit_screen.dart';
 import 'club_gathering_tag_screen.dart';
 
 class ClubGatheringUploadMainScreen extends StatefulWidget {
-  const ClubGatheringUploadMainScreen({Key? key}) : super(key: key);
+  final ClubGathering? gathering;
+  const ClubGatheringUploadMainScreen({Key? key, this.gathering})
+      : super(key: key);
 
   @override
   State<ClubGatheringUploadMainScreen> createState() =>
@@ -31,14 +36,14 @@ class _ClubGatheringUploadMainScreenState
   late String _gatheringTitle;
   late String _gatheringContent;
   late String _gatheringMainImageUrl;
-  late List<String> _gatheringImageUrlList;
+  late List _gatheringImageUrlList;
   late RecruitWay _gatheringRecruitWay;
   late String _gatheringRecruitQuestion;
   late List<City> _gatheringCityList;
   late int _gatheringCapacity;
-  late List<String> _gatheringTagList;
+  late List _gatheringTagList;
 
-  Future<void> previewPressed(List<String> tagList) async {
+  Future<void> previewPressed(List tagList) async {
     _gatheringTagList = tagList;
     String? userId = context.read<UserController>().user?.id;
     if (userId == null) return;
@@ -74,10 +79,55 @@ class _ClubGatheringUploadMainScreenState
     );
   }
 
+  Future<void> updatePressed(List tagList) async {
+    try {
+      _gatheringTagList = tagList;
+      String? userId = context.read<UserController>().user?.id;
+      if (userId == null || widget.gathering == null) return;
+      Map<String, dynamic> clubGatheringDataMap = {
+        'category': _gatheringMainCategory.name,
+        'detailCategory': _gatheringDetailCategory,
+        'title': _gatheringTitle,
+        'content': _gatheringContent,
+        'mainImage': _gatheringMainImageUrl,
+        'gatheringImage': _gatheringImageUrlList,
+        'recruitWay': _gatheringRecruitWay.name,
+        'recruitQuestion': _gatheringRecruitQuestion,
+        'cityList': _gatheringCityList.map((city) => city.name).toList(),
+        'capacity': _gatheringCapacity,
+        'tagList': _gatheringTagList,
+        'memberList': widget.gathering!.memberList,
+        'applicantList': widget.gathering!.applicantList,
+        'favoriteList': widget.gathering!.favoriteList,
+      };
+
+      ClubGathering gathering = ClubGathering.fromJson({
+        'id': widget.gathering!.id,
+        'organizerId': userId,
+        ...clubGatheringDataMap,
+        'timeStamp': DateTime.now().toString(),
+      });
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ClubGatheringDetailScreen(
+            gathering: gathering,
+            isPreview: true,
+            isEdit: true,
+          ),
+        ),
+      );
+    } catch (e) {
+      log('updatePressed failed : $e');
+      showMessage(context, message: '입력한 정보를 다시 한번 확인해 주세요.');
+    }
+  }
+
   Widget getScreen() {
     switch (_pageIndex) {
       case 0:
         return ClubGatheringCategoryScreen(
+          gathering: widget.gathering,
           nextPressed: (CommonCategory category, String detailCategory) {
             setState(() {
               _pageIndex++;
@@ -88,6 +138,7 @@ class _ClubGatheringUploadMainScreenState
         );
       case 1:
         return ClubGatheringTitleScreen(
+          gathering: widget.gathering,
           nextPressed: (String title) {
             setState(() {
               _pageIndex++;
@@ -97,8 +148,9 @@ class _ClubGatheringUploadMainScreenState
         );
       case 2:
         return ClubGatheringContentScreen(
+          gathering: widget.gathering,
           nextPressed:
-              (String content, String mainImageUrl, List<String> imageUrlList) {
+              (String content, String mainImageUrl, List imageUrlList) {
             setState(() {
               _pageIndex++;
               _gatheringContent = content;
@@ -109,6 +161,7 @@ class _ClubGatheringUploadMainScreenState
         );
       case 3:
         return ClubGatheringRecruitScreen(
+          gathering: widget.gathering,
           nextPressed: (RecruitWay recruitWay, String recruitQuestion) {
             setState(() {
               _pageIndex++;
@@ -119,6 +172,7 @@ class _ClubGatheringUploadMainScreenState
         );
       case 4:
         return ClubGatheringLocationScreen(
+          gathering: widget.gathering,
           nextPressed: (List<City> cityList) {
             setState(() {
               _pageIndex++;
@@ -128,6 +182,7 @@ class _ClubGatheringUploadMainScreenState
         );
       case 5:
         return ClubGatheringCapacityScreen(
+          gathering: widget.gathering,
           nextPressed: (int capacity) {
             setState(() {
               _pageIndex++;
@@ -137,7 +192,11 @@ class _ClubGatheringUploadMainScreenState
         );
       case 6:
         return ClubGatheringTagScreen(
-            previewPressed: (List<String> tagList) => previewPressed(tagList));
+          gathering: widget.gathering,
+          previewPressed: (List tagList) => widget.gathering != null
+              ? updatePressed(tagList)
+              : previewPressed(tagList),
+        );
       default:
         return Container();
     }

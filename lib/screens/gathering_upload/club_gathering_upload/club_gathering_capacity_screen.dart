@@ -3,9 +3,13 @@ import 'package:common/screens/gathering_upload/components/gathering_upload_next
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../models/club_gathering/club_gathering.dart';
+
 class ClubGatheringCapacityScreen extends StatefulWidget {
+  final ClubGathering? gathering;
   final Function nextPressed;
-  const ClubGatheringCapacityScreen({Key? key, required this.nextPressed})
+  const ClubGatheringCapacityScreen(
+      {Key? key, required this.nextPressed, this.gathering})
       : super(key: key);
 
   @override
@@ -15,8 +19,28 @@ class ClubGatheringCapacityScreen extends StatefulWidget {
 
 class _ClubGatheringCapacityScreenState
     extends State<ClubGatheringCapacityScreen> {
+  late final FixedExtentScrollController _decimalController =
+      FixedExtentScrollController(initialItem: _decimalNumber - 1);
+  late final FixedExtentScrollController _digitController =
+      FixedExtentScrollController(initialItem: _digitNumber);
+
   int _decimalNumber = 1;
   int _digitNumber = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    setGatheringInformation();
+  }
+
+  void setGatheringInformation() {
+    if (widget.gathering == null) return;
+    int capacity = widget.gathering!.capacity;
+    if (capacity >= 10) {
+      _decimalNumber = capacity ~/ 10;
+      _digitNumber = capacity % 10;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +81,7 @@ class _ClubGatheringCapacityScreenState
                       children: [
                         Expanded(
                           child: CupertinoPicker(
+                            scrollController: _decimalController,
                             itemExtent: 50,
                             diameterRatio: 1,
                             selectionOverlay:
@@ -96,6 +121,7 @@ class _ClubGatheringCapacityScreenState
                         const SizedBox(width: 6),
                         Expanded(
                           child: CupertinoPicker(
+                            scrollController: _digitController,
                             itemExtent: 50,
                             diameterRatio: 1,
                             selectionOverlay:

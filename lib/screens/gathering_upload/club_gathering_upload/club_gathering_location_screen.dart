@@ -4,11 +4,13 @@ import 'package:common/screens/gathering_upload/components/gathering_upload_next
 import 'package:common/widgets/bottom_sheets/select_city_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../../models/club_gathering/club_gathering.dart';
 import '../../../utils/format_utils.dart';
 
 class ClubGatheringLocationScreen extends StatefulWidget {
+  final ClubGathering? gathering;
   final Function nextPressed;
-  const ClubGatheringLocationScreen({Key? key, required this.nextPressed})
+  const ClubGatheringLocationScreen({Key? key, required this.nextPressed, this.gathering})
       : super(key: key);
 
   @override
@@ -19,6 +21,19 @@ class ClubGatheringLocationScreen extends StatefulWidget {
 class _ClubGatheringLocationScreenState
     extends State<ClubGatheringLocationScreen> {
   List<City> _gatheringCityList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    setGatheringInformation();
+  }
+
+  void setGatheringInformation() {
+    if (widget.gathering == null) return;
+    for (var city in widget.gathering!.cityList) {
+      _gatheringCityList.add(CityMap.getCity(city));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

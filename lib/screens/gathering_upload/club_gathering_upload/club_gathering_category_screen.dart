@@ -1,3 +1,4 @@
+import 'package:common/models/club_gathering/club_gathering.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants/constants_enum.dart';
@@ -5,8 +6,9 @@ import '../components/gathering_category_select_area.dart';
 import '../components/gathering_upload_next_button.dart';
 
 class ClubGatheringCategoryScreen extends StatefulWidget {
+  final ClubGathering? gathering;
   final Function nextPressed;
-  const ClubGatheringCategoryScreen({Key? key, required this.nextPressed})
+  const ClubGatheringCategoryScreen({Key? key, required this.nextPressed, this.gathering})
       : super(key: key);
 
   @override
@@ -20,6 +22,19 @@ class _ClubGatheringCategoryScreenState
   CommonCategory? _selectedCategory;
   final TextEditingController _detailCategoryController =
       TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    setGatheringInformation();
+  }
+
+  void setGatheringInformation() {
+    if (widget.gathering == null) return;
+    _selectedCategory =
+        CommonCategoryMap.getCategory(widget.gathering!.category);
+    _detailCategoryController.text = widget.gathering!.detailCategory;
+  }
 
   @override
   Widget build(BuildContext context) {

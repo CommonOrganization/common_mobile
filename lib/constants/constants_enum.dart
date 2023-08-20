@@ -730,6 +730,26 @@ extension CityMap on City {
     City.jeju: '제주',
   };
 
+  static Map cities = {
+    '서울': City.seoul,
+    '부산': City.busan,
+    '대구': City.daegu,
+    '인천': City.incheon,
+    '광주': City.gwangju,
+    '대전': City.daejeon,
+    '울산': City.ulsan,
+    '세종': City.sejong,
+    '경기': City.gyeonggi,
+    '강원': City.gangwon,
+    '충북': City.chungbuk,
+    '충남': City.chungnam,
+    '전북': City.jeonbuk,
+    '전남': City.jeonnam,
+    '경북': City.gyeongbuk,
+    '경남': City.gyeongnam,
+    '제주': City.jeju,
+  };
+
   static Map counties = {
     City.seoul: [
       '전체',
@@ -1069,7 +1089,7 @@ extension CityMap on City {
   // };
   String get name => names[this];
   List<String> get county => counties[this];
-  //TODO 추후 읍면동 필요할때 추가 예정
+  static City getCity(String text) => cities[text];
 }
 
 enum CommonCategory {
@@ -1255,13 +1275,13 @@ extension GatheringTypeMap on GatheringType {
   static Map names = {
     GatheringType.oneDay: 'oneDay',
     GatheringType.clubOneDay: 'clubOneDay',
-    GatheringType.club:'club',
+    GatheringType.club: 'club',
   };
 
   static Map types = {
     'oneDay': GatheringType.oneDay,
     'clubOneDay': GatheringType.clubOneDay,
-    'club':GatheringType.club,
+    'club': GatheringType.club,
   };
 
   static Map titles = {

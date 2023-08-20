@@ -31,6 +31,33 @@ class ClubGatheringService {
     }
   }
 
+  static Future<bool> updateGathering(
+      {required ClubGathering gathering}) async {
+    try {
+      Map<String, dynamic> gatheringData = gathering.toJson();
+      return await GatheringService.updateGathering(
+        category: _category,
+        id: gathering.id,
+        data: gatheringData,
+      );
+    } catch (e) {
+      log('ClubGatheringService - updateGathering Failed : $e');
+      return false;
+    }
+  }
+
+  static Future<void> deleteGathering(
+      {required ClubGathering gathering}) async {
+    try {
+      await GatheringService.deleteGathering(
+        category: _category,
+        id: gathering.id,
+      );
+    } catch (e) {
+      log('ClubGatheringService - deleteGathering Failed : $e');
+    }
+  }
+
   static Future<bool> applyGathering(
       {required String id, required String userId}) async {
     try {

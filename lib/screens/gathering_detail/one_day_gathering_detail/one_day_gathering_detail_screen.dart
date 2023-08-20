@@ -89,7 +89,7 @@ class _OneDayGatheringDetailScreenState
     }
   }
 
-  Future<void> updatePressed()async{
+  Future<void> updatePressed() async {
     if (_loading) return;
     _loading = true;
     try {
@@ -99,6 +99,7 @@ class _OneDayGatheringDetailScreenState
       if (updateSuccess) {
         Navigator.pop(context);
         Navigator.pop(context);
+        showMessage(context, message: '모임을 수정했습니다.');
       }
     } catch (e) {
       showMessage(context, message: '잠시후에 다시 시도해 주세요.');
@@ -106,14 +107,14 @@ class _OneDayGatheringDetailScreenState
     }
   }
 
-  Widget getActionButton(){
-    if(!widget.isPreview) {
-      return  GatheringButton(
+  Widget getActionButton() {
+    if (!widget.isPreview) {
+      return GatheringButton(
         title: '하루모임 참여하기',
         onTap: () => applyPressed(),
       );
     }
-    if(!widget.isEdit){
+    if (!widget.isEdit) {
       return GatheringButton(
         title: '하루모임 개설하기',
         onTap: () => previewPressed(),
@@ -139,7 +140,7 @@ class _OneDayGatheringDetailScreenState
             size: MediaQuery.of(context).size.width,
             gathering: widget.gathering,
             gatheringType: GatheringType.oneDay,
-            isPreview:widget.isPreview,
+            isPreview: widget.isPreview,
           ),
           SliverToBoxAdapter(
             child: OneDayGatheringBasicContents(

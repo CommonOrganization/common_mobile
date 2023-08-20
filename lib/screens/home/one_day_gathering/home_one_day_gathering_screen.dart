@@ -29,45 +29,52 @@ class _HomeOneDayGatheringScreenState extends State<HomeOneDayGatheringScreen> {
         UserPlace userPlace = UserPlace.fromJson(
             controller.user!.userPlace as Map<String, dynamic>);
 
-        return SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const GatheringCategoryContainer(
-                  category: kOneDayGatheringCategory),
-              const InterestingCategoryContainer(
-                  gatheringCategory: kOneDayGatheringCategory),
-              const SizedBox(height: 45),
-              OneDayGatheringContentsArea(
-                future: OneDayGatheringService.getTodayGathering(
-                    city: userPlace.city),
-                title: '오늘 당장 만날 수 있는 하루모임',
-              ),
-              Builder(builder: (context) {
-                List userInterestCategory = controller.user!.interestCategory;
-                int index = Random().nextInt(userInterestCategory.length);
-                CommonCategory category = CommonCategoryMap.getCategory(
-                    userInterestCategory[index]);
+        return RefreshIndicator(
+          color: kMainColor,
+          onRefresh: () async => await Future.delayed(
+            const Duration(milliseconds: 500),
+                () => setState(() {}),
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const GatheringCategoryContainer(
+                    category: kOneDayGatheringCategory),
+                const InterestingCategoryContainer(
+                    gatheringCategory: kOneDayGatheringCategory),
+                const SizedBox(height: 45),
+                OneDayGatheringContentsArea(
+                  future: OneDayGatheringService.getTodayGathering(
+                      city: userPlace.city),
+                  title: '오늘 당장 만날 수 있는 하루모임',
+                ),
+                Builder(builder: (context) {
+                  List userInterestCategory = controller.user!.interestCategory;
+                  int index = Random().nextInt(userInterestCategory.length);
+                  CommonCategory category = CommonCategoryMap.getCategory(
+                      userInterestCategory[index]);
 
-                return OneDayGatheringContentsArea(
-                  future:
-                  OneDayGatheringService.getRecommendGathering(
-                          category: category.name, city: userPlace.city),
-                  title: '추천하는 ${category.title} 하루모임',
-                );
-              }),
-              const OneDayGatheringCalendar(),
-              OneDayGatheringContentsArea(
-                future: OneDayGatheringService.getNearGathering(
-                    city: userPlace.city),
-                title: '나와 가까운 하루모임',
-              ),
-              OneDayGatheringContentsArea(
-                future: OneDayGatheringService.getNewGathering(
-                    city: userPlace.city),
-                title: '새로 열린 하루모임',
-              ),
-            ],
+                  return OneDayGatheringContentsArea(
+                    future:
+                    OneDayGatheringService.getRecommendGathering(
+                            category: category.name, city: userPlace.city),
+                    title: '추천하는 ${category.title} 하루모임',
+                  );
+                }),
+                const OneDayGatheringCalendar(),
+                OneDayGatheringContentsArea(
+                  future: OneDayGatheringService.getNearGathering(
+                      city: userPlace.city),
+                  title: '나와 가까운 하루모임',
+                ),
+                OneDayGatheringContentsArea(
+                  future: OneDayGatheringService.getNewGathering(
+                      city: userPlace.city),
+                  title: '새로 열린 하루모임',
+                ),
+              ],
+            ),
           ),
         );
       },

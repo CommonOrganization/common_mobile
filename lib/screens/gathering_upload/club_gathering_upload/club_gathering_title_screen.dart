@@ -2,11 +2,14 @@ import 'package:common/constants/constants_colors.dart';
 import 'package:common/screens/gathering_upload/components/gathering_upload_next_button.dart';
 import 'package:flutter/material.dart';
 
+import '../../../models/club_gathering/club_gathering.dart';
+
 class ClubGatheringTitleScreen extends StatefulWidget {
+  final ClubGathering? gathering;
   final Function nextPressed;
   const ClubGatheringTitleScreen({
     Key? key,
-    required this.nextPressed,
+    required this.nextPressed, this.gathering,
   }) : super(key: key);
 
   @override
@@ -17,6 +20,17 @@ class ClubGatheringTitleScreen extends StatefulWidget {
 class _ClubGatheringTitleScreenState extends State<ClubGatheringTitleScreen> {
   final TextEditingController _gatheringTitleController =
       TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    setGatheringInformation();
+  }
+
+  void setGatheringInformation() {
+    if (widget.gathering == null) return;
+    _gatheringTitleController.text = widget.gathering!.title;
+  }
 
   @override
   Widget build(BuildContext context) {

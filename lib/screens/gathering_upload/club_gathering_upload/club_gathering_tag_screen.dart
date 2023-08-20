@@ -1,13 +1,15 @@
 import 'package:common/utils/local_utils.dart';
 import 'package:flutter/material.dart';
+import '../../../models/club_gathering/club_gathering.dart';
 import '../components/gathering_tag_area.dart';
 import '../components/gathering_upload_next_button.dart';
 
 class ClubGatheringTagScreen extends StatefulWidget {
+  final ClubGathering? gathering;
   final Function previewPressed;
   const ClubGatheringTagScreen({
     Key? key,
-    required this.previewPressed,
+    required this.previewPressed, this.gathering,
   }) : super(key: key);
 
   @override
@@ -17,7 +19,18 @@ class ClubGatheringTagScreen extends StatefulWidget {
 class _ClubGatheringTagScreenState extends State<ClubGatheringTagScreen> {
   final TextEditingController _tagController = TextEditingController();
 
-  final List<String> _tagList = [];
+  final List _tagList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    setGatheringInformation();
+  }
+
+  void setGatheringInformation() {
+    if (widget.gathering == null) return;
+    _tagList.addAll(widget.gathering!.tagList);
+  }
 
   @override
   Widget build(BuildContext context) {

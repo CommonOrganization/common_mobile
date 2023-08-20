@@ -46,6 +46,18 @@ class OneDayGatheringService {
     }
   }
 
+  static Future<void> deleteGathering(
+      {required OneDayGathering gathering}) async {
+    try {
+      await GatheringService.deleteGathering(
+        category: _category,
+        id: gathering.id,
+      );
+    } catch (e) {
+      log('FirebaseOneDayGatheringService - deleteGathering Failed : $e');
+    }
+  }
+
   static Future<List<OneDayGathering>> getConnectedGathering(
       {required String clubGatheringId}) async {
     try {

@@ -3,13 +3,15 @@ import 'package:common/screens/gathering_upload/components/gathering_upload_next
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../models/club_gathering/club_gathering.dart';
 import '../../../services/gathering_service.dart';
 
 class ClubGatheringContentScreen extends StatefulWidget {
+  final ClubGathering? gathering;
   final Function nextPressed;
   const ClubGatheringContentScreen({
     Key? key,
-    required this.nextPressed,
+    required this.nextPressed, this.gathering,
   }) : super(key: key);
 
   @override
@@ -25,7 +27,7 @@ class _ClubGatheringContentScreenState
       TextEditingController();
 
   String? _mainImageUrl;
-  final List<String> _imageUrlList = [];
+  final List _imageUrlList = [];
 
   void selectImage(bool isMain) async {
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
@@ -42,6 +44,20 @@ class _ClubGatheringContentScreenState
 
   bool get canNextPress =>
       _mainImageUrl != null && _gatheringContentController.text.isNotEmpty;
+
+  @override
+  void initState() {
+    super.initState();
+    setGatheringInformation();
+  }
+
+  void setGatheringInformation() {
+    if (widget.gathering == null) return;
+    _gatheringContentController.text = widget.gathering!.content;
+    _mainImageUrl = widget.gathering!.mainImage;
+    _imageUrlList.addAll(widget.gathering!.gatheringImage);
+  }
+
 
   @override
   Widget build(BuildContext context) {

@@ -3,11 +3,14 @@ import 'package:common/screens/gathering_upload/components/gathering_recruit_way
 import 'package:common/screens/gathering_upload/components/gathering_upload_next_button.dart';
 import 'package:flutter/material.dart';
 
+import '../../../models/club_gathering/club_gathering.dart';
+
 class ClubGatheringRecruitScreen extends StatefulWidget {
+  final ClubGathering? gathering;
   final Function nextPressed;
   const ClubGatheringRecruitScreen({
     Key? key,
-    required this.nextPressed,
+    required this.nextPressed, this.gathering,
   }) : super(key: key);
 
   @override
@@ -26,6 +29,19 @@ class _ClubGatheringRecruitScreenState
       _selectedRecruitWay == RecruitWay.firstCome ||
       (_selectedRecruitWay == RecruitWay.approval &&
           _detailQuestionController.text.isNotEmpty);
+
+  @override
+  void initState() {
+    super.initState();
+    setGatheringInformation();
+  }
+
+  void setGatheringInformation() {
+    if (widget.gathering == null) return;
+    _detailQuestionController.text = widget.gathering!.recruitQuestion;
+    _selectedRecruitWay =
+        RecruitWayMap.getRecruitWay(widget.gathering!.recruitWay);
+  }
 
   @override
   Widget build(BuildContext context) {
