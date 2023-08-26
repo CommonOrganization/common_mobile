@@ -1,7 +1,11 @@
 import 'package:common/constants/constants_enum.dart';
+import 'package:common/constants/constants_value.dart';
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/one_day_gathering/one_day_gathering.dart';
+import 'package:common/models/recruit_answer/recruit_answer.dart';
+import 'package:common/services/gathering_service.dart';
 import 'package:common/utils/local_utils.dart';
+import 'package:common/widgets/bottom_sheets/recruit_question_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../constants/constants_colors.dart';
@@ -58,14 +62,57 @@ class _OneDayGatheringDetailScreenState
     if (_loading) return;
     _loading = true;
     try {
+      String? recruitWayString = await GatheringService.get(
+          category: kOneDayGatheringCategory,
+          id: widget.gathering.id,
+          field: 'recruitWay');
+      if (recruitWayString == null) return;
+      RecruitWay recruitWay =
+          RecruitWayExtenstion.getRecruitWay(recruitWayString);
+      if (recruitWay == RecruitWay.approval) {
+        String? recruitQuestion = await GatheringService.get(
+            category: kOneDayGatheringCategory,
+            id: widget.gathering.id,
+            field: 'recruitQuestion');
+
+        if (recruitQuestion == null) return;
+        if (!mounted) return;
+        String? answer = await showModalBottomSheet(
+          context: context,
+          isScrollControlled: true,
+          backgroundColor: Colors.transparent,
+          builder: (context) => Padding(
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).viewInsets.bottom,
+            ),
+            child: RecruitQuestionBottomSheet(
+                gatheringId: widget.gathering.id,
+                userId: userId,
+                question: recruitQuestion),
+          ),
+        );
+        _loading = false;
+        if (answer == null) return;
+        RecruitAnswer recruitAnswer = RecruitAnswer(
+          gatheringId: widget.gathering.id,
+          userId: userId,
+          question: recruitQuestion,
+          answer: answer,
+          timeStamp: DateTime.now().toString(),
+        );
+        //TODO 응답 저장
+        //1. answer저장 후
+        //2. apply 하기
+        return;
+      }
       bool applySuccess = await OneDayGatheringService.applyGathering(
           id: widget.gathering.id, userId: userId);
       if (!mounted) return;
       if (!applySuccess) {
-        showMessage(context, message: '이미 신청중인 모임입니다.');
+        showMessage(context, message: '이미 참여중이거나 요청중인 모임입니다.');
         return;
       }
-      Navigator.pop(context);
+      showMessage(context, message: '하루모임에 참여했습니다.');
     } catch (e) {
       showMessage(context, message: '잠시후에 다시 신청해 주세요.');
       _loading = false;

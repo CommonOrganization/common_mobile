@@ -31,7 +31,7 @@ class _ClubGatheringLocationScreenState
   void setGatheringInformation() {
     if (widget.gathering == null) return;
     for (var city in widget.gathering!.cityList) {
-      _gatheringCityList.add(CityMap.getCity(city));
+      _gatheringCityList.add(CityExtenstion.getCity(city));
     }
   }
 

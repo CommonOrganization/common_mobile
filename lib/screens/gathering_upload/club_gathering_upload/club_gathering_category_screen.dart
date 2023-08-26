@@ -32,7 +32,7 @@ class _ClubGatheringCategoryScreenState
   void setGatheringInformation() {
     if (widget.gathering == null) return;
     _selectedCategory =
-        CommonCategoryMap.getCategory(widget.gathering!.category);
+        CommonCategoryExtenstion.getCategory(widget.gathering!.category);
     _detailCategoryController.text = widget.gathering!.detailCategory;
   }
 

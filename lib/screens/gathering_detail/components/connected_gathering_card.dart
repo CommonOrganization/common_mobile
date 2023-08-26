@@ -70,7 +70,7 @@ class ConnectedGatheringCard extends StatelessWidget {
                         Builder(
                           builder: (context) {
                             CommonCategory category =
-                                CommonCategoryMap.getCategory(
+                                CommonCategoryExtenstion.getCategory(
                                     gathering.category);
                             return Row(
                               children: [

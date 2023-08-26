@@ -52,7 +52,7 @@ class _HomeOneDayGatheringScreenState extends State<HomeOneDayGatheringScreen> {
                 Builder(builder: (context) {
                   List userInterestCategory = controller.user!.interestCategory;
                   int index = Random().nextInt(userInterestCategory.length);
-                  CommonCategory category = CommonCategoryMap.getCategory(
+                  CommonCategory category = CommonCategoryExtenstion.getCategory(
                       userInterestCategory[index]);
 
                   return OneDayGatheringContentsArea(

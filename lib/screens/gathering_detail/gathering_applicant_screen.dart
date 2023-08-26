@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../constants/constants_colors.dart';
+import '../../widgets/dialog/gathering_application_form_dialog.dart';
 
 class GatheringApplicantScreen extends StatefulWidget {
   final String category;
@@ -20,8 +21,6 @@ class GatheringApplicantScreen extends StatefulWidget {
 }
 
 class _GatheringApplicantScreenState extends State<GatheringApplicantScreen> {
-  String get title =>
-      widget.category == kClubGatheringCategory ? '소모임 가입 신청자' : '하루모임 신청자';
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +42,7 @@ class _GatheringApplicantScreenState extends State<GatheringApplicantScreen> {
           ),
         ),
         title: Text(
-          title,
+          '승인 대기 멤버',
           style: TextStyle(
             fontSize: 18,
             height: 28 / 18,
@@ -68,9 +67,21 @@ class _GatheringApplicantScreenState extends State<GatheringApplicantScreen> {
                       .map((applicantId) => Row(
                             children: [
                               Expanded(
-                                child: GatheringMemberCard(
-                                  memberId: applicantId,
-                                  isOrganizer: false,
+                                child: GestureDetector(
+                                  behavior: HitTestBehavior.opaque,
+                                  onTap: () => showDialog(
+                                    context: context,
+                                    builder: (context) =>
+                                        GatheringApplicationFormDialog(
+                                      category: widget.category,
+                                      gatheringId: widget.gatheringId,
+                                      applicantId: applicantId,
+                                    ),
+                                  ),
+                                  child: GatheringMemberCard(
+                                    memberId: applicantId,
+                                    isOrganizer: false,
+                                  ),
                                 ),
                               ),
                               const SizedBox(width: 6),

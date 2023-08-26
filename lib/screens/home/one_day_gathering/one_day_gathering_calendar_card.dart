@@ -73,7 +73,7 @@ class OneDayGatheringCalendarCard extends StatelessWidget {
                   Builder(
                     builder: (context) {
                       CommonCategory category =
-                          CommonCategoryMap.getCategory(gathering.category);
+                          CommonCategoryExtenstion.getCategory(gathering.category);
                       return Row(
                         children: [
                           SizedBox(

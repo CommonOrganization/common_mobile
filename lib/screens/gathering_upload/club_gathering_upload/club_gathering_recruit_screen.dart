@@ -40,7 +40,7 @@ class _ClubGatheringRecruitScreenState
     if (widget.gathering == null) return;
     _detailQuestionController.text = widget.gathering!.recruitQuestion;
     _selectedRecruitWay =
-        RecruitWayMap.getRecruitWay(widget.gathering!.recruitWay);
+        RecruitWayExtenstion.getRecruitWay(widget.gathering!.recruitWay);
   }
 
   @override

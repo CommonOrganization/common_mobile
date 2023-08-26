@@ -184,7 +184,7 @@ class GatheringSliverAppbar extends StatelessWidget {
                           children: [
                             Builder(builder: (context) {
                               CommonCategory category =
-                                  CommonCategoryMap.getCategory(
+                                  CommonCategoryExtenstion.getCategory(
                                       gathering.category);
                               return Row(
                                 children: [

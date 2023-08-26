@@ -65,7 +65,7 @@ class ClubGatheringCard extends StatelessWidget {
                     children: [
                       Builder(builder: (context) {
                         CommonCategory category =
-                            CommonCategoryMap.getCategory(gathering.category);
+                            CommonCategoryExtenstion.getCategory(gathering.category);
                         return Row(
                           children: [
                             Image.asset(

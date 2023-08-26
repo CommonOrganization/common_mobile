@@ -222,7 +222,7 @@ enum Country {
   hongKong,
 }
 
-extension CountryMap on Country {
+extension CountryExtenstion on Country {
   static Map names = {
     Country.ghana: '가나',
     Country.gabon: '가봉',
@@ -668,7 +668,7 @@ extension CountryMap on Country {
 
 enum Gender { male, female }
 
-extension GenderMap on Gender {
+extension GenderExtenstion on Gender {
   static Map names = {
     Gender.male: '남성',
     Gender.female: '여성',
@@ -709,7 +709,7 @@ enum City {
   jeju
 }
 
-extension CityMap on City {
+extension CityExtenstion on City {
   static Map names = {
     City.seoul: '서울',
     City.busan: '부산',
@@ -1116,7 +1116,7 @@ enum CommonCategory {
   free,
 }
 
-extension CommonCategoryMap on CommonCategory {
+extension CommonCategoryExtenstion on CommonCategory {
   static Map names = {
     CommonCategory.all: 'all',
     CommonCategory.language: 'language',
@@ -1271,7 +1271,7 @@ extension CommonCategoryMap on CommonCategory {
 
 enum GatheringType { oneDay, clubOneDay, club }
 
-extension GatheringTypeMap on GatheringType {
+extension GatheringTypeExtenstion on GatheringType {
   static Map names = {
     GatheringType.oneDay: 'oneDay',
     GatheringType.clubOneDay: 'clubOneDay',
@@ -1321,7 +1321,7 @@ extension GatheringTypeMap on GatheringType {
 
 enum RecruitWay { firstCome, approval }
 
-extension RecruitWayMap on RecruitWay {
+extension RecruitWayExtenstion on RecruitWay {
   static Map names = {
     RecruitWay.firstCome: 'firstCome',
     RecruitWay.approval: 'approval',

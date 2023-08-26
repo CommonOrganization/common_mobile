@@ -90,7 +90,7 @@ class ClubGatheringRanking extends StatelessWidget {
                       child: Builder(builder: (context) {
                         String category = gatheringList.first.category;
                         CommonCategory commonCategory =
-                            CommonCategoryMap.getCategory(category);
+                            CommonCategoryExtenstion.getCategory(category);
 
                         String title =
                             commonCategory.title.replaceAll('ㆍ', '\n');

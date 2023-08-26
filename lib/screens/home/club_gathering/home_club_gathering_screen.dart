@@ -54,7 +54,7 @@ class _HomeClubGatheringScreenState extends State<HomeClubGatheringScreen> {
                 Builder(builder: (context) {
                   List userInterestCategory = controller.user!.interestCategory;
                   int index = Random().nextInt(userInterestCategory.length);
-                  CommonCategory category = CommonCategoryMap.getCategory(
+                  CommonCategory category = CommonCategoryExtenstion.getCategory(
                       userInterestCategory[index]);
 
                   return ClubGatheringContentsArea(

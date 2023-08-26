@@ -25,7 +25,7 @@ class InterestingCategoryContainer extends StatelessWidget {
           child: Row(
             children: controller.user!.interestCategory.map((category) {
               CommonCategory commonCategory =
-                  CommonCategoryMap.getCategory(category);
+                  CommonCategoryExtenstion.getCategory(category);
               return GestureDetector(
                 behavior: HitTestBehavior.opaque,
                 onTap: () => Navigator.push(

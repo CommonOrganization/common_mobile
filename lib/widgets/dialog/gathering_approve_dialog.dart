@@ -1,6 +1,7 @@
 import 'package:common/constants/constants_colors.dart';
 import 'package:common/constants/constants_value.dart';
 import 'package:common/services/gathering_service.dart';
+import 'package:common/services/user_service.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/local_utils.dart';
@@ -16,15 +17,9 @@ class GatheringApproveDialog extends StatelessWidget {
     required this.applicantId,
   }) : super(key: key);
 
-  String getText() {
-    switch (category) {
-      case kOneDayGatheringCategory:
-        return '하루모임 신청을';
-      case kClubGatheringCategory:
-      default:
-        return '소모임 가입 신청을';
-    }
-  }
+  String get getText => category == kOneDayGatheringCategory
+      ? ' 님의 하루모임\n참여 요청을 승인할까요?'
+      : ' 님의 소모임\n가입 신청을 승인할까요?';
 
   @override
   Widget build(BuildContext context) {
@@ -38,34 +33,35 @@ class GatheringApproveDialog extends StatelessWidget {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Container(
-            alignment: Alignment.center,
-            padding: const EdgeInsets.symmetric(vertical: 20),
-            constraints: const BoxConstraints(
-              minHeight: 100,
-            ),
-            child: RichText(
-              textAlign: TextAlign.center,
-              text: TextSpan(
-                style: TextStyle(
-                  fontSize: 16,
-                  height: 24 / 16,
-                  color: kFontGray800Color,
-                ),
-                children: [
-                  TextSpan(text: getText()),
-                  TextSpan(
-                    text: ' 승인 ',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: kOkColor,
-                    ),
+          SizedBox(height: 20),
+          FutureBuilder(
+            future: UserService.get(id: applicantId, field: 'name'),
+            builder: (context, snapshot) {
+              return RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  style: TextStyle(
+                    fontSize: 14,
+                    height: 20 / 14,
+                    color: kFontGray800Color,
                   ),
-                  const TextSpan(text: '할까요?'),
-                ],
-              ),
-            ),
+                  children: [
+                    TextSpan(
+                      text: snapshot.data,
+                      style: TextStyle(
+                        fontSize: 16,
+                        height: 20 / 16,
+                        color: kFontGray900Color,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    TextSpan(text: getText),
+                  ],
+                ),
+              );
+            },
           ),
+          SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Row(
@@ -83,12 +79,10 @@ class GatheringApproveDialog extends StatelessWidget {
                           category: category,
                           id: gatheringId,
                           applicantId: applicantId)
-                      .then(
-                    (value) {
-                      Navigator.pop(context);
-                      showMessage(context,message: '${getText()} 승인했습니다');
-                    }
-                  ),
+                      .then((value) {
+                    Navigator.pop(context);
+                    showMessage(context, message: '$getText 승인했습니다');
+                  }),
                   backgroundColor: kMainColor,
                   titleColor: kSubColor1,
                 ),
@@ -117,7 +111,7 @@ class GatheringApproveDialog extends StatelessWidget {
             color: backgroundColor,
             borderRadius: BorderRadius.circular(10),
           ),
-          height: 50,
+          height: 44,
           child: Text(
             title,
             textAlign: TextAlign.center,

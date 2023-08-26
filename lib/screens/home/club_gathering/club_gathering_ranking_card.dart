@@ -131,7 +131,7 @@ class _ClubGatheringRankingCardState extends State<ClubGatheringRankingCard> {
                               const SizedBox(width: 4),
                               Builder(builder: (context) {
                                 RecruitWay recruitWay =
-                                    RecruitWayMap.getRecruitWay(
+                                    RecruitWayExtenstion.getRecruitWay(
                                         widget.gathering.recruitWay);
                                 return Text(
                                   recruitWay.title,
