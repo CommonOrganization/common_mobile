@@ -15,9 +15,6 @@ class User {
   final String profileImage;
   final String information;
   final String notificationToken;
-  final List likeOneDayGatheringList;
-  final List likeClubGatheringList;
-  final List likePostList;
 
   User({
     required this.id,
@@ -32,9 +29,6 @@ class User {
     required this.profileImage,
     required this.information,
     required this.notificationToken,
-    required this.likeOneDayGatheringList,
-    required this.likeClubGatheringList,
-    required this.likePostList,
   });
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);

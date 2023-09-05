@@ -1,7 +1,7 @@
+import 'package:common/constants/constants_enum.dart';
+import 'package:common/services/like_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
-import '../services/gathering_service.dart';
 
 class GatheringFavoriteButton extends StatefulWidget {
   final String category;
@@ -25,29 +25,29 @@ class _GatheringFavoriteButtonState extends State<GatheringFavoriteButton> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: GatheringService.get(
-          category: widget.category,
-          id: widget.gatheringId,
-          field: 'favoriteList'),
+      future: LikeService.isLikeObject(
+        objectId: widget.gatheringId,
+        userId: widget.userId,
+      ),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          List favoriteList = snapshot.data as List;
-          bool value = favoriteList.contains(widget.userId);
-
+          bool value = snapshot.data as bool;
           return GestureDetector(
             behavior: HitTestBehavior.opaque,
-            onTap: () {
+            onTap: () async {
               if (value) {
-                favoriteList.remove(widget.userId);
+                await LikeService.dislikeObject(
+                  objectId: widget.gatheringId,
+                  userId: widget.userId,
+                );
               } else {
-                favoriteList.add(widget.userId);
+                await LikeService.likeObject(
+                  objectId: widget.gatheringId,
+                  userId: widget.userId,
+                  likeType: LikeTypeExtenstion.getLikeType(widget.category).name,
+                );
               }
-              GatheringService.update(
-                category: widget.category,
-                id: widget.gatheringId,
-                field: 'favoriteList',
-                value: favoriteList,
-              ).then((value) => setState(() {}));
+              setState(() {});
             },
             child: SvgPicture.asset(
               'assets/icons/svg/favorite_${value ? 'active' : 'inactive'}_${widget.size.toInt()}px.svg',

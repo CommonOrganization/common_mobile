@@ -1,5 +1,6 @@
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/gathering/gathering.dart';
+import 'package:common/services/like_service.dart';
 import 'package:common/utils/gathering_utils.dart';
 import 'package:common/widgets/bottom_sheets/gathering_report_bottom_sheet.dart';
 import 'package:common/widgets/gathering_favorite_button.dart';
@@ -65,8 +66,8 @@ class GatheringSliverAppbar extends StatelessWidget {
                   behavior: HitTestBehavior.opaque,
                   onTap: () {
                     String? userId = context.read<UserController>().user?.id;
-                    if(userId==null) return;
-                    if(userId == gathering.organizerId){
+                    if (userId == null) return;
+                    if (userId == gathering.organizerId) {
                       showModalBottomSheet(
                         context: context,
                         backgroundColor: Colors.transparent,
@@ -83,7 +84,6 @@ class GatheringSliverAppbar extends StatelessWidget {
                         gathering: gathering,
                       ),
                     );
-
                   },
                   child: SvgPicture.asset(
                     showAppbarBlack
@@ -286,26 +286,30 @@ class GatheringSliverAppbar extends StatelessWidget {
                                     height: 17 / 13,
                                   ),
                                 ),
-                                RichText(
-                                  text: TextSpan(
-                                    style: TextStyle(
-                                      fontSize: 13,
-                                      color: kFontGray400Color,
-                                      height: 17 / 13,
-                                    ),
-                                    children: [
-                                      TextSpan(
-                                        text:
-                                            '${gathering.favoriteList.length}명',
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          height: 18 / 13,
+                                FutureBuilder(
+                                    future: LikeService.getLikeObjectCount(
+                                        objectId: gathering.id),
+                                    builder: (context, snapshot) {
+                                      return RichText(
+                                        text: TextSpan(
+                                          style: TextStyle(
+                                            fontSize: 13,
+                                            color: kFontGray400Color,
+                                            height: 17 / 13,
+                                          ),
+                                          children: [
+                                            TextSpan(
+                                              text: '${snapshot.data ?? 0}명',
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                height: 18 / 13,
+                                              ),
+                                            ),
+                                            const TextSpan(text: '이 찜한 모임'),
+                                          ],
                                         ),
-                                      ),
-                                      const TextSpan(text: '이 찜한 모임'),
-                                    ],
-                                  ),
-                                ),
+                                      );
+                                    }),
                               ],
                             ),
                           ],

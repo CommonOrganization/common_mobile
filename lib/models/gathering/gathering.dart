@@ -16,7 +16,6 @@ class Gathering {
   final int capacity;
   final List tagList;
   final List memberList;
-  final List favoriteList;
   final String timeStamp;
   final List applicantList;
 
@@ -34,7 +33,6 @@ class Gathering {
     required this.capacity,
     required this.tagList,
     required this.memberList,
-    required this.favoriteList,
     required this.timeStamp,
     required this.applicantList,
   });

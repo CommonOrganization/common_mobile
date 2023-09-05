@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'package:common/models/recruit_answer/recruit_answer.dart';
 import 'package:common/services/firebase_service.dart';
 import 'package:common/services/upload_service.dart';
 import 'package:image_picker/image_picker.dart';
@@ -65,7 +64,6 @@ class GatheringService {
       required Map<String, dynamic> data}) async {
     try {
       data.remove('memberList');
-      data.remove('favoriteList');
       data.remove('applicantList');
       await FirebaseService.fireStore.collection(category).doc(id).update(data);
       return true;

@@ -1,6 +1,4 @@
-import 'package:common/constants/constants_value.dart';
 import 'package:common/controllers/user_controller.dart';
-import 'package:common/models/user/user.dart';
 import 'package:common/screens/gathering_detail/components/gathering_member_card.dart';
 import 'package:common/services/gathering_service.dart';
 import 'package:common/widgets/dialog/gathering_approve_dialog.dart';

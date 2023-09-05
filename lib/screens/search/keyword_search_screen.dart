@@ -38,8 +38,8 @@ class _KeywordSearchScreenState extends State<KeywordSearchScreen> {
         return kOneDayGatheringArea(city);
       case 1:
         return kClubGatheringArea(city);
-      //TODO 피드 개발시 넣기
       case 2:
+        //TODO 피드 개발시 넣기
         return Container();
       default:
         return Container();

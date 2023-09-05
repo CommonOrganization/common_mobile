@@ -1,8 +1,6 @@
 import 'package:common/constants/constants_enum.dart';
 import 'package:common/utils/gathering_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
 import '../../constants/constants_colors.dart';
 
 class RecruitQuestionBottomSheet extends StatefulWidget {

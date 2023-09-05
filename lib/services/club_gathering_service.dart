@@ -1,7 +1,9 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:common/constants/constants_enum.dart';
 import 'package:common/models/club_gathering/club_gathering.dart';
 import 'package:common/services/firebase_service.dart';
+import 'package:common/services/like_service.dart';
 import '../utils/gathering_utils.dart';
 import 'gathering_service.dart';
 
@@ -101,8 +103,19 @@ class ClubGatheringService {
           .map((element) => ClubGathering.fromJson(element.data()))
           .toList();
 
-      gatheringList.sort((gathering1, gathering2) =>
-          gathering2.favoriteList.length - gathering1.favoriteList.length);
+      Map<String, dynamic>? likeCountMap = await LikeService.getLikeObjectMap(
+          likeType: LikeType.clubGathering.name);
+      if (likeCountMap != null) {
+        gatheringList.sort((gathering1, gathering2) {
+          int gathering1LikeCount = likeCountMap.containsKey(gathering1.id)
+              ? likeCountMap[gathering1.id].length
+              : 0;
+          int gathering2LikeCount = likeCountMap.containsKey(gathering2.id)
+              ? likeCountMap[gathering2.id].length
+              : 0;
+          return gathering2LikeCount - gathering1LikeCount;
+        });
+      }
 
       return gatheringList;
     } catch (e) {
@@ -138,9 +151,25 @@ class ClubGatheringService {
           .where('category', isEqualTo: category)
           .get();
 
-      return snapshot.docs
+      List<ClubGathering> gatheringList = snapshot.docs
           .map((element) => ClubGathering.fromJson(element.data()))
           .toList();
+
+      Map<String, dynamic>? likeCountMap = await LikeService.getLikeObjectMap(
+          likeType: LikeType.clubGathering.name);
+      if (likeCountMap != null) {
+        gatheringList.sort((gathering1, gathering2) {
+          int gathering1LikeCount = likeCountMap.containsKey(gathering1.id)
+              ? likeCountMap[gathering1.id].length
+              : 0;
+          int gathering2LikeCount = likeCountMap.containsKey(gathering2.id)
+              ? likeCountMap[gathering2.id].length
+              : 0;
+          return gathering2LikeCount - gathering1LikeCount;
+        });
+      }
+
+      return gatheringList;
     } catch (e) {
       log('FirebaseClubGatheringService - getInterestGathering Failed : $e');
       return [];

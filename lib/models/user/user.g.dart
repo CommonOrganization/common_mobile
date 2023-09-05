@@ -19,9 +19,6 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       profileImage: json['profileImage'] as String,
       information: json['information'] as String,
       notificationToken: json['notificationToken'] as String,
-      likeOneDayGatheringList: json['likeOneDayGatheringList'] as List<dynamic>,
-      likeClubGatheringList: json['likeClubGatheringList'] as List<dynamic>,
-      likePostList: json['likePostList'] as List<dynamic>,
     );
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
@@ -37,7 +34,4 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'profileImage': instance.profileImage,
       'information': instance.information,
       'notificationToken': instance.notificationToken,
-      'likeOneDayGatheringList': instance.likeOneDayGatheringList,
-      'likeClubGatheringList': instance.likeClubGatheringList,
-      'likePostList': instance.likePostList,
     };

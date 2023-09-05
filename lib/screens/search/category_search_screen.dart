@@ -37,7 +37,7 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
     _selectedCategory = widget.category;
     // 선택된 취미 카테고리가 가장 앞으로 나올 수 있도록
     _categoryList = [
-      CommonCategory.all,
+      if (widget.category != CommonCategory.all) CommonCategory.all,
       widget.category,
       ...kEachCommonCategoryList.where((element) => element != widget.category)
     ];
@@ -56,6 +56,7 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
       case 1:
         return kClubGatheringArea(city: city, userId: userId);
       default:
+        //TODO 여기서 피드 area 개발해주어야함
         return Container();
     }
   }

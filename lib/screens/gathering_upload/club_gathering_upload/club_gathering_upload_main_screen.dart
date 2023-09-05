@@ -60,7 +60,6 @@ class _ClubGatheringUploadMainScreenState
       'capacity': _gatheringCapacity,
       'tagList': _gatheringTagList,
       'memberList': [userId],
-      'favoriteList': [],
       'applicantList': [],
     };
     ClubGathering gathering = ClubGathering.fromJson({
@@ -98,7 +97,6 @@ class _ClubGatheringUploadMainScreenState
         'tagList': _gatheringTagList,
         'memberList': widget.gathering!.memberList,
         'applicantList': widget.gathering!.applicantList,
-        'favoriteList': widget.gathering!.favoriteList,
       };
 
       ClubGathering gathering = ClubGathering.fromJson({

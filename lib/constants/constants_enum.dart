@@ -1360,3 +1360,24 @@ extension RecruitWayExtenstion on RecruitWay {
   String get selectedIcon => selectedIcons[this];
   String get unselectedIcon => unselectedIcons[this];
 }
+
+enum LikeType { oneDayGathering, clubGathering, feed, user }
+
+extension LikeTypeExtenstion on LikeType {
+  static Map names = {
+    LikeType.oneDayGathering: 'oneDayGathering',
+    LikeType.clubGathering: 'clubGathering',
+    LikeType.feed: 'feed',
+    LikeType.user: 'user',
+  };
+
+  static Map likeTypes = {
+    'oneDayGathering': LikeType.oneDayGathering,
+    'clubGathering': LikeType.clubGathering,
+    'feed': LikeType.feed,
+    'user': LikeType.user,
+  };
+
+  String get name => names[this];
+  static LikeType getLikeType(String text) => likeTypes[text];
+}

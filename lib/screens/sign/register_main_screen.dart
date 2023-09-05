@@ -54,9 +54,6 @@ class _RegisterMainScreenState extends State<RegisterMainScreen> {
         'profileImage': imageUrl,
         'information': information.replaceAll(kMultiBlankRegExp, '\n\n'),
         'notificationToken': '',
-        'likeOneDayGatheringList': [],
-        'likeClubGatheringList': [],
-        'likePostList': [],
       };
       User? user = await UserService.register(userData: userData);
       if (!mounted) return;

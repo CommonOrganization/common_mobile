@@ -79,7 +79,6 @@ class _OneDayGatheringUploadMainScreenState
         'tagList': _gatheringTagList,
         'memberList': [userId],
         'applicantList': [],
-        'favoriteList': [],
       };
 
       OneDayGathering gathering = OneDayGathering.fromJson({
@@ -131,7 +130,6 @@ class _OneDayGatheringUploadMainScreenState
         'tagList': _gatheringTagList,
         'memberList': widget.gathering!.memberList,
         'applicantList': widget.gathering!.applicantList,
-        'favoriteList': widget.gathering!.favoriteList,
       };
 
       OneDayGathering gathering = OneDayGathering.fromJson({
