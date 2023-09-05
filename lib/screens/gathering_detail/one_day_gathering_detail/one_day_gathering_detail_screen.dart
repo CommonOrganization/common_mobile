@@ -4,6 +4,7 @@ import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/one_day_gathering/one_day_gathering.dart';
 import 'package:common/models/recruit_answer/recruit_answer.dart';
 import 'package:common/services/gathering_service.dart';
+import 'package:common/services/recruit_answer_service.dart';
 import 'package:common/utils/local_utils.dart';
 import 'package:common/widgets/bottom_sheets/recruit_question_bottom_sheet.dart';
 import 'package:flutter/material.dart';
@@ -100,10 +101,7 @@ class _OneDayGatheringDetailScreenState
           answer: answer,
           timeStamp: DateTime.now().toString(),
         );
-        //TODO 응답 저장
-        //1. answer저장 후
-        //2. apply 하기
-        return;
+        await RecruitAnswerService.uploadRecruitAnswer(recruitAnswer: recruitAnswer);
       }
       bool applySuccess = await OneDayGatheringService.applyGathering(
           id: widget.gathering.id, userId: userId);
@@ -112,7 +110,7 @@ class _OneDayGatheringDetailScreenState
         showMessage(context, message: '이미 참여중이거나 요청중인 모임입니다.');
         return;
       }
-      showMessage(context, message: '하루모임에 참여했습니다.');
+      showMessage(context, message: '하루모임에 참여 신청했습니다.');
     } catch (e) {
       showMessage(context, message: '잠시후에 다시 신청해 주세요.');
       _loading = false;

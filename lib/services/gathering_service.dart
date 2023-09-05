@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:common/models/recruit_answer/recruit_answer.dart';
 import 'package:common/services/firebase_service.dart';
 import 'package:common/services/upload_service.dart';
 import 'package:image_picker/image_picker.dart';

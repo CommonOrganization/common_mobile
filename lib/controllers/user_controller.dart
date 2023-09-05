@@ -14,6 +14,7 @@ class UserController extends ChangeNotifier {
     User? loginUserInfo = await UserService.login(
         phone: userInfo.phone, password: userInfo.password);
     if (loginUserInfo == null) return false;
+    await LocalController.saveUserData(loginUserInfo);
     user = loginUserInfo;
     notifyListeners();
     return true;

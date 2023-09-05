@@ -7,9 +7,15 @@ import '../../../services/user_service.dart';
 class GatheringApplicantList extends StatelessWidget {
   final String category;
   final String gatheringId;
+  final String organizerId;
   final List applicantList;
-  const GatheringApplicantList({Key? key, required this.applicantList, required this.category, required this.gatheringId})
-      : super(key: key);
+  const GatheringApplicantList({
+    Key? key,
+    required this.category,
+    required this.gatheringId,
+    required this.organizerId,
+    required this.applicantList,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +41,7 @@ class GatheringApplicantList extends StatelessWidget {
                 builder: (context) => GatheringApplicantScreen(
                   gatheringId: gatheringId,
                   category: category,
+                  organizerId: organizerId,
                 ),
               ),
             ),

@@ -1,3 +1,5 @@
+import 'package:common/models/recruit_answer/recruit_answer.dart';
+import 'package:common/services/recruit_answer_service.dart';
 import 'package:common/services/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -28,63 +30,94 @@ class GatheringApplicationFormDialog extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-            constraints: const BoxConstraints(
-              minHeight: 150,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
+      content: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        constraints: const BoxConstraints(
+          minHeight: 150,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(width: double.infinity),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const SizedBox(width: double.infinity),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GestureDetector(
-                      onTap: ()=>Navigator.pop(context),
-                      behavior: HitTestBehavior.opaque,
-                      child: SvgPicture.asset(
-                        'assets/icons/svg/close_20px.svg',
-                      ),
-                    ),
-                    Text(
-                      getTitle,
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: kFontGray800Color,
-                        fontWeight: FontWeight.bold,
-                        height: 24 / 16,
-                      ),
-                    ),
-                    const SizedBox(width: 20),
-                  ],
+                GestureDetector(
+                  onTap: () => Navigator.pop(context),
+                  behavior: HitTestBehavior.opaque,
+                  child: SvgPicture.asset(
+                    'assets/icons/svg/close_20px.svg',
+                  ),
                 ),
-                const SizedBox(height: 10),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    getProfileArea(applicantId),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          getNameArea(applicantId),
-                          getInformationArea(applicantId),
-                        ],
-                      ),
-                    ),
-                  ],
+                Text(
+                  getTitle,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: kFontGray800Color,
+                    fontWeight: FontWeight.bold,
+                    height: 24 / 16,
+                  ),
+                ),
+                const SizedBox(width: 20),
+              ],
+            ),
+            const SizedBox(height: 10),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                getProfileArea(applicantId),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      getNameArea(applicantId),
+                      getInformationArea(applicantId),
+                    ],
+                  ),
                 ),
               ],
             ),
-          ),
-          const SizedBox(height: 20),
-        ],
+            const SizedBox(height: 12),
+            Container(width: double.infinity,height: 1,color: kFontGray50Color,),
+            const SizedBox(height: 12),
+            FutureBuilder(
+                future: RecruitAnswerService.getRecruitAnswer(
+                  gatheringId: gatheringId,
+                  userId: applicantId,
+                ),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    RecruitAnswer recruitAnswer =
+                    snapshot.data as RecruitAnswer;
+                    return Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '모임 질문 : ${recruitAnswer.question}',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: kFontGray800Color,
+                            height: 20 / 14,
+                          ),
+                        ),
+                        Text(
+                          '멤버의 답변 : ${recruitAnswer.answer}',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: kFontGray800Color,
+                            height: 20 / 14,
+                          ),
+                        ),
+                      ],
+                    );
+                  }
+                  return Container();
+                })
+          ],
+        ),
       ),
     );
   }

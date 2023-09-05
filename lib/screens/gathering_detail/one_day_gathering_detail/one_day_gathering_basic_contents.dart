@@ -125,6 +125,7 @@ class OneDayGatheringBasicContents extends StatelessWidget {
             category: kOneDayGatheringCategory,
             gatheringId: gathering.id,
             applicantList: gathering.applicantList,
+            organizerId: gathering.organizerId,
           ),
           const SizedBox(height: 40),
         ],

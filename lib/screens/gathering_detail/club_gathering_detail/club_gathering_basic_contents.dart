@@ -99,6 +99,7 @@ class ClubGatheringBasicContents extends StatelessWidget {
             category: kClubGatheringCategory,
             gatheringId: gathering.id,
             applicantList: gathering.applicantList,
+            organizerId: gathering.organizerId,
           ),
           const SizedBox(height: 40),
         ],

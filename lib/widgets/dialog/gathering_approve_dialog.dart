@@ -17,9 +17,13 @@ class GatheringApproveDialog extends StatelessWidget {
     required this.applicantId,
   }) : super(key: key);
 
-  String get getText => category == kOneDayGatheringCategory
-      ? ' 님의 하루모임\n참여 요청을 승인할까요?'
+  String get getTitle => category == kOneDayGatheringCategory
+      ? ' 님의 하루모임\n참여 신청을 승인할까요?'
       : ' 님의 소모임\n가입 신청을 승인할까요?';
+
+  String get getText => category == kOneDayGatheringCategory
+      ? '하루모임 참여 신청을 승인했습니다.'
+      : '소모임 가입 신청을 승인했습니다.';
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +37,7 @@ class GatheringApproveDialog extends StatelessWidget {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SizedBox(height: 20),
+          const SizedBox(height: 30),
           FutureBuilder(
             future: UserService.get(id: applicantId, field: 'name'),
             builder: (context, snapshot) {
@@ -55,13 +59,13 @@ class GatheringApproveDialog extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    TextSpan(text: getText),
+                    TextSpan(text: getTitle),
                   ],
                 ),
               );
             },
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Row(
@@ -81,7 +85,7 @@ class GatheringApproveDialog extends StatelessWidget {
                           applicantId: applicantId)
                       .then((value) {
                     Navigator.pop(context);
-                    showMessage(context, message: '$getText 승인했습니다');
+                    showMessage(context, message: getText);
                   }),
                   backgroundColor: kMainColor,
                   titleColor: kSubColor1,
