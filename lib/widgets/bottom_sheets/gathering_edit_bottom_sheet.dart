@@ -80,7 +80,7 @@ class GatheringEditBottomSheet extends StatelessWidget {
                               (value) {
                                 Navigator.pop(context);
                                 Navigator.pop(context);
-                                showMessage(context, message: '모임을 삭제했습니다.');
+                                showMessage(context, message: '하루모임을 삭제했습니다.');
                               },
                             );
                             return;
@@ -91,7 +91,7 @@ class GatheringEditBottomSheet extends StatelessWidget {
                               (value) {
                                 Navigator.pop(context);
                                 Navigator.pop(context);
-                                showMessage(context, message: '모임을 삭제했습니다.');
+                                showMessage(context, message: '소모임을 삭제했습니다.');
                               },
                             );
                             return;

@@ -43,6 +43,7 @@ class ClubGatheringBasicContents extends StatelessWidget {
           GatheringStatusCard(
             memberList: gathering.memberList,
             capacity: gathering.capacity,
+            organizerId: gathering.organizerId,
           ),
           const SizedBox(height: 12),
           Container(

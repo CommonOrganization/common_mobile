@@ -72,7 +72,7 @@ class _HomeClubGatheringScreenState extends State<HomeClubGatheringScreen> {
                   future: ClubGatheringService
                       .getImmediatelyAbleToParticipateGathering(
                           city: userPlace.city),
-                  title: '바로 참여 가능한 소모임',
+                  title: '바로 가입 가능한 소모임',
                 ),
                 ClubGatheringContentsArea(
                   future: ClubGatheringService.getNearGathering(

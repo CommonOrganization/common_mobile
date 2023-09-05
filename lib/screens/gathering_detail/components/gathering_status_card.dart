@@ -1,12 +1,18 @@
+import 'package:common/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../constants/constants_colors.dart';
 import '../../../services/user_service.dart';
 
 class GatheringStatusCard extends StatelessWidget {
   final List memberList;
   final int capacity;
+  final String organizerId;
   const GatheringStatusCard(
-      {Key? key, required this.memberList, required this.capacity})
+      {Key? key,
+      required this.memberList,
+      required this.capacity,
+      required this.organizerId})
       : super(key: key);
 
   @override
@@ -148,23 +154,28 @@ class GatheringStatusCard extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: kSubColor1,
-                ),
-                child: Text(
-                  '모임장과 채팅하기',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: kMainColor,
-                    height: 20 / 14,
-                  ),
-                ),
-              ),
+              Builder(builder: (context) {
+                if (organizerId != context.read<UserController>().user?.id) {
+                  return Container(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 30),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: kSubColor1,
+                    ),
+                    child: Text(
+                      '모임장과 채팅하기',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: kMainColor,
+                        height: 20 / 14,
+                      ),
+                    ),
+                  );
+                }
+                return Container();
+              }),
             ],
           ),
         ],

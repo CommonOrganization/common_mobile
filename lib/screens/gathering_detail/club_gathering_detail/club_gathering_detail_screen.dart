@@ -1,4 +1,5 @@
 import 'package:common/constants/constants_enum.dart';
+import 'package:common/constants/constants_value.dart';
 import 'package:common/models/club_gathering/club_gathering.dart';
 import 'package:common/screens/gathering_detail/club_gathering_detail/club_gathering_connected_gathering_contents.dart';
 import 'package:flutter/material.dart';
@@ -6,11 +7,16 @@ import 'package:provider/provider.dart';
 import '../../../constants/constants_colors.dart';
 import '../../../controllers/user_controller.dart';
 import '../../../models/one_day_gathering/one_day_gathering.dart';
+import '../../../models/recruit_answer/recruit_answer.dart';
 import '../../../services/club_gathering_service.dart';
+import '../../../services/gathering_service.dart';
 import '../../../services/one_day_gathering_service.dart';
+import '../../../services/recruit_answer_service.dart';
 import '../../../utils/local_utils.dart';
+import '../../../widgets/bottom_sheets/recruit_question_bottom_sheet.dart';
 import '../components/gathering_button.dart';
 import '../components/gathering_sliver_appbar.dart';
+import '../gathering_applicant_screen.dart';
 import 'club_gathering_basic_contents.dart';
 
 class ClubGatheringDetailScreen extends StatefulWidget {
@@ -77,11 +83,55 @@ class _ClubGatheringDetailScreenState extends State<ClubGatheringDetailScreen> {
     if (_loading) return;
     _loading = true;
     try {
+
+      String? recruitWayString = await GatheringService.get(
+          category: kClubGatheringCategory,
+          id: widget.gathering.id,
+          field: 'recruitWay');
+      if (recruitWayString == null) return;
+      RecruitWay recruitWay =
+      RecruitWayExtenstion.getRecruitWay(recruitWayString);
+      if (recruitWay == RecruitWay.approval) {
+        String? recruitQuestion = await GatheringService.get(
+            category: kClubGatheringCategory,
+            id: widget.gathering.id,
+            field: 'recruitQuestion');
+
+        if (recruitQuestion == null) return;
+        if (!mounted) return;
+        String? answer = await showModalBottomSheet(
+          context: context,
+          isScrollControlled: true,
+          backgroundColor: Colors.transparent,
+          builder: (context) => Padding(
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).viewInsets.bottom,
+            ),
+            child: RecruitQuestionBottomSheet(
+                gatheringId: widget.gathering.id,
+                userId: userId,
+                question: recruitQuestion),
+          ),
+        );
+        _loading = false;
+        if (answer == null) return;
+        RecruitAnswer recruitAnswer = RecruitAnswer(
+          gatheringId: widget.gathering.id,
+          userId: userId,
+          question: recruitQuestion,
+          answer: answer,
+          timeStamp: DateTime.now().toString(),
+        );
+        await RecruitAnswerService.uploadRecruitAnswer(
+            recruitAnswer: recruitAnswer);
+      }
+
       bool applySuccess = await ClubGatheringService.applyGathering(
           id: widget.gathering.id, userId: userId);
       if (!mounted) return;
+      _loading = false;
       if (!applySuccess) {
-        showMessage(context, message: '이미 신청중인 모임입니다.');
+        showMessage(context, message: '이미 가입중이거나 신청중인 모임입니다.');
         return;
       }
       Navigator.pop(context);
@@ -144,19 +194,58 @@ class _ClubGatheringDetailScreenState extends State<ClubGatheringDetailScreen> {
 
   Widget getActionButton() {
     if (!widget.isPreview) {
+      bool isOrganizer = context.read<UserController>().user?.id ==
+          widget.gathering.organizerId;
+
+      if (isOrganizer) {
+        return GatheringButton(
+          title: '가입 신청 멤버 보러가기',
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => GatheringApplicantScreen(
+                gatheringId: widget.gathering.id,
+                category: kOneDayGatheringCategory,
+                organizerId: widget.gathering.organizerId,
+              ),
+            ),
+          ),
+        );
+      }
+      if(widget.gathering.memberList.contains(context.read<UserController>().user?.id)){
+        return GatheringButton(
+          title: '이미 가입중인 모임입니다',
+          enabled: false,
+          onTap: () {},
+        );
+      }
+      if(widget.gathering.applicantList.contains(context.read<UserController>().user?.id)){
+        return GatheringButton(
+          title: '가입 신청중인 모임입니다',
+          enabled: false,
+          onTap: () {},
+        );
+      }
+      if(widget.gathering.capacity <= widget.gathering.memberList.length){
+        return GatheringButton(
+          title: '인원 마감된 모임입니다',
+          enabled: false,
+          onTap: () {},
+        );
+      }
       return GatheringButton(
-        title: '소모임 참여하기',
+        title: '소모임 가입하기',
         onTap: () => applyPressed(),
       );
     }
     if (!widget.isEdit) {
       return GatheringButton(
-        title: '소모임 개설하기',
+        title: '소모임 오픈하기',
         onTap: () => previewPressed(),
       );
     }
     return GatheringButton(
-      title: '수정하기',
+      title: '소모임 수정하기',
       onTap: () => updatePressed(),
     );
   }
