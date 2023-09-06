@@ -52,7 +52,7 @@ class HttpService {
       log('$phoneNumber에게 보낸 메세지 : [커먼]인증번호는[$certificationNumber]입니다');
       return true;
     } catch (e) {
-      log('sendSMS Error : $e');
+      log('HttpService - sendSMS Failed : $e');
       return false;
     }
   }
@@ -76,7 +76,7 @@ class HttpService {
       }
       return result;
     } catch (e) {
-      log('searchPlaceWithKeyword error : $e');
+      log('HttpService - searchPlaceWithKeyword Failed : $e');
       return null;
     }
   }

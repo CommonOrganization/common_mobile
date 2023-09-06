@@ -9,11 +9,13 @@ class RecruitAnswerService {
   factory RecruitAnswerService() => _instance;
   RecruitAnswerService._internal();
 
+  static const String collection = 'recruitAnswer';
+
   static Future<void> uploadRecruitAnswer(
       {required RecruitAnswer recruitAnswer}) async {
     try {
       await FirebaseService.fireStore
-          .collection('recruitAnswer')
+          .collection(collection)
           .add(recruitAnswer.toJson());
     } catch (e) {
       log('RecruitAnswerService - uploadRecruitAnswer Failed : $e');
@@ -24,7 +26,7 @@ class RecruitAnswerService {
       {required String gatheringId, required String userId}) async {
     try {
       final snapshot = await FirebaseService.fireStore
-          .collection('recruitAnswer')
+          .collection(collection)
           .where('gatheringId', isEqualTo: gatheringId)
           .where('userId', isEqualTo: userId)
           .orderBy('timeStamp', descending: true)

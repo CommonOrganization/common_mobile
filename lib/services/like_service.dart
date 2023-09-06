@@ -7,11 +7,13 @@ class LikeService {
   factory LikeService() => _instance;
   LikeService._internal();
 
+  static const String collection = 'likeObject';
+
   static Future<bool> isLikeObject(
       {required String objectId, required String userId}) async {
     try {
       final snapshot = await FirebaseService.fireStore
-          .collection('likeObject')
+          .collection(collection)
           .where('objectId', isEqualTo: objectId)
           .where('userId', isEqualTo: userId)
           .get();
@@ -32,7 +34,7 @@ class LikeService {
         timeStamp: DateTime.now().toString(),
       );
       await FirebaseService.fireStore
-          .collection('likeObject')
+          .collection(collection)
           .add(likeObject.toJson());
     } catch (e) {
       log('LikeService - likeObject Failed : $e');
@@ -43,7 +45,7 @@ class LikeService {
       {required String objectId, required String userId}) async {
     try {
       final snapshot = await FirebaseService.fireStore
-          .collection('likeObject')
+          .collection(collection)
           .where('objectId', isEqualTo: objectId)
           .where('userId', isEqualTo: userId)
           .get();
@@ -61,7 +63,7 @@ class LikeService {
   static Future<Map<String,dynamic>?> getLikeObjectMap({required String likeType}) async {
     try {
       final snapshot = await FirebaseService.fireStore
-          .collection('likeObject')
+          .collection(collection)
           .where('likeType', isEqualTo: likeType)
           .get();
       Map<String, dynamic> likeObjectMap = {};
@@ -86,7 +88,7 @@ class LikeService {
   static Future<int> getLikeObjectCount({required String objectId}) async {
     try {
       final snapshot = await FirebaseService.fireStore
-          .collection('likeObject')
+          .collection(collection)
           .where('objectId', isEqualTo: objectId)
           .get();
 

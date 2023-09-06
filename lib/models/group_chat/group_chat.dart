@@ -6,6 +6,7 @@ class GroupChat {
   final String id;
   final String title;
   final String authorId;
+  final String connectedGatheringId;
   final String userIdList;
   final String timeStamp;
 
@@ -13,6 +14,7 @@ class GroupChat {
     required this.id,
     required this.title,
     required this.authorId,
+    required this.connectedGatheringId,
     required this.userIdList,
     required this.timeStamp,
   });

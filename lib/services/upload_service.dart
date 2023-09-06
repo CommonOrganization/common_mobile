@@ -17,7 +17,7 @@ class UploadService {
       var task = await FirebaseService.fireStorage.ref(imageRef).putFile(file);
       return await task.ref.getDownloadURL();
     } catch (e) {
-      log('FirebaseUploadService - uploadImage Failed : $e');
+      log('UploadService - uploadImage Failed : $e');
       return null;
     }
   }

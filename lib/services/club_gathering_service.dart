@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:common/constants/constants_enum.dart';
 import 'package:common/models/club_gathering/club_gathering.dart';
+import 'package:common/services/data_service.dart';
 import 'package:common/services/firebase_service.dart';
 import 'package:common/services/like_service.dart';
 import '../utils/gathering_utils.dart';
@@ -18,7 +19,7 @@ class ClubGatheringService {
   static Future<bool> uploadGathering(
       {required ClubGathering gathering}) async {
     try {
-      String? id = await GatheringService.getId(category: _category);
+      String? id = await DataService.getId(name: _category);
       if (id == null) return false;
       Map<String, dynamic> gatheringData = gathering.toJson();
       gatheringData['id'] = id;
@@ -28,7 +29,7 @@ class ClubGatheringService {
         data: gatheringData,
       );
     } catch (e) {
-      log('FirebaseClubGatheringService - uploadGathering Failed : $e');
+      log('ClubGatheringService - uploadGathering Failed : $e');
       return false;
     }
   }
@@ -66,7 +67,7 @@ class ClubGatheringService {
       return await GatheringService.applyGathering(
           category: _category, id: id, userId: userId);
     } catch (e) {
-      log('FirebaseClubGatheringService - applyGathering Failed : $e');
+      log('ClubGatheringService - applyGathering Failed : $e');
       return false;
     }
   }
@@ -85,7 +86,7 @@ class ClubGatheringService {
           .map((gathering) => ClubGathering.fromJson(gathering.data()))
           .toList();
     } catch (e) {
-      log('FirebaseClubGatheringService - getGatheringListWhichUserIsParticipating Failed : $e');
+      log('ClubGatheringService - getGatheringListWhichUserIsParticipating Failed : $e');
       return [];
     }
   }
@@ -119,7 +120,7 @@ class ClubGatheringService {
 
       return gatheringList;
     } catch (e) {
-      log('FirebaseClubGatheringService - getTrendingOnGathering Failed : $e');
+      log('ClubGatheringService - getTrendingOnGathering Failed : $e');
       return [];
     }
   }
@@ -137,7 +138,7 @@ class ClubGatheringService {
           .map((element) => ClubGathering.fromJson(element.data()))
           .toList();
     } catch (e) {
-      log('FirebaseClubGatheringService - getRecommendGathering Failed : $e');
+      log('ClubGatheringService - getRecommendGathering Failed : $e');
       return [];
     }
   }
@@ -171,7 +172,7 @@ class ClubGatheringService {
 
       return gatheringList;
     } catch (e) {
-      log('FirebaseClubGatheringService - getInterestGathering Failed : $e');
+      log('ClubGatheringService - getInterestGathering Failed : $e');
       return [];
     }
   }
@@ -191,7 +192,7 @@ class ClubGatheringService {
       }
       return result;
     } catch (e) {
-      log('FirebaseClubGatheringService - canShowGatheringRanking Failed : $e');
+      log('ClubGatheringService - canShowGatheringRanking Failed : $e');
       return false;
     }
   }
@@ -209,7 +210,7 @@ class ClubGatheringService {
           .map((element) => ClubGathering.fromJson(element.data()))
           .toList();
     } catch (e) {
-      log('FirebaseClubGatheringService - getImmediatelyAbleToParticipateGathering Failed : $e');
+      log('ClubGatheringService - getImmediatelyAbleToParticipateGathering Failed : $e');
       return [];
     }
   }
@@ -226,7 +227,7 @@ class ClubGatheringService {
           .map((element) => ClubGathering.fromJson(element.data()))
           .toList();
     } catch (e) {
-      log('FirebaseClubGatheringService - getNearGathering Failed : $e');
+      log('ClubGatheringService - getNearGathering Failed : $e');
       return [];
     }
   }
@@ -249,7 +250,7 @@ class ClubGatheringService {
           .map((element) => ClubGathering.fromJson(element.data()))
           .toList();
     } catch (e) {
-      log('FirebaseClubGatheringService - getNewGathering Failed : $e');
+      log('ClubGatheringService - getNewGathering Failed : $e');
       return [];
     }
   }
@@ -269,7 +270,7 @@ class ClubGatheringService {
               hasKeywordClubGathering(gathering: element, keyword: keyword))
           .toList();
     } catch (e) {
-      log('FirebaseClubGatheringService - searchGatheringWithKeyword Failed : $e');
+      log('ClubGatheringService - searchGatheringWithKeyword Failed : $e');
       return [];
     }
   }
@@ -305,7 +306,7 @@ class ClubGatheringService {
           .map((element) => ClubGathering.fromJson(element.data()))
           .toList();
     } catch (e) {
-      log('FirebaseClubGatheringService - getNewGatheringWithCategory Failed : $e');
+      log('ClubGatheringService - getNewGatheringWithCategory Failed : $e');
       return [];
     }
   }
@@ -331,7 +332,7 @@ class ClubGatheringService {
           .map((element) => ClubGathering.fromJson(element.data()))
           .toList();
     } catch (e) {
-      log('FirebaseClubGatheringService - getAllGatheringWithCategory Failed : $e');
+      log('ClubGatheringService - getAllGatheringWithCategory Failed : $e');
       return [];
     }
   }

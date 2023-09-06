@@ -15,32 +15,7 @@ class GatheringService {
       String imageRef = '/gathering/${nowDate.microsecondsSinceEpoch}';
       return await UploadService.uploadImage(image: image, imageRef: imageRef);
     } catch (e) {
-      log('FirebaseGatheringService - uploadGatheringImage Failed : $e');
-      return null;
-    }
-  }
-
-  static Future<String?> getId({required String category}) async {
-    try {
-      if (category != 'oneDayGathering' && category != 'clubGathering') {
-        return null;
-      }
-      String? id;
-      await FirebaseService.fireStore.runTransaction((transaction) async {
-        final snapshot = await transaction
-            .get(FirebaseService.fireStore.collection('count').doc(category));
-        if (snapshot.exists) {
-          int count = snapshot.get('count');
-          id = '$category${count.toString().padLeft(8, '0')}';
-          transaction.update(
-              FirebaseService.fireStore.collection('count').doc(category), {
-            'count': count + 1,
-          });
-        }
-      });
-      return id;
-    } catch (e) {
-      log('FirebaseGatheringService - getId Failed : $e');
+      log('GatheringService - uploadGatheringImage Failed : $e');
       return null;
     }
   }
@@ -53,7 +28,7 @@ class GatheringService {
       await FirebaseService.fireStore.collection(category).doc(id).set(data);
       return true;
     } catch (e) {
-      log('FirebaseGatheringService - uploadGathering Failed : $e');
+      log('GatheringService - uploadGathering Failed : $e');
       return false;
     }
   }
@@ -68,7 +43,7 @@ class GatheringService {
       await FirebaseService.fireStore.collection(category).doc(id).update(data);
       return true;
     } catch (e) {
-      log('FirebaseGatheringService - updateGathering Failed : $e');
+      log('GatheringService - updateGathering Failed : $e');
       return false;
     }
   }
@@ -78,7 +53,7 @@ class GatheringService {
     try {
       await FirebaseService.fireStore.collection(category).doc(id).delete();
     } catch (e) {
-      log('FirebaseGatheringService - deleteGathering Failed : $e');
+      log('GatheringService - deleteGathering Failed : $e');
     }
   }
 
@@ -106,7 +81,7 @@ class GatheringService {
       });
       return applySuccess;
     } catch (e) {
-      log('FirebaseGatheringService - applyGathering Failed : $e');
+      log('GatheringService - applyGathering Failed : $e');
       return false;
     }
   }
@@ -132,14 +107,14 @@ class GatheringService {
         }
       });
     } catch (e) {
-      log('FirebaseGatheringService - approveGathering Failed : $e');
+      log('GatheringService - approveGathering Failed : $e');
     }
   }
 
   static Future<void> disapproveGathering(
       {required String category,
-        required String id,
-        required String applicantId}) async {
+      required String id,
+      required String applicantId}) async {
     try {
       await FirebaseService.fireStore.runTransaction((transaction) async {
         final snapshot = await transaction
@@ -154,7 +129,7 @@ class GatheringService {
         }
       });
     } catch (e) {
-      log('FirebaseGatheringService - disapproveGathering Failed : $e');
+      log('GatheringService - disapproveGathering Failed : $e');
     }
   }
 
@@ -170,7 +145,7 @@ class GatheringService {
       }
       return null;
     } catch (e) {
-      log('FirebaseGatheringService - get Failed : $e');
+      log('GatheringService - get Failed : $e');
       return false;
     }
   }
@@ -187,7 +162,7 @@ class GatheringService {
           .update({field: value});
       return true;
     } catch (e) {
-      log('FirebaseGatheringService - update Failed : $e');
+      log('GatheringService - update Failed : $e');
       return false;
     }
   }

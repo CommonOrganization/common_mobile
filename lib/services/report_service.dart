@@ -8,6 +8,8 @@ class ReportService {
   factory ReportService() => _instance;
   ReportService._internal();
 
+  static const String collection = 'report';
+
   static void report(
       {required String reporterId, required String reportedId}) async {
     try {
@@ -17,7 +19,7 @@ class ReportService {
         reportedId: reportedId,
         timeStamp: dateTime.toString(),
       );
-      FirebaseService.fireStore.collection('report').add(report.toJson());
+      FirebaseService.fireStore.collection(collection).add(report.toJson());
     } catch (e) {
       log('ReportService - report Failed : $e');
     }

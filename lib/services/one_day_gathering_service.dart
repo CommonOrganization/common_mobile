@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:common/models/one_day_gathering/one_day_gathering.dart';
 import '../utils/gathering_utils.dart';
+import 'data_service.dart';
 import 'firebase_service.dart';
 import 'gathering_service.dart';
 
@@ -16,7 +17,7 @@ class OneDayGatheringService {
   static Future<bool> uploadGathering(
       {required OneDayGathering gathering}) async {
     try {
-      String? id = await GatheringService.getId(category: _category);
+      String? id = await DataService.getId(name: _category);
       if (id == null) return false;
       Map<String, dynamic> gatheringData = gathering.toJson();
       gatheringData['id'] = id;
@@ -26,7 +27,7 @@ class OneDayGatheringService {
         data: gatheringData,
       );
     } catch (e) {
-      log('FirebaseOneDayGatheringService - uploadGathering Failed : $e');
+      log('OneDayGatheringService - uploadGathering Failed : $e');
       return false;
     }
   }
@@ -41,7 +42,7 @@ class OneDayGatheringService {
         data: gatheringData,
       );
     } catch (e) {
-      log('FirebaseOneDayGatheringService - updateGathering Failed : $e');
+      log('OneDayGatheringService - updateGathering Failed : $e');
       return false;
     }
   }
@@ -54,7 +55,7 @@ class OneDayGatheringService {
         id: gathering.id,
       );
     } catch (e) {
-      log('FirebaseOneDayGatheringService - deleteGathering Failed : $e');
+      log('OneDayGatheringService - deleteGathering Failed : $e');
     }
   }
 
@@ -69,7 +70,7 @@ class OneDayGatheringService {
           .map((snapshot) => OneDayGathering.fromJson(snapshot.data()))
           .toList();
     } catch (e) {
-      log('FirebaseOneDayGatheringService - getConnectedGathering Failed : $e');
+      log('OneDayGatheringService - getConnectedGathering Failed : $e');
       return [];
     }
   }
@@ -80,7 +81,7 @@ class OneDayGatheringService {
       return await GatheringService.applyGathering(
           category: _category, id: id, userId: userId);
     } catch (e) {
-      log('FirebaseOneDayGatheringService - applyGathering Failed : $e');
+      log('OneDayGatheringService - applyGathering Failed : $e');
       return false;
     }
   }
@@ -101,7 +102,7 @@ class OneDayGatheringService {
           .map((gathering) => OneDayGathering.fromJson(gathering.data()))
           .toList();
     } catch (e) {
-      log('FirebaseOneDayGatheringService - getGatheringListWhichUserIsParticipating Failed : $e');
+      log('OneDayGatheringService - getGatheringListWhichUserIsParticipating Failed : $e');
       return [];
     }
   }
@@ -124,7 +125,7 @@ class OneDayGatheringService {
           .where((element) => element.place['city'] == city)
           .toList();
     } catch (e) {
-      log('FirebaseOneDayGatheringService - getTodayGathering Failed : $e');
+      log('OneDayGatheringService - getTodayGathering Failed : $e');
       return [];
     }
   }
@@ -144,7 +145,7 @@ class OneDayGatheringService {
           .where((element) => element.place['city'] == city)
           .toList();
     } catch (e) {
-      log('FirebaseOneDayGatheringService - getDailyGathering Failed : $e');
+      log('OneDayGatheringService - getDailyGathering Failed : $e');
       return [];
     }
   }
@@ -164,7 +165,7 @@ class OneDayGatheringService {
           .where((element) => element.place['city'] == city)
           .toList();
     } catch (e) {
-      log('FirebaseOneDayGatheringService - getRecommendGathering Failed : $e');
+      log('OneDayGatheringService - getRecommendGathering Failed : $e');
       return [];
     }
   }
@@ -183,7 +184,7 @@ class OneDayGatheringService {
           .where((element) => element.place['city'] == city)
           .toList();
     } catch (e) {
-      log('FirebaseOneDayGatheringService - getNearGathering Failed : $e');
+      log('OneDayGatheringService - getNearGathering Failed : $e');
       return [];
     }
   }
@@ -209,7 +210,7 @@ class OneDayGatheringService {
           .where((element) => element.place['city'] == city)
           .toList();
     } catch (e) {
-      log('FirebaseOneDayGatheringService - getNewGathering Failed : $e');
+      log('OneDayGatheringService - getNewGathering Failed : $e');
       return [];
     }
   }
@@ -231,7 +232,7 @@ class OneDayGatheringService {
           .where((element) => element.place['city'] == city)
           .toList();
     } catch (e) {
-      log('FirebaseOneDayGatheringService - searchGatheringWithKeyword Failed : $e');
+      log('OneDayGatheringService - searchGatheringWithKeyword Failed : $e');
       return [];
     }
   }
@@ -270,7 +271,7 @@ class OneDayGatheringService {
           .where((element) => element.place['city'] == city)
           .toList();
     } catch (e) {
-      log('FirebaseOneDayGatheringService - getNewGatheringWithCategory Failed : $e');
+      log('OneDayGatheringService - getNewGatheringWithCategory Failed : $e');
       return [];
     }
   }
@@ -298,7 +299,7 @@ class OneDayGatheringService {
           .where((element) => element.place['city'] == city)
           .toList();
     } catch (e) {
-      log('FirebaseOneDayGatheringService - getAllGatheringWithCategory Failed : $e');
+      log('OneDayGatheringService - getAllGatheringWithCategory Failed : $e');
       return [];
     }
   }
