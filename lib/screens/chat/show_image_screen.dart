@@ -25,6 +25,18 @@ class _ShowImageScreenState extends State<ShowImageScreen> {
         backgroundColor: kBlackColor,
         foregroundColor: kWhiteColor,
         elevation: 0,
+        leadingWidth: 48,
+        leading: GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: () => Navigator.pop(context),
+          child: Container(
+            margin: const EdgeInsets.only(left: 20),
+            alignment: Alignment.center,
+            child: SvgPicture.asset(
+                'assets/icons/svg/arrow_left_white_28px.svg'
+            ),
+          ),
+        ),
         actions: [
           GestureDetector(
             onTap: () {

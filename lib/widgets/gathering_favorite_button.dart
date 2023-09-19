@@ -24,7 +24,6 @@ class GatheringFavoriteButton extends StatefulWidget {
 }
 
 class _GatheringFavoriteButtonState extends State<GatheringFavoriteButton> {
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -47,10 +46,11 @@ class _GatheringFavoriteButtonState extends State<GatheringFavoriteButton> {
                 await LikeService.likeObject(
                   objectId: widget.gatheringId,
                   userId: widget.userId,
-                  likeType: LikeTypeExtenstion.getLikeType(widget.category).name,
+                  likeType:
+                      LikeTypeExtenstion.getLikeType(widget.category).name,
                 );
-              };
-              if(!mounted) return;
+              }
+              if (!mounted) return;
               context.read<ScreenController>().pageRefresh();
               setState(() {});
             },

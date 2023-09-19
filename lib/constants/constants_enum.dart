@@ -1382,7 +1382,7 @@ extension LikeTypeExtenstion on LikeType {
   static LikeType getLikeType(String text) => likeTypes[text];
 }
 
-enum MessageType { text,image }
+enum MessageType { text, image }
 
 extension MessageTypeExtenstion on MessageType {
   static Map names = {

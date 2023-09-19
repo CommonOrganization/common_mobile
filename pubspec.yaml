@@ -10,10 +10,10 @@ dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.2
+  cupertino_icons: ^1.0.6
 
-  json_annotation: ^4.7.0
-  flutter_svg: ^2.0.1
+  json_annotation: ^4.8.1
+  flutter_svg: ^2.0.7
 
   cloud_firestore: ^4.3.1
   firebase_core: ^2.4.1
@@ -23,23 +23,23 @@ dependencies:
 
   crypto: ^3.0.2
 
-  http: ^0.13.5
+  http: ^1.1.0
 
-  scrollable_positioned_list: ^0.3.5
-  another_flushbar: ^1.12.29
+  scrollable_positioned_list: ^0.3.8
+  another_flushbar: ^1.12.30
 
-  image_picker: ^0.8.6+1
+  image_picker: ^1.0.4
 
-  shared_preferences: ^2.0.17
+  shared_preferences: ^2.2.1
 
   provider: ^6.0.5
 
-  flutter_speed_dial: ^6.2.0
+  flutter_speed_dial: ^7.0.0
 
-  flutter_localization: ^0.1.11
+  flutter_localization: ^0.1.14
   intl: ^0.18.0
 
-  url_launcher: ^6.1.10
+  url_launcher: ^6.1.14
 
   dotted_border: ^2.0.0+3
 

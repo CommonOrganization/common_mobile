@@ -1,5 +1,7 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../constants/constants_enum.dart';
+import '../models/chat/chat.dart';
 import '../models/personal_chat/personal_chat.dart';
 import 'chat_service.dart';
 import 'data_service.dart';
@@ -12,9 +14,11 @@ class PersonalChatService implements ChatService<PersonalChat> {
   static const String collection = 'personalChat';
 
   @override
-  Future<String?> startChat(
-      {required String user1Id, required String user2Id}) async {
+  Future<String?> startChat({required List<String> userIdList}) async {
     try {
+      String user1Id = userIdList.first;
+      String user2Id = userIdList.where((id) => id != user1Id).first;
+
       QuerySnapshot snapshot = await FirebaseFirestore.instance
           .collection(collection)
           .where(
@@ -99,9 +103,41 @@ class PersonalChatService implements ChatService<PersonalChat> {
   }
 
   @override
+  Future<Chat?> getLastChat({required String chatId})async {
+    try {
+      QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore.instance
+          .collection(collection)
+          .doc(chatId)
+          .collection('chat').orderBy('timeStamp',descending: true).get();
+
+      if (snapshot.docs.isNotEmpty) {
+        return Chat.fromJson(snapshot.docs.first.data());
+      }
+      return null;
+    } catch (e) {
+      log('PersonalChatService - getLastChat Failed : $e');
+      return null;
+    }
+  }
+
+  @override
   void sendText(
       {required String chatId, required String userId, required String text}) {
-    try {} catch (e) {
+    try {
+      DateTime nowDate = DateTime.now();
+      Chat textChat = Chat(
+        senderId: userId,
+        message: text,
+        messageType: MessageType.text.name,
+        timeStamp: nowDate.toString(),
+      );
+
+      FirebaseFirestore.instance
+          .collection(collection)
+          .doc(chatId)
+          .collection('chat')
+          .add(textChat.toJson());
+    } catch (e) {
       log('PersonalChatService - sendText Failed : $e');
     }
   }
@@ -111,8 +147,24 @@ class PersonalChatService implements ChatService<PersonalChat> {
       {required String chatId,
       required String userId,
       required List<String> images}) {
-    try {} catch (e) {
+    try {
+      DateTime nowDate = DateTime.now();
+      Chat textChat = Chat(
+        senderId: userId,
+        message: images,
+        messageType: MessageType.image.name,
+        timeStamp: nowDate.toString(),
+      );
+
+      FirebaseFirestore.instance
+          .collection(collection)
+          .doc(chatId)
+          .collection('chat')
+          .add(textChat.toJson());
+    } catch (e) {
       log('PersonalChatService - sendImage Failed : $e');
     }
   }
+
+
 }

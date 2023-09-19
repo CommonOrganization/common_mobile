@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:common/models/chat/chat.dart';
 
 abstract class ChatService<T> {
-  Future<String?> startChat({required String user1Id, required String user2Id});
+  Future<String?> startChat({required List<String> userIdList});
   Future<List<T>> getUserChat({required String userId});
   Future<T?> getChatRoom({required String chatId});
+  Future<Chat?> getLastChat({required String chatId});
   Stream<QuerySnapshot<Map<String,dynamic>>> getChat({required String chatId});
 
   void sendText(

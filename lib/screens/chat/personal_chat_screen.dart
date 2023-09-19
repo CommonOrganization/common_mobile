@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/constants_colors.dart';
@@ -24,6 +25,8 @@ class PersonalChatScreen extends StatefulWidget {
 }
 
 class _PersonalChatScreenState extends State<PersonalChatScreen> {
+  final ScrollController _scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -47,6 +50,17 @@ class _PersonalChatScreenState extends State<PersonalChatScreen> {
                       foregroundColor: kFontGray800Color,
                       elevation: 0,
                       centerTitle: true,
+                      leadingWidth: 48,
+                      leading: GestureDetector(
+                        behavior: HitTestBehavior.opaque,
+                        onTap: () => Navigator.pop(context),
+                        child: Container(
+                          margin: const EdgeInsets.only(left: 20),
+                          alignment: Alignment.center,
+                          child: SvgPicture.asset(
+                              'assets/icons/svg/arrow_left_28px.svg'),
+                        ),
+                      ),
                       title: FutureBuilder(
                         future: UserService.get(
                           id: otherUserId,
@@ -69,7 +83,6 @@ class _PersonalChatScreenState extends State<PersonalChatScreen> {
                           return Container();
                         },
                       ),
-
                     ),
                     body: Column(
                       children: [
@@ -84,7 +97,15 @@ class _PersonalChatScreenState extends State<PersonalChatScreen> {
                                         as QuerySnapshot<Map<String, dynamic>>;
                                 String? lastChatDate;
                                 String? lastSenderId;
+
+                                WidgetsBinding.instance
+                                    .addPostFrameCallback((timeStamp) {
+                                  _scrollController.jumpTo(_scrollController
+                                      .position.maxScrollExtent);
+                                });
+
                                 return ListView(
+                                  controller: _scrollController,
                                   padding: const EdgeInsets.only(bottom: 20),
                                   children: chatSnapshot.docs
                                       .map((queryDocumentSnapshot) {

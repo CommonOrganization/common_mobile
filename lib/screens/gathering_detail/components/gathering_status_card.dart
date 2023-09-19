@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/services/personal_chat_service.dart';
 import 'package:common/utils/local_utils.dart';
@@ -167,11 +168,11 @@ class GatheringStatusCard extends StatelessWidget {
                         showMessage(context, message: '잠시 후에 다시 시도해 주세요 :)');
                         return;
                       }
-                      PersonalChatService().startChat(
-                        user1Id: context.read<UserController>().user!.id,
-                        user2Id: organizerId,
-                      ).then((value) {
-                        print('success');
+                      PersonalChatService().startChat(userIdList: [
+                        context.read<UserController>().user!.id,
+                        organizerId
+                      ]).then((value) {
+                        log('$value 채팅방');
                       });
                     },
                     child: Container(

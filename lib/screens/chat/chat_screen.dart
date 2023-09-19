@@ -1,5 +1,6 @@
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/personal_chat/personal_chat.dart';
+import 'package:common/screens/chat_upload/chat_upload_screen.dart';
 import 'package:common/services/personal_chat_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -7,8 +8,15 @@ import 'package:provider/provider.dart';
 import '../../constants/constants_colors.dart';
 import 'components/personal_chat_card.dart';
 
-class ChatScreen extends StatelessWidget {
+class ChatScreen extends StatefulWidget {
   const ChatScreen({Key? key}) : super(key: key);
+
+  @override
+  State<ChatScreen> createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
+  int _headerIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -29,43 +37,83 @@ class ChatScreen extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
+        actions: [
+          GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ChatUploadScreen(),
+              ),
+            ),
+            child: SvgPicture.asset(
+              'assets/icons/svg/chat_add_28px.svg',
+            ),
+          ),
+          const SizedBox(width: 20),
+        ],
         elevation: 0,
       ),
       body: Consumer<UserController>(builder: (context, controller, child) {
         if (controller.user == null) return noChatPage();
-        return FutureBuilder(
-          future:
-              PersonalChatService().getUserChat(userId: controller.user!.id),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              List<PersonalChat> userChatList =
-                  snapshot.data as List<PersonalChat>;
-              if (userChatList.isNotEmpty) {
-                return Column(
-                  children: userChatList.map((personalChat) {
-                    String otherUserId = personalChat.userIdList
-                        .where((userId) => userId != controller.user!.id)
-                        .first;
-                    return PersonalChatCard(
-                      otherUserId: otherUserId,
-                      chatId: personalChat.id,
-                    );
-                  }).toList(),
-                );
-              }
-            }
-            return noChatPage();
-          },
+        return Column(
+          children: [
+            Row(
+              children: [
+                kTabBarButton(title: '1:1 채팅', index: 0),
+                kTabBarButton(title: '그룹채팅', index: 1),
+              ],
+            ),
+            Expanded(
+              child: _headerIndex == 0
+                  ? personalChatArea(controller.user!.id)
+                  : groupChatArea(controller.user!.id),
+            ),
+          ],
         );
       }),
     );
   }
 
+  Widget personalChatArea(String userId) {
+    return FutureBuilder(
+      future: PersonalChatService().getUserChat(userId: userId),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          List<PersonalChat> userChatList = snapshot.data as List<PersonalChat>;
+          if (userChatList.isNotEmpty) {
+            return Column(
+              children: userChatList.map((personalChat) {
+                String otherUserId =
+                    personalChat.userIdList.where((id) => id != userId).first;
+                return PersonalChatCard(
+                  otherUserId: otherUserId,
+                  chatId: personalChat.id,
+                );
+              }).toList(),
+            );
+          }
+          return noChatPage();
+        }
+        return Container();
+      },
+    );
+  }
+
+  Widget groupChatArea(String userId) {
+    return FutureBuilder(
+      future: null,
+      builder: (context, snapshot) {
+        return Container();
+      },
+    );
+  }
+
   Widget noChatPage() {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const SizedBox(width: double.infinity, height: 254),
         SvgPicture.asset('assets/icons/svg/chat_32px.svg'),
         const SizedBox(height: 10),
         Text(
@@ -78,6 +126,32 @@ class ChatScreen extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  Widget kTabBarButton({required String title, required int index}) {
+    return GestureDetector(
+      onTap: () => setState(() => _headerIndex = index),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        height: 48,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: kWhiteColor,
+          border: _headerIndex == index
+              ? Border(bottom: BorderSide(color: kMainColor, width: 2))
+              : null,
+        ),
+        child: Text(
+          title,
+          style: TextStyle(
+            color:
+                _headerIndex == index ? kFontGray800Color : kFontGray200Color,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
     );
   }
 }

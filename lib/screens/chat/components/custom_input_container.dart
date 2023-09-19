@@ -1,9 +1,12 @@
+import 'package:common/services/chat_service.dart';
+import 'package:common/services/group_chat_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../constants/constants_colors.dart';
 import '../../../services/personal_chat_service.dart';
 import '../../../services/upload_service.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class CustomInputContainer extends StatefulWidget {
   final String chatId;
@@ -20,24 +23,35 @@ class CustomInputContainer extends StatefulWidget {
 
 class _CustomInputContainerState extends State<CustomInputContainer> {
   final ImagePicker _picker = ImagePicker();
-
+  late ChatService _chatService;
   final TextEditingController _textEditingController = TextEditingController();
 
   void sendText() {
     String text = _textEditingController.text;
     _textEditingController.clear();
     if (text.isEmpty) return;
-    PersonalChatService()
-        .sendText(chatId: widget.chatId, userId: widget.userId, text: text);
+    _chatService.sendText(
+        chatId: widget.chatId, userId: widget.userId, text: text);
   }
 
   void sendImage() async {
+    await [Permission.photos,Permission.camera].request();
     List<XFile> imageList = await _picker.pickMultiImage();
     if (imageList.isEmpty) return;
     List<String> imageUrlList =
         await UploadService.uploadImageList(imageList: imageList);
-    PersonalChatService().sendImage(
+    _chatService.sendImage(
         chatId: widget.chatId, userId: widget.userId, images: imageUrlList);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.chatId.startsWith('personal')) {
+      _chatService = PersonalChatService();
+    } else {
+      _chatService = GroupChatService();
+    }
   }
 
   @override

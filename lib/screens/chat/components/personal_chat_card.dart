@@ -1,4 +1,8 @@
+import 'package:common/constants/constants_enum.dart';
+import 'package:common/models/chat/chat.dart';
 import 'package:common/screens/chat/personal_chat_screen.dart';
+import 'package:common/services/personal_chat_service.dart';
+import 'package:common/utils/date_utils.dart';
 import 'package:flutter/material.dart';
 import '../../../constants/constants_colors.dart';
 import '../../../services/user_service.dart';
@@ -6,8 +10,11 @@ import '../../../services/user_service.dart';
 class PersonalChatCard extends StatelessWidget {
   final String otherUserId;
   final String chatId;
-  const PersonalChatCard({Key? key, required this.otherUserId, required this.chatId,})
-      : super(key: key);
+  const PersonalChatCard({
+    Key? key,
+    required this.otherUserId,
+    required this.chatId,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -81,58 +88,57 @@ class PersonalChatCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 6),
                   FutureBuilder(
-                    future: null,
+                    future: PersonalChatService().getLastChat(chatId: chatId),
                     builder: (context, snapshot) {
-                      return Text(
-                        '최근에 올라온 채팅',
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: kFontGray500Color,
-                          height: 20 / 15,
-                          letterSpacing: -0.5,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      );
+                      if (snapshot.hasData) {
+                        Chat? chat = snapshot.data;
+                        if (chat != null) {
+                          MessageType messageType =
+                              MessageTypeExtenstion.getType(chat.messageType);
+                          String text;
+                          if (messageType == MessageType.image) {
+                            text = '사진이 전송되었습니다.';
+                          } else {
+                            text = chat.message;
+                          }
+                          return Text(
+                            text,
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: kFontGray500Color,
+                              height: 20 / 15,
+                              letterSpacing: -0.5,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          );
+                        }
+                      }
+                      return Container();
                     },
                   ),
                 ],
               ),
             ),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Text(
-                  '방금',
-                  style: TextStyle(
-                    fontSize: 13,
-                    height: 20 / 13,
-                    letterSpacing: -0.5,
-                    color: kFontGray400Color,
-                  ),
-                ),
-                const SizedBox(height: 6),
-                Container(
-                  alignment: Alignment.center,
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 1, horizontal: 7),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: kMainColor,
-                  ),
-                  child: Text(
-                    '6',
-                    style: TextStyle(
-                      fontSize: 13,
-                      height: 18 / 13,
-                      letterSpacing: -0.5,
-                      fontWeight: FontWeight.bold,
-                      color: kWhiteColor,
-                    ),
-                  ),
-                ),
-              ],
+            FutureBuilder(
+              future: PersonalChatService().getLastChat(chatId: chatId),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  Chat? chat = snapshot.data;
+                  if (chat != null) {
+                    return Text(
+                      getTimeDifference(DateTime.parse(chat.timeStamp)),
+                      style: TextStyle(
+                        fontSize: 13,
+                        height: 20 / 13,
+                        letterSpacing: -0.5,
+                        color: kFontGray400Color,
+                      ),
+                    );
+                  }
+                }
+                return Container();
+              },
             ),
           ],
         ),
