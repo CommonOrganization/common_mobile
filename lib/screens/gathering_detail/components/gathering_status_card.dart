@@ -1,4 +1,6 @@
 import 'package:common/controllers/user_controller.dart';
+import 'package:common/services/personal_chat_service.dart';
+import 'package:common/utils/local_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../constants/constants_colors.dart';
@@ -72,6 +74,7 @@ class GatheringStatusCard extends StatelessWidget {
                                   color: kDarkGray20Color,
                                   image: DecorationImage(
                                     image: NetworkImage(image),
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
                               ),
@@ -115,6 +118,7 @@ class GatheringStatusCard extends StatelessWidget {
                         color: kDarkGray20Color,
                         image: DecorationImage(
                           image: NetworkImage(image),
+                          fit: BoxFit.cover,
                         ),
                       ),
                     );
@@ -156,20 +160,35 @@ class GatheringStatusCard extends StatelessWidget {
               const Spacer(),
               Builder(builder: (context) {
                 if (organizerId != context.read<UserController>().user?.id) {
-                  return Container(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 30),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: kSubColor1,
-                    ),
-                    child: Text(
-                      '모임장과 채팅하기',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: kMainColor,
-                        height: 20 / 14,
+                  return GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () {
+                      if (context.read<UserController>().user == null) {
+                        showMessage(context, message: '잠시 후에 다시 시도해 주세요 :)');
+                        return;
+                      }
+                      PersonalChatService().startChat(
+                        user1Id: context.read<UserController>().user!.id,
+                        user2Id: organizerId,
+                      ).then((value) {
+                        print('success');
+                      });
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 30),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: kSubColor1,
+                      ),
+                      child: Text(
+                        '모임장과 채팅하기',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: kMainColor,
+                          height: 20 / 14,
+                        ),
                       ),
                     ),
                   );

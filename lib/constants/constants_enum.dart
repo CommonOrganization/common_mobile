@@ -1381,3 +1381,20 @@ extension LikeTypeExtenstion on LikeType {
   String get name => names[this];
   static LikeType getLikeType(String text) => likeTypes[text];
 }
+
+enum MessageType { text,image }
+
+extension MessageTypeExtenstion on MessageType {
+  static Map names = {
+    MessageType.text: 'text',
+    MessageType.image: 'image',
+  };
+
+  static Map types = {
+    'text': MessageType.text,
+    'image': MessageType.image,
+  };
+
+  String get name => names[this];
+  static MessageType getType(String text) => types[text];
+}

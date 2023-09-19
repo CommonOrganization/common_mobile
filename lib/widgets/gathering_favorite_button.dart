@@ -1,7 +1,9 @@
 import 'package:common/constants/constants_enum.dart';
+import 'package:common/controllers/screen_controller.dart';
 import 'package:common/services/like_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 
 class GatheringFavoriteButton extends StatefulWidget {
   final String category;
@@ -22,6 +24,7 @@ class GatheringFavoriteButton extends StatefulWidget {
 }
 
 class _GatheringFavoriteButtonState extends State<GatheringFavoriteButton> {
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -46,7 +49,9 @@ class _GatheringFavoriteButtonState extends State<GatheringFavoriteButton> {
                   userId: widget.userId,
                   likeType: LikeTypeExtenstion.getLikeType(widget.category).name,
                 );
-              }
+              };
+              if(!mounted) return;
+              context.read<ScreenController>().pageRefresh();
               setState(() {});
             },
             child: SvgPicture.asset(

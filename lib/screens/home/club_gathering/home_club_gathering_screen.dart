@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:common/constants/constants_value.dart';
+import 'package:common/controllers/screen_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../constants/constants_colors.dart';
@@ -31,69 +32,76 @@ class _HomeClubGatheringScreenState extends State<HomeClubGatheringScreen> {
         UserPlace userPlace = UserPlace.fromJson(
             controller.user!.userPlace as Map<String, dynamic>);
 
-        return RefreshIndicator(
-          color: kMainColor,
-          onRefresh: () async => await Future.delayed(
-            const Duration(milliseconds: 500),
-                () => setState(() {}),
-          ),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const GatheringCategoryContainer(
-                    category: kClubGatheringCategory),
-                const InterestingCategoryContainer(
-                    gatheringCategory: kClubGatheringCategory),
-                const SizedBox(height: 45),
-                ClubGatheringContentsArea(
-                  future: ClubGatheringService.getTrendingOnGathering(
-                      city: userPlace.city),
-                  title: '인기 급상승 소모임',
-                ),
-                Builder(builder: (context) {
-                  List userInterestCategory = controller.user!.interestCategory;
-                  int index = Random().nextInt(userInterestCategory.length);
-                  CommonCategory category = CommonCategoryExtenstion.getCategory(
-                      userInterestCategory[index]);
-
-                  return ClubGatheringContentsArea(
-                    future: ClubGatheringService.getRecommendGathering(
-                        category: category.name, city: userPlace.city),
-                    title: '추천하는 ${category.title} 하루모임',
-                  );
-                }),
-                kRankingArea(
-                  interestCategory: interestCategory,
-                  userId: controller.user!.id,
-                  city:userPlace.city,
-                ),
-                ClubGatheringContentsArea(
-                  future: ClubGatheringService
-                      .getImmediatelyAbleToParticipateGathering(
-                          city: userPlace.city),
-                  title: '바로 가입 가능한 소모임',
-                ),
-                ClubGatheringContentsArea(
-                  future: ClubGatheringService.getNearGathering(
-                      city: userPlace.city),
-                  title: '나와 가까운 소모임',
-                ),
-                ClubGatheringContentsArea(
-                  future: ClubGatheringService.getNewGathering(
-                      city: userPlace.city),
-                  title: '새로 열린 소모임',
-                ),
-              ],
+        return Consumer<ScreenController>(
+            builder: (context, screenController, child) {
+          return RefreshIndicator(
+            color: kMainColor,
+            onRefresh: () async => await Future.delayed(
+              const Duration(milliseconds: 500),
+              () => setState(() {}),
             ),
-          ),
-        );
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const GatheringCategoryContainer(
+                      category: kClubGatheringCategory),
+                  const InterestingCategoryContainer(
+                      gatheringCategory: kClubGatheringCategory),
+                  const SizedBox(height: 45),
+                  ClubGatheringContentsArea(
+                    future: ClubGatheringService.getTrendingOnGathering(
+                        city: userPlace.city),
+                    title: '인기 급상승 소모임',
+                  ),
+                  Builder(builder: (context) {
+                    List userInterestCategory =
+                        controller.user!.interestCategory;
+                    int index = Random().nextInt(userInterestCategory.length);
+                    CommonCategory category =
+                        CommonCategoryExtenstion.getCategory(
+                            userInterestCategory[index]);
+
+                    return ClubGatheringContentsArea(
+                      future: ClubGatheringService.getRecommendGathering(
+                          category: category.name, city: userPlace.city),
+                      title: '추천하는 ${category.title} 하루모임',
+                    );
+                  }),
+                  kRankingArea(
+                    interestCategory: interestCategory,
+                    userId: controller.user!.id,
+                    city: userPlace.city,
+                  ),
+                  ClubGatheringContentsArea(
+                    future: ClubGatheringService
+                        .getImmediatelyAbleToParticipateGathering(
+                            city: userPlace.city),
+                    title: '바로 가입 가능한 소모임',
+                  ),
+                  ClubGatheringContentsArea(
+                    future: ClubGatheringService.getNearGathering(
+                        city: userPlace.city),
+                    title: '나와 가까운 소모임',
+                  ),
+                  ClubGatheringContentsArea(
+                    future: ClubGatheringService.getNewGathering(
+                        city: userPlace.city),
+                    title: '새로 열린 소모임',
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
       },
     );
   }
 
   Widget kRankingArea(
-          {required List interestCategory, required String userId,required String city}) =>
+          {required List interestCategory,
+          required String userId,
+          required String city}) =>
       FutureBuilder(
         future: ClubGatheringService.canShowGatheringRanking(
             interestCategory: interestCategory),
@@ -128,7 +136,7 @@ class _HomeClubGatheringScreenState extends State<HomeClubGatheringScreen> {
                               (category) => ClubGatheringRanking(
                                 category: category,
                                 userId: userId,
-                                  city:city,
+                                city: city,
                               ),
                             )
                             .toList(),

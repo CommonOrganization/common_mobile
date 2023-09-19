@@ -20,6 +20,9 @@ String getSimplyDateDetail(String date) {
 
 String getTimeDifference(DateTime dateTime) {
   DateTime nowDate = DateTime.now();
+  if (nowDate.difference(dateTime).inSeconds < 60) {
+    return '${nowDate.difference(dateTime).inSeconds}초 전';
+  }
   if (nowDate.difference(dateTime).inMinutes < 60) {
     return '${nowDate.difference(dateTime).inMinutes}분 전';
   }

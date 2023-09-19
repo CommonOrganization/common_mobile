@@ -29,6 +29,7 @@ class GatheringOrganizerCard extends StatelessWidget {
                       image: NetworkImage(
                         snapshot.data as String,
                       ),
+                      fit: BoxFit.cover,
                     ),
                     color: kDarkGray20Color,
                   ),

@@ -5,14 +5,22 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:provider/provider.dart';
+import 'controllers/screen_controller.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(
-    ChangeNotifierProvider<UserController>(
-      create: (_) => UserController(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<UserController>(
+          create: (_) => UserController(),
+        ),
+        ChangeNotifierProvider<ScreenController>(
+          create: (_) => ScreenController(),
+        ),
+      ],
       builder: (context, child) => const MyApp(),
     ),
   );

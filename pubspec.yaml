@@ -43,6 +43,9 @@ dependencies:
 
   dotted_border: ^2.0.0+3
 
+  image_gallery_saver: ^2.0.3
+  permission_handler: ^11.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

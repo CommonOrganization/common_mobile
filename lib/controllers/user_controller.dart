@@ -16,7 +16,9 @@ class UserController extends ChangeNotifier {
     if (loginUserInfo == null) return false;
     await LocalController.saveUserData(loginUserInfo);
     user = loginUserInfo;
+
     notifyListeners();
+    log('${user?.id}유저 로그인');
     return true;
   }
 
@@ -25,6 +27,7 @@ class UserController extends ChangeNotifier {
       user = newUser;
       await updateToken();
       notifyListeners();
+      log('${user?.id}유저 로그인');
       return true;
     } catch (e) {
       log('UserController - setUser Failed : $e');
@@ -39,6 +42,7 @@ class UserController extends ChangeNotifier {
       if (newUser == null) return false;
       user = newUser;
       notifyListeners();
+      log('${user?.id}유저 로그인');
       return true;
     } catch (e) {
       log('UserController - refreshUser Failed : $e');
@@ -47,6 +51,7 @@ class UserController extends ChangeNotifier {
   }
 
   Future<void> logout() async {
+    log('${user?.id}유저 로그아웃');
     user = null;
     notifyListeners();
   }
