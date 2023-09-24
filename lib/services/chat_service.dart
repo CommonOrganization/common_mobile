@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:common/models/chat/chat.dart';
 
 abstract class ChatService<T> {
-  Future<String?> startChat({required List<String> userIdList});
+  Future<String?> startChat({required List userIdList});
   Future<List<T>> getUserChat({required String userId});
   Future<T?> getChatRoom({required String chatId});
   Future<Chat?> getLastChat({required String chatId});

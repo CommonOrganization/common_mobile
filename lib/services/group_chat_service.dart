@@ -14,7 +14,7 @@ class GroupChatService implements ChatService<PersonalChat> {
 
   @override
   Future<String?> startChat(
-      {required List<String> userIdList}) async {
+      {required List userIdList}) async {
     try {
 
     } catch (e) {

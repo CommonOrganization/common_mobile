@@ -14,7 +14,7 @@ class PersonalChatService implements ChatService<PersonalChat> {
   static const String collection = 'personalChat';
 
   @override
-  Future<String?> startChat({required List<String> userIdList}) async {
+  Future<String?> startChat({required List userIdList}) async {
     try {
       String user1Id = userIdList.first;
       String user2Id = userIdList.where((id) => id != user1Id).first;

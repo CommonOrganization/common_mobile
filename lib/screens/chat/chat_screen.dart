@@ -1,5 +1,6 @@
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/personal_chat/personal_chat.dart';
+import 'package:common/screens/chat/personal_chat_screen.dart';
 import 'package:common/screens/chat_upload/chat_upload_screen.dart';
 import 'package:common/services/personal_chat_service.dart';
 import 'package:flutter/material.dart';
@@ -40,12 +41,25 @@ class _ChatScreenState extends State<ChatScreen> {
         actions: [
           GestureDetector(
             behavior: HitTestBehavior.opaque,
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const ChatUploadScreen(),
-              ),
-            ),
+            onTap: () async {
+              String? chatId = await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ChatUploadScreen(),
+                ),
+              );
+              if (!mounted) return;
+              if (chatId != null) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PersonalChatScreen(
+                      chatId: chatId,
+                    ),
+                  ),
+                );
+              }
+            },
             child: SvgPicture.asset(
               'assets/icons/svg/chat_add_28px.svg',
             ),
