@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:common/constants/constants_colors.dart';
 import 'package:common/models/club_gathering/club_gathering.dart';
 import 'package:common/widgets/contents_tag.dart';
@@ -46,15 +47,28 @@ class ClubGatheringCard extends StatelessWidget {
             Row(
               children: [
                 const SizedBox(width: 18),
-                Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: kFontGray50Color,
-                    image: DecorationImage(
-                      image: NetworkImage(gathering.mainImage),
-                      fit: BoxFit.cover,
+                CachedNetworkImage(
+                  imageUrl: gathering.mainImage,
+                  imageBuilder: (context, imageProvider) => Container(
+                    width: 80,
+                    height: 80,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: kDarkGray20Color,
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  fadeInDuration: Duration.zero,
+                  fadeOutDuration: Duration.zero,
+                  placeholder: (context, url) => Container(
+                    width: 80,
+                    height: 80,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: kDarkGray20Color,
                     ),
                   ),
                 ),

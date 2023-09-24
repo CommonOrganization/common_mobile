@@ -250,33 +250,13 @@ class GatheringSliverAppbar extends StatelessWidget {
                             const SizedBox(height: 6),
                             Row(
                               children: [
-                                //TODO 소모임 단톡방 기능 개발시 여기에서 대화로
-                                Builder(
-                                  builder: (context) {
-                                    if (gatheringType == GatheringType.club) {
-                                      return FutureBuilder(
-                                        future: null,
-                                        builder: (context, snapshot) {
-                                          return Text(
-                                            '${getTimeDifference(DateTime.parse(gathering.timeStamp))} 대화',
-                                            style: TextStyle(
-                                              fontSize: 13,
-                                              color: kMainColor,
-                                              height: 17 / 13,
-                                            ),
-                                          );
-                                        },
-                                      );
-                                    }
-                                    return Text(
-                                      '${getTimeDifference(DateTime.parse(gathering.timeStamp))} 등록',
-                                      style: TextStyle(
-                                        fontSize: 13,
-                                        color: kMainColor,
-                                        height: 17 / 13,
-                                      ),
-                                    );
-                                  },
+                                Text(
+                                  '${getTimeDifference(DateTime.parse(gathering.timeStamp))} 등록',
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    color: kMainColor,
+                                    height: 17 / 13,
+                                  ),
                                 ),
                                 Text(
                                   'ㆍ',

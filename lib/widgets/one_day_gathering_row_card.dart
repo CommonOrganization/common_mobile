@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:common/constants/constants_colors.dart';
 import 'package:common/models/one_day_gathering/one_day_gathering.dart';
 import 'package:flutter/material.dart';
@@ -34,15 +35,28 @@ class OneDayGatheringRowCard extends StatelessWidget {
         height: 106,
         child: Row(
           children: [
-            Container(
-              width: 70,
-              height: 70,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                color: kDarkGray20Color,
-                image: DecorationImage(
-                  image: NetworkImage(gathering.mainImage),
-                  fit: BoxFit.cover,
+            CachedNetworkImage(
+              imageUrl: gathering.mainImage,
+              imageBuilder: (context, imageProvider) => Container(
+                width: 70,
+                height: 70,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: kDarkGray20Color,
+                  image: DecorationImage(
+                    image: imageProvider,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              fadeInDuration: Duration.zero,
+              fadeOutDuration: Duration.zero,
+              placeholder: (context, url) => Container(
+                width: 70,
+                height: 70,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: kDarkGray20Color,
                 ),
               ),
             ),

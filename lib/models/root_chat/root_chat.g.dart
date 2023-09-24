@@ -1,20 +1,17 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'personal_chat.dart';
+part of 'root_chat.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-PersonalChat _$PersonalChatFromJson(Map<String, dynamic> json) => PersonalChat(
+RootChat _$RootChatFromJson(Map<String, dynamic> json) => RootChat(
       id: json['id'] as String,
       userIdList: json['userIdList'] as List<dynamic>,
-      participantList: json['participantList'] as List<dynamic>,
     );
 
-Map<String, dynamic> _$PersonalChatToJson(PersonalChat instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$RootChatToJson(RootChat instance) => <String, dynamic>{
       'id': instance.id,
       'userIdList': instance.userIdList,
-      'participantList': instance.participantList,
     };

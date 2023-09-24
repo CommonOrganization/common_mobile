@@ -1,12 +1,15 @@
 import 'package:common/controllers/user_controller.dart';
+import 'package:common/models/group_chat/group_chat.dart';
 import 'package:common/models/personal_chat/personal_chat.dart';
-import 'package:common/screens/chat/personal_chat_screen.dart';
+import 'package:common/screens/chat/components/group_chat_card.dart';
 import 'package:common/screens/chat_upload/chat_upload_screen.dart';
+import 'package:common/services/group_chat_service.dart';
 import 'package:common/services/personal_chat_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import '../../constants/constants_colors.dart';
+import 'chat_detail_screen.dart';
 import 'components/personal_chat_card.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -53,8 +56,9 @@ class _ChatScreenState extends State<ChatScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => PersonalChatScreen(
+                    builder: (context) => ChatDetailScreen(
                       chatId: chatId,
+                      chatService: PersonalChatService(),
                     ),
                   ),
                 );
@@ -98,6 +102,10 @@ class _ChatScreenState extends State<ChatScreen> {
           if (userChatList.isNotEmpty) {
             return Column(
               children: userChatList.map((personalChat) {
+                if(personalChat.userIdList.where((id) => id != userId).isEmpty){
+                  //상대방이 나간 채팅방일 경우!
+                  return Container();
+                }
                 String otherUserId =
                     personalChat.userIdList.where((id) => id != userId).first;
                 return PersonalChatCard(
@@ -116,8 +124,22 @@ class _ChatScreenState extends State<ChatScreen> {
 
   Widget groupChatArea(String userId) {
     return FutureBuilder(
-      future: null,
+      future: GroupChatService().getUserChat(userId: userId),
       builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          List<GroupChat> userChatList = snapshot.data as List<GroupChat>;
+          if (userChatList.isNotEmpty) {
+            return Column(
+              children: userChatList.map((groupChat) {
+                return GroupChatCard(
+                  chatId: groupChat.id,
+                  userId: userId,
+                );
+              }).toList(),
+            );
+          }
+          return noChatPage();
+        }
         return Container();
       },
     );

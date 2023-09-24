@@ -1,14 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:common/models/group_chat/group_chat.dart';
+import 'package:common/models/personal_chat/personal_chat.dart';
+import 'package:common/models/root_chat/root_chat.dart';
+import 'package:common/services/chat_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-
 import '../../constants/constants_colors.dart';
 import '../../constants/constants_enum.dart';
 import '../../controllers/user_controller.dart';
 import '../../models/chat/chat.dart';
-import '../../models/personal_chat/personal_chat.dart';
-import '../../services/personal_chat_service.dart';
 import '../../services/user_service.dart';
 import 'components/custom_input_container.dart';
 import 'components/other_user_chat_bubble.dart';
@@ -16,15 +17,20 @@ import 'components/other_user_image_bubble.dart';
 import 'components/user_chat_bubble.dart';
 import 'components/user_image_bubble.dart';
 
-class PersonalChatScreen extends StatefulWidget {
+class ChatDetailScreen extends StatefulWidget {
   final String chatId;
-  const PersonalChatScreen({Key? key, required this.chatId}) : super(key: key);
+  final ChatService chatService;
+  const ChatDetailScreen({
+    Key? key,
+    required this.chatId,
+    required this.chatService,
+  }) : super(key: key);
 
   @override
-  State<PersonalChatScreen> createState() => _PersonalChatScreenState();
+  State<ChatDetailScreen> createState() => _ChatDetailScreenState();
 }
 
-class _PersonalChatScreenState extends State<PersonalChatScreen> {
+class _ChatDetailScreenState extends State<ChatDetailScreen> {
   final ScrollController _scrollController = ScrollController();
 
   @override
@@ -32,15 +38,16 @@ class _PersonalChatScreenState extends State<PersonalChatScreen> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: FutureBuilder(
-          future: PersonalChatService().getChatRoom(chatId: widget.chatId),
+          future: widget.chatService.getChatRoom(chatId: widget.chatId),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              PersonalChat personalChat = snapshot.data as PersonalChat;
+              if (snapshot.data == null) return Container();
+              RootChat rootChat = snapshot.data;
               return Consumer<UserController>(
                 builder: (context, controller, child) {
                   if (controller.user == null) return Container();
                   String userId = controller.user!.id;
-                  String otherUserId = personalChat.userIdList
+                  String otherUserId = rootChat.userIdList
                       .where((element) => element != userId)
                       .first;
                   return Scaffold(
@@ -61,16 +68,9 @@ class _PersonalChatScreenState extends State<PersonalChatScreen> {
                               'assets/icons/svg/arrow_left_28px.svg'),
                         ),
                       ),
-                      title: FutureBuilder(
-                        future: UserService.get(
-                          id: otherUserId,
-                          field: 'name',
-                        ),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            String partnerName = snapshot.data as String;
-                            return Text(
-                              partnerName,
+                      title: rootChat.runtimeType == GroupChat
+                          ? Text(
+                              (rootChat as GroupChat).title,
                               style: TextStyle(
                                 fontSize: 18,
                                 letterSpacing: -0.5,
@@ -78,17 +78,35 @@ class _PersonalChatScreenState extends State<PersonalChatScreen> {
                                 fontWeight: FontWeight.bold,
                                 color: kFontGray800Color,
                               ),
-                            );
-                          }
-                          return Container();
-                        },
-                      ),
+                            )
+                          : FutureBuilder(
+                              future: UserService.get(
+                                id: otherUserId,
+                                field: 'name',
+                              ),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  String partnerName = snapshot.data as String;
+                                  return Text(
+                                    partnerName,
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      letterSpacing: -0.5,
+                                      height: 28 / 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: kFontGray800Color,
+                                    ),
+                                  );
+                                }
+                                return Container();
+                              },
+                            ),
                     ),
                     body: Column(
                       children: [
                         Expanded(
                           child: StreamBuilder(
-                            stream: PersonalChatService()
+                            stream: widget.chatService
                                 .getChat(chatId: widget.chatId),
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {

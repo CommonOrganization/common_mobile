@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:common/models/one_day_gathering/one_day_gathering.dart';
 import 'package:common/screens/gathering_detail/one_day_gathering_detail/one_day_gathering_detail_screen.dart';
 import 'package:common/widgets/gathering_favorite_button.dart';
@@ -54,14 +55,29 @@ class OneDayGatheringCalendarCard extends StatelessWidget {
                 left: 18,
                 right: 16,
               ),
-              width: 70,
-              height: 70,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                color: kDarkGray20Color,
-                image: DecorationImage(
-                  image: NetworkImage(gathering.mainImage),
-                  fit: BoxFit.cover,
+              child: CachedNetworkImage(
+                imageUrl: gathering.mainImage,
+                imageBuilder: (context, imageProvider) => Container(
+                  width: 70,
+                  height: 70,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: kDarkGray20Color,
+                    image: DecorationImage(
+                      image: imageProvider,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                fadeInDuration: Duration.zero,
+                fadeOutDuration: Duration.zero,
+                placeholder: (context, url) => Container(
+                  width: 70,
+                  height: 70,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: kDarkGray20Color,
+                  ),
                 ),
               ),
             ),
@@ -73,7 +89,8 @@ class OneDayGatheringCalendarCard extends StatelessWidget {
                   Builder(
                     builder: (context) {
                       CommonCategory category =
-                          CommonCategoryExtenstion.getCategory(gathering.category);
+                          CommonCategoryExtenstion.getCategory(
+                              gathering.category);
                       return Row(
                         children: [
                           SizedBox(

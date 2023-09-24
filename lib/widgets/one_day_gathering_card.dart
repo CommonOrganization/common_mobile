@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:common/constants/constants_colors.dart';
 import 'package:common/models/one_day_gathering/one_day_gathering.dart';
 import 'package:common/widgets/contents_tag.dart';
@@ -48,15 +49,28 @@ class OneDayGatheringCard extends StatelessWidget {
             Row(
               children: [
                 const SizedBox(width: 18),
-                Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: kFontGray50Color,
-                    image: DecorationImage(
-                      image: NetworkImage(gathering.mainImage),
-                      fit: BoxFit.cover,
+                CachedNetworkImage(
+                  imageUrl: gathering.mainImage,
+                  imageBuilder: (context, imageProvider) => Container(
+                    width: 80,
+                    height: 80,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: kDarkGray20Color,
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  fadeInDuration: Duration.zero,
+                  fadeOutDuration: Duration.zero,
+                  placeholder: (context, url) => Container(
+                    width: 80,
+                    height: 80,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: kDarkGray20Color,
                     ),
                   ),
                 ),
@@ -68,8 +82,8 @@ class OneDayGatheringCard extends StatelessWidget {
                     children: [
                       Builder(builder: (context) {
                         CommonCategory category =
-                        CommonCategoryExtenstion.getCategory(
-                            gathering.category);
+                            CommonCategoryExtenstion.getCategory(
+                                gathering.category);
                         return Row(
                           children: [
                             Image.asset(
@@ -106,7 +120,8 @@ class OneDayGatheringCard extends StatelessWidget {
                           letterSpacing: -0.5,
                           fontWeight: FontWeight.bold,
                           color: kFontGray800Color,
-                        ),maxLines: 1,
+                        ),
+                        maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
                       FutureBuilder(

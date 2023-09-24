@@ -14,7 +14,7 @@ class PersonalChatService implements ChatService<PersonalChat> {
   static const String collection = 'personalChat';
 
   @override
-  Future<String?> startChat({required List userIdList}) async {
+  Future<String?> startChat({required List userIdList, String? title}) async {
     try {
       String user1Id = userIdList.first;
       String user2Id = userIdList.where((id) => id != user1Id).first;
@@ -33,24 +33,43 @@ class PersonalChatService implements ChatService<PersonalChat> {
       }).toList();
       // 이미 존재하는 채팅방의 경우
       if (documentSnapshot.isNotEmpty) {
+        List participantList = documentSnapshot.first.get('participantList');
+        bool isChanged = false;
+        if (!participantList.contains(user1Id)) {
+          participantList.add(user1Id);
+          isChanged = true;
+        }
+        if (!participantList.contains(user2Id)) {
+          participantList.add(user2Id);
+          isChanged = true;
+        }
+        if (isChanged) {
+          await FirebaseFirestore.instance
+              .collection(collection)
+              .doc(documentSnapshot.first.id)
+              .update({
+            'participantList': participantList,
+          });
+        }
         return documentSnapshot.first.id;
       }
 
       // 존재하지 않는 채팅방 -> 새로 만들어주어야함
       String? personalChatId = await DataService.getId(name: collection);
+      if (personalChatId == null) return null;
+      PersonalChat personalChat = PersonalChat(
+        id: personalChatId,
+        userIdList: [user1Id, user2Id],
+        participantList: [user1Id, user2Id],
+      );
 
-      if (personalChatId != null) {
-        PersonalChat personalChat =
-            PersonalChat(id: personalChatId, userIdList: [user1Id, user2Id]);
-
-        await FirebaseFirestore.instance
-            .collection(collection)
-            .doc(personalChatId)
-            .set(personalChat.toJson());
-      }
+      await FirebaseFirestore.instance
+          .collection(collection)
+          .doc(personalChatId)
+          .set(personalChat.toJson());
       return personalChatId;
     } catch (e) {
-      log('PersonalChatService - startPersonalChat Failed : $e');
+      log('PersonalChatService - startChat Failed : $e');
       return null;
     }
   }
@@ -103,12 +122,15 @@ class PersonalChatService implements ChatService<PersonalChat> {
   }
 
   @override
-  Future<Chat?> getLastChat({required String chatId})async {
+  Future<Chat?> getLastChat({required String chatId}) async {
     try {
-      QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore.instance
+      QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
+          .instance
           .collection(collection)
           .doc(chatId)
-          .collection('chat').orderBy('timeStamp',descending: true).get();
+          .collection('chat')
+          .orderBy('timeStamp', descending: true)
+          .get();
 
       if (snapshot.docs.isNotEmpty) {
         return Chat.fromJson(snapshot.docs.first.data());
@@ -165,6 +187,4 @@ class PersonalChatService implements ChatService<PersonalChat> {
       log('PersonalChatService - sendImage Failed : $e');
     }
   }
-
-
 }

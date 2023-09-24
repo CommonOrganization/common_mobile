@@ -1,7 +1,8 @@
 import 'dart:developer';
-
+import 'package:common/screens/chat/chat_detail_screen.dart';
 import 'package:common/screens/chat_upload/chat_upload_name_screen.dart';
 import 'package:common/screens/chat_upload/chat_upload_user_select_screen.dart';
+import 'package:common/services/group_chat_service.dart';
 import 'package:common/services/personal_chat_service.dart';
 import 'package:common/utils/local_utils.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class ChatUploadScreen extends StatefulWidget {
 class _ChatUploadScreenState extends State<ChatUploadScreen> {
   int _stepIndex = 0;
   late List _userIdList;
+  late String _title;
 
   Widget getScreen() {
     switch (_stepIndex) {
@@ -27,6 +29,7 @@ class _ChatUploadScreenState extends State<ChatUploadScreen> {
           onPressed: (List userIdList) async {
             try {
               if (userIdList.isEmpty || userIdList.length == 1) return;
+              _userIdList = userIdList;
               if (userIdList.length == 2) {
                 String? chatId = await PersonalChatService()
                     .startChat(userIdList: userIdList);
@@ -35,10 +38,7 @@ class _ChatUploadScreenState extends State<ChatUploadScreen> {
                 Navigator.pop(context, chatId);
                 return;
               }
-              setState(() {
-                _userIdList = userIdList;
-                _stepIndex++;
-              });
+              setState(() => _stepIndex++);
             } catch (e) {
               log('채팅방 생성 에러 : $e');
               showMessage(context, message: '잠시 후 다시 시도해 주세요');
@@ -47,7 +47,28 @@ class _ChatUploadScreenState extends State<ChatUploadScreen> {
         );
       case 1:
         return ChatUploadNameScreen(
-          onPressed: (String title) {},
+          onPressed: (String title) async {
+            try {
+              if (title.isEmpty) return;
+              _title = title;
+              String? chatId = await GroupChatService()
+                  .startChat(userIdList: _userIdList, title: _title);
+              if (chatId == null) throw Exception('채팅방 생성하는데 에러가 발생했습니다.');
+              if (!mounted) return;
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ChatDetailScreen(
+                    chatId: chatId,
+                    chatService: GroupChatService(),
+                  ),
+                ),
+              );
+            } catch (e) {
+              log('그룹채팅방 이름 에러 : $e');
+              showMessage(context, message: '잠시 후 다시 시도해 주세요');
+            }
+          },
           userIdList: _userIdList,
         );
       default:
