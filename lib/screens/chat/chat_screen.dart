@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/group_chat/group_chat.dart';
 import 'package:common/models/personal_chat/personal_chat.dart';
@@ -94,15 +95,24 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Widget personalChatArea(String userId) {
-    return FutureBuilder(
-      future: PersonalChatService().getUserChat(userId: userId),
+    return StreamBuilder(
+      stream: PersonalChatService().getUserChat(userId: userId),
       builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          List<PersonalChat> userChatList = snapshot.data as List<PersonalChat>;
-          if (userChatList.isNotEmpty) {
+        if (snapshot.connectionState==ConnectionState.active) {
+          QuerySnapshot<Map<String, dynamic>>? chatSnapshot = snapshot.data;
+          if (chatSnapshot == null) return noChatPage();
+          if (chatSnapshot.docs.isNotEmpty) {
             return Column(
-              children: userChatList.map((personalChat) {
-                if(personalChat.userIdList.where((id) => id != userId).isEmpty){
+              children: chatSnapshot.docs.map((document) {
+                if (document.exists) {
+                  return PersonalChat.fromJson(document.data());
+                }
+                return null;
+              }).map((personalChat) {
+                if (personalChat == null) return Container();
+                if (personalChat.userIdList
+                    .where((id) => id != userId)
+                    .isEmpty) {
                   //상대방이 나간 채팅방일 경우!
                   return Container();
                 }
@@ -123,14 +133,21 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Widget groupChatArea(String userId) {
-    return FutureBuilder(
-      future: GroupChatService().getUserChat(userId: userId),
+    return StreamBuilder(
+      stream: GroupChatService().getUserChat(userId: userId),
       builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          List<GroupChat> userChatList = snapshot.data as List<GroupChat>;
-          if (userChatList.isNotEmpty) {
+        if (snapshot.connectionState==ConnectionState.active) {
+          QuerySnapshot<Map<String, dynamic>>? chatSnapshot = snapshot.data;
+          if (chatSnapshot == null) return noChatPage();
+          if (chatSnapshot.docs.isNotEmpty) {
             return Column(
-              children: userChatList.map((groupChat) {
+              children: chatSnapshot.docs.map((document) {
+                if (document.exists) {
+                  return GroupChat.fromJson(document.data());
+                }
+                return null;
+              }).map((groupChat) {
+                if (groupChat == null) return Container();
                 return GroupChatCard(
                   chatId: groupChat.id,
                   userId: userId,

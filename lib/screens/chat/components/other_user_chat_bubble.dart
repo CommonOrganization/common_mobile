@@ -31,8 +31,8 @@ class OtherUserChatBubble extends StatelessWidget {
             children: [
               if (showImage(lastSenderId, chat.senderId))
                 FutureBuilder(
-                  future: UserService.get(
-                      field: 'profileImage', id: chat.senderId),
+                  future:
+                      UserService.get(field: 'profileImage', id: chat.senderId),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       String image = snapshot.data as String;
@@ -41,12 +41,15 @@ class OtherUserChatBubble extends StatelessWidget {
                         width: 36,
                         height: 36,
                         decoration: BoxDecoration(
-                            color: kDarkGray20Color,
-                            borderRadius: BorderRadius.circular(36),
-                            image: DecorationImage(
-                                image: NetworkImage(
-                                  image,
-                                ))),
+                          color: kDarkGray20Color,
+                          borderRadius: BorderRadius.circular(36),
+                          image: DecorationImage(
+                            image: NetworkImage(
+                              image,
+                            ),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                       );
                     }
                     return Container(

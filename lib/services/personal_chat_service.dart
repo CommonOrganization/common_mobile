@@ -75,20 +75,16 @@ class PersonalChatService implements ChatService<PersonalChat> {
   }
 
   @override
-  Future<List<PersonalChat>> getUserChat({required String userId}) async {
+  Stream<QuerySnapshot<Map<String, dynamic>>> getUserChat(
+      {required String userId}) {
     try {
-      QuerySnapshot snapshot = await FirebaseFirestore.instance
+      return FirebaseFirestore.instance
           .collection(collection)
-          .where('userIdList', arrayContains: userId)
-          .get();
-
-      return snapshot.docs
-          .map((document) =>
-              PersonalChat.fromJson(document.data() as Map<String, dynamic>))
-          .toList();
+          .where('participantList', arrayContains: userId)
+          .snapshots();
     } catch (e) {
       log('PersonalChatService - getUserChat Failed : $e');
-      return [];
+      return const Stream.empty();
     }
   }
 
@@ -185,6 +181,53 @@ class PersonalChatService implements ChatService<PersonalChat> {
           .add(textChat.toJson());
     } catch (e) {
       log('PersonalChatService - sendImage Failed : $e');
+    }
+  }
+
+  @override
+  Future<bool> leaveChatRoom(
+      {required String userId, required String chatId}) async {
+    try {
+      final snapshot = await FirebaseFirestore.instance
+          .collection(collection)
+          .doc(chatId)
+          .get();
+      if (snapshot.exists) {
+        List participantList = snapshot.get('participantList');
+        participantList.remove(userId);
+        await FirebaseFirestore.instance
+            .collection(collection)
+            .doc(chatId)
+            .update({
+          'participantList': participantList,
+        });
+        return true;
+      }
+      return false;
+    } catch (e) {
+      log('PersonalChatService - leaveChatRoom Failed : $e');
+      return false;
+    }
+  }
+
+  @override
+  Future<List<Chat>?> getAlbum({required String chatId}) async {
+    try {
+      final snapshot = await FirebaseFirestore.instance
+          .collection(collection)
+          .doc(chatId)
+          .collection('chat')
+          .where('messageType', isEqualTo: 'image')
+          .get();
+      if (snapshot.docs.isNotEmpty) {
+        return snapshot.docs
+            .map((document) => Chat.fromJson(document.data()))
+            .toList();
+      }
+      return null;
+    } catch (e) {
+      log('PersonalChatService - getAlbum Failed : $e');
+      return null;
     }
   }
 }

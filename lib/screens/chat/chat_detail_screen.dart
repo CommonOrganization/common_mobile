@@ -12,10 +12,12 @@ import '../../controllers/user_controller.dart';
 import '../../models/chat/chat.dart';
 import '../../services/user_service.dart';
 import 'components/custom_input_container.dart';
+import 'drawer/group_chat_drawer.dart';
 import 'components/other_user_chat_bubble.dart';
 import 'components/other_user_image_bubble.dart';
 import 'components/user_chat_bubble.dart';
 import 'components/user_image_bubble.dart';
+import 'drawer/personal_chat_drawer.dart';
 
 class ChatDetailScreen extends StatefulWidget {
   final String chatId;
@@ -47,9 +49,12 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                 builder: (context, controller, child) {
                   if (controller.user == null) return Container();
                   String userId = controller.user!.id;
-                  String otherUserId = rootChat.userIdList
-                      .where((element) => element != userId)
-                      .first;
+                  late String otherUserId;
+                  if (rootChat.runtimeType == PersonalChat) {
+                    otherUserId = rootChat.userIdList
+                        .where((element) => element != userId)
+                        .first;
+                  }
                   return Scaffold(
                     backgroundColor: kWhiteColor,
                     appBar: AppBar(
@@ -102,6 +107,15 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                               },
                             ),
                     ),
+                    endDrawer: rootChat.runtimeType == GroupChat
+                        ? GroupChatDrawer(
+                            groupChat: rootChat as GroupChat,
+                            userId: userId,
+                          )
+                        : PersonalChatDrawer(
+                            personalChat: rootChat as PersonalChat,
+                            userId: userId,
+                          ),
                     body: Column(
                       children: [
                         Expanded(

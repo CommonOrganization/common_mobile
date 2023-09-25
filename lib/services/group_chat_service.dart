@@ -43,20 +43,16 @@ class GroupChatService implements ChatService<GroupChat> {
   }
 
   @override
-  Future<List<GroupChat>> getUserChat({required String userId}) async {
+  Stream<QuerySnapshot<Map<String, dynamic>>> getUserChat(
+      {required String userId}) {
     try {
-      QuerySnapshot snapshot = await FirebaseFirestore.instance
+      return FirebaseFirestore.instance
           .collection(collection)
           .where('userIdList', arrayContains: userId)
-          .get();
-
-      return snapshot.docs
-          .map((document) =>
-              GroupChat.fromJson(document.data() as Map<String, dynamic>))
-          .toList();
+          .snapshots();
     } catch (e) {
       log('GroupChatService - getUserChat Failed : $e');
-      return [];
+      return const Stream.empty();
     }
   }
 
@@ -153,6 +149,54 @@ class GroupChatService implements ChatService<GroupChat> {
           .add(textChat.toJson());
     } catch (e) {
       log('GroupChatService - sendImage Failed : $e');
+    }
+  }
+
+  @override
+  Future<bool> leaveChatRoom(
+      {required String userId, required String chatId}) async {
+    try {
+      final snapshot = await FirebaseFirestore.instance
+          .collection(collection)
+          .doc(chatId)
+          .get();
+
+      if (snapshot.exists) {
+        List userIdList = snapshot.get('userIdList');
+        userIdList.remove(userId);
+        await FirebaseFirestore.instance
+            .collection(collection)
+            .doc(chatId)
+            .update({
+          'userIdList': userIdList,
+        });
+        return true;
+      }
+      return false;
+    } catch (e) {
+      log('GroupChatService - leaveChatRoom Failed : $e');
+      return false;
+    }
+  }
+
+  @override
+  Future<List<Chat>?> getAlbum({required String chatId}) async{
+    try {
+      final snapshot = await FirebaseFirestore.instance
+          .collection(collection)
+          .doc(chatId)
+          .collection('chat')
+          .where('messageType', isEqualTo: 'image')
+          .get();
+      if (snapshot.docs.isNotEmpty) {
+        return snapshot.docs
+            .map((document) => Chat.fromJson(document.data()))
+            .toList();
+      }
+      return null;
+    } catch (e) {
+      log('GroupChatService - getAlbum Failed : $e');
+      return null;
     }
   }
 }
