@@ -1,13 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:common/constants/constants_colors.dart';
-import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/personal_chat/personal_chat.dart';
 import 'package:common/screens/chat/chat_album_screen.dart';
 import 'package:common/services/personal_chat_service.dart';
 import 'package:common/services/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:provider/provider.dart';
 import '../../../models/user/user.dart';
 import 'drawer_container.dart';
 import 'drawer_member_card.dart';

@@ -130,7 +130,7 @@ class GroupChatCard extends StatelessWidget {
   Widget kLeadingImageArea(String userId, List userIdList) {
     if (userIdList.isEmpty) return Container();
     List otherUserIdList = userIdList.where((id) => id != userId).toList();
-    if (userIdList.length == 1 || otherUserIdList.isEmpty) {
+    if (otherUserIdList.isEmpty) {
       String assetImage = DateTime.now().second % 2 == 0
           ? kProfileRedImageUrl
           : kProfileYellowImageUrl;
@@ -145,6 +145,12 @@ class GroupChatCard extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
+      );
+    }
+    if (otherUserIdList.length == 1) {
+      return kUserContainer(
+        userId: otherUserIdList[0],
+        size: 54,
       );
     }
     if (otherUserIdList.length == 2) {

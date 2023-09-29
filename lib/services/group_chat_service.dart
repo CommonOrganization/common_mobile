@@ -180,7 +180,7 @@ class GroupChatService implements ChatService<GroupChat> {
   }
 
   @override
-  Future<List<Chat>?> getAlbum({required String chatId}) async{
+  Future<List<Chat>?> getAlbum({required String chatId}) async {
     try {
       final snapshot = await FirebaseFirestore.instance
           .collection(collection)
@@ -197,6 +197,30 @@ class GroupChatService implements ChatService<GroupChat> {
     } catch (e) {
       log('GroupChatService - getAlbum Failed : $e');
       return null;
+    }
+  }
+
+  Future<void> inviteUser(
+      {required String chatId, required List newUserIdList}) async {
+    try {
+      FirebaseFirestore.instance.runTransaction((transaction) async {
+        final snapshot = await transaction
+            .get(FirebaseFirestore.instance.collection(collection).doc(chatId));
+        if (snapshot.exists) {
+          List userIdList = snapshot.get('userIdList');
+          for (var id in newUserIdList) {
+            if (!userIdList.contains(id)) {
+              userIdList.add(id);
+            }
+          }
+          transaction.update(
+              FirebaseFirestore.instance.collection(collection).doc(chatId), {
+            'userIdList': userIdList,
+          });
+        }
+      });
+    } catch (e) {
+      log('GroupChatService - inviteUser Failed : $e');
     }
   }
 }

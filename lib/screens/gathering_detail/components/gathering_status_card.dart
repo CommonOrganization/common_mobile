@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/screens/chat/chat_detail_screen.dart';
 import 'package:common/services/personal_chat_service.dart';

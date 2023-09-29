@@ -1,10 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:common/constants/constants_colors.dart';
+import 'package:common/screens/chat/user_invite_screen.dart';
 import 'package:common/services/group_chat_service.dart';
 import 'package:common/services/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
 import '../../../models/group_chat/group_chat.dart';
 import '../../../models/user/user.dart';
 import '../chat_album_screen.dart';
@@ -120,7 +119,15 @@ class GroupChatDrawer extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => UserInviteScreen(
+                          chatId: groupChat.id,
+                          userIdList: groupChat.userIdList,
+                        ),
+                      ),
+                    ),
                     behavior: HitTestBehavior.opaque,
                     child: Container(
                       padding: const EdgeInsets.symmetric(
