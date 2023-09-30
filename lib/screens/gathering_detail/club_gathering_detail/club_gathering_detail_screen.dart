@@ -1,6 +1,7 @@
 import 'package:common/constants/constants_enum.dart';
 import 'package:common/constants/constants_value.dart';
 import 'package:common/models/club_gathering/club_gathering.dart';
+import 'package:common/screens/gathering_detail/club_gathering_detail/club_gathering_connected_daily_contents.dart';
 import 'package:common/screens/gathering_detail/club_gathering_detail/club_gathering_connected_gathering_contents.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -45,13 +46,10 @@ class _ClubGatheringDetailScreenState extends State<ClubGatheringDetailScreen> {
 
   bool _loading = false;
 
-  List<OneDayGathering> _gatheringList = [];
-
   @override
   void initState() {
     super.initState();
     _scrollController.addListener(onUpdate);
-    initializeGatheringList();
   }
 
   void onUpdate() async {
@@ -70,27 +68,19 @@ class _ClubGatheringDetailScreenState extends State<ClubGatheringDetailScreen> {
     super.dispose();
   }
 
-  void initializeGatheringList() async {
-    List<OneDayGathering> gatheringList =
-        await OneDayGatheringService.getConnectedGathering(
-            clubGatheringId: widget.gathering.id);
-    setState(() => _gatheringList = gatheringList);
-  }
-
   Future<void> applyPressed() async {
     String? userId = context.read<UserController>().user?.id;
     if (userId == null) return;
     if (_loading) return;
     _loading = true;
     try {
-
       String? recruitWayString = await GatheringService.get(
           category: kClubGatheringCategory,
           id: widget.gathering.id,
           field: 'recruitWay');
       if (recruitWayString == null) return;
       RecruitWay recruitWay =
-      RecruitWayExtenstion.getRecruitWay(recruitWayString);
+          RecruitWayExtenstion.getRecruitWay(recruitWayString);
       if (recruitWay == RecruitWay.approval) {
         String? recruitQuestion = await GatheringService.get(
             category: kClubGatheringCategory,
@@ -166,12 +156,18 @@ class _ClubGatheringDetailScreenState extends State<ClubGatheringDetailScreen> {
         );
       case 1:
         return ClubGatheringConnectedGatheringContents(
-          gatheringList: _gatheringList,
+          gatheringId: widget.gathering.id,
         );
       case 2:
+        return ClubGatheringConnectedDailyContents();
       default:
-        return Container();
+        return Container(
+          constraints: const BoxConstraints(
+            minHeight: kScreenDefaultHeight,
+          ),
+        );
     }
+
   }
 
   Future<void> updatePressed() async {
@@ -212,21 +208,23 @@ class _ClubGatheringDetailScreenState extends State<ClubGatheringDetailScreen> {
           ),
         );
       }
-      if(widget.gathering.memberList.contains(context.read<UserController>().user?.id)){
+      if (widget.gathering.memberList
+          .contains(context.read<UserController>().user?.id)) {
         return GatheringButton(
           title: '이미 가입중인 모임입니다',
           enabled: false,
           onTap: () {},
         );
       }
-      if(widget.gathering.applicantList.contains(context.read<UserController>().user?.id)){
+      if (widget.gathering.applicantList
+          .contains(context.read<UserController>().user?.id)) {
         return GatheringButton(
           title: '가입 신청중인 모임입니다',
           enabled: false,
           onTap: () {},
         );
       }
-      if(widget.gathering.capacity <= widget.gathering.memberList.length){
+      if (widget.gathering.capacity <= widget.gathering.memberList.length) {
         return GatheringButton(
           title: '인원 마감된 모임입니다',
           enabled: false,
@@ -285,7 +283,7 @@ class _ClubGatheringDetailScreenState extends State<ClubGatheringDetailScreen> {
                 children: [
                   kTabBarButton(title: '정보', index: 0),
                   kTabBarButton(title: '모임', index: 1),
-                  kTabBarButton(title: '피드', index: 2),
+                  kTabBarButton(title: '데일리', index: 2),
                 ],
               ),
             ),
@@ -293,7 +291,7 @@ class _ClubGatheringDetailScreenState extends State<ClubGatheringDetailScreen> {
           SliverToBoxAdapter(child: getPage()),
         ],
       ),
-      bottomNavigationBar:  getActionButton(),
+      bottomNavigationBar: getActionButton(),
     );
   }
 

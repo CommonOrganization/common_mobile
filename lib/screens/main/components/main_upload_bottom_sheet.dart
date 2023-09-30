@@ -1,3 +1,4 @@
+import 'package:common/screens/daily_upload/daily_upload_main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../constants/constants_colors.dart';
@@ -26,7 +27,7 @@ class MainUploadBottomSheet extends StatelessWidget {
               children: [
                 const Spacer(),
                 GestureDetector(
-                  onTap: ()=>Navigator.pop(context),
+                  onTap: () => Navigator.pop(context),
                   child: SvgPicture.asset(
                     'assets/icons/svg/close_26px.svg',
                   ),
@@ -64,10 +65,15 @@ class MainUploadBottomSheet extends StatelessWidget {
                     subtitle: '지속형 모임으로 계속해서 친하게 지내요',
                   ),
                   kUploadButton(
-                    onPressed: () {},
+                    onPressed: () => Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const DailyUploadMainScreen(),
+                      ),
+                    ),
                     image: 'assets/images/feed.png',
-                    title: '피드 작성하기',
-                    subtitle: '피드에 모임 후기나 일상을 공유해 보세요',
+                    title: '데일리 만들기',
+                    subtitle: '오늘의 일상을 공유해 보세요',
                   ),
                 ],
               ),

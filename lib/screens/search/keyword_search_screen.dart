@@ -39,7 +39,7 @@ class _KeywordSearchScreenState extends State<KeywordSearchScreen> {
       case 1:
         return kClubGatheringArea(city);
       case 2:
-        //TODO 피드 개발시 넣기
+        //TODO 데일리 개발시 넣기
         return Container();
       default:
         return Container();
@@ -121,7 +121,7 @@ class _KeywordSearchScreenState extends State<KeywordSearchScreen> {
             children: [
               kTabContainer(index: 0, title: '하루모임'),
               kTabContainer(index: 1, title: '소모임'),
-              kTabContainer(index: 2, title: '피드'),
+              kTabContainer(index: 2, title: '데일리'),
             ],
           ),
           Consumer<UserController>(builder: (context, controller, child) {

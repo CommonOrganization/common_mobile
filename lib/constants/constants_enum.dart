@@ -1397,3 +1397,45 @@ extension MessageTypeExtenstion on MessageType {
   String get name => names[this];
   static MessageType getType(String text) => types[text];
 }
+
+enum DailyType { own, gathering }
+
+extension DailyTypeExtenstion on DailyType {
+  static Map names = {
+    DailyType.own: 'own',
+    DailyType.gathering: 'gathering',
+  };
+
+  static Map types = {
+    'own': DailyType.own,
+    'gathering': DailyType.gathering,
+  };
+
+  static Map titles = {
+    DailyType.own: '나만의 데일리',
+    DailyType.gathering: '모임 데일리',
+  };
+
+  static Map contents = {
+    DailyType.own: '나만의 일상을 기록해요',
+    DailyType.gathering: '모임 멤버들과 함께한 일상을 기록해요',
+  };
+
+  static Map unselectedIcons = {
+    DailyType.own: 'assets/icons/svg/people_inactive_22px.svg',
+    DailyType.gathering: 'assets/icons/svg/earth_inactive_22px.svg',
+  };
+
+  static Map selectedIcons = {
+    DailyType.own: 'assets/icons/svg/people_active_22px.svg',
+    DailyType.gathering: 'assets/icons/svg/earth_active_22px.svg',
+  };
+
+
+  String get name => names[this];
+  String get title => titles[this];
+  String get content => contents[this];
+  String get unselectedIcon => unselectedIcons[this];
+  String get selectedIcon => selectedIcons[this];
+  static DailyType getType(String text) => types[text];
+}

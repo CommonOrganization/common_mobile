@@ -44,7 +44,7 @@ class _ClubGatheringCategoryScreenState
         children: [
           Expanded(
             child: GatheringCategorySelectArea(
-              title: '원하는 주제로 소모임을 만들어볼까요?',
+              title: '어떤 주제로 소모임을 만들어볼까요?',
               controller: _detailCategoryController,
               showMore: _showMore,
               selectedCategory: _selectedCategory,

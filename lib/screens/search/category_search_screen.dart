@@ -56,7 +56,7 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
       case 1:
         return kClubGatheringArea(city: city, userId: userId);
       default:
-        //TODO 여기서 피드 area 개발해주어야함
+        //TODO 여기서 데일리 area 개발해주어야함
         return Container();
     }
   }
@@ -113,7 +113,7 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
             children: [
               kTabContainer(index: 0, title: '하루모임'),
               kTabContainer(index: 1, title: '소모임'),
-              kTabContainer(index: 2, title: '피드'),
+              kTabContainer(index: 2, title: '데일리'),
             ],
           ),
           Expanded(
@@ -268,7 +268,7 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
             return Container();
           },
         ),
-        //TODO 이곳에 인기피드 들어갈 예정
+        //TODO 이곳에 인기데일리 들어갈 예정
         FutureBuilder(
           future: OneDayGatheringService.getAllGatheringWithCategory(
               city: city, category: _selectedCategory.name),
@@ -350,7 +350,7 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
             return Container();
           },
         ),
-        //TODO 이곳에 인기피드 들어갈 예정
+        //TODO 이곳에 인기데일리 들어갈 예정
         FutureBuilder(
           future: ClubGatheringService.getAllGatheringWithCategory(
               city: city, category: _selectedCategory.name),

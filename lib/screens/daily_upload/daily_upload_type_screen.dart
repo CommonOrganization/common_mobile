@@ -1,64 +1,56 @@
-import 'package:common/constants/constants_colors.dart';
 import 'package:common/constants/constants_enum.dart';
 import 'package:common/controllers/user_controller.dart';
-import 'package:common/models/club_gathering/club_gathering.dart';
-import 'package:common/models/one_day_gathering/one_day_gathering.dart';
-import 'package:common/screens/gathering_upload/components/gathering_upload_next_button.dart';
+import 'package:common/screens/daily_upload/components/daily_upload_next_button.dart';
+import 'package:common/services/club_gathering_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
-import '../../../services/club_gathering_service.dart';
-import '../../../services/one_day_gathering_service.dart';
+import '../../constants/constants_colors.dart';
+import '../../models/club_gathering/club_gathering.dart';
+import '../../models/one_day_gathering/one_day_gathering.dart';
+import '../../services/one_day_gathering_service.dart';
 
-class OneDayGatheringTypeScreen extends StatefulWidget {
-  final OneDayGathering? gathering;
+class DailyUploadTypeScreen extends StatefulWidget {
   final Function nextPressed;
-  const OneDayGatheringTypeScreen({
+  const DailyUploadTypeScreen({
     Key? key,
-    this.gathering,
     required this.nextPressed,
   }) : super(key: key);
 
   @override
-  State<OneDayGatheringTypeScreen> createState() =>
-      _OneDayGatheringTypeScreenState();
+  State<DailyUploadTypeScreen> createState() => _DailyUploadTypeScreenState();
 }
 
-class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
-  GatheringType _selectedGatheringType = GatheringType.oneDay;
-  String? _connectedClubGatheringId = '';
-  bool _showAllThePeople = true;
+class _DailyUploadTypeScreenState extends State<DailyUploadTypeScreen> {
 
   List<ClubGathering> clubGatheringList = [];
 
+  DailyType _selectedDailyType = DailyType.own;
+  String? _connectedClubGatheringId;
+
   bool get canNextPress =>
-      _selectedGatheringType == GatheringType.oneDay ||
-      (_selectedGatheringType == GatheringType.clubOneDay &&
+      _selectedDailyType == DailyType.own ||
+      (_selectedDailyType == DailyType.gathering &&
           _connectedClubGatheringId != null);
 
   @override
   void initState() {
     super.initState();
-    setGatheringInformation();
     initializeClubGatheringList();
   }
 
   void initializeClubGatheringList() async {
     if (context.read<UserController>().user == null) return;
     List<ClubGathering> gatheringList =
-        await ClubGatheringService.getGatheringListWhichUserIsParticipating(
-            userId: context.read<UserController>().user!.id);
+    await ClubGatheringService.getGatheringListWhichUserIsParticipating(
+        userId: context.read<UserController>().user!.id);
     if (gatheringList.isNotEmpty) {
       setState(() => clubGatheringList = gatheringList);
     }
   }
 
-  void setGatheringInformation() {
-    if (widget.gathering == null) return;
-    _connectedClubGatheringId = widget.gathering!.connectedClubGatheringId;
-    _showAllThePeople = widget.gathering!.showAllThePeople;
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +64,7 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
-                  '어떤 하루모임을 열어볼까요?',
+                  '어떤 데일리인가요?',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -85,7 +77,7 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
-                  '\'하루모임\'은 원데이로 만나 활동을 하는 모임이에요.\n장기간 함께 활동하는 모임을 원하실 경우 \'소모임\'으로 열어주세요!',
+                  '\'나만의 데일리\'는 나만의 일상을 기록해요.\n멤버들과 함께한 일상은 \'모임 데일리\'를 선택해 주세요.',
                   style: TextStyle(
                     fontSize: 13,
                     color: kFontGray500Color,
@@ -94,60 +86,15 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
                 ),
               ),
               const SizedBox(height: 36),
-              kGatheringTypeCard(GatheringType.oneDay),
+              kDailyTypeCard(DailyType.own),
               const SizedBox(height: 16),
-              kGatheringTypeCard(GatheringType.clubOneDay),
+              kDailyTypeCard(DailyType.gathering),
               const SizedBox(height: 24),
-              if (_selectedGatheringType == GatheringType.clubOneDay)
+              if (_selectedDailyType == DailyType.gathering)
                 ListView(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Row(
-                        children: [
-                          Text(
-                            '전체 공개 여부',
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: kFontGray800Color,
-                              fontWeight: FontWeight.bold,
-                              height: 20 / 15,
-                            ),
-                          ),
-                          const Spacer(),
-                          SizedBox(
-                            width: 38,
-                            height: 20,
-                            child: Switch(
-                              value: _showAllThePeople,
-                              thumbColor:
-                                  MaterialStateProperty.all(kWhiteColor),
-                              materialTapTargetSize:
-                                  MaterialTapTargetSize.shrinkWrap,
-                              activeTrackColor: kMainColor,
-                              inactiveTrackColor: kFontGray200Color,
-                              onChanged: (value) =>
-                                  setState(() => _showAllThePeople = value),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 6),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Text(
-                        '설정 시 모든 사람들이 하루모임에 참여할 수 있어요.\n설정하지 않으면 선택한 클럽 멤버들만 하루모임에 참여할 수 있어요.',
-                        style: TextStyle(
-                          fontSize: 11,
-                          color: kFontGray500Color,
-                          height: 16 / 11,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 14),
                     Container(
                       width: double.infinity,
                       height: 1,
@@ -156,23 +103,19 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
                     Column(
                       children: clubGatheringList
                           .map((clubGathering) =>
-                              kClubGatheringCard(clubGathering))
+                          kClubGatheringCard(clubGathering))
                           .toList(),
                     ),
                   ],
-                ),
+                )
             ],
           ),
         ),
-        GatheringUploadNextButton(
+        DailyUploadNextButton(
           value: canNextPress,
           onTap: () {
             if (!canNextPress) return;
-            widget.nextPressed(
-              _selectedGatheringType,
-              _connectedClubGatheringId,
-              _showAllThePeople,
-            );
+            widget.nextPressed();
           },
           title: '다음',
         ),
@@ -180,22 +123,22 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
     );
   }
 
-  Widget kGatheringTypeCard(GatheringType gatheringType) {
+  Widget kDailyTypeCard(DailyType dailyType) {
     return GestureDetector(
       onTap: () {
         String? newConnectedClubGatheringId;
-        if (gatheringType == GatheringType.oneDay) {
+        if (dailyType == DailyType.own) {
           newConnectedClubGatheringId = null;
         }
-        if (gatheringType == GatheringType.clubOneDay) {
+        if (dailyType == DailyType.gathering) {
           newConnectedClubGatheringId =
-              clubGatheringList.isNotEmpty ? clubGatheringList.first.id : null;
+          clubGatheringList.isNotEmpty ? clubGatheringList.first.id : null;
         }
         setState(() {
-          _selectedGatheringType = gatheringType;
-          _showAllThePeople = true;
+          _selectedDailyType = dailyType;
           _connectedClubGatheringId = newConnectedClubGatheringId;
         });
+
       },
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -204,16 +147,15 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
         height: 82,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
-          color: _selectedGatheringType == gatheringType
-              ? kMainColor
-              : kFontGray50Color,
+          color:
+              _selectedDailyType == dailyType ? kMainColor : kFontGray50Color,
         ),
         child: Row(
           children: [
             SvgPicture.asset(
-              _selectedGatheringType == gatheringType
-                  ? gatheringType.selectedIcon
-                  : gatheringType.unselectedIcon,
+              _selectedDailyType == dailyType
+                  ? dailyType.selectedIcon
+                  : dailyType.unselectedIcon,
               width: 22,
               height: 22,
             ),
@@ -224,11 +166,11 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    gatheringType.title,
+                    dailyType.title,
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
-                      color: _selectedGatheringType == gatheringType
+                      color: _selectedDailyType == dailyType
                           ? kWhiteColor
                           : kFontGray600Color,
                       height: 20 / 14,
@@ -236,10 +178,10 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    gatheringType.content,
+                    dailyType.content,
                     style: TextStyle(
                       fontSize: 13,
-                      color: _selectedGatheringType == gatheringType
+                      color: _selectedDailyType == dailyType
                           ? kWhiteColor
                           : kFontGray400Color,
                       height: 18 / 13,
