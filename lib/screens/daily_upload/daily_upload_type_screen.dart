@@ -115,7 +115,7 @@ class _DailyUploadTypeScreenState extends State<DailyUploadTypeScreen> {
           value: canNextPress,
           onTap: () {
             if (!canNextPress) return;
-            widget.nextPressed();
+            widget.nextPressed(_selectedDailyType,_connectedClubGatheringId);
           },
           title: '다음',
         ),

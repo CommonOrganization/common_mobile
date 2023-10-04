@@ -7,11 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../constants/constants_colors.dart';
 import '../../../controllers/user_controller.dart';
-import '../../../models/one_day_gathering/one_day_gathering.dart';
 import '../../../models/recruit_answer/recruit_answer.dart';
 import '../../../services/club_gathering_service.dart';
 import '../../../services/gathering_service.dart';
-import '../../../services/one_day_gathering_service.dart';
 import '../../../services/recruit_answer_service.dart';
 import '../../../utils/local_utils.dart';
 import '../../../widgets/bottom_sheets/recruit_question_bottom_sheet.dart';
@@ -159,7 +157,9 @@ class _ClubGatheringDetailScreenState extends State<ClubGatheringDetailScreen> {
           gatheringId: widget.gathering.id,
         );
       case 2:
-        return ClubGatheringConnectedDailyContents();
+        return ClubGatheringConnectedDailyContents(
+          gatheringId: widget.gathering.id,
+        );
       default:
         return Container(
           constraints: const BoxConstraints(
@@ -167,7 +167,6 @@ class _ClubGatheringDetailScreenState extends State<ClubGatheringDetailScreen> {
           ),
         );
     }
-
   }
 
   Future<void> updatePressed() async {

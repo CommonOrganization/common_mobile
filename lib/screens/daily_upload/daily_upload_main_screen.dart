@@ -1,10 +1,13 @@
 import 'package:common/constants/constants_enum.dart';
 import 'package:common/screens/daily_upload/daily_upload_category_screen.dart';
+import 'package:common/screens/daily_upload/daily_upload_content_screen.dart';
 import 'package:common/screens/daily_upload/daily_upload_type_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../constants/constants_colors.dart';
+import 'daily_upload_image_screen.dart';
+import 'daily_upload_tag_screen.dart';
 
 class DailyUploadMainScreen extends StatefulWidget {
   const DailyUploadMainScreen({Key? key}) : super(key: key);
@@ -38,11 +41,36 @@ class _DailyUploadMainScreenState extends State<DailyUploadMainScreen> {
         );
       case 1:
         return DailyUploadTypeScreen(
-          nextPressed: (CommonCategory category, String detailCategory) =>
+          nextPressed:
+              (DailyType dailyType, String? dailyConnectedClubGatheringId) =>
+                  setState(() {
+            _dailyType = dailyType;
+            _dailyConnectedClubGatheringId = dailyConnectedClubGatheringId;
+            _pageIndex++;
+          }),
+        );
+      case 2:
+        return DailyUploadImageScreen(
+          nextPressed: (String dailyMainImage, List dailyImageList) =>
               setState(() {
-                _dailyMainCategory = category;
-                _dailyDetailCategory = detailCategory;
+            _dailyMainImage = dailyMainImage;
+            _dailyImageList = dailyImageList;
+            _pageIndex++;
+          }),
+        );
+      case 3:
+        return DailyUploadContentScreen(
+          nextPressed: (String dailyContent) =>
+              setState(() {
+                _dailyContent = dailyContent;
                 _pageIndex++;
+              }),
+        );
+      case 4:
+        return DailyUploadTagScreen(
+          nextPressed: (List tagList) =>
+              setState(() {
+                _dailyTagList = tagList;
               }),
         );
       default:

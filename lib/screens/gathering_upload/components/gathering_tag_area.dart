@@ -61,6 +61,7 @@ class GatheringTagArea extends StatelessWidget {
                   Expanded(
                     child: TextField(
                       controller: controller,
+                      maxLength: 8,
                       style: TextStyle(
                         fontSize: 14,
                         color: kFontGray800Color,

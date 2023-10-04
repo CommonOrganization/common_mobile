@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../constants/constants_value.dart';
 
 class ClubGatheringConnectedDailyContents extends StatelessWidget {
-  const ClubGatheringConnectedDailyContents({Key? key}) : super(key: key);
+  final String gatheringId;
+  const ClubGatheringConnectedDailyContents({Key? key, required this.gatheringId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,10 +12,10 @@ class ClubGatheringConnectedDailyContents extends StatelessWidget {
       constraints: const BoxConstraints(
         minHeight: kScreenDefaultHeight,
       ),
-      child: Column(
+      child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 20),
+          SizedBox(height: 20),
          //TODO 여기서 연결된 일상 보여주기
         ],
       ),
