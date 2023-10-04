@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../../../constants/constants_colors.dart';
+import '../constants/constants_colors.dart';
 
-class DailyUploadNextButton extends StatelessWidget {
+class CommonActionButton extends StatelessWidget {
   final bool value;
   final Function onTap;
   final String title;
-  const DailyUploadNextButton(
+  const CommonActionButton(
       {Key? key, required this.value, required this.onTap, required this.title})
       : super(key: key);
 

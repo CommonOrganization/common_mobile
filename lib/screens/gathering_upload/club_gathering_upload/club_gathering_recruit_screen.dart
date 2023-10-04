@@ -1,9 +1,8 @@
 import 'package:common/constants/constants_enum.dart';
 import 'package:common/screens/gathering_upload/components/gathering_recruit_way_area.dart';
-import 'package:common/screens/gathering_upload/components/gathering_upload_next_button.dart';
 import 'package:flutter/material.dart';
-
 import '../../../models/club_gathering/club_gathering.dart';
+import '../../../widgets/common_action_button.dart';
 
 class ClubGatheringRecruitScreen extends StatefulWidget {
   final ClubGathering? gathering;
@@ -59,7 +58,7 @@ class _ClubGatheringRecruitScreenState
             ),
           ),
         ),
-        GatheringUploadNextButton(
+        CommonActionButton(
           value: canNextPress,
           onTap: () {
             if (!canNextPress) return;

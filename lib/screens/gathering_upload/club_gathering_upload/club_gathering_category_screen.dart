@@ -1,9 +1,9 @@
 import 'package:common/models/club_gathering/club_gathering.dart';
 import 'package:flutter/material.dart';
-
 import '../../../constants/constants_enum.dart';
+import '../../../widgets/common_action_button.dart';
 import '../components/gathering_category_select_area.dart';
-import '../components/gathering_upload_next_button.dart';
+
 
 class ClubGatheringCategoryScreen extends StatefulWidget {
   final ClubGathering? gathering;
@@ -54,7 +54,7 @@ class _ClubGatheringCategoryScreenState
               onChanged: (text) => setState(() {}),
             ),
           ),
-          GatheringUploadNextButton(
+          CommonActionButton(
             value: _selectedCategory != null,
             onTap: () {
               if (_selectedCategory == null) return;

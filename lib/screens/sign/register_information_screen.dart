@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../constants/constants_colors.dart';
 import '../../constants/constants_reg.dart';
-import 'components/register_next_button.dart';
+import '../../widgets/common_action_button.dart';
 
 class RegisterInformationScreen extends StatefulWidget {
   final Function nextPressed;
@@ -64,7 +64,7 @@ class _RegisterInformationScreenState extends State<RegisterInformationScreen> {
                     style: TextStyle(
                       fontSize: 14,
                       color: kFontGray500Color,
-                      height: 20/14,
+                      height: 20 / 14,
                     ),
                   ),
                   const SizedBox(height: 36),
@@ -76,7 +76,7 @@ class _RegisterInformationScreenState extends State<RegisterInformationScreen> {
                           style: TextStyle(
                             fontSize: 14,
                             color: kFontGray800Color,
-                            height: 20/14,
+                            height: 20 / 14,
                           ),
                         ),
                       ),
@@ -106,14 +106,16 @@ class _RegisterInformationScreenState extends State<RegisterInformationScreen> {
                                     hintText: '8자 이내 한글 혹은 영문',
                                     hintStyle: TextStyle(
                                       fontSize: 14,
-                                      color: kFontGray400Color,height: 20/14,
+                                      color: kFontGray400Color,
+                                      height: 20 / 14,
                                     ),
                                   ),
                                   onChanged: (text) =>
                                       setState(() => _canUseName = true),
                                   style: TextStyle(
                                     fontSize: 14,
-                                    color: kFontGray800Color,height: 20/14,
+                                    color: kFontGray800Color,
+                                    height: 20 / 14,
                                   ),
                                 ),
                               ),
@@ -146,7 +148,7 @@ class _RegisterInformationScreenState extends State<RegisterInformationScreen> {
                                   style: TextStyle(
                                     fontSize: 11,
                                     color: kNoColor,
-                                    height: 14/11,
+                                    height: 14 / 11,
                                   ),
                                 ),
                               ),
@@ -161,7 +163,7 @@ class _RegisterInformationScreenState extends State<RegisterInformationScreen> {
                           style: TextStyle(
                             fontSize: 14,
                             color: kFontGray800Color,
-                            height: 20/14,
+                            height: 20 / 14,
                           ),
                         ),
                       ),
@@ -191,13 +193,15 @@ class _RegisterInformationScreenState extends State<RegisterInformationScreen> {
                                     hintText: '영문, 숫자 8자 이상',
                                     hintStyle: TextStyle(
                                       fontSize: 14,
-                                      color: kFontGray400Color,  height: 20/14,
+                                      color: kFontGray400Color,
+                                      height: 20 / 14,
                                     ),
                                   ),
                                   onChanged: (text) => setState(() {}),
                                   style: TextStyle(
                                     fontSize: 14,
-                                    color: kFontGray800Color,  height: 20/14,
+                                    color: kFontGray800Color,
+                                    height: 20 / 14,
                                   ),
                                 ),
                               ),
@@ -246,13 +250,15 @@ class _RegisterInformationScreenState extends State<RegisterInformationScreen> {
                                     hintText: '다시 입력',
                                     hintStyle: TextStyle(
                                       fontSize: 14,
-                                      color: kFontGray400Color,  height: 20/14,
+                                      color: kFontGray400Color,
+                                      height: 20 / 14,
                                     ),
                                   ),
                                   onChanged: (text) => setState(() {}),
                                   style: TextStyle(
                                     fontSize: 14,
-                                    color: kFontGray800Color,  height: 20/14,
+                                    color: kFontGray800Color,
+                                    height: 20 / 14,
                                   ),
                                 ),
                               ),
@@ -283,7 +289,7 @@ class _RegisterInformationScreenState extends State<RegisterInformationScreen> {
                             style: TextStyle(
                               fontSize: 11,
                               color: kNoColor,
-                              height: 14/11,
+                              height: 14 / 11,
                             ),
                           ),
                         ),
@@ -293,8 +299,9 @@ class _RegisterInformationScreenState extends State<RegisterInformationScreen> {
               ),
             ),
           ),
-          RegisterNextButton(
+          CommonActionButton(
             value: canNextPressed,
+            title: '다음',
             onTap: () {
               if (canNextPressed) {
                 //TODO 닉네임 체크하기

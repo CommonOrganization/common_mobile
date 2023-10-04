@@ -1,8 +1,7 @@
 import 'package:common/constants/constants_colors.dart';
-import 'package:common/screens/gathering_upload/components/gathering_upload_next_button.dart';
 import 'package:flutter/material.dart';
-
 import '../../../models/one_day_gathering/one_day_gathering.dart';
+import '../../../widgets/common_action_button.dart';
 
 class OneDayGatheringCapacityScreen extends StatefulWidget {
   final OneDayGathering? gathering;
@@ -225,7 +224,7 @@ class _OneDayGatheringCapacityScreenState
               ),
             ),
           ),
-          GatheringUploadNextButton(
+          CommonActionButton(
             value: true,
             onTap: () => widget.nextPressed(_gatheringCapacity),
             title: '다음',

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
 import '../../constants/constants_colors.dart';
-import 'components/daily_upload_next_button.dart';
+import '../../widgets/common_action_button.dart';
 
 class DailyUploadContentScreen extends StatefulWidget {
   final Function nextPressed;
@@ -81,7 +80,7 @@ class _DailyUploadContentScreenState extends State<DailyUploadContentScreen> {
             ],
           ),
         ),
-        DailyUploadNextButton(
+        CommonActionButton(
           value: _dailyContentController.text.isNotEmpty,
           onTap: () {
             if (_dailyContentController.text.isEmpty) return;

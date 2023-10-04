@@ -1,8 +1,7 @@
 import 'package:common/constants/constants_colors.dart';
-import 'package:common/screens/gathering_upload/components/gathering_upload_next_button.dart';
 import 'package:flutter/material.dart';
-
 import '../../../models/club_gathering/club_gathering.dart';
+import '../../../widgets/common_action_button.dart';
 
 class ClubGatheringTitleScreen extends StatefulWidget {
   final ClubGathering? gathering;
@@ -106,7 +105,7 @@ class _ClubGatheringTitleScreenState extends State<ClubGatheringTitleScreen> {
               ),
             ),
           ),
-          GatheringUploadNextButton(
+          CommonActionButton(
             value: _gatheringTitleController.text.isNotEmpty,
             onTap: () {
               if (_gatheringTitleController.text.isEmpty) return;

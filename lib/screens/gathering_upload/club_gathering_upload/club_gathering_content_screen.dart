@@ -1,10 +1,9 @@
 import 'package:common/constants/constants_colors.dart';
-import 'package:common/screens/gathering_upload/components/gathering_upload_next_button.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-
 import '../../../models/club_gathering/club_gathering.dart';
 import '../../../services/gathering_service.dart';
+import '../../../widgets/common_action_button.dart';
 
 class ClubGatheringContentScreen extends StatefulWidget {
   final ClubGathering? gathering;
@@ -177,7 +176,7 @@ class _ClubGatheringContentScreenState
             ],
           ),
         ),
-        GatheringUploadNextButton(
+        CommonActionButton(
           value: canNextPress,
           onTap: () {
             if (!canNextPress) return;

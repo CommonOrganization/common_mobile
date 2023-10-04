@@ -8,6 +8,7 @@ part of 'daily.dart';
 
 Daily _$DailyFromJson(Map<String, dynamic> json) => Daily(
       id: json['id'] as String,
+      organizerId: json['organizerId'] as String,
       category: json['category'] as String,
       detailCategory: json['detailCategory'] as String,
       dailyType: json['dailyType'] as String,
@@ -21,6 +22,7 @@ Daily _$DailyFromJson(Map<String, dynamic> json) => Daily(
 
 Map<String, dynamic> _$DailyToJson(Daily instance) => <String, dynamic>{
       'id': instance.id,
+      'organizerId': instance.organizerId,
       'category': instance.category,
       'detailCategory': instance.detailCategory,
       'dailyType': instance.dailyType,

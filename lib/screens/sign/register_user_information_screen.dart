@@ -6,7 +6,7 @@ import '../../constants/constants_colors.dart';
 import '../../utils/date_utils.dart';
 import '../../widgets/birthday_date_picker.dart';
 import '../../widgets/bottom_sheets/select_location_bottom_sheet.dart';
-import 'components/register_next_button.dart';
+import '../../widgets/common_action_button.dart';
 
 class RegisterUserInformationScreen extends StatefulWidget {
   final Function nextPressed;
@@ -187,8 +187,9 @@ class _RegisterUserInformationScreenState
               ),
             ),
           ),
-          RegisterNextButton(
+          CommonActionButton(
             value: canNextPressed,
+            title: '다음',
             onTap: () {
               if (!canNextPressed) return;
               setState(() => _index++);
@@ -286,8 +287,9 @@ class _RegisterUserInformationScreenState
               ),
             ),
           ),
-          RegisterNextButton(
+          CommonActionButton(
             value: canNextPressed,
+            title: '다음',
             onTap: () {
               if (!canNextPressed) return;
               widget.nextPressed(_gender.name, _birthday, _userPlace);

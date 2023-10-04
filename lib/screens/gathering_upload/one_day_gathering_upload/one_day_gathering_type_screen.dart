@@ -3,13 +3,12 @@ import 'package:common/constants/constants_enum.dart';
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/club_gathering/club_gathering.dart';
 import 'package:common/models/one_day_gathering/one_day_gathering.dart';
-import 'package:common/screens/gathering_upload/components/gathering_upload_next_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-
 import '../../../services/club_gathering_service.dart';
 import '../../../services/one_day_gathering_service.dart';
+import '../../../widgets/common_action_button.dart';
 
 class OneDayGatheringTypeScreen extends StatefulWidget {
   final OneDayGathering? gathering;
@@ -164,7 +163,7 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
             ],
           ),
         ),
-        GatheringUploadNextButton(
+        CommonActionButton(
           value: canNextPress,
           onTap: () {
             if (!canNextPress) return;

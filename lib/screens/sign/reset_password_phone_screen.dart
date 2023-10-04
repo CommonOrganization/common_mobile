@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:common/constants/constants_colors.dart';
 import 'package:common/constants/constants_enum.dart';
 import 'package:common/constants/constants_reg.dart';
@@ -9,7 +8,7 @@ import 'package:common/utils/local_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import 'components/register_next_button.dart';
+import '../../widgets/common_action_button.dart';
 
 class ResetPasswordPhoneScreen extends StatefulWidget {
   final Function nextPressed;
@@ -216,8 +215,9 @@ class _ResetPasswordPhoneScreenState extends State<ResetPasswordPhoneScreen> {
               ),
             ),
           ),
-          RegisterNextButton(
+          CommonActionButton(
             value: kPhoneRegExp.hasMatch(_phoneController.text),
+            title: '다음',
             onTap: () {
               if (kPhoneRegExp.hasMatch(_phoneController.text)) {
                 _index++;
@@ -322,8 +322,9 @@ class _ResetPasswordPhoneScreenState extends State<ResetPasswordPhoneScreen> {
               ),
             ),
           ),
-          RegisterNextButton(
+          CommonActionButton(
             value: checkCertificationNumber,
+            title: '다음',
             onTap: () {
               if (!checkCertificationNumber) return;
               if (_time <= 0) {

@@ -1,10 +1,9 @@
-import 'package:common/screens/daily_upload/components/daily_upload_next_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
 import '../../constants/constants_colors.dart';
 import '../../constants/constants_enum.dart';
 import '../../constants/constants_value.dart';
+import '../../widgets/common_action_button.dart';
 
 class DailyUploadCategoryScreen extends StatefulWidget {
   final Function nextPressed;
@@ -221,7 +220,7 @@ class _DailyUploadCategoryScreenState extends State<DailyUploadCategoryScreen> {
             ],
           ),
         ),
-        DailyUploadNextButton(
+        CommonActionButton(
           value: _selectedCategory != null,
           onTap: () {
             if (_selectedCategory == null) return;

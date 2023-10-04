@@ -4,8 +4,7 @@ import 'package:common/utils/local_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
-
-import 'components/daily_upload_next_button.dart';
+import '../../widgets/common_action_button.dart';
 
 class DailyUploadImageScreen extends StatefulWidget {
   final Function nextPressed;
@@ -74,7 +73,7 @@ class _DailyUploadImageScreenState extends State<DailyUploadImageScreen> {
             ],
           ),
         ),
-        DailyUploadNextButton(
+        CommonActionButton(
           value: _mainImageUrl != null,
           onTap: () {
             if (_mainImageUrl == null) return;

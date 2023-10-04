@@ -1,9 +1,9 @@
 import 'package:common/constants/constants_colors.dart';
-import 'package:common/screens/gathering_upload/components/gathering_upload_next_button.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../models/one_day_gathering/one_day_gathering.dart';
 import '../../../services/gathering_service.dart';
+import '../../../widgets/common_action_button.dart';
 
 class OneDayGatheringContentScreen extends StatefulWidget {
   final OneDayGathering? gathering;
@@ -179,7 +179,7 @@ class _OneDayGatheringContentScreenState
               ],
             ),
           ),
-          GatheringUploadNextButton(
+          CommonActionButton(
             value: canNextPress,
             onTap: () {
               if (!canNextPress) return;

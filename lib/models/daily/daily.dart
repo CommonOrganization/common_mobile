@@ -4,6 +4,7 @@ part 'daily.g.dart';
 @JsonSerializable()
 class Daily {
   final String id;
+  final String organizerId;
   final String category;
   final String detailCategory;
   final String dailyType;
@@ -16,6 +17,7 @@ class Daily {
 
   Daily({
     required this.id,
+    required this.organizerId,
     required this.category,
     required this.detailCategory,
     required this.dailyType,

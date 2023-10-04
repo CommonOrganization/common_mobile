@@ -1,8 +1,8 @@
 import 'package:common/utils/local_utils.dart';
 import 'package:flutter/material.dart';
 import '../../../models/club_gathering/club_gathering.dart';
+import '../../../widgets/common_action_button.dart';
 import '../components/gathering_tag_area.dart';
-import '../components/gathering_upload_next_button.dart';
 
 class ClubGatheringTagScreen extends StatefulWidget {
   final ClubGathering? gathering;
@@ -58,7 +58,7 @@ class _ClubGatheringTagScreenState extends State<ClubGatheringTagScreen> {
             removePressed: (String tag) => setState(() => _tagList.remove(tag)),
           ),
         ),
-        GatheringUploadNextButton(
+        CommonActionButton(
           onTap: () => widget.previewPressed(_tagList),
           value: true,
           title: '미리보기',

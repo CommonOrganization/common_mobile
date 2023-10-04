@@ -1,12 +1,12 @@
 import 'package:common/constants/constants_colors.dart';
 import 'package:common/constants/constants_value.dart';
 import 'package:common/models/user_place/user_place.dart';
-import 'package:common/screens/gathering_upload/components/gathering_upload_next_button.dart';
 import 'package:common/utils/local_utils.dart';
 import 'package:common/widgets/custom_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../models/one_day_gathering/one_day_gathering.dart';
+import '../../../widgets/common_action_button.dart';
 import '../../../widgets/custom_date_picker.dart';
 import '../../../widgets/bottom_sheets/select_location_bottom_sheet.dart';
 
@@ -389,7 +389,7 @@ class _OneDayGatheringScheduleScreenState
               ),
             ),
           ),
-          GatheringUploadNextButton(
+          CommonActionButton(
             value: canNextPress,
             onTap: () {
               if (!canNextPress) return;

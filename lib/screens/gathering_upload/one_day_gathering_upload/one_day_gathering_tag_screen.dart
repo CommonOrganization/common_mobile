@@ -1,7 +1,7 @@
-import 'package:common/screens/gathering_upload/components/gathering_upload_next_button.dart';
 import 'package:common/utils/local_utils.dart';
 import 'package:flutter/material.dart';
 import '../../../models/one_day_gathering/one_day_gathering.dart';
+import '../../../widgets/common_action_button.dart';
 import '../components/gathering_tag_area.dart';
 
 class OneDayGatheringTagScreen extends StatefulWidget {
@@ -60,7 +60,7 @@ class _OneDayGatheringTagScreenState extends State<OneDayGatheringTagScreen> {
             removePressed: (String tag) => setState(() => _tagList.remove(tag)),
           ),
         ),
-        GatheringUploadNextButton(
+        CommonActionButton(
           onTap: () => widget.previewPressed(_tagList),
           value: true,
           title: '미리보기',

@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
 import '../../constants/constants_colors.dart';
 import '../../constants/constants_value.dart';
 import '../../utils/local_utils.dart';
-import 'components/daily_upload_next_button.dart';
+import '../../widgets/common_action_button.dart';
 
 class DailyUploadTagScreen extends StatefulWidget {
-  final Function nextPressed;
-  const DailyUploadTagScreen({Key? key, required this.nextPressed})
+  final Function previewPressed;
+  const DailyUploadTagScreen({Key? key, required this.previewPressed})
       : super(key: key);
 
   @override
@@ -184,9 +183,9 @@ class _DailyUploadTagScreenState extends State<DailyUploadTagScreen> {
             ],
           ),
         ),
-        DailyUploadNextButton(
+        CommonActionButton(
           value: true,
-          onTap: () => widget.nextPressed(_tagList),
+          onTap: () => widget.previewPressed(_tagList),
           title: '미리보기',
         ),
       ],

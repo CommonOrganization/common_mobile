@@ -1,15 +1,14 @@
 import 'package:common/constants/constants_enum.dart';
 import 'package:common/controllers/user_controller.dart';
-import 'package:common/screens/daily_upload/components/daily_upload_next_button.dart';
 import 'package:common/services/club_gathering_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-
 import '../../constants/constants_colors.dart';
 import '../../models/club_gathering/club_gathering.dart';
 import '../../models/one_day_gathering/one_day_gathering.dart';
 import '../../services/one_day_gathering_service.dart';
+import '../../widgets/common_action_button.dart';
 
 class DailyUploadTypeScreen extends StatefulWidget {
   final Function nextPressed;
@@ -111,7 +110,7 @@ class _DailyUploadTypeScreenState extends State<DailyUploadTypeScreen> {
             ],
           ),
         ),
-        DailyUploadNextButton(
+        CommonActionButton(
           value: canNextPress,
           onTap: () {
             if (!canNextPress) return;

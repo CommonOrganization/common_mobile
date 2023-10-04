@@ -1,9 +1,13 @@
 import 'package:common/constants/constants_enum.dart';
+import 'package:common/controllers/user_controller.dart';
+import 'package:common/models/daily/daily.dart';
+import 'package:common/screens/daily_detail/daily_detail_screen.dart';
 import 'package:common/screens/daily_upload/daily_upload_category_screen.dart';
 import 'package:common/screens/daily_upload/daily_upload_content_screen.dart';
 import 'package:common/screens/daily_upload/daily_upload_type_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 
 import '../../constants/constants_colors.dart';
 import 'daily_upload_image_screen.dart';
@@ -60,19 +64,39 @@ class _DailyUploadMainScreenState extends State<DailyUploadMainScreen> {
         );
       case 3:
         return DailyUploadContentScreen(
-          nextPressed: (String dailyContent) =>
-              setState(() {
-                _dailyContent = dailyContent;
-                _pageIndex++;
-              }),
+          nextPressed: (String dailyContent) => setState(() {
+            _dailyContent = dailyContent;
+            _pageIndex++;
+          }),
         );
       case 4:
-        return DailyUploadTagScreen(
-          nextPressed: (List tagList) =>
-              setState(() {
-                _dailyTagList = tagList;
-              }),
-        );
+        return DailyUploadTagScreen(previewPressed: (List tagList) {
+          _dailyTagList = tagList;
+          String? userId = context.read<UserController>().user?.id;
+          if (userId == null) return;
+          Daily daily = Daily(
+            id: 'preview',
+            organizerId: userId,
+            category: _dailyMainCategory.name,
+            detailCategory: _dailyDetailCategory,
+            dailyType: _dailyType.name,
+            connectedClubGatheringId: _dailyConnectedClubGatheringId,
+            mainImage: _dailyMainImage,
+            imageList: _dailyImageList,
+            content: _dailyContent,
+            tagList: _dailyTagList,
+            timeStamp: DateTime.now().toString(),
+          );
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => DailyDetailScreen(
+                daily: daily,
+                isPreview: true,
+              ),
+            ),
+          );
+        });
       default:
         return Container();
     }

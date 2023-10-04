@@ -26,6 +26,8 @@ const List<String> kExampleTagList = ['배드민턴', '등산', '서울', '2030'
 
 const String kOneDayGatheringCategory = 'oneDayGathering';
 const String kClubGatheringCategory = 'clubGathering';
+const String kDailyCategory = 'daily';
+const String kUserCategory = 'user';
 
 const List<CommonCategory> kAllCommonCategoryList = CommonCategory.values;
 List<CommonCategory> kEachCommonCategoryList = CommonCategory.values

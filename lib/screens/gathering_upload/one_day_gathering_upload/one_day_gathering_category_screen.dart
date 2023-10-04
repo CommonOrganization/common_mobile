@@ -1,9 +1,8 @@
 import 'package:common/constants/constants_enum.dart';
 import 'package:common/screens/gathering_upload/components/gathering_category_select_area.dart';
-import 'package:common/screens/gathering_upload/components/gathering_upload_next_button.dart';
 import 'package:flutter/material.dart';
-
 import '../../../models/one_day_gathering/one_day_gathering.dart';
+import '../../../widgets/common_action_button.dart';
 
 class OneDayGatheringCategoryScreen extends StatefulWidget {
   final OneDayGathering? gathering;
@@ -57,7 +56,7 @@ class _OneDayGatheringCategoryScreenState
               onChanged: (text) => setState(() {}),
             ),
           ),
-          GatheringUploadNextButton(
+          CommonActionButton(
             value: _selectedCategory != null,
             onTap: () {
               if (_selectedCategory == null) return;

@@ -1,9 +1,9 @@
 import 'package:common/constants/constants_colors.dart';
 import 'package:common/constants/constants_enum.dart';
 import 'package:common/constants/constants_value.dart';
-import 'package:common/screens/sign/components/register_next_button.dart';
 import 'package:common/utils/local_utils.dart';
 import 'package:flutter/material.dart';
+import '../../widgets/common_action_button.dart';
 
 class RegisterCategoryScreen extends StatefulWidget {
   final Function nextPressed;
@@ -110,8 +110,9 @@ class _RegisterCategoryScreenState extends State<RegisterCategoryScreen> {
             ),
           ),
         ),
-        RegisterNextButton(
+        CommonActionButton(
           value: _selectedCategoryList.isNotEmpty,
+          title: '다음',
           onTap: () {
             if (_selectedCategoryList.isEmpty) return;
             widget.nextPressed(_selectedCategoryList);

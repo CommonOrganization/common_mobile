@@ -12,7 +12,7 @@ import '../../../constants/constants_enum.dart';
 import '../../../utils/date_utils.dart';
 import '../../../widgets/bottom_sheets/gathering_edit_bottom_sheet.dart';
 
-class GatheringSliverAppbar extends StatelessWidget {
+class GatheringSliverAppbar extends StatefulWidget {
   final bool showAppbarBlack;
   final double size;
   final Gathering gathering;
@@ -28,10 +28,20 @@ class GatheringSliverAppbar extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<GatheringSliverAppbar> createState() => _GatheringSliverAppbarState();
+}
+
+class _GatheringSliverAppbarState extends State<GatheringSliverAppbar> {
+  final PageController pageController = PageController(
+    initialPage: 0,
+  );
+
+  @override
   Widget build(BuildContext context) {
-    GatheringType gatheringType = getGatheringType(gathering.id);
+    GatheringType gatheringType = getGatheringType(widget.gathering.id);
     return SliverAppBar(
-        backgroundColor: showAppbarBlack ? kWhiteColor : Colors.transparent,
+        backgroundColor:
+            widget.showAppbarBlack ? kWhiteColor : Colors.transparent,
         elevation: 0,
         pinned: true,
         expandedHeight: MediaQuery.of(context).size.width,
@@ -43,20 +53,20 @@ class GatheringSliverAppbar extends StatelessWidget {
             margin: const EdgeInsets.only(left: 20),
             alignment: Alignment.center,
             child: SvgPicture.asset(
-              showAppbarBlack
+              widget.showAppbarBlack
                   ? 'assets/icons/svg/arrow_left_28px.svg'
                   : 'assets/icons/svg/arrow_left_white_28px.svg',
             ),
           ),
         ),
-        actions: isPreview
+        actions: widget.isPreview
             ? null
             : [
                 GestureDetector(
                   behavior: HitTestBehavior.opaque,
                   onTap: () {},
                   child: SvgPicture.asset(
-                    showAppbarBlack
+                    widget.showAppbarBlack
                         ? 'assets/icons/svg/share_26px.svg'
                         : 'assets/icons/svg/share_white_26px.svg',
                   ),
@@ -67,12 +77,12 @@ class GatheringSliverAppbar extends StatelessWidget {
                   onTap: () {
                     String? userId = context.read<UserController>().user?.id;
                     if (userId == null) return;
-                    if (userId == gathering.organizerId) {
+                    if (userId == widget.gathering.organizerId) {
                       showModalBottomSheet(
                         context: context,
                         backgroundColor: Colors.transparent,
                         builder: (context) => GatheringEditBottomSheet(
-                          gathering: gathering,
+                          gathering: widget.gathering,
                         ),
                       );
                       return;
@@ -81,12 +91,12 @@ class GatheringSliverAppbar extends StatelessWidget {
                       context: context,
                       backgroundColor: Colors.transparent,
                       builder: (context) => GatheringReportBottomSheet(
-                        gathering: gathering,
+                        gathering: widget.gathering,
                       ),
                     );
                   },
                   child: SvgPicture.asset(
-                    showAppbarBlack
+                    widget.showAppbarBlack
                         ? 'assets/icons/svg/more_26px.svg'
                         : 'assets/icons/svg/more_white_26px.svg',
                   ),
@@ -96,34 +106,49 @@ class GatheringSliverAppbar extends StatelessWidget {
         flexibleSpace: FlexibleSpaceBar(
           collapseMode: CollapseMode.pin,
           background: SizedBox(
-            width: size,
-            height: size,
+            width: widget.size,
+            height: widget.size,
             child: Stack(
               children: [
                 Positioned(
                   top: 0,
-                  child: Container(
-                    width: size,
-                    height: size,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(gathering.mainImage),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    child: Container(
-                      width: size,
-                      height: size,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            kBlackColor.withOpacity(0.4),
-                            kBlackColor.withOpacity(0.08),
-                          ],
-                        ),
-                      ),
+                  child: SizedBox(
+                    width: widget.size,
+                    height: widget.size,
+                    child: PageView(
+                      physics: const ClampingScrollPhysics(),
+                      controller: pageController,
+                      children: [
+                        widget.gathering.mainImage,
+                        ...widget.gathering.gatheringImage
+                      ]
+                          .map(
+                            (image) => Container(
+                              width: widget.size,
+                              height: widget.size,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: NetworkImage(image),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              child: Container(
+                                width: widget.size,
+                                height: widget.size,
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    colors: [
+                                      kBlackColor.withOpacity(0.4),
+                                      kBlackColor.withOpacity(0.08),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                          .toList(),
                     ),
                   ),
                 ),
@@ -138,7 +163,7 @@ class GatheringSliverAppbar extends StatelessWidget {
                         child: Wrap(
                           runSpacing: 8,
                           spacing: 8,
-                          children: gathering.tagList
+                          children: widget.gathering.tagList
                               .map(
                                 (tag) => Container(
                                   padding: const EdgeInsets.symmetric(
@@ -185,7 +210,7 @@ class GatheringSliverAppbar extends StatelessWidget {
                             Builder(builder: (context) {
                               CommonCategory category =
                                   CommonCategoryExtenstion.getCategory(
-                                      gathering.category);
+                                      widget.gathering.category);
                               return Row(
                                 children: [
                                   Image.asset(
@@ -203,7 +228,8 @@ class GatheringSliverAppbar extends StatelessWidget {
                                       height: 17 / 12,
                                     ),
                                   ),
-                                  if (gathering.detailCategory.isNotEmpty)
+                                  if (widget
+                                      .gathering.detailCategory.isNotEmpty)
                                     Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 6),
@@ -214,7 +240,7 @@ class GatheringSliverAppbar extends StatelessWidget {
                                       ),
                                     ),
                                   Text(
-                                    gathering.detailCategory,
+                                    widget.gathering.detailCategory,
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: kFontGray600Color,
@@ -229,7 +255,7 @@ class GatheringSliverAppbar extends StatelessWidget {
                               children: [
                                 Expanded(
                                   child: Text(
-                                    gathering.title,
+                                    widget.gathering.title,
                                     style: TextStyle(
                                       fontSize: 26,
                                       fontWeight: FontWeight.bold,
@@ -240,7 +266,7 @@ class GatheringSliverAppbar extends StatelessWidget {
                                 ),
                                 GatheringFavoriteButton(
                                   category: gatheringType.category,
-                                  gatheringId: gathering.id,
+                                  gatheringId: widget.gathering.id,
                                   userId:
                                       context.read<UserController>().user!.id,
                                   size: 28,
@@ -251,7 +277,7 @@ class GatheringSliverAppbar extends StatelessWidget {
                             Row(
                               children: [
                                 Text(
-                                  '${getTimeDifference(DateTime.parse(gathering.timeStamp))} 등록',
+                                  '${getTimeDifference(DateTime.parse(widget.gathering.timeStamp))} 등록',
                                   style: TextStyle(
                                     fontSize: 13,
                                     color: kMainColor,
@@ -268,7 +294,7 @@ class GatheringSliverAppbar extends StatelessWidget {
                                 ),
                                 FutureBuilder(
                                     future: LikeService.getLikeObjectCount(
-                                        objectId: gathering.id),
+                                        objectId: widget.gathering.id),
                                     builder: (context, snapshot) {
                                       return RichText(
                                         text: TextSpan(

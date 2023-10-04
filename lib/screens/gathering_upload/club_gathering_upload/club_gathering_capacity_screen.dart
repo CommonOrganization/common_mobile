@@ -1,9 +1,8 @@
 import 'package:common/constants/constants_colors.dart';
-import 'package:common/screens/gathering_upload/components/gathering_upload_next_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../../../models/club_gathering/club_gathering.dart';
+import '../../../widgets/common_action_button.dart';
 
 class ClubGatheringCapacityScreen extends StatefulWidget {
   final ClubGathering? gathering;
@@ -197,7 +196,7 @@ class _ClubGatheringCapacityScreenState
             ),
           ),
         ),
-        GatheringUploadNextButton(
+        CommonActionButton(
           value: true,
           onTap: () => widget.nextPressed(_decimalNumber * 10 + _digitNumber),
           title: '다음',
