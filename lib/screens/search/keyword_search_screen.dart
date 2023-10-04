@@ -97,10 +97,10 @@ class _KeywordSearchScreenState extends State<KeywordSearchScreen> {
                     focusedBorder: InputBorder.none,
                     isDense: true,
                     counterText: '',
-                    hintText: '지역, 모임명, 키워드를 입력하세요.',
+                    hintText: '제목, 내용, 키워드를 입력하세요.',
                     hintStyle: TextStyle(
                       fontSize: 14,
-                      color: kFontGray600Color,
+                      color: kFontGray400Color,
                       height: 24 / 14,
                       letterSpacing: -0.5,
                     ),

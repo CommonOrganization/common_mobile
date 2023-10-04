@@ -100,7 +100,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         focusedBorder: InputBorder.none,
                         isDense: true,
                         counterText: '',
-                        hintText: '지역, 모임명, 키워드를 입력하세요.',
+                        hintText: '제목, 내용, 키워드를 입력하세요.',
                         hintStyle: TextStyle(
                           fontSize: 14,
                           color: kFontGray400Color,

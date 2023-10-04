@@ -1,4 +1,5 @@
 import 'package:common/constants/constants_colors.dart';
+import 'package:common/screens/daily/daily_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../chat/chat_screen.dart';
@@ -22,6 +23,7 @@ class _MainScreenState extends State<MainScreen> {
       case 1:
         return const ChatScreen();
       case 2:
+        return const DailyScreen();
       case 3:
       default:
         return Container();

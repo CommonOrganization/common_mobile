@@ -2,14 +2,18 @@ import 'package:common/constants/constants_value.dart';
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/screens/daily_detail/components/daily_favorite_button.dart';
 import 'package:common/screens/daily_detail/components/daily_organizer_card.dart';
+import 'package:common/services/daily_service.dart';
 import 'package:common/services/like_service.dart';
 import 'package:common/utils/date_utils.dart';
+import 'package:common/widgets/bottom_sheets/daily_edit_bottom_sheet.dart';
+import 'package:common/widgets/bottom_sheets/daily_report_bottom_sheet.dart';
 import 'package:common/widgets/common_action_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import '../../constants/constants_colors.dart';
 import '../../models/daily/daily.dart';
+import '../../services/data_service.dart';
 import 'components/daily_image_container.dart';
 
 class DailyDetailScreen extends StatefulWidget {
@@ -53,13 +57,33 @@ class _DailyDetailScreenState extends State<DailyDetailScreen> {
           ),
         ),
         actions: [
-          GestureDetector(
-            behavior: HitTestBehavior.opaque,
-            onTap: () {
-              //TODO 여기서 데일리 수정/삭제 등을 할 것
-            },
-            child: SvgPicture.asset('assets/icons/svg/more_26px.svg'),
-          ),
+          if (!widget.isPreview)
+            GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () {
+                //TODO 여기서 데일리 수정/삭제 등을 할 것
+                String? userId = context.read<UserController>().user?.id;
+                bool isOrganizer = userId == widget.daily.organizerId;
+                if (isOrganizer) {
+                  showModalBottomSheet(
+                    context: context,
+                    backgroundColor: Colors.transparent,
+                    builder: (context) => DailyEditBottomSheet(
+                      daily: widget.daily,
+                    ),
+                  );
+                } else {
+                  showModalBottomSheet(
+                    context: context,
+                    backgroundColor: Colors.transparent,
+                    builder: (context) => DailyReportBottomSheet(
+                      daily: widget.daily,
+                    ),
+                  );
+                }
+              },
+              child: SvgPicture.asset('assets/icons/svg/more_26px.svg'),
+            ),
           const SizedBox(width: 20),
         ],
         elevation: 0,
@@ -154,7 +178,18 @@ class _DailyDetailScreenState extends State<DailyDetailScreen> {
         );
       }),
       bottomNavigationBar: widget.isPreview
-          ? CommonActionButton(value: true, onTap: () {}, title: '데일리 올리기')
+          ? CommonActionButton(
+              value: true,
+              onTap: () async {
+                bool uploadSuccess =
+                    await DailyService.uploadDaily(daily: widget.daily);
+                if (!mounted) return;
+                if (uploadSuccess) {
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                }
+              },
+              title: '데일리 올리기')
           : Container(),
     );
   }

@@ -55,6 +55,33 @@ class _DailyUploadImageScreenState extends State<DailyUploadImageScreen> {
           child: ListView(
             physics: const ClampingScrollPhysics(),
             children: [
+              const SizedBox(height: 12),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text(
+                  '재미있는 순간들을 사진으로 기록해요',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: kFontGray900Color,
+                    height: 1,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text(
+                  '사진은 최소 1장 이상 등록해 주세요.',
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: kFontGray500Color,
+                    height: 20 / 13,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 36),
+
               if (_mainImageUrl != null)
                 kImageContainer(true, _mainImageUrl!)
               else
