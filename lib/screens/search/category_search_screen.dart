@@ -3,6 +3,7 @@ import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/club_gathering/club_gathering.dart';
 import 'package:common/models/one_day_gathering/one_day_gathering.dart';
 import 'package:common/screens/search/search_screen.dart';
+import 'package:common/services/daily_service.dart';
 import 'package:common/widgets/club_gathering_row_card.dart';
 import 'package:common/widgets/one_day_gathering_row_card.dart';
 import 'package:flutter/material.dart';
@@ -10,8 +11,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import '../../constants/constants_colors.dart';
 import '../../constants/constants_value.dart';
+import '../../models/daily/daily.dart';
 import '../../services/club_gathering_service.dart';
 import '../../services/one_day_gathering_service.dart';
+import '../../widgets/daily_card.dart';
 
 class CategorySearchScreen extends StatefulWidget {
   final CommonCategory category;
@@ -55,8 +58,9 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
         return kOneDayGatheringArea(city: city, userId: userId);
       case 1:
         return kClubGatheringArea(city: city, userId: userId);
+      case 2:
+        return kDailyArea();
       default:
-        //TODO 여기서 데일리 area 개발해주어야함
         return Container();
     }
   }
@@ -229,7 +233,7 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
 
   Widget kOneDayGatheringArea({required String city, required String userId}) {
     return ListView(
-      physics: const NeverScrollableScrollPhysics(),
+      physics: const ClampingScrollPhysics(),
       shrinkWrap: true,
       children: [
         FutureBuilder(
@@ -242,7 +246,7 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
               if (gatheringList.isEmpty) return Container();
               return ListView(
                 shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
+                physics: const ClampingScrollPhysics(),
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -257,7 +261,9 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
                     ),
                   ),
                   const SizedBox(height: 4),
-                  ...gatheringList
+                  ...(gatheringList.length > 3
+                          ? gatheringList.sublist(0, 3)
+                          : gatheringList)
                       .map((gathering) => OneDayGatheringRowCard(
                           gathering: gathering, userId: userId))
                       .toList(),
@@ -268,7 +274,6 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
             return Container();
           },
         ),
-        //TODO 이곳에 인기데일리 들어갈 예정
         FutureBuilder(
           future: OneDayGatheringService.getAllGatheringWithCategory(
               city: city, category: _selectedCategory.name),
@@ -279,7 +284,7 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
               if (gatheringList.isEmpty) return Container();
               return ListView(
                 shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
+                physics: const ClampingScrollPhysics(),
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -315,7 +320,7 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
       shrinkWrap: true,
       children: [
         FutureBuilder(
-          future: ClubGatheringService.getNewGatheringWithCategory(
+          future: ClubGatheringService.searchGatheringWithCategory(
               city: city, category: _selectedCategory.name),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
@@ -324,7 +329,7 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
               if (gatheringList.isEmpty) return Container();
               return ListView(
                 shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
+                physics: const ClampingScrollPhysics(),
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -339,9 +344,13 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
                     ),
                   ),
                   const SizedBox(height: 4),
-                  ...gatheringList
-                      .map((gathering) => ClubGatheringRowCard(
-                          gathering: gathering, userId: userId))
+                  ...(gatheringList.length > 3
+                          ? gatheringList.sublist(0, 3)
+                          : gatheringList)
+                      .map(
+                        (gathering) => ClubGatheringRowCard(
+                            gathering: gathering, userId: userId),
+                      )
                       .toList(),
                   const SizedBox(height: 24),
                 ],
@@ -350,7 +359,6 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
             return Container();
           },
         ),
-        //TODO 이곳에 인기데일리 들어갈 예정
         FutureBuilder(
           future: ClubGatheringService.getAllGatheringWithCategory(
               city: city, category: _selectedCategory.name),
@@ -361,7 +369,7 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
               if (gatheringList.isEmpty) return Container();
               return ListView(
                 shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
+                physics: const ClampingScrollPhysics(),
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -388,6 +396,29 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
           },
         ),
       ],
+    );
+  }
+
+  Widget kDailyArea() {
+    return FutureBuilder(
+      future: DailyService.searchDailyWithCategory(
+          category: _selectedCategory.name),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          List<Daily>? dailyList = snapshot.data;
+          if (dailyList == null || dailyList.isEmpty) return Container();
+          return GridView.count(
+            physics: const ClampingScrollPhysics(),
+            shrinkWrap: true,
+            crossAxisCount: 3,
+            mainAxisSpacing: 4,
+            crossAxisSpacing: 4,
+            children:
+                dailyList.map((daily) => DailyCard(daily: daily)).toList(),
+          );
+        }
+        return Container();
+      },
     );
   }
 }

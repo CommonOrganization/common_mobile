@@ -15,6 +15,7 @@ bool hasKeywordOneDayGathering(
   if ((gathering.place['county'] as String).contains(keyword)) return true;
   if ((gathering.place['detail'] as String).contains(keyword)) return true;
   if (gathering.title.contains(keyword)) return true;
+  if (gathering.content.contains(keyword)) return true;
   return false;
 }
 
@@ -24,5 +25,6 @@ bool hasKeywordClubGathering(
   if (gathering.detailCategory.contains(keyword)) return true;
   if (gathering.cityList.contains(keyword)) return true;
   if (gathering.title.contains(keyword)) return true;
+  if (gathering.content.contains(keyword)) return true;
   return false;
 }

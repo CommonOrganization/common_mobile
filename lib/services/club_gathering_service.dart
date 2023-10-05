@@ -276,18 +276,14 @@ class ClubGatheringService {
   }
 
   /// 카테고리 검색
-  static Future<List<ClubGathering>> getNewGatheringWithCategory(
+  static Future<List<ClubGathering>> searchGatheringWithCategory(
       {required String city, required String category}) async {
     try {
-      DateTime nowDate = DateTime.now();
       late QuerySnapshot<Map<String, dynamic>> snapshot;
       if (category == 'all') {
         snapshot = await FirebaseService.fireStore
             .collection(_category)
             .where('cityList', arrayContains: city)
-            .where('timeStamp',
-                isGreaterThanOrEqualTo:
-                    nowDate.subtract(const Duration(days: 7)).toString())
             .orderBy('timeStamp', descending: true)
             .get();
       } else {
@@ -295,9 +291,6 @@ class ClubGatheringService {
             .collection(_category)
             .where('category', isEqualTo: category)
             .where('cityList', arrayContains: city)
-            .where('timeStamp',
-                isGreaterThanOrEqualTo:
-                    nowDate.subtract(const Duration(days: 7)).toString())
             .orderBy('timeStamp', descending: true)
             .get();
       }
@@ -306,7 +299,7 @@ class ClubGatheringService {
           .map((element) => ClubGathering.fromJson(element.data()))
           .toList();
     } catch (e) {
-      log('ClubGatheringService - getNewGatheringWithCategory Failed : $e');
+      log('ClubGatheringService - searchGatheringWithCategory Failed : $e');
       return [];
     }
   }

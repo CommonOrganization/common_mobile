@@ -1,10 +1,12 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:common/models/daily/daily.dart';
 import 'package:common/services/data_service.dart';
 import 'package:common/services/upload_service.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../utils/daily_utils.dart';
 import 'firebase_service.dart';
 
 class DailyService {
@@ -16,13 +18,58 @@ class DailyService {
 
   static Future<List<Daily>> getRecommendDaily() async {
     try {
-      // 1. 카테고리 ( 가중치 1순위)
-      // 2. 올린 일자 (가중치 2순위 - 30일을 기준 오늘부터 30일)
-      DateTime nowDate = DateTime.now();
-      String imageRef = '/daily/${nowDate.microsecondsSinceEpoch}';
-      return [];
+      final snapshot = await FirebaseService.fireStore
+          .collection(collection)
+          .orderBy('timeStamp', descending: true)
+          .get();
+
+      return snapshot.docs
+          .map((document) => Daily.fromJson(document.data()))
+          .toList();
     } catch (e) {
-      log('DailyService - uploadDailyImage Failed : $e');
+      log('DailyService - getRecommendDaily Failed : $e');
+      return [];
+    }
+  }
+
+  static Future<List<Daily>> searchDailyWithKeyword(
+      {required String keyword}) async {
+    try {
+      final snapshot =
+          await FirebaseService.fireStore.collection(collection).get();
+
+      return snapshot.docs
+          .map((document) => Daily.fromJson(document.data()))
+          .where((daily) => hasKeywordDaily(daily: daily, keyword: keyword))
+          .toList();
+    } catch (e) {
+      log('DailyService - searchDailyWithKeyword Failed : $e');
+      return [];
+    }
+  }
+
+  static Future<List<Daily>> searchDailyWithCategory(
+      {required String category}) async {
+    try {
+      late QuerySnapshot<Map<String, dynamic>> snapshot;
+      if (category == 'all') {
+        snapshot = await FirebaseService.fireStore
+            .collection(collection)
+            .orderBy('timeStamp', descending: true)
+            .get();
+      } else {
+        snapshot = await FirebaseService.fireStore
+            .collection(collection)
+            .where('category', isEqualTo: category)
+            .orderBy('timeStamp', descending: true)
+            .get();
+      }
+
+      return snapshot.docs
+          .map((element) => Daily.fromJson(element.data()))
+          .toList();
+    } catch (e) {
+      log('DailyService - searchDailyWithCategory Failed : $e');
       return [];
     }
   }

@@ -1,6 +1,9 @@
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/club_gathering/club_gathering.dart';
+import 'package:common/models/daily/daily.dart';
 import 'package:common/models/one_day_gathering/one_day_gathering.dart';
+import 'package:common/services/daily_service.dart';
+import 'package:common/widgets/daily_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
@@ -39,8 +42,7 @@ class _KeywordSearchScreenState extends State<KeywordSearchScreen> {
       case 1:
         return kClubGatheringArea(city);
       case 2:
-        //TODO 데일리 개발시 넣기
-        return Container();
+        return kDailyArea();
       default:
         return Container();
     }
@@ -186,6 +188,29 @@ class _KeywordSearchScreenState extends State<KeywordSearchScreen> {
                         userId: userId,
                       ))
                   .toList(),
+            ),
+          );
+        }
+        return Container();
+      },
+    );
+  }
+
+  Widget kDailyArea() {
+    return FutureBuilder(
+      future: DailyService.searchDailyWithKeyword(
+        keyword: _searchWord,
+      ),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          List<Daily>? dailyList = snapshot.data;
+          if (dailyList == null) return Container();
+          return Expanded(
+            child: GridView.count(
+              crossAxisCount: 3,
+              physics: const ClampingScrollPhysics(),
+              children:
+                  dailyList.map((daily) => DailyCard(daily: daily)).toList(),
             ),
           );
         }
