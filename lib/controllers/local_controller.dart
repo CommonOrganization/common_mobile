@@ -13,6 +13,8 @@ class LocalController {
   static const String _userPhoneKey = 'userPhone';
   static const String _searchWorkKey = 'searchWord';
 
+  static const String _blockObjectListKey = 'blockObjectList';
+
   static Future<void> _setSharedPreferences() async {
     _sharedPreferences = await SharedPreferences.getInstance();
   }
@@ -157,6 +159,56 @@ class LocalController {
       return searchWordList.sublist(0, listSize);
     } catch (e) {
       log('LocalController - getSearchWord Failed : $e');
+      return [];
+    }
+  }
+
+  /* 차단 유저 관련 */
+  static Future<bool> blockNewObject(String id) async {
+    try {
+      if (_sharedPreferences == null) {
+        await _setSharedPreferences();
+      }
+      List<String> blockObjectList = await getBlockObjectList();
+      if (blockObjectList.contains(id)) {
+        return true;
+      }
+      blockObjectList.add(id);
+      await _sharedPreferences?.setStringList(_blockObjectListKey, blockObjectList);
+      return true;
+    } catch (e) {
+      log('LocalController - blockNewObject Failed : $e');
+      return false;
+    }
+  }
+
+  static Future<bool> removeBlockedObject(String id) async {
+    try {
+      if (_sharedPreferences == null) {
+        await _setSharedPreferences();
+      }
+
+      List<String> blockObjectList = await getBlockObjectList();
+      blockObjectList.remove(id);
+      await _sharedPreferences?.setStringList(_blockObjectListKey, blockObjectList);
+      return true;
+    } catch (e) {
+      log('LocalController - removeSearchWord Failed : $e');
+      return false;
+    }
+  }
+
+  static Future<List<String>> getBlockObjectList() async {
+    try {
+      if (_sharedPreferences == null) {
+        await _setSharedPreferences();
+      }
+      List<String> blockObjectList =
+          _sharedPreferences?.getStringList(_blockObjectListKey) ?? [];
+
+      return blockObjectList;
+    } catch (e) {
+      log('LocalController - getBlockObject Failed : $e');
       return [];
     }
   }

@@ -11,10 +11,8 @@ import 'package:common/widgets/club_gathering_row_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-
 import '../../constants/constants_colors.dart';
 import '../../models/daily/daily.dart';
-import '../../models/gathering/gathering.dart';
 import '../../models/user/user.dart';
 import '../../services/daily_service.dart';
 import '../../widgets/daily_card.dart';

@@ -1,4 +1,5 @@
 import 'package:common/constants/constants_value.dart';
+import 'package:common/controllers/block_controller.dart';
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/club_gathering/club_gathering.dart';
 import 'package:common/models/gathering/gathering.dart';
@@ -49,44 +50,51 @@ class HomeContentsSubScreen extends StatelessWidget {
         ),
         elevation: 0,
       ),
-      body: Consumer<UserController>(builder: (context, controller, child) {
-        if (controller.user == null) return Container();
-        String userId = controller.user!.id;
-        return FutureBuilder(
-          future: future,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              late List<Gathering> gatheringList;
-              switch (category) {
-                case kOneDayGatheringCategory:
-                  gatheringList = snapshot.data as List<OneDayGathering>;
-                  break;
-                case kClubGatheringCategory:
-                  gatheringList = snapshot.data as List<ClubGathering>;
-                  break;
-              }
+      body: Consumer<UserController>(builder: (context, userController, child) {
+        if (userController.user == null) return Container();
+        String userId = userController.user!.id;
+        //TODO 여기처럼 차단 할 수 있도록 모두 작업할것
+        return Consumer<BlockController>(
+            builder: (context, blockController, child) {
+          List blockedObjectList = blockController.blockedObjectList;
+          return FutureBuilder(
+            future: future,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                late List<Gathering> gatheringList;
+                switch (category) {
+                  case kOneDayGatheringCategory:
+                    gatheringList = snapshot.data as List<OneDayGathering>;
+                    break;
+                  case kClubGatheringCategory:
+                    gatheringList = snapshot.data as List<ClubGathering>;
+                    break;
+                }
 
-              if (gatheringList.isNotEmpty) {
-                return ListView(
-                  padding: const EdgeInsets.only(bottom: 10),
-                  physics: const ClampingScrollPhysics(),
-                  children: gatheringList
-                      .map((gathering) => (category == kOneDayGatheringCategory
-                          ? OneDayGatheringRowCard(
-                              gathering: gathering as OneDayGathering,
-                              userId: userId,
-                            )
-                          : ClubGatheringRowCard(
-                              gathering: gathering as ClubGathering,
-                              userId: userId,
-                            )))
-                      .toList(),
-                );
+                if (gatheringList.isNotEmpty) {
+                  return ListView(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    physics: const ClampingScrollPhysics(),
+                    children: gatheringList
+                        .where((gathering) =>!blockedObjectList.contains(gathering.id))
+                        .map(
+                            (gathering) => (category == kOneDayGatheringCategory
+                                ? OneDayGatheringRowCard(
+                                    gathering: gathering as OneDayGathering,
+                                    userId: userId,
+                                  )
+                                : ClubGatheringRowCard(
+                                    gathering: gathering as ClubGathering,
+                                    userId: userId,
+                                  )))
+                        .toList(),
+                  );
+                }
               }
-            }
-            return Container();
-          },
-        );
+              return Container();
+            },
+          );
+        });
       }),
     );
   }

@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:provider/provider.dart';
+import 'controllers/block_controller.dart';
 import 'controllers/screen_controller.dart';
 import 'firebase_options.dart';
 
@@ -19,6 +20,9 @@ Future<void> main() async {
         ),
         ChangeNotifierProvider<ScreenController>(
           create: (_) => ScreenController(),
+        ),
+        ChangeNotifierProvider<BlockController>(
+          create: (_) => BlockController(),
         ),
       ],
       builder: (context, child) => const MyApp(),
