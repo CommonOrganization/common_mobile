@@ -29,7 +29,7 @@ class GatheringStatusCard extends StatelessWidget {
         color: kWhiteColor,
         boxShadow: [
           BoxShadow(
-            color: kBlackColor.withOpacity(0.08),
+            color: kBlurColor,
             offset: const Offset(0, 2),
             blurRadius: 5,
           )
@@ -91,7 +91,7 @@ class GatheringStatusCard extends StatelessWidget {
                                     color: kMainColor,
                                     boxShadow: [
                                       BoxShadow(
-                                        color: kBlackColor.withOpacity(0.08),
+                                        color: kBlurColor,
                                         offset: const Offset(0, 2),
                                         blurRadius: 5,
                                       )

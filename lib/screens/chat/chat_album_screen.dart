@@ -51,7 +51,6 @@ class ChatAlbumScreen extends StatelessWidget {
             List<Chat>? album = snapshot.data;
             if (album == null) return Container();
             return ListView(
-              padding: const EdgeInsets.symmetric(horizontal: 4),
               physics: const ClampingScrollPhysics(),
               children: album.map((chat) {
                 return albumCard(chat);

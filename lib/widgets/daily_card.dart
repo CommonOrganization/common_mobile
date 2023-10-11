@@ -2,7 +2,7 @@ import 'package:common/models/daily/daily.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/constants_colors.dart';
-import '../screens/daily_detail/daily_detail_screen.dart';
+import '../screens/daily/daily_detail_screen.dart';
 
 class DailyCard extends StatelessWidget {
   final Daily daily;

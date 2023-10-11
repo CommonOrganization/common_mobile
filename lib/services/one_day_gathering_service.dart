@@ -107,6 +107,25 @@ class OneDayGatheringService {
     }
   }
 
+  static Future<List<OneDayGathering>> getAllGatheringListWhichUserIsParticipating(
+      {required String userId}) async {
+    try {
+      final snapshot = await FirebaseService.fireStore
+          .collection(_category)
+          .where('memberList', arrayContains: userId)
+          .orderBy('openingDate', descending: true)
+          .get();
+      if (snapshot.docs.isEmpty) return [];
+
+      return snapshot.docs
+          .map((gathering) => OneDayGathering.fromJson(gathering.data()))
+          .toList();
+    } catch (e) {
+      log('OneDayGatheringService - getAllGatheringListWhichUserIsParticipating Failed : $e');
+      return [];
+    }
+  }
+
   /// 하루모임 콘텐츠
   static Future<List<OneDayGathering>> getTodayGathering(
       {required String city}) async {

@@ -178,13 +178,14 @@ class ClubGatheringService {
   }
 
   static Future<bool> canShowGatheringRanking(
-      {required List interestCategory}) async {
+      {required List interestCategory,required String city}) async {
     try {
       bool result = false;
       for (var category in interestCategory) {
         final snapshot = await FirebaseService.fireStore
             .collection(_category)
             .where('category', isEqualTo: category)
+            .where('cityList', arrayContains: city)
             .get();
         if (snapshot.size >= 3) {
           result = true;

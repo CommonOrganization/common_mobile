@@ -18,7 +18,7 @@ class UserController extends ChangeNotifier {
     user = loginUserInfo;
 
     notifyListeners();
-    log('${user?.id}유저 로그인');
+    log('${user?.id}유저 자동 로그인');
     return true;
   }
 
@@ -42,7 +42,7 @@ class UserController extends ChangeNotifier {
       if (newUser == null) return false;
       user = newUser;
       notifyListeners();
-      log('${user?.id}유저 로그인');
+      log('${user?.id}유저 새로고침');
       return true;
     } catch (e) {
       log('UserController - refreshUser Failed : $e');

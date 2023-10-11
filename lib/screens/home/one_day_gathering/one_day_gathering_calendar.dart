@@ -180,7 +180,7 @@ class _OneDayGatheringCalendarState extends State<OneDayGatheringCalendar> {
                             BoxShadow(
                               offset: const Offset(0, 2),
                               blurRadius: 5,
-                              color: kBlackColor.withOpacity(0.08),
+                              color: kBlurColor,
                             ),
                           ],
                         ),

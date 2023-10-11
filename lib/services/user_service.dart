@@ -80,7 +80,7 @@ class UserService {
   static Future<bool> update(
       {required String id,
       required String field,
-      required String value}) async {
+      required dynamic value}) async {
     try {
       await FirebaseService.fireStore
           .collection(collection)
@@ -89,6 +89,22 @@ class UserService {
       return true;
     } catch (e) {
       log('UserService - update Failed : $e');
+      return false;
+    }
+  }
+
+  static Future<bool> multiUpdate({
+    required String id,
+    required Map<String, dynamic> data,
+  }) async {
+    try {
+      await FirebaseService.fireStore
+          .collection(collection)
+          .doc(id)
+          .update(data);
+      return true;
+    } catch (e) {
+      log('UserService - multiUpdate Failed : $e');
       return false;
     }
   }
@@ -108,13 +124,12 @@ class UserService {
     }
   }
 
-  static Future<User?> getUser(
-      {required String id}) async {
+  static Future<User?> getUser({required String id}) async {
     try {
       final snapshot =
-      await FirebaseService.fireStore.collection(collection).doc(id).get();
+          await FirebaseService.fireStore.collection(collection).doc(id).get();
       if (snapshot.exists) {
-        return User.fromJson(snapshot.data() as Map<String,dynamic>);
+        return User.fromJson(snapshot.data() as Map<String, dynamic>);
       }
       return null;
     } catch (e) {

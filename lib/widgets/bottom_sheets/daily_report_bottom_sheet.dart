@@ -29,7 +29,6 @@ class DailyReportBottomSheet extends StatelessWidget {
                 width: double.infinity,
                 child: BottomSheetCustomButton(
                   title: '신고하기',
-                  color: kErrorColor,
                   onPressed: () {
                     String? reporterId =
                         context.read<UserController>().user?.id;

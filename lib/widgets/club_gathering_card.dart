@@ -36,7 +36,7 @@ class ClubGatheringCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: kBlackColor.withOpacity(0.08),
+              color: kBlurColor,
               offset: const Offset(0, 2),
               blurRadius: 5,
             ),

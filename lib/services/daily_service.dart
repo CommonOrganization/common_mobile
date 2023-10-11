@@ -32,6 +32,23 @@ class DailyService {
     }
   }
 
+  static Future<List<Daily>> getUserDaily({required String userId}) async {
+    try {
+      final snapshot = await FirebaseService.fireStore
+          .collection(collection)
+          .where('organizerId', isEqualTo: userId)
+          .orderBy('timeStamp', descending: true)
+          .get();
+
+      return snapshot.docs
+          .map((document) => Daily.fromJson(document.data()))
+          .toList();
+    } catch (e) {
+      log('DailyService - getUserDaily Failed : $e');
+      return [];
+    }
+  }
+
   static Future<List<Daily>> searchDailyWithKeyword(
       {required String keyword}) async {
     try {

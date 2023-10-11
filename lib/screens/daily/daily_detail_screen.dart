@@ -1,7 +1,5 @@
 import 'package:common/constants/constants_value.dart';
 import 'package:common/controllers/user_controller.dart';
-import 'package:common/screens/daily_detail/components/daily_favorite_button.dart';
-import 'package:common/screens/daily_detail/components/daily_organizer_card.dart';
 import 'package:common/services/daily_service.dart';
 import 'package:common/services/like_service.dart';
 import 'package:common/utils/date_utils.dart';
@@ -13,7 +11,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import '../../constants/constants_colors.dart';
 import '../../models/daily/daily.dart';
+import 'components/daily_favorite_button.dart';
 import 'components/daily_image_container.dart';
+import 'components/daily_organizer_card.dart';
 
 class DailyDetailScreen extends StatefulWidget {
   final Daily daily;

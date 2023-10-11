@@ -1,7 +1,7 @@
 import 'package:common/constants/constants_enum.dart';
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/daily/daily.dart';
-import 'package:common/screens/daily_detail/daily_detail_screen.dart';
+import 'package:common/screens/daily/daily_detail_screen.dart';
 import 'package:common/screens/daily_upload/daily_upload_category_screen.dart';
 import 'package:common/screens/daily_upload/daily_upload_content_screen.dart';
 import 'package:common/screens/daily_upload/daily_upload_type_screen.dart';

@@ -36,4 +36,6 @@ Color kSuccessLightColor = const Color(0xFFF0FAEE);
 Color kWarningLightColor = const Color(0xFFFFF7E4);
 Color kActionLightColor = const Color(0xFFFFEBE5);
 
+Color kBlurColor = const Color(0x14000000);
+
 Color kFlushBarBackgroundColor = const Color(0xFF323232);

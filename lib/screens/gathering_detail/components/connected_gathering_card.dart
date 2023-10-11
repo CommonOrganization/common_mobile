@@ -38,7 +38,7 @@ class ConnectedGatheringCard extends StatelessWidget {
             ),
             boxShadow: [
               BoxShadow(
-                color: kBlackColor.withOpacity(0.08),
+                color: kBlurColor,
                 offset: const Offset(0, 2),
                 blurRadius: 5,
               ),

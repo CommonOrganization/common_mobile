@@ -1,7 +1,11 @@
 import 'package:common/constants/constants_colors.dart';
+import 'package:common/controllers/user_controller.dart';
 import 'package:common/screens/daily/daily_screen.dart';
+import 'package:common/screens/profile/profile_screen.dart';
+import 'package:common/screens/sign/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import '../chat/chat_screen.dart';
 import '../home/home_screen.dart';
 import 'components/main_upload_bottom_sheet.dart';
@@ -25,6 +29,20 @@ class _MainScreenState extends State<MainScreen> {
       case 2:
         return const DailyScreen();
       case 3:
+        {
+          String? userId = context.read<UserController>().user?.id;
+          if (userId == null) {
+            WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginScreen()),
+              );
+            });
+            return Container();
+          }
+          return ProfileScreen(userId: userId);
+        }
+
       default:
         return Container();
     }

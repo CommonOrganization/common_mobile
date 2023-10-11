@@ -156,52 +156,51 @@ class _OneDayGatheringDetailScreenState
   }
 
   Widget getActionButton() {
+    bool isOrganizer =
+        context.read<UserController>().user?.id == widget.gathering.organizerId;
+    bool canApply = DateTime.now()
+        .difference(DateTime.parse(widget.gathering.openingDate))
+        .isNegative;
+    if (!canApply) {
+      return GatheringButton(
+        title: '이미 지난 모임입니다',
+        enabled: false,
+        onTap: () {},
+      );
+    }
     if (!widget.isPreview) {
-      bool isOrganizer = context.read<UserController>().user?.id ==
-          widget.gathering.organizerId;
-      bool canApply = DateTime.now()
-          .difference(DateTime.parse(widget.gathering.openingDate))
-          .isNegative;
-
       if (isOrganizer) {
-        if (canApply) {
-          return GatheringButton(
-            title: '참여 신청 멤버 보러가기',
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => GatheringApplicantScreen(
-                  gatheringId: widget.gathering.id,
-                  category: kOneDayGatheringCategory,
-                  organizerId: widget.gathering.organizerId,
-                ),
+        return GatheringButton(
+          title: '참여 신청 멤버 보러가기',
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => GatheringApplicantScreen(
+                gatheringId: widget.gathering.id,
+                category: kOneDayGatheringCategory,
+                organizerId: widget.gathering.organizerId,
               ),
             ),
-          );
-        }
-        return GatheringButton(
-          title: '이미 지난 모임입니다',
-          enabled: false,
-          onTap: () {
-            //TODO 재오픈 요청하기 기능 개발하기(필요시)
-          },
+          ),
         );
       }
-      if(widget.gathering.memberList.contains(context.read<UserController>().user?.id)){
+      if (widget.gathering.memberList
+          .contains(context.read<UserController>().user?.id)) {
         return GatheringButton(
           title: '이미 참여중인 모임입니다',
           enabled: false,
           onTap: () {},
         );
       }
-      if(widget.gathering.applicantList.contains(context.read<UserController>().user?.id)){
+      if (widget.gathering.applicantList
+          .contains(context.read<UserController>().user?.id)) {
         return GatheringButton(
           title: '참여 신청중인 모임입니다',
           enabled: false,
           onTap: () {},
         );
       }
-      if(widget.gathering.capacity <= widget.gathering.memberList.length){
+      if (widget.gathering.capacity <= widget.gathering.memberList.length) {
         return GatheringButton(
           title: '인원 마감된 모임입니다',
           enabled: false,
@@ -213,15 +212,15 @@ class _OneDayGatheringDetailScreenState
         onTap: () => applyPressed(),
       );
     }
-    if (!widget.isEdit) {
+    if (widget.isEdit) {
       return GatheringButton(
-        title: '하루모임 오픈하기',
-        onTap: () => previewPressed(),
+        title: '하루모임 수정하기',
+        onTap: () => updatePressed(),
       );
     }
     return GatheringButton(
-      title: '하루모임 수정하기',
-      onTap: () => updatePressed(),
+      title: '하루모임 오픈하기',
+      onTap: () => previewPressed(),
     );
   }
 

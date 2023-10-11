@@ -99,7 +99,6 @@ class GatheringEditBottomSheet extends StatelessWidget {
                             return;
                         }
                       },
-                      color: kErrorColor,
                     ),
                   ],
                 ),

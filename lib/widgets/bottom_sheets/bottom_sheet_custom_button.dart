@@ -29,7 +29,7 @@ class BottomSheetCustomButton extends StatelessWidget {
           title,
           style: TextStyle(
             fontSize: 16,
-            color: color ?? kMainColor,
+            color: color ?? kFontGray600Color,
             fontWeight: fontWeight ?? FontWeight.normal,
           ),
         ),

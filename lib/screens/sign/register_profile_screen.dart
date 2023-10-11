@@ -87,7 +87,7 @@ class _RegisterProfileScreenState extends State<RegisterProfileScreen> {
                               borderRadius: BorderRadius.circular(55),
                               boxShadow: [
                                 BoxShadow(
-                                  color: kBlackColor.withOpacity(0.08),
+                                  color: kBlurColor,
                                   blurRadius: 5,
                                   offset: const Offset(0, 2),
                                 ),
@@ -114,7 +114,7 @@ class _RegisterProfileScreenState extends State<RegisterProfileScreen> {
                                 borderRadius: BorderRadius.circular(30),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: kBlackColor.withOpacity(0.08),
+                                    color: kBlurColor,
                                     blurRadius: 5,
                                     offset: const Offset(0, 2),
                                   ),

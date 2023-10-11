@@ -39,6 +39,7 @@ class _HomeOneDayGatheringScreenState extends State<HomeOneDayGatheringScreen> {
                 () => setState(() {}),
               ),
               child: SingleChildScrollView(
+                physics: const ClampingScrollPhysics(),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

@@ -41,6 +41,7 @@ class _HomeClubGatheringScreenState extends State<HomeClubGatheringScreen> {
               () => setState(() {}),
             ),
             child: SingleChildScrollView(
+              physics: const ClampingScrollPhysics(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -104,7 +105,9 @@ class _HomeClubGatheringScreenState extends State<HomeClubGatheringScreen> {
           required String city}) =>
       FutureBuilder(
         future: ClubGatheringService.canShowGatheringRanking(
-            interestCategory: interestCategory),
+          interestCategory: interestCategory,
+          city: city,
+        ),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             bool value = snapshot.data as bool;

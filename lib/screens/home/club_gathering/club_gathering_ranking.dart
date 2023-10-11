@@ -57,7 +57,7 @@ class ClubGatheringRanking extends StatelessWidget {
                         BoxShadow(
                           offset: const Offset(0, 2),
                           blurRadius: 5,
-                          color: kBlackColor.withOpacity(0.08),
+                          color: kBlurColor,
                         ),
                       ],
                     ),
