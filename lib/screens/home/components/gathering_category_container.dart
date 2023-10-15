@@ -1,6 +1,10 @@
 import 'package:common/constants/constants_colors.dart';
 import 'package:common/constants/constants_value.dart';
 import 'package:common/controllers/user_controller.dart';
+import 'package:common/models/club_gathering/club_gathering.dart';
+import 'package:common/models/one_day_gathering/one_day_gathering.dart';
+import 'package:common/screens/gathering_detail/club_gathering_detail/club_gathering_detail_screen.dart';
+import 'package:common/screens/gathering_detail/one_day_gathering_detail/one_day_gathering_detail_screen.dart';
 import 'package:common/screens/gathering_upload/club_gathering_upload/club_gathering_upload_main_screen.dart';
 import 'package:common/screens/gathering_upload/one_day_gathering_upload/one_day_gathering_upload_main_screen.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -83,15 +87,22 @@ class GatheringCategoryContainer extends StatelessWidget {
                 future: future,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    List<Gathering> gatheringList =
-                        snapshot.data as List<Gathering>;
-
+                    List<Gathering>? gatheringList = snapshot.data;
+                    if (gatheringList == null) {
+                      return Row(
+                        children: List.generate(
+                          3,
+                          (index) => getEmptyButton(onTap: () {}),
+                        ),
+                      );
+                    }
                     int emptyCount = 3 - gatheringList.length;
                     if (emptyCount > 0) {
                       return Row(
                         children: [
                           ...gatheringList.map(
-                            (gathering) => getGatheringButton(gathering),
+                            (gathering) => getGatheringButton(context,
+                                gathering: gathering),
                           ),
                           ...List.generate(
                             emptyCount,
@@ -112,13 +123,16 @@ class GatheringCategoryContainer extends StatelessWidget {
                     return Row(
                       children: gatheringList
                           .sublist(0, 3)
-                          .map((gathering) => getGatheringButton(gathering))
+                          .map((gathering) =>
+                              getGatheringButton(context, gathering: gathering))
                           .toList(),
                     );
                   }
                   return Row(
                     children: List.generate(
-                        3, (index) => getEmptyButton(onTap: () {})),
+                      3,
+                      (index) => getEmptyButton(onTap: () {}),
+                    ),
                   );
                 });
           }),
@@ -157,19 +171,46 @@ class GatheringCategoryContainer extends StatelessWidget {
     }
   }
 
-  Widget getGatheringButton(Gathering gathering) {
-    return Container(
-      margin: const EdgeInsets.only(right: 8),
-      width: 68,
-      height: 66,
+  Widget getGatheringButton(
+    BuildContext context, {
+    required Gathering gathering,
+  }) {
+    return GestureDetector(
+      onTap: () {
+        if (category == kClubGatheringCategory) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ClubGatheringDetailScreen(
+                  gathering: gathering as ClubGathering),
+            ),
+          );
+          return;
+        }
+        if (category == kOneDayGatheringCategory) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => OneDayGatheringDetailScreen(
+                  gathering: gathering as OneDayGathering),
+            ),
+          );
+          return;
+        }
+      },
       child: Container(
-        width: 64,
-        height: 64,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(64),
-          image: DecorationImage(
-            image: NetworkImage(gathering.mainImage),
-            fit: BoxFit.cover,
+        margin: const EdgeInsets.only(right: 8),
+        width: 68,
+        height: 66,
+        child: Container(
+          width: 64,
+          height: 64,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(64),
+            image: DecorationImage(
+              image: NetworkImage(gathering.mainImage),
+              fit: BoxFit.cover,
+            ),
           ),
         ),
       ),

@@ -1,3 +1,4 @@
+import 'package:common/controllers/block_controller.dart';
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/club_gathering/club_gathering.dart';
 import 'package:common/models/daily/daily.dart';
@@ -137,86 +138,108 @@ class _KeywordSearchScreenState extends State<KeywordSearchScreen> {
   }
 
   Widget kOneDayGatheringArea(String city) {
-    return FutureBuilder(
-      future: OneDayGatheringService.searchGatheringWithKeyword(
-        keyword: _searchWord,
-        city: city,
-      ),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          List<OneDayGathering> gatheringList =
-              snapshot.data as List<OneDayGathering>;
+    return Consumer<BlockController>(builder: (context, controller, child) {
+      return FutureBuilder(
+        future: OneDayGatheringService.searchGatheringWithKeyword(
+          keyword: _searchWord,
+          city: city,
+        ),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            List<OneDayGathering>? gatheringList = snapshot.data;
+            if (gatheringList == null) return Container();
+            gatheringList = gatheringList
+                .where((gathering) =>
+                    !controller.blockedObjectList.contains(gathering.id))
+                .toList();
+            if (gatheringList.isEmpty) return Container();
 
-          String userId = context.read<UserController>().user!.id;
-          return Expanded(
-            child: ListView(
-              padding: const EdgeInsets.only(bottom: 30),
-              physics: const ClampingScrollPhysics(),
-              children: gatheringList
-                  .map((gathering) => OneDayGatheringRowCard(
-                        gathering: gathering,
-                        userId: userId,
-                      ))
-                  .toList(),
-            ),
-          );
-        }
-        return Container();
-      },
-    );
+            String userId = context.read<UserController>().user!.id;
+            return Expanded(
+              child: ListView(
+                padding: const EdgeInsets.only(bottom: 30),
+                physics: const ClampingScrollPhysics(),
+                children: gatheringList
+                    .map((gathering) => OneDayGatheringRowCard(
+                          gathering: gathering,
+                          userId: userId,
+                        ))
+                    .toList(),
+              ),
+            );
+          }
+          return Container();
+        },
+      );
+    });
   }
 
   Widget kClubGatheringArea(String city) {
-    return FutureBuilder(
-      future: ClubGatheringService.searchGatheringWithKeyword(
-        keyword: _searchWord,
-        city: city,
-      ),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          List<ClubGathering> gatheringList =
-              snapshot.data as List<ClubGathering>;
+    return Consumer<BlockController>(builder: (context, controller, child) {
+      return FutureBuilder(
+        future: ClubGatheringService.searchGatheringWithKeyword(
+          keyword: _searchWord,
+          city: city,
+        ),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            List<ClubGathering>? gatheringList = snapshot.data;
+            if (gatheringList == null) return Container();
+            gatheringList = gatheringList
+                .where((gathering) =>
+                    !controller.blockedObjectList.contains(gathering.id))
+                .toList();
+            if (gatheringList.isEmpty) return Container();
 
-          String userId = context.read<UserController>().user!.id;
-          return Expanded(
-            child: ListView(
-              padding: const EdgeInsets.only(bottom: 30),
-              physics: const ClampingScrollPhysics(),
-              children: gatheringList
-                  .map((gathering) => ClubGatheringRowCard(
-                        gathering: gathering,
-                        userId: userId,
-                      ))
-                  .toList(),
-            ),
-          );
-        }
-        return Container();
-      },
-    );
+            String userId = context.read<UserController>().user!.id;
+            return Expanded(
+              child: ListView(
+                padding: const EdgeInsets.only(bottom: 30),
+                physics: const ClampingScrollPhysics(),
+                children: gatheringList
+                    .map((gathering) => ClubGatheringRowCard(
+                          gathering: gathering,
+                          userId: userId,
+                        ))
+                    .toList(),
+              ),
+            );
+          }
+          return Container();
+        },
+      );
+    });
   }
 
   Widget kDailyArea() {
-    return FutureBuilder(
-      future: DailyService.searchDailyWithKeyword(
-        keyword: _searchWord,
-      ),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          List<Daily>? dailyList = snapshot.data;
-          if (dailyList == null) return Container();
-          return Expanded(
-            child: GridView.count(
-              crossAxisCount: 3,
-              physics: const ClampingScrollPhysics(),
-              children:
-                  dailyList.map((daily) => DailyCard(daily: daily)).toList(),
-            ),
-          );
-        }
-        return Container();
-      },
-    );
+    return Consumer<BlockController>(builder: (context, controller, child) {
+      return FutureBuilder(
+        future: DailyService.searchDailyWithKeyword(
+          keyword: _searchWord,
+        ),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            List<Daily>? dailyList = snapshot.data;
+            if (dailyList == null) return Container();
+            dailyList = dailyList
+                .where((gathering) =>
+                    !controller.blockedObjectList.contains(gathering.id))
+                .toList();
+            if (dailyList.isEmpty) return Container();
+
+            return Expanded(
+              child: GridView.count(
+                crossAxisCount: 3,
+                physics: const ClampingScrollPhysics(),
+                children:
+                    dailyList.map((daily) => DailyCard(daily: daily)).toList(),
+              ),
+            );
+          }
+          return Container();
+        },
+      );
+    });
   }
 
   Widget kTabContainer({required int index, required String title}) {

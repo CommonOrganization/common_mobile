@@ -1,9 +1,11 @@
 import 'dart:developer';
 import 'package:common/constants/constants_enum.dart';
+import 'package:common/controllers/screen_controller.dart';
 import 'package:common/screens/search/category_search_screen.dart';
 import 'package:common/screens/search/keyword_search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 import '../../constants/constants_colors.dart';
 import '../../constants/constants_value.dart';
 import '../../controllers/local_controller.dart';
@@ -158,38 +160,51 @@ class _SearchScreenState extends State<SearchScreen> {
                           ),
                         ),
                         const Spacer(),
-                        Text(
-                          '전체삭제',
-                          style: TextStyle(
-                            fontSize: 13,
-                            height: 20 / 13,
-                            letterSpacing: -0.5,
-                            color: kFontGray400Color,
+                        GestureDetector(
+                          onTap: () async {
+                            bool clearSearchWord =
+                                await LocalController.clearSearchWord();
+                            if (!mounted) return;
+                            if (clearSearchWord) {
+                              context.read<ScreenController>().pageRefresh();
+                            }
+                          },
+                          child: Text(
+                            '전체삭제',
+                            style: TextStyle(
+                              fontSize: 13,
+                              height: 20 / 13,
+                              letterSpacing: -0.5,
+                              color: kFontGray400Color,
+                            ),
                           ),
                         ),
                       ],
                     ),
                   ),
                   const SizedBox(height: 24),
-                  FutureBuilder(
-                    future: LocalController.getSearchWord(),
-                    builder: (context, snapshot) {
-                      List<String> wordList = snapshot.data ?? [];
-                      if (wordList.isEmpty) return Container();
-                      int index = 0;
-                      return Container(
-                        margin: const EdgeInsets.only(
-                            left: 20, right: 20, bottom: 32),
-                        child: Wrap(
-                          spacing: 10,
-                          runSpacing: 10,
-                          children: wordList
-                              .map((word) => kSearchWordTag(word, index++))
-                              .toList(),
-                        ),
-                      );
-                    },
-                  ),
+                  Consumer<ScreenController>(
+                      builder: (context, controller, child) {
+                    return FutureBuilder(
+                      future: LocalController.getSearchWord(),
+                      builder: (context, snapshot) {
+                        List<String> wordList = snapshot.data ?? [];
+                        if (wordList.isEmpty) return Container();
+                        int index = 0;
+                        return Container(
+                          margin: const EdgeInsets.only(
+                              left: 20, right: 20, bottom: 32),
+                          child: Wrap(
+                            spacing: 10,
+                            runSpacing: 10,
+                            children: wordList
+                                .map((word) => kSearchWordTag(word, index++))
+                                .toList(),
+                          ),
+                        );
+                      },
+                    );
+                  }),
                   // 추천검색어
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -205,30 +220,30 @@ class _SearchScreenState extends State<SearchScreen> {
                           ),
                         ),
                         const SizedBox(width: 10),
-                        Text(
-                          '최근 검색어 기반으로 골라봤어요.',
-                          style: TextStyle(
-                            fontSize: 13,
-                            height: 20 / 13,
-                            letterSpacing: -0.5,
-                            color: kFontGray200Color,
-                          ),
-                        )
+                        // 최근 검색어 기반 추천시
+                        // Text(
+                        //   '최근 검색어 기반으로 골라봤어요.',
+                        //   style: TextStyle(
+                        //     fontSize: 13,
+                        //     height: 20 / 13,
+                        //     letterSpacing: -0.5,
+                        //     color: kFontGray200Color,
+                        //   ),
+                        // )
                       ],
                     ),
                   ),
                   const SizedBox(height: 20),
                   //TODO 여기서 ChatGPT 혹은 다른 방법을 통해 추천 검색어를 제안해주기
                   FutureBuilder(
-                    future: null,
+                    future: DataService.getSearchGatheringPopularWord(),
                     builder: (context, snapshot) {
-                      List<String> wordList = [
-                        '친목모임',
-                        '사회초년생',
-                        '게임개발',
-                        '배틀그라운드'
-                      ];
-                      if (wordList.isEmpty) return Container();
+                      List? wordList = snapshot.data;
+                      if (wordList == null || wordList.isEmpty) {
+                        return Container();
+                      }
+                      int maxSize = wordList.length > 4 ? 4 : wordList.length;
+                      wordList = wordList.sublist(0, maxSize);
                       return Container(
                         margin: const EdgeInsets.only(
                             left: 20, right: 20, bottom: 24),
@@ -242,51 +257,56 @@ class _SearchScreenState extends State<SearchScreen> {
                       );
                     },
                   ),
-                  // 배너 공간
-                  Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 20),
-                    width: double.infinity,
-                    height: 120,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: const Color(0xFFD4ECC6),
-                    ),
-                  ),
-                  const SizedBox(height: 24),
+                  // TODO 여기서 배너 넣기
+                  // Container(
+                  //   margin: const EdgeInsets.symmetric(horizontal: 20),
+                  //   width: double.infinity,
+                  //   height: 120,
+                  //   decoration: BoxDecoration(
+                  //     borderRadius: BorderRadius.circular(20),
+                  //     color: const Color(0xFFD4ECC6),
+                  //   ),
+                  // ),
+                  // const SizedBox(height: 24),
+
                   // 실시간 인기 검색어
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Row(
-                      children: [
-                        Text(
-                          '실시간 인기 검색어',
-                          style: TextStyle(
-                            fontSize: 15,
-                            height: 20 / 15,
-                            fontWeight: FontWeight.bold,
-                            color: kFontGray900Color,
+                  Builder(builder: (context) {
+                    DateTime dateTime = DateTime.now();
+                    return Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Row(
+                        children: [
+                          Text(
+                            '실시간 인기 검색어',
+                            style: TextStyle(
+                              fontSize: 15,
+                              height: 20 / 15,
+                              fontWeight: FontWeight.bold,
+                              color: kFontGray900Color,
+                            ),
                           ),
-                        ),
-                        const SizedBox(width: 10),
-                        Text(
-                          '04.21 12:00 기준',
-                          style: TextStyle(
-                            fontSize: 13,
-                            height: 20 / 13,
-                            letterSpacing: -0.5,
-                            color: kFontGray200Color,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
+                          const SizedBox(width: 10),
+                          Text(
+                            '${dateTime.month.toString().padLeft(2, '0')}.${dateTime.day.toString().padLeft(2, '0')} ${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')} 기준',
+                            style: TextStyle(
+                              fontSize: 13,
+                              height: 20 / 13,
+                              letterSpacing: -0.5,
+                              color: kFontGray200Color,
+                            ),
+                          )
+                        ],
+                      ),
+                    );
+                  }),
                   const SizedBox(height: 20),
                   FutureBuilder(
                     future: DataService.getSearchGatheringPopularWord(),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
-                        List wordList = snapshot.data!;
-                        if (wordList.isEmpty) return Container();
+                        List? wordList = snapshot.data;
+                        if (wordList == null || wordList.isEmpty)
+                          return Container();
                         return Container(
                           margin: const EdgeInsets.only(
                               left: 20, right: 20, bottom: 36),

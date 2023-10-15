@@ -4,20 +4,34 @@ import 'package:common/controllers/local_controller.dart';
 import 'package:flutter/material.dart';
 
 class BlockController extends ChangeNotifier {
-
   List blockedObjectList = [];
 
   static final BlockController _instance = BlockController._internal();
   factory BlockController() => _instance;
-  BlockController._internal(){
+  BlockController._internal() {
     log('blockController init');
     initializeBlockedObjectList();
   }
 
-  void initializeBlockedObjectList()async{
-    List localSavedBlockedObjectList = await LocalController.getBlockObjectList();
+  void initializeBlockedObjectList() async {
+    List localSavedBlockedObjectList =
+        await LocalController.getBlockObjectList();
     blockedObjectList.addAll(localSavedBlockedObjectList);
-    blockedObjectList.add('oneDayGathering00000014');
   }
 
+  Future<void> removeBlockedObject(String id) async {
+    bool removeSuccess = await LocalController.removeBlockedObject(id);
+    blockedObjectList.remove(id);
+    if (removeSuccess) {
+      notifyListeners();
+    }
+  }
+
+  Future<void> blockObject(String id) async {
+    bool blockSuccess = await LocalController.blockNewObject(id);
+    blockedObjectList.add(id);
+    if (blockSuccess) {
+      notifyListeners();
+    }
+  }
 }

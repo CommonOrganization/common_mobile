@@ -1,3 +1,4 @@
+import 'package:common/controllers/block_controller.dart';
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/services/report_service.dart';
 import 'package:common/utils/local_utils.dart';
@@ -26,15 +27,38 @@ class GatheringReportBottomSheet extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               child: SizedBox(
                 width: double.infinity,
-                child: BottomSheetCustomButton(
-                  title: '신고하기',
-                  onPressed: () {
-                    String? reporterId = context.read<UserController>().user?.id;
-                    if(reporterId==null) return;
-                    ReportService.report(reporterId: reporterId, reportedId: gathering.id);
-                    Navigator.pop(context);
-                    showMessage(context, message: '모임을 신고했습니다.');
-                  },
+                child: Column(
+                  children: [
+                    BottomSheetCustomButton(
+                      title: '신고하기',
+                      onPressed: () {
+                        String? reporterId =
+                            context.read<UserController>().user?.id;
+                        if (reporterId == null) return;
+                        ReportService.report(
+                            reporterId: reporterId, reportedId: gathering.id);
+                        Navigator.pop(context);
+                        showMessage(context, message: '모임을 신고했습니다.');
+                      },
+                    ),
+                    Container(
+                      width: double.infinity,
+                      height: 1,
+                      color: kDarkGray20Color,
+                    ),
+                    BottomSheetCustomButton(
+                      title: '숨기기',
+                      onPressed: () async {
+                        await context
+                            .read<BlockController>()
+                            .blockObject(gathering.id);
+                        if (context.mounted) {
+                          Navigator.pop(context);
+                          Navigator.pop(context);
+                        }
+                      },
+                    ),
+                  ],
                 ),
               ),
             ),

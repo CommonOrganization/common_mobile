@@ -1,4 +1,5 @@
 import 'package:common/constants/constants_colors.dart';
+import 'package:common/screens/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 import '../../../services/user_service.dart';
 
@@ -11,57 +12,66 @@ class GatheringMemberCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Row(
-        children: [
-          Container(
-            margin: const EdgeInsets.only(right: 8),
-            width: 50,
-            height: 42,
-            child: Stack(
-              children: [
-                getProfileArea(),
-                if (isOrganizer)
-                  Positioned(
-                    right: 0,
-                    bottom: 0,
-                    child: Container(
-                      width: 22,
-                      height: 22,
-                      padding: const EdgeInsets.all(3),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(22),
-                        color: kWhiteColor,
-                        boxShadow: [
-                          BoxShadow(
-                            offset: const Offset(0, 2),
-                            blurRadius: 5,
-                            color: kBlurColor,
-                          ),
-                        ],
+    return GestureDetector(
+      //TODO 여기서 프로필 이동
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ProfileScreen(userId: memberId),
+        ),
+      ),
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 8),
+        child: Row(
+          children: [
+            Container(
+              margin: const EdgeInsets.only(right: 8),
+              width: 50,
+              height: 42,
+              child: Stack(
+                children: [
+                  getProfileArea(),
+                  if (isOrganizer)
+                    Positioned(
+                      right: 0,
+                      bottom: 0,
+                      child: Container(
+                        width: 22,
+                        height: 22,
+                        padding: const EdgeInsets.all(3),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(22),
+                          color: kWhiteColor,
+                          boxShadow: [
+                            BoxShadow(
+                              offset: const Offset(0, 2),
+                              blurRadius: 5,
+                              color: kBlurColor,
+                            ),
+                          ],
+                        ),
+                        child: Image.asset(
+                          'assets/images/leader_16px.png',
+                          width: 16,
+                          height: 16,
+                        ),
                       ),
-                      child: Image.asset(
-                        'assets/images/leader_16px.png',
-                        width: 16,
-                        height: 16,
-                      ),
-                    ),
-                  )
-              ],
+                    )
+                ],
+              ),
             ),
-          ),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                getNameArea(),
-                getInformationArea(),
-              ],
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  getNameArea(),
+                  getInformationArea(),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -114,7 +124,7 @@ class GatheringMemberCard extends StatelessWidget {
         future: UserService.get(id: memberId, field: 'information'),
         builder: (context, snapshot) {
           return Text(
-            snapshot.data??'',
+            snapshot.data ?? '',
             style: TextStyle(
               fontSize: 12,
               color: kFontGray400Color,

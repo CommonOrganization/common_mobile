@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/constants_colors.dart';
+import '../../controllers/block_controller.dart';
 import '../../controllers/user_controller.dart';
 import '../../services/report_service.dart';
 import '../../utils/local_utils.dart';
@@ -27,17 +28,39 @@ class DailyReportBottomSheet extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               child: SizedBox(
                 width: double.infinity,
-                child: BottomSheetCustomButton(
-                  title: '신고하기',
-                  onPressed: () {
-                    String? reporterId =
-                        context.read<UserController>().user?.id;
-                    if (reporterId == null) return;
-                    ReportService.report(
-                        reporterId: reporterId, reportedId: daily.id);
-                    Navigator.pop(context);
-                    showMessage(context, message: '데일리를 신고했습니다.');
-                  },
+                child: Column(
+                  children: [
+                    BottomSheetCustomButton(
+                      title: '신고하기',
+                      onPressed: () {
+                        String? reporterId =
+                            context.read<UserController>().user?.id;
+                        if (reporterId == null) return;
+                        ReportService.report(
+                            reporterId: reporterId, reportedId: daily.id);
+                        Navigator.pop(context);
+                        showMessage(context, message: '데일리를 신고했습니다.');
+                      },
+                    ),
+                    Container(
+                      width: double.infinity,
+
+                      height: 1,
+                      color: kDarkGray20Color,
+                    ),
+                    BottomSheetCustomButton(
+                      title: '숨기기',
+                      onPressed: () async {
+                        await context
+                            .read<BlockController>()
+                            .blockObject(daily.id);
+                        if (context.mounted) {
+                          Navigator.pop(context);
+                          Navigator.pop(context);
+                        }
+                      },
+                    ),
+                  ],
                 ),
               ),
             ),

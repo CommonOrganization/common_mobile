@@ -1,11 +1,12 @@
+import 'package:common/controllers/block_controller.dart';
 import 'package:common/models/daily/daily.dart';
 import 'package:common/services/daily_service.dart';
 import 'package:common/widgets/daily_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 import '../../constants/constants_colors.dart';
 import '../search/search_screen.dart';
-
 
 class DailyScreen extends StatelessWidget {
   const DailyScreen({Key? key}) : super(key: key);
@@ -44,25 +45,31 @@ class DailyScreen extends StatelessWidget {
           const SizedBox(width: 20),
         ],
       ),
-      body: FutureBuilder(
+      body: Consumer<BlockController>(builder: (context, controller, child) {
+        return FutureBuilder(
           future: DailyService.getRecommendDaily(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               List<Daily>? dailyList = snapshot.data;
-              if (dailyList == null || dailyList.isEmpty) return Container();
+              if (dailyList == null) return Container();
+              dailyList = dailyList
+                  .where((daily) =>
+                      !controller.blockedObjectList.contains(daily.id))
+                  .toList();
+              if (dailyList.isEmpty) return Container();
               return GridView.count(
                 physics: const ClampingScrollPhysics(),
                 crossAxisCount: 3,
                 mainAxisSpacing: 4,
                 crossAxisSpacing: 4,
-                children: dailyList
-                    .map((daily) => DailyCard(daily: daily))
-                    .toList(),
+                children:
+                    dailyList.map((daily) => DailyCard(daily: daily)).toList(),
               );
             }
             return Container();
-          }),
+          },
+        );
+      }),
     );
   }
 }
-

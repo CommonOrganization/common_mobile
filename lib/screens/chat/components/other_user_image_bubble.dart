@@ -4,6 +4,7 @@ import '../../../constants/constants_colors.dart';
 import '../../../models/chat/chat.dart';
 import '../../../services/user_service.dart';
 import '../../../utils/chat_utils.dart';
+import '../../profile/profile_screen.dart';
 import 'image_container.dart';
 
 class OtherUserImageBubble extends StatelessWidget {
@@ -37,18 +38,27 @@ class OtherUserImageBubble extends StatelessWidget {
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       String image = snapshot.data as String;
-                      return Container(
-                        margin: EdgeInsets.only(top: topMargin, right: 14),
-                        width: 36,
-                        height: 36,
-                        decoration: BoxDecoration(
-                          color: kDarkGray20Color,
-                          borderRadius: BorderRadius.circular(36),
-                          image: DecorationImage(
-                            image: NetworkImage(
-                              image,
+                      return GestureDetector(
+                        //TODO 여기서 프로필 이동
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ProfileScreen(userId: chat.senderId),
+                          ),
+                        ),
+                        child: Container(
+                          margin: EdgeInsets.only(top: topMargin, right: 14),
+                          width: 36,
+                          height: 36,
+                          decoration: BoxDecoration(
+                            color: kDarkGray20Color,
+                            borderRadius: BorderRadius.circular(36),
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                image,
+                              ),
+                              fit: BoxFit.cover,
                             ),
-                            fit: BoxFit.cover,
                           ),
                         ),
                       );

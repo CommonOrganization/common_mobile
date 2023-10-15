@@ -1,4 +1,5 @@
 import 'package:common/models/chat/chat.dart';
+import 'package:common/screens/chat/show_image_screen.dart';
 import 'package:common/services/chat_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -53,7 +54,7 @@ class ChatAlbumScreen extends StatelessWidget {
             return ListView(
               physics: const ClampingScrollPhysics(),
               children: album.map((chat) {
-                return albumCard(chat);
+                return albumCard(context, chat: chat);
               }).toList(),
             );
           }
@@ -63,7 +64,7 @@ class ChatAlbumScreen extends StatelessWidget {
     );
   }
 
-  Widget albumCard(Chat chat) {
+  Widget albumCard(BuildContext context, {required Chat chat}) {
     DateTime chatDate = DateTime.parse(chat.timeStamp);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -89,9 +90,18 @@ class ChatAlbumScreen extends StatelessWidget {
           crossAxisSpacing: 4,
           children: (chat.message as List)
               .map(
-                (image) => Image.network(
-                  image,
-                  fit: BoxFit.cover,
+                (image) => GestureDetector(
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          ShowImageScreen(imageList: chat.message),
+                    ),
+                  ),
+                  child: Image.network(
+                    image,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               )
               .toList(),

@@ -1,4 +1,5 @@
 import 'package:common/constants/constants_enum.dart';
+import 'package:common/controllers/block_controller.dart';
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/club_gathering/club_gathering.dart';
 import 'package:common/models/one_day_gathering/one_day_gathering.dart';
@@ -232,193 +233,214 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
   }
 
   Widget kOneDayGatheringArea({required String city, required String userId}) {
-    return ListView(
-      physics: const ClampingScrollPhysics(),
-      shrinkWrap: true,
-      children: [
-        FutureBuilder(
-          future: OneDayGatheringService.getNewGatheringWithCategory(
-              city: city, category: _selectedCategory.name),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              List<OneDayGathering> gatheringList =
-                  snapshot.data as List<OneDayGathering>;
-              if (gatheringList.isEmpty) return Container();
-              return ListView(
-                shrinkWrap: true,
-                physics: const ClampingScrollPhysics(),
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Text(
-                      'NEW 하루모임',
-                      style: TextStyle(
-                        fontSize: 18,
-                        height: 25 / 18,
-                        color: kFontGray800Color,
-                        fontWeight: FontWeight.bold,
+    return Consumer<BlockController>(builder: (context, controller, child) {
+      return ListView(
+        physics: const ClampingScrollPhysics(),
+        shrinkWrap: true,
+        children: [
+          FutureBuilder(
+            future: OneDayGatheringService.getNewGatheringWithCategory(
+                city: city, category: _selectedCategory.name),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                List<OneDayGathering>? gatheringList = snapshot.data;
+                if (gatheringList == null) return Container();
+                gatheringList = gatheringList
+                    .where((gathering) =>
+                        !controller.blockedObjectList.contains(gathering.id))
+                    .toList();
+                if (gatheringList.isEmpty) return Container();
+
+                return ListView(
+                  shrinkWrap: true,
+                  physics: const ClampingScrollPhysics(),
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Text(
+                        'NEW 하루모임',
+                        style: TextStyle(
+                          fontSize: 18,
+                          height: 25 / 18,
+                          color: kFontGray800Color,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 4),
-                  ...(gatheringList.length > 3
-                          ? gatheringList.sublist(0, 3)
-                          : gatheringList)
-                      .map((gathering) => OneDayGatheringRowCard(
-                          gathering: gathering, userId: userId))
-                      .toList(),
-                  const SizedBox(height: 24),
-                ],
-              );
-            }
-            return Container();
-          },
-        ),
-        FutureBuilder(
-          future: OneDayGatheringService.getAllGatheringWithCategory(
-              city: city, category: _selectedCategory.name),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              List<OneDayGathering> gatheringList =
-                  snapshot.data as List<OneDayGathering>;
-              if (gatheringList.isEmpty) return Container();
-              return ListView(
-                shrinkWrap: true,
-                physics: const ClampingScrollPhysics(),
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Text(
-                      '전체 하루모임',
-                      style: TextStyle(
-                        fontSize: 18,
-                        height: 25 / 18,
-                        color: kFontGray800Color,
-                        fontWeight: FontWeight.bold,
+                    const SizedBox(height: 4),
+                    ...(gatheringList.length > 3
+                            ? gatheringList.sublist(0, 3)
+                            : gatheringList)
+                        .map((gathering) => OneDayGatheringRowCard(
+                            gathering: gathering, userId: userId))
+                        .toList(),
+                    const SizedBox(height: 24),
+                  ],
+                );
+              }
+              return Container();
+            },
+          ),
+          FutureBuilder(
+            future: OneDayGatheringService.getAllGatheringWithCategory(
+                city: city, category: _selectedCategory.name),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                List<OneDayGathering> gatheringList =
+                    snapshot.data as List<OneDayGathering>;
+                if (gatheringList.isEmpty) return Container();
+                return ListView(
+                  shrinkWrap: true,
+                  physics: const ClampingScrollPhysics(),
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Text(
+                        '전체 하루모임',
+                        style: TextStyle(
+                          fontSize: 18,
+                          height: 25 / 18,
+                          color: kFontGray800Color,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 4),
-                  ...gatheringList
-                      .map((gathering) => OneDayGatheringRowCard(
-                          gathering: gathering, userId: userId))
-                      .toList(),
-                  const SizedBox(height: 24),
-                ],
-              );
-            }
-            return Container();
-          },
-        ),
-      ],
-    );
+                    const SizedBox(height: 4),
+                    ...gatheringList
+                        .map((gathering) => OneDayGatheringRowCard(
+                            gathering: gathering, userId: userId))
+                        .toList(),
+                    const SizedBox(height: 24),
+                  ],
+                );
+              }
+              return Container();
+            },
+          ),
+        ],
+      );
+    });
   }
 
   Widget kClubGatheringArea({required String city, required String userId}) {
-    return ListView(
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      children: [
-        FutureBuilder(
-          future: ClubGatheringService.searchGatheringWithCategory(
-              city: city, category: _selectedCategory.name),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              List<ClubGathering> gatheringList =
-                  snapshot.data as List<ClubGathering>;
-              if (gatheringList.isEmpty) return Container();
-              return ListView(
-                shrinkWrap: true,
-                physics: const ClampingScrollPhysics(),
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Text(
-                      'NEW 소모임',
-                      style: TextStyle(
-                        fontSize: 18,
-                        height: 25 / 18,
-                        color: kFontGray800Color,
-                        fontWeight: FontWeight.bold,
+    return Consumer<BlockController>(builder: (context, controller, child) {
+      return ListView(
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        children: [
+          FutureBuilder(
+            future: ClubGatheringService.searchGatheringWithCategory(
+                city: city, category: _selectedCategory.name),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                List<ClubGathering>? gatheringList = snapshot.data;
+                if (gatheringList == null) return Container();
+                gatheringList = gatheringList
+                    .where((gathering) =>
+                        !controller.blockedObjectList.contains(gathering.id))
+                    .toList();
+                if (gatheringList.isEmpty) return Container();
+                return ListView(
+                  shrinkWrap: true,
+                  physics: const ClampingScrollPhysics(),
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Text(
+                        'NEW 소모임',
+                        style: TextStyle(
+                          fontSize: 18,
+                          height: 25 / 18,
+                          color: kFontGray800Color,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 4),
-                  ...(gatheringList.length > 3
-                          ? gatheringList.sublist(0, 3)
-                          : gatheringList)
-                      .map(
-                        (gathering) => ClubGatheringRowCard(
-                            gathering: gathering, userId: userId),
-                      )
-                      .toList(),
-                  const SizedBox(height: 24),
-                ],
-              );
-            }
-            return Container();
-          },
-        ),
-        FutureBuilder(
-          future: ClubGatheringService.getAllGatheringWithCategory(
-              city: city, category: _selectedCategory.name),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              List<ClubGathering> gatheringList =
-                  snapshot.data as List<ClubGathering>;
-              if (gatheringList.isEmpty) return Container();
-              return ListView(
-                shrinkWrap: true,
-                physics: const ClampingScrollPhysics(),
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Text(
-                      '전체 소모임',
-                      style: TextStyle(
-                        fontSize: 18,
-                        height: 25 / 18,
-                        color: kFontGray800Color,
-                        fontWeight: FontWeight.bold,
+                    const SizedBox(height: 4),
+                    ...(gatheringList.length > 3
+                            ? gatheringList.sublist(0, 3)
+                            : gatheringList)
+                        .map(
+                          (gathering) => ClubGatheringRowCard(
+                              gathering: gathering, userId: userId),
+                        )
+                        .toList(),
+                    const SizedBox(height: 24),
+                  ],
+                );
+              }
+              return Container();
+            },
+          ),
+          FutureBuilder(
+            future: ClubGatheringService.getAllGatheringWithCategory(
+                city: city, category: _selectedCategory.name),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                List<ClubGathering> gatheringList =
+                    snapshot.data as List<ClubGathering>;
+                if (gatheringList.isEmpty) return Container();
+                return ListView(
+                  shrinkWrap: true,
+                  physics: const ClampingScrollPhysics(),
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Text(
+                        '전체 소모임',
+                        style: TextStyle(
+                          fontSize: 18,
+                          height: 25 / 18,
+                          color: kFontGray800Color,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 4),
-                  ...gatheringList
-                      .map((gathering) => ClubGatheringRowCard(
-                          gathering: gathering, userId: userId))
-                      .toList(),
-                  const SizedBox(height: 24),
-                ],
-              );
-            }
-            return Container();
-          },
-        ),
-      ],
-    );
+                    const SizedBox(height: 4),
+                    ...gatheringList
+                        .map((gathering) => ClubGatheringRowCard(
+                            gathering: gathering, userId: userId))
+                        .toList(),
+                    const SizedBox(height: 24),
+                  ],
+                );
+              }
+              return Container();
+            },
+          ),
+        ],
+      );
+    });
   }
 
   Widget kDailyArea() {
-    return FutureBuilder(
-      future: DailyService.searchDailyWithCategory(
-          category: _selectedCategory.name),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          List<Daily>? dailyList = snapshot.data;
-          if (dailyList == null || dailyList.isEmpty) return Container();
-          return GridView.count(
-            physics: const ClampingScrollPhysics(),
-            shrinkWrap: true,
-            crossAxisCount: 3,
-            mainAxisSpacing: 4,
-            crossAxisSpacing: 4,
-            children:
-                dailyList.map((daily) => DailyCard(daily: daily)).toList(),
-          );
-        }
-        return Container();
-      },
-    );
+    return Consumer<BlockController>(builder: (context, controller, child) {
+      return FutureBuilder(
+        future: DailyService.searchDailyWithCategory(
+            category: _selectedCategory.name),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            List<Daily>? dailyList = snapshot.data;
+            if (dailyList == null) return Container();
+            dailyList = dailyList
+                .where((gathering) =>
+                    !controller.blockedObjectList.contains(gathering.id))
+                .toList();
+            if (dailyList.isEmpty) return Container();
+
+            return GridView.count(
+              physics: const ClampingScrollPhysics(),
+              shrinkWrap: true,
+              crossAxisCount: 3,
+              mainAxisSpacing: 4,
+              crossAxisSpacing: 4,
+              children:
+                  dailyList.map((daily) => DailyCard(daily: daily)).toList(),
+            );
+          }
+          return Container();
+        },
+      );
+    });
   }
 }

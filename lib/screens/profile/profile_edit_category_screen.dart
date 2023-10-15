@@ -151,12 +151,13 @@ class _ProfileEditCategoryScreenState extends State<ProfileEditCategoryScreen> {
                     .map((category) => category.name)
                     .toList();
                 bool updateSuccess = await UserService.update(
-                    id: controller.user!.id,
-                    field: 'interestCategory',
-                    value: categoryList,);
-                if(updateSuccess){
+                  id: controller.user!.id,
+                  field: 'interestCategory',
+                  value: categoryList,
+                );
+                if (updateSuccess) {
                   await controller.refreshUser();
-                  if(!mounted) return;
+                  if (!mounted) return;
                   Navigator.pop(context);
                 }
               },
