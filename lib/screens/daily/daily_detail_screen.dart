@@ -11,6 +11,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import '../../constants/constants_colors.dart';
 import '../../models/daily/daily.dart';
+import '../../utils/local_utils.dart';
 import 'components/daily_favorite_button.dart';
 import 'components/daily_image_container.dart';
 import 'components/daily_organizer_card.dart';
@@ -38,7 +39,7 @@ class _DailyDetailScreenState extends State<DailyDetailScreen> {
         backgroundColor: kWhiteColor,
         leadingWidth: 48,
         leading: GestureDetector(
-          onTap: () => Navigator.pop(context),
+          onTap: () => popScreen(context),
           child: Container(
             margin: const EdgeInsets.only(left: 20),
             alignment: Alignment.center,

@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:common/constants/constants_enum.dart';
 import 'package:common/services/firebase_service.dart';
 import 'package:common/services/upload_service.dart';
 import 'package:image_picker/image_picker.dart';
@@ -57,11 +58,31 @@ class GatheringService {
     }
   }
 
-  static Future<bool> applyGathering(
-      {required String category,
-      required String id,
-      required String userId}) async {
+  static Future<bool> applyGathering({
+    required String category,
+    required String id,
+    required String userId,
+    required String recruitWay,
+  }) async {
     try {
+      if (recruitWay == RecruitWay.firstCome.name) {
+        await FirebaseService.fireStore.runTransaction((transaction) async {
+          final snapshot = await transaction
+              .get(FirebaseService.fireStore.collection(category).doc(id));
+          if (snapshot.exists) {
+            List memberList = snapshot.get('memberList');
+            if (memberList.contains(userId)) {
+              return false;
+            }
+            memberList.add(userId);
+            transaction.update(
+                FirebaseService.fireStore.collection(category).doc(id), {
+              'memberList': memberList,
+            });
+          }
+        });
+        return true;
+      }
       bool applySuccess = true;
       await FirebaseService.fireStore.runTransaction((transaction) async {
         final snapshot = await transaction

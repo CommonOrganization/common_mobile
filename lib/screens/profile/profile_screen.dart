@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import '../../constants/constants_colors.dart';
 import '../../controllers/user_controller.dart';
 import '../../models/user/user.dart';
+import '../../widgets/bottom_sheets/user_report_bottom_sheet.dart';
 import 'components/profile_user_contents_container.dart';
 import 'components/profile_user_information_container.dart';
 
@@ -65,7 +66,17 @@ class ProfileScreen extends StatelessWidget {
         ),
       ),
       actions: [
-        SvgPicture.asset('assets/icons/svg/more_26px.svg'),
+        GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: () => showModalBottomSheet(
+            context: context,
+            backgroundColor: Colors.transparent,
+            builder: (context) =>  UserReportBottomSheet(userId: userId),
+          ),
+          child: SvgPicture.asset(
+            'assets/icons/svg/more_26px.svg',
+          ),
+        ),
         const SizedBox(width: 20),
       ],
       elevation: 0,

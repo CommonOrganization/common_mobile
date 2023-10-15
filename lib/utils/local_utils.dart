@@ -6,6 +6,22 @@ import 'package:common/constants/constants_colors.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 
+import '../screens/splash/splash_screen.dart';
+
+void popScreen(BuildContext context){
+  bool canPop = Navigator.of(context).canPop();
+  if (canPop) {
+    Navigator.pop(context);
+    return;
+  }
+  Navigator.pushReplacement(
+    context,
+    MaterialPageRoute(
+      builder: (context) => const SplashScreen(),
+    ),
+  );
+}
+
 String getNewCertificationNumber() {
   String newCertificationNumber = '';
   for (int i = 0; i < 6; i++) {

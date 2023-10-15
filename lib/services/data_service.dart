@@ -58,11 +58,11 @@ class DataService {
           .collection(collection)
           .doc('search')
           .collection('gathering')
-          .orderBy('count',descending: true)
+          .orderBy('count', descending: true)
           .get();
 
-      if(snapshot.docs.isEmpty) return [];
-      return snapshot.docs.map((word)=>word.get('word')).toList();
+      if (snapshot.docs.isEmpty) return [];
+      return snapshot.docs.map((word) => word.get('word')).toList();
     } catch (e) {
       log('DataService - getSearchGatheringPopularWord Failed : $e');
       return [];
@@ -72,19 +72,39 @@ class DataService {
   static Future<String?> getId({required String name}) async {
     try {
       String? id;
-      await FirebaseFirestore.instance.runTransaction((transaction) async{
-        DocumentReference documentReference = FirebaseFirestore.instance.collection(collection).doc(name);
+      await FirebaseFirestore.instance.runTransaction((transaction) async {
+        DocumentReference documentReference =
+            FirebaseFirestore.instance.collection(collection).doc(name);
         DocumentSnapshot snapshot = await transaction.get(documentReference);
         int count = snapshot.get('count');
-        transaction.update(documentReference, {'count':count+1});
+        transaction.update(documentReference, {'count': count + 1});
 
-        id = '$name${count.toString().padLeft(8,'0')}';
+        id = '$name${count.toString().padLeft(8, '0')}';
       });
 
       return id;
     } catch (e) {
       log('DataService - getId Failed : $e');
       return null;
+    }
+  }
+
+  static Future<String> getStoreAppVersion(String os) async {
+    try {
+      final snapshot = await FirebaseService.fireStore
+          .collection(collection)
+          .doc('appVersion')
+          .get();
+
+      if (snapshot.exists) {
+        Map<String, dynamic>? data = snapshot.data();
+        if (data == null) return '1.0.0';
+        return data[os];
+      }
+      return '1.0.0';
+    } catch (e) {
+      log('DataService - getStoreAppVersion Failed : $e');
+      return '1.0.0';
     }
   }
 }

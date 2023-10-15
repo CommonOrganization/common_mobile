@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import '../../../constants/constants_colors.dart';
 import '../../../constants/constants_enum.dart';
 import '../../../utils/date_utils.dart';
+import '../../../utils/local_utils.dart';
 import '../../../widgets/bottom_sheets/gathering_edit_bottom_sheet.dart';
 
 class GatheringSliverAppbar extends StatefulWidget {
@@ -48,7 +49,7 @@ class _GatheringSliverAppbarState extends State<GatheringSliverAppbar> {
         leadingWidth: 48,
         leading: GestureDetector(
           behavior: HitTestBehavior.opaque,
-          onTap: () => Navigator.pop(context),
+          onTap: () => popScreen(context),
           child: Container(
             margin: const EdgeInsets.only(left: 20),
             alignment: Alignment.center,
@@ -62,15 +63,16 @@ class _GatheringSliverAppbarState extends State<GatheringSliverAppbar> {
         actions: widget.isPreview
             ? null
             : [
-                GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () {},
-                  child: SvgPicture.asset(
-                    widget.showAppbarBlack
-                        ? 'assets/icons/svg/share_26px.svg'
-                        : 'assets/icons/svg/share_white_26px.svg',
-                  ),
-                ),
+                // TODO 공유기능 개발시 바로 넣기
+                // GestureDetector(
+                //   behavior: HitTestBehavior.opaque,
+                //   onTap: () {},
+                //   child: SvgPicture.asset(
+                //     widget.showAppbarBlack
+                //         ? 'assets/icons/svg/share_26px.svg'
+                //         : 'assets/icons/svg/share_white_26px.svg',
+                //   ),
+                // ),
                 const SizedBox(width: 18),
                 GestureDetector(
                   behavior: HitTestBehavior.opaque,

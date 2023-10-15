@@ -1,9 +1,14 @@
+import 'dart:io';
+
 import 'package:common/constants/constants_colors.dart';
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/screens/main/main_screen.dart';
 import 'package:common/screens/sign/login_screen.dart';
+import 'package:common/services/data_service.dart';
+import 'package:common/widgets/dialog/update_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -37,7 +42,33 @@ class _SplashScreenState extends State<SplashScreen>
         () => _animationController.forward());
   }
 
-  void autoLoginCheck() => Future.delayed(
+  Future<bool> appVersionCheck() async {
+    late String appVersion;
+    if (Platform.isAndroid) {
+      appVersion = await DataService.getStoreAppVersion('android');
+    }
+    appVersion = await DataService.getStoreAppVersion('ios');
+
+    PackageInfo? packageInfo = await PackageInfo.fromPlatform();
+    String packageVersion = packageInfo.version;
+    if (context.mounted) {
+      if (appVersion != packageVersion) {
+        await showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) {
+            return const UpdateDialog();
+          },
+        );
+      }
+    }
+    return true;
+  }
+
+  void autoLoginCheck() async {
+    bool versionCheckSuccess = await appVersionCheck();
+    if (versionCheckSuccess) {
+      Future.delayed(
         const Duration(milliseconds: 2250),
         () async {
           bool autoLoggedIn = await context.read<UserController>().autoLogin();
@@ -51,6 +82,8 @@ class _SplashScreenState extends State<SplashScreen>
           );
         },
       );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -51,6 +51,7 @@ class UserController extends ChangeNotifier {
   }
 
   Future<void> logout() async {
+    await LocalController.logoutClearUserData();
     log('${user?.id}유저 로그아웃');
     user = null;
     notifyListeners();

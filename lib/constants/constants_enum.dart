@@ -1439,3 +1439,32 @@ extension DailyTypeExtenstion on DailyType {
   String get selectedIcon => selectedIcons[this];
   static DailyType getType(String text) => types[text];
 }
+
+enum NoticeType { notice, event }
+
+extension NoticeTypeExtenstion on NoticeType {
+  static Map names = {
+    NoticeType.notice: 'notice',
+    NoticeType.event: 'event',
+  };
+
+  static Map types = {
+    'notice': NoticeType.notice,
+    'event': NoticeType.event,
+  };
+
+  static Map titles = {
+    NoticeType.notice: '공지사항',
+    NoticeType.event: '이벤트',
+  };
+
+  static Map shortTitles = {
+    NoticeType.notice: '[공지]',
+    NoticeType.event: '[이벤트]',
+  };
+
+  String get name => names[this];
+  String get title => titles[this];
+  String get shortTitle => shortTitles[this];
+  static NoticeType getType(String text) => types[text];
+}

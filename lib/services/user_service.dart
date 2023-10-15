@@ -62,6 +62,19 @@ class UserService {
     }
   }
 
+  static Future<bool> leave({required String userId}) async {
+    try {
+      await FirebaseService.fireStore
+          .collection(collection)
+          .doc(userId)
+          .delete();
+      return true;
+    } catch (e) {
+      log('UserService - leave Failed : $e');
+      return false;
+    }
+  }
+
   static Future<User?> refresh({required String id}) async {
     try {
       final snapshot =

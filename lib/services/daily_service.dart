@@ -118,4 +118,17 @@ class DailyService {
       return false;
     }
   }
+
+  static Future<bool> deleteDaily({required String dailyId}) async {
+    try {
+      await FirebaseService.fireStore
+          .collection(collection)
+          .doc(dailyId)
+          .delete();
+      return true;
+    } catch (e) {
+      log('DailyService - deleteDaily Failed : $e');
+      return false;
+    }
+  }
 }

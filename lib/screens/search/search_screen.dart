@@ -305,8 +305,9 @@ class _SearchScreenState extends State<SearchScreen> {
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         List? wordList = snapshot.data;
-                        if (wordList == null || wordList.isEmpty)
+                        if (wordList == null || wordList.isEmpty) {
                           return Container();
+                        }
                         return Container(
                           margin: const EdgeInsets.only(
                               left: 20, right: 20, bottom: 36),

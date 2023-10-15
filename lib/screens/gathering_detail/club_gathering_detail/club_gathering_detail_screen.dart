@@ -115,7 +115,7 @@ class _ClubGatheringDetailScreenState extends State<ClubGatheringDetailScreen> {
       }
 
       bool applySuccess = await ClubGatheringService.applyGathering(
-          id: widget.gathering.id, userId: userId);
+          id: widget.gathering.id, userId: userId,recruitWay:recruitWay.name,);
       if (!mounted) return;
       _loading = false;
       if (!applySuccess) {

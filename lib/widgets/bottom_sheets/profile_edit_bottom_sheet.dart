@@ -1,5 +1,4 @@
 import 'package:common/controllers/user_controller.dart';
-import 'package:common/screens/profile/edit_setting_screen.dart';
 import 'package:common/screens/profile/profile_edit_category_screen.dart';
 import 'package:common/services/user_service.dart';
 import 'package:common/widgets/bottom_sheets/select_location_bottom_sheet.dart';
@@ -8,6 +7,7 @@ import 'package:provider/provider.dart';
 import '../../constants/constants_colors.dart';
 import '../../models/user/user.dart';
 import '../../models/user_place/user_place.dart';
+import '../../screens/setting/setting_screen.dart';
 import 'bottom_sheet_custom_button.dart';
 
 class ProfileEditBottomSheet extends StatelessWidget {
@@ -36,7 +36,7 @@ class ProfileEditBottomSheet extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const EditSettingScreen(),
+                            builder: (context) => const SettingScreen(),
                           ),
                         );
                       },

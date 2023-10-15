@@ -1,14 +1,15 @@
-import 'package:common/models/daily/daily.dart';
-import 'package:common/services/daily_service.dart';
+import 'package:common/controllers/user_controller.dart';
+import 'package:common/services/report_service.dart';
+import 'package:common/utils/local_utils.dart';
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
 import '../../constants/constants_colors.dart';
-import '../../utils/local_utils.dart';
 import 'bottom_sheet_custom_button.dart';
 
-class DailyEditBottomSheet extends StatelessWidget {
-  final Daily daily;
-  const DailyEditBottomSheet({Key? key, required this.daily}) : super(key: key);
+class UserReportBottomSheet extends StatelessWidget {
+  final String userId;
+  const UserReportBottomSheet({Key? key, required this.userId})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,15 +26,16 @@ class DailyEditBottomSheet extends StatelessWidget {
               child: SizedBox(
                 width: double.infinity,
                 child: BottomSheetCustomButton(
-                  title: '삭제하기',
-                  onPressed: () =>
-                      DailyService.deleteDaily(dailyId: daily.id).then(
-                    (value) {
-                      Navigator.pop(context);
-                      Navigator.pop(context);
-                      showMessage(context, message: '데일리를 삭제했습니다.');
-                    },
-                  ),
+                  title: '신고하기',
+                  onPressed: () {
+                    String? reporterId =
+                        context.read<UserController>().user?.id;
+                    if (reporterId == null) return;
+                    ReportService.report(
+                        reporterId: reporterId, reportedId: userId);
+                    Navigator.pop(context);
+                    showMessage(context, message: '유저를 신고했습니다.');
+                  },
                 ),
               ),
             ),

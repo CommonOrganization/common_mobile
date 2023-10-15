@@ -62,18 +62,13 @@ class DailyOrganizerCard extends StatelessWidget {
               ),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  return GestureDetector(
-                    onTap: () {
-                      //TODO 프로필로 이동
-                    },
-                    child: Text(
-                      snapshot.data,
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: kFontGray800Color,
-                        fontWeight: FontWeight.bold,
-                        height: 20/15,
-                      ),
+                  return Text(
+                    snapshot.data,
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: kFontGray800Color,
+                      fontWeight: FontWeight.bold,
+                      height: 20/15,
                     ),
                   );
                 }
