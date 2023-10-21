@@ -133,32 +133,11 @@ class SettingScreen extends StatelessWidget {
           kVersionArea(),
           SettingMoreButton(
             title: '서비스 이용 약관',
-            onTap: () async {
-              bool canLaunchServiceUsePolicyUrl =
-                  await canLaunchUrl(Uri.parse(kServiceUsePolicyUrl));
-              if (context.mounted) {
-                if (!canLaunchServiceUsePolicyUrl) {
-                  showMessage(context, message: '잠시 후에 다시 시도해 주세요.');
-                  return;
-                }
-                launchUrl(Uri.parse(kServiceUsePolicyUrl));
-              }
-            },
+            onTap: () => launchServiceUsePolicy(),
           ),
           SettingMoreButton(
             title: '개인정보 처리방침',
-            onTap: () async {
-              bool canLaunchPersonalInformationProcessingPolicyUrl =
-                  await canLaunchUrl(
-                      Uri.parse(kPersonalInformationProcessingPolicyUrl));
-              if (context.mounted) {
-                if (!canLaunchPersonalInformationProcessingPolicyUrl) {
-                  showMessage(context, message: '잠시 후에 다시 시도해 주세요.');
-                  return;
-                }
-                launchUrl(Uri.parse(kPersonalInformationProcessingPolicyUrl));
-              }
-            },
+            onTap: () => launchPersonalInformationProcessingPolicy(),
           ),
         ],
       ),

@@ -5,22 +5,9 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:common/constants/constants_colors.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-import '../screens/splash/splash_screen.dart';
-
-void popScreen(BuildContext context){
-  bool canPop = Navigator.of(context).canPop();
-  if (canPop) {
-    Navigator.pop(context);
-    return;
-  }
-  Navigator.pushReplacement(
-    context,
-    MaterialPageRoute(
-      builder: (context) => const SplashScreen(),
-    ),
-  );
-}
+import '../constants/constants_value.dart';
 
 String getNewCertificationNumber() {
   String newCertificationNumber = '';
@@ -68,7 +55,7 @@ void showMessage(BuildContext context, {required String message}) async {
       messageText: Text(
         message,
         textAlign: TextAlign.center,
-        style:  TextStyle(
+        style: TextStyle(
           color: kWhiteColor,
           fontSize: 14,
         ),
@@ -79,3 +66,19 @@ void showMessage(BuildContext context, {required String message}) async {
     developer.log('showMessage error : $e');
   }
 }
+
+void launchServiceUsePolicy() async {
+  bool canLaunchServiceUsePolicyUrl =
+  await canLaunchUrl(Uri.parse(kServiceUsePolicyUrl));
+  if (!canLaunchServiceUsePolicyUrl) return;
+  launchUrl(Uri.parse(kServiceUsePolicyUrl));
+}
+
+void launchPersonalInformationProcessingPolicy() async {
+  bool canLaunchPersonalInformationProcessingPolicyUrl =
+      await canLaunchUrl(Uri.parse(kPersonalInformationProcessingPolicyUrl));
+  if (!canLaunchPersonalInformationProcessingPolicyUrl) return;
+  launchUrl(Uri.parse(kPersonalInformationProcessingPolicyUrl));
+}
+
+

@@ -20,10 +20,10 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
   Future<void> resetPasswordPressed(String newPassword) async {
     _userNewPassword = newPassword;
-    bool value = await UserService.updatePassword(
+    bool updateSuccess = await UserService.updatePassword(
         phone: _userPhone, newPassword: _userNewPassword);
     if (!mounted) return;
-    if (value) {
+    if (updateSuccess) {
       Navigator.pop(context);
       showMessage(context, message: '비밀번호가 변경되었습니다');
       return;
@@ -76,7 +76,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         actions: [
           GestureDetector(
             behavior: HitTestBehavior.opaque,
-            onTap: () =>Navigator.pop(context),
+            onTap: () => Navigator.pop(context),
             child: SvgPicture.asset('assets/icons/svg/close_28px.svg'),
           ),
           const SizedBox(width: 20),

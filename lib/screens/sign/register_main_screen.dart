@@ -37,7 +37,7 @@ class _RegisterMainScreenState extends State<RegisterMainScreen> {
 
   bool _isLoading = false;
 
-  Future<void> registerPressed(String imageUrl, String information) async {
+  void registerPressed(String imageUrl, String information) async {
     try {
       if (_isLoading) return;
       _isLoading = true;
@@ -81,9 +81,10 @@ class _RegisterMainScreenState extends State<RegisterMainScreen> {
       case 0:
         return RegisterPhoneScreen(
           nextPressed: (String phone, Country country) async {
-            if (await UserService.duplicate(
-                field: 'phone', value: phone)) {
-              if (!mounted) return;
+            bool isDuplicatedPhoneNumber =
+                await UserService.duplicate(field: 'phone', value: phone);
+            if (!mounted) return;
+            if (isDuplicatedPhoneNumber) {
               showMessage(context, message: '이미 가입된 번호입니다.');
               return;
             }
@@ -123,10 +124,9 @@ class _RegisterMainScreenState extends State<RegisterMainScreen> {
         );
       case 4:
         return RegisterProfileScreen(
-          userName: _userName,
-          nextPressed: (String imageUrl, String information) async =>
-              await registerPressed(imageUrl, information),
-        );
+            userName: _userName,
+            nextPressed: (String imageUrl, String information) =>
+                registerPressed(imageUrl, information));
       default:
         return Container();
     }

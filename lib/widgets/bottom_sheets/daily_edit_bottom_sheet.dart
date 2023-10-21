@@ -1,6 +1,8 @@
+import 'package:common/controllers/screen_controller.dart';
 import 'package:common/models/daily/daily.dart';
 import 'package:common/services/daily_service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../constants/constants_colors.dart';
 import '../../utils/local_utils.dart';
@@ -29,6 +31,7 @@ class DailyEditBottomSheet extends StatelessWidget {
                   onPressed: () =>
                       DailyService.deleteDaily(dailyId: daily.id).then(
                     (value) {
+                      context.read<ScreenController>().pageRefresh();
                       Navigator.pop(context);
                       Navigator.pop(context);
                       showMessage(context, message: '데일리를 삭제했습니다.');

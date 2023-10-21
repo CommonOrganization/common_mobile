@@ -71,7 +71,7 @@ class MainUploadBottomSheet extends StatelessWidget {
                         builder: (context) => const DailyUploadMainScreen(),
                       ),
                     ),
-                    image: 'assets/images/feed.png',
+                    image: 'assets/images/daily.png',
                     title: '데일리 만들기',
                     subtitle: '오늘의 일상을 공유해 보세요',
                   ),

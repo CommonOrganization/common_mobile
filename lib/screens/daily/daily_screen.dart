@@ -1,4 +1,5 @@
 import 'package:common/controllers/block_controller.dart';
+import 'package:common/controllers/screen_controller.dart';
 import 'package:common/models/daily/daily.dart';
 import 'package:common/services/daily_service.dart';
 import 'package:common/widgets/daily_card.dart';
@@ -45,31 +46,35 @@ class DailyScreen extends StatelessWidget {
           const SizedBox(width: 20),
         ],
       ),
-      body: Consumer<BlockController>(builder: (context, controller, child) {
-        return FutureBuilder(
-          future: DailyService.getRecommendDaily(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              List<Daily>? dailyList = snapshot.data;
-              if (dailyList == null) return Container();
-              dailyList = dailyList
-                  .where((daily) =>
-                      !controller.blockedObjectList.contains(daily.id))
-                  .toList();
-              if (dailyList.isEmpty) return Container();
-              return GridView.count(
-                physics: const ClampingScrollPhysics(),
-                crossAxisCount: 3,
-                mainAxisSpacing: 4,
-                crossAxisSpacing: 4,
-                children:
-                    dailyList.map((daily) => DailyCard(daily: daily)).toList(),
-              );
-            }
-            return Container();
-          },
-        );
-      }),
+      body: Consumer<ScreenController>(
+        builder: (context,screenController,child) {
+          return Consumer<BlockController>(builder: (context, controller, child) {
+            return FutureBuilder(
+              future: DailyService.getRecommendDaily(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  List<Daily>? dailyList = snapshot.data;
+                  if (dailyList == null) return Container();
+                  dailyList = dailyList
+                      .where((daily) =>
+                          !controller.blockedObjectList.contains(daily.id))
+                      .toList();
+                  if (dailyList.isEmpty) return Container();
+                  return GridView.count(
+                    physics: const ClampingScrollPhysics(),
+                    crossAxisCount: 3,
+                    mainAxisSpacing: 4,
+                    crossAxisSpacing: 4,
+                    children:
+                        dailyList.map((daily) => DailyCard(daily: daily)).toList(),
+                  );
+                }
+                return Container();
+              },
+            );
+          });
+        }
+      ),
     );
   }
 }

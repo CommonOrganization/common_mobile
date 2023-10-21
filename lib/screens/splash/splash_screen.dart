@@ -30,6 +30,12 @@ class _SplashScreenState extends State<SplashScreen>
     autoLoginCheck();
   }
 
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
   void playAnimation() {
     _animationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 800));
@@ -43,11 +49,14 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   Future<bool> appVersionCheck() async {
-    late String appVersion;
+    String? appVersion;
     if (Platform.isAndroid) {
       appVersion = await DataService.getStoreAppVersion('android');
     }
-    appVersion = await DataService.getStoreAppVersion('ios');
+    if (Platform.isIOS) {
+      appVersion = await DataService.getStoreAppVersion('ios');
+    }
+    if (appVersion == null) return false;
 
     PackageInfo? packageInfo = await PackageInfo.fromPlatform();
     String packageVersion = packageInfo.version;
@@ -56,10 +65,9 @@ class _SplashScreenState extends State<SplashScreen>
         await showDialog(
           context: context,
           barrierDismissible: false,
-          builder: (context) {
-            return const UpdateDialog();
-          },
+          builder: (context) => const UpdateDialog(),
         );
+        return false;
       }
     }
     return true;
@@ -67,22 +75,21 @@ class _SplashScreenState extends State<SplashScreen>
 
   void autoLoginCheck() async {
     bool versionCheckSuccess = await appVersionCheck();
-    if (versionCheckSuccess) {
-      Future.delayed(
-        const Duration(milliseconds: 2250),
-        () async {
-          bool autoLoggedIn = await context.read<UserController>().autoLogin();
-          if (!mounted) return;
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) =>
-                  autoLoggedIn ? const MainScreen() : const LoginScreen(),
-            ),
-          );
-        },
-      );
-    }
+    if (!versionCheckSuccess) return;
+    Future.delayed(
+      const Duration(milliseconds: 2250),
+      () async {
+        bool autoLoggedIn = await context.read<UserController>().autoLogin();
+        if (!mounted) return;
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                autoLoggedIn ? const MainScreen() : const LoginScreen(),
+          ),
+        );
+      },
+    );
   }
 
   @override

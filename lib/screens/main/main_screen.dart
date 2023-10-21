@@ -79,7 +79,7 @@ class _MainScreenState extends State<MainScreen> {
                       isScrollControlled: true,
                       backgroundColor: Colors.transparent,
                       builder: (context) => const MainUploadBottomSheet(),
-                    ).then((value) => setState(() {})),
+                    ),
                     child: Container(
                       color: kWhiteColor,
                       child: SvgPicture.asset(

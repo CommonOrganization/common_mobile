@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../constants/constants_colors.dart';
 import '../../constants/constants_reg.dart';
+import '../../widgets/common_action_button.dart';
+import '../../widgets/common_text_field.dart';
 
 class ResetNewPasswordScreen extends StatefulWidget {
   final Function nextPressed;
@@ -19,9 +21,9 @@ class _ResetNewPasswordScreenState extends State<ResetNewPasswordScreen> {
   final TextEditingController _passwordCertifyController =
       TextEditingController();
 
-  bool get showPasswordMessage =>
+  bool get passwordDuplicated =>
       _passwordCertifyController.text.isNotEmpty &&
-      _passwordCertifyController.text != _passwordController.text;
+      _passwordCertifyController.text == _passwordController.text;
 
   bool get canNextPressed =>
       _passwordController.text.isNotEmpty &&
@@ -75,53 +77,27 @@ class _ResetNewPasswordScreenState extends State<ResetNewPasswordScreen> {
                       ),
                       Expanded(
                         flex: 3,
-                        child: Container(
-                          alignment: Alignment.center,
-                          padding: const EdgeInsets.symmetric(horizontal: 18),
-                          width: double.infinity,
-                          height: 52,
-                          decoration: BoxDecoration(
-                            color: kFontGray50Color,
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: TextField(
-                                  controller: _passwordController,
-                                  obscureText: true,
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    enabledBorder: InputBorder.none,
-                                    focusedBorder: InputBorder.none,
-                                    isDense: true,
-                                    counterText: '',
-                                    hintText: '새 비밀번호 (영문, 숫자 혼합 8자이상)',
-                                    hintStyle: TextStyle(
-                                      fontSize: 14,
-                                      color: kFontGray400Color,
-                                      height: 20 / 14,
-                                    ),
-                                  ),
-                                  onChanged: (text) => setState(() {}),
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: kFontGray800Color,
-                                    height: 20 / 14,
-                                  ),
-                                ),
-                              ),
-                              if (_passwordController.text.isNotEmpty)
-                                SvgPicture.asset(
+                        child: Stack(
+                          children: [
+                            CommonTextField(
+                              controller: _passwordController,
+                              obsecureText: true,
+                              hintText: '새 비밀번호 (영문, 숫자 혼합 8자이상)',
+                              textChanged: () => setState(() {}),
+                            ),
+                            if (_passwordController.text.isNotEmpty)
+                              Positioned(
+                                right: 14,
+                                top: 0,
+                                bottom: 0,
+                                child: SvgPicture.asset(
                                   kPasswordRegExp
                                           .hasMatch(_passwordController.text)
                                       ? 'assets/icons/svg/success_26px.svg'
                                       : 'assets/icons/svg/error_26px.svg',
-                                  width: 26,
-                                  height: 26,
                                 ),
-                            ],
-                          ),
+                              ),
+                          ],
                         ),
                       ),
                     ],
@@ -132,58 +108,33 @@ class _ResetNewPasswordScreenState extends State<ResetNewPasswordScreen> {
                       const Spacer(),
                       Expanded(
                         flex: 3,
-                        child: Container(
-                          alignment: Alignment.center,
-                          padding: const EdgeInsets.symmetric(horizontal: 18),
-                          width: double.infinity,
-                          height: 52,
-                          decoration: BoxDecoration(
-                            color: kFontGray50Color,
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: TextField(
-                                  controller: _passwordCertifyController,
-                                  obscureText: true,
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    enabledBorder: InputBorder.none,
-                                    focusedBorder: InputBorder.none,
-                                    isDense: true,
-                                    counterText: '',
-                                    hintText: '새 비밀번호 확인',
-                                    hintStyle: TextStyle(
-                                      fontSize: 14,
-                                      color: kFontGray400Color,
-                                      height: 20 / 14,
-                                    ),
-                                  ),
-                                  onChanged: (text) => setState(() {}),
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: kFontGray800Color,
-                                    height: 20 / 14,
-                                  ),
-                                ),
-                              ),
-                              if (_passwordCertifyController.text.isNotEmpty)
-                                SvgPicture.asset(
-                                  !showPasswordMessage
+                        child: Stack(
+                          children: [
+                            CommonTextField(
+                              controller: _passwordCertifyController,
+                              obsecureText: true,
+                              hintText: '새 비밀번호 확인',
+                              textChanged: () => setState(() {}),
+                            ),
+                            if (_passwordCertifyController.text.isNotEmpty)
+                              Positioned(
+                                right: 14,
+                                top: 0,
+                                bottom: 0,
+                                child: SvgPicture.asset(
+                                  passwordDuplicated
                                       ? 'assets/icons/svg/success_26px.svg'
                                       : 'assets/icons/svg/error_26px.svg',
-                                  width: 26,
-                                  height: 26,
                                 ),
-                            ],
-                          ),
+                              ),
+                          ],
                         ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 4),
-                  if (showPasswordMessage)
+                  if (!passwordDuplicated &&
+                      _passwordCertifyController.text.isNotEmpty)
                     Row(
                       children: [
                         const Spacer(),
@@ -205,31 +156,13 @@ class _ResetNewPasswordScreenState extends State<ResetNewPasswordScreen> {
               ),
             ),
           ),
-          GestureDetector(
+          CommonActionButton(
+            value: canNextPressed,
+            title: '확인',
             onTap: () {
-              if (canNextPressed) {
-                widget.nextPressed(_passwordController.text);
-              }
+              if (!canNextPressed) return;
+              widget.nextPressed(_passwordController.text);
             },
-            child: Container(
-              alignment: Alignment.center,
-              width: double.infinity,
-              color: canNextPressed ? kMainColor : kFontGray100Color,
-              child: SafeArea(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(vertical: 18),
-                  child: Text(
-                    '확인',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: canNextPressed ? kWhiteColor : kFontGray200Color,
-                      fontWeight: FontWeight.bold,
-                      height: 20 / 16,
-                    ),
-                  ),
-                ),
-              ),
-            ),
           ),
         ],
       ),

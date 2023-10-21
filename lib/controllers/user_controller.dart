@@ -16,7 +16,6 @@ class UserController extends ChangeNotifier {
     if (loginUserInfo == null) return false;
     await LocalController.saveUserData(loginUserInfo);
     user = loginUserInfo;
-
     notifyListeners();
     log('${user?.id}유저 자동 로그인');
     return true;
@@ -52,16 +51,16 @@ class UserController extends ChangeNotifier {
 
   Future<void> logout() async {
     await LocalController.logoutClearUserData();
-    log('${user?.id}유저 로그아웃');
     user = null;
     notifyListeners();
+    log('${user?.id}유저 로그아웃');
   }
 
   Future<void> updateToken() async {
     if (user == null) return;
     String? token = await FirebaseMessaging.instance.getToken();
     if (token != null) {
-      await UserService.update(
+      UserService.update(
           id: user!.id, field: 'notificationToken', value: token);
     }
   }

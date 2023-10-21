@@ -38,263 +38,252 @@ class _RegisterUserInformationScreenState
     );
   }
 
-  Widget genderArea() => Column(
-        children: [
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: ListView(
-                physics: const ClampingScrollPhysics(),
-                children: [
-                  const SizedBox(height: 12),
-                  Text(
-                    '회원정보 입력',
-                    style: TextStyle(
-                      color: kFontGray900Color,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      height: 1,
-                    ),
+  Widget genderArea() {
+    return Column(
+      children: [
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: ListView(
+              physics: const ClampingScrollPhysics(),
+              children: [
+                const SizedBox(height: 12),
+                Text(
+                  '회원정보 입력',
+                  style: TextStyle(
+                    color: kFontGray900Color,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    height: 1,
                   ),
-                  const SizedBox(height: 10),
-                  Text(
-                    '응답하신 정보는 모두에게 공개됩니다.',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: kFontGray500Color,
-                      height: 20 / 14,
-                    ),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  '응답하신 정보는 모두에게 공개됩니다.',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: kFontGray500Color,
+                    height: 20 / 14,
                   ),
-                  const SizedBox(height: 36),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          '성별',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: kFontGray800Color,
-                            height: 20 / 14,
-                          ),
+                ),
+                const SizedBox(height: 36),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        '성별',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: kFontGray800Color,
+                          height: 20 / 14,
                         ),
                       ),
-                      Expanded(
-                        flex: 3,
-                        child: Row(
-                          children: Gender.values
-                              .map(
-                                (gender) => GestureDetector(
-                                  onTap: () => setState(() => _gender = gender),
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    margin: const EdgeInsets.only(right: 10),
-                                    width: 80,
-                                    height: 52,
-                                    decoration: BoxDecoration(
-                                      color: _gender == gender
-                                          ? kSubColor1
-                                          : kFontGray50Color,
-                                      border: _gender == gender
-                                          ? Border.all(color: kMainColor)
-                                          : null,
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    child: Text(
-                                      gender.name,
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: _gender == gender
-                                            ? FontWeight.bold
-                                            : null,
-                                        color: _gender == gender
-                                            ? kSubColor3
-                                            : kFontGray400Color,
-                                        height: 20 / 14,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              )
-                              .toList(),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 30),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          '생년월일',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: kFontGray800Color,
-                            height: 20 / 14,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 3,
-                        child: GestureDetector(
-                          onTap: () async {
-                            DateTime? selectedDate = await showModalBottomSheet(
-                              context: context,
-                              isScrollControlled: true,
-                              backgroundColor: Colors.transparent,
-                              builder: (context) => const BirthdayDatePicker(),
-                            );
-                            if (selectedDate != null) {
-                              setState(() => _birthday = selectedDate);
-                            }
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 18),
-                            width: double.infinity,
-                            height: 52,
-                            decoration: BoxDecoration(
-                              color: kFontGray50Color,
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    _birthday != null
-                                        ? getDateFromDateTime(_birthday!)
-                                        : '생년월일을 선택해 주세요.',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: _birthday != null
-                                          ? kFontGray800Color
-                                          : kFontGray400Color,
-                                      height: 20 / 14,
-                                    ),
-                                  ),
-                                ),
-                                SvgPicture.asset(
-                                  'assets/icons/svg/arrow_down_20px.svg',
-                                  colorFilter: ColorFilter.mode(
-                                      kFontGray400Color, BlendMode.srcIn),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-          CommonActionButton(
-            value: canNextPressed,
-            title: '다음',
-            onTap: () {
-              if (!canNextPressed) return;
-              setState(() => _index++);
-            },
-          ),
-        ],
-      );
-
-  Widget locationArea() => Column(
-        children: [
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: ListView(
-                physics: const ClampingScrollPhysics(),
-                children: [
-                  const SizedBox(height: 12),
-                  Text(
-                    '거주지역 선택',
-                    style: TextStyle(
-                      color: kFontGray900Color,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      height: 1,
                     ),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    '선택한 지역의 게시글을 모아 볼 수 있어요.',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: kFontGray500Color,
-                      height: 20 / 14,
-                    ),
-                  ),
-                  const SizedBox(height: 36),
-                  GestureDetector(
-                    onTap: () async {
-                      UserPlace? selectedUserPlace = await showModalBottomSheet(
-                        context: context,
-                        isScrollControlled: true,
-                        backgroundColor: Colors.transparent,
-                        builder: (context) => const SelectLocationBottomSheet(),
-                      );
-                      if (selectedUserPlace != null) {
-                        setState(() => _userPlace = selectedUserPlace);
-                      }
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      width: double.infinity,
-                      height: 52,
-                      decoration: BoxDecoration(
-                        color: kFontGray50Color,
-                        borderRadius: BorderRadius.circular(15),
-                      ),
+                    Expanded(
+                      flex: 3,
                       child: Row(
-                        children: [
-                          SvgPicture.asset(
-                            'assets/icons/svg/location_24px.svg',
+                        children: Gender.values
+                            .map((gender) => genderButton(gender))
+                            .toList(),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 30),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        '생년월일',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: kFontGray800Color,
+                          height: 20 / 14,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 3,
+                      child: GestureDetector(
+                        onTap: () async {
+                          DateTime? selectedDate = await showModalBottomSheet(
+                            context: context,
+                            isScrollControlled: true,
+                            backgroundColor: Colors.transparent,
+                            builder: (context) => const BirthdayDatePicker(),
+                          );
+                          if (selectedDate == null) return;
+                          setState(() => _birthday = selectedDate);
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 18),
+                          width: double.infinity,
+                          height: 52,
+                          decoration: BoxDecoration(
+                            color: kFontGray50Color,
+                            borderRadius: BorderRadius.circular(15),
                           ),
-                          const SizedBox(width: 8),
-                          Expanded(
-                            child: Builder(builder: (context) {
-                              if (_userPlace == null) {
-                                return Text(
-                                  '사는 지역을 선택해 주세요.',
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  _birthday != null
+                                      ? getDateFromDateTime(_birthday!)
+                                      : '생년월일을 선택해 주세요.',
                                   style: TextStyle(
                                     fontSize: 14,
-                                    color: kFontGray400Color,
+                                    color: _birthday != null
+                                        ? kFontGray800Color
+                                        : kFontGray400Color,
                                     height: 20 / 14,
                                   ),
-                                );
-                              }
+                                ),
+                              ),
+                              SvgPicture.asset(
+                                  'assets/icons/svg/arrow_down_20px.svg'),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+        CommonActionButton(
+          value: canNextPressed,
+          title: '다음',
+          onTap: () {
+            if (!canNextPressed) return;
+            setState(() => _index++);
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget locationArea() {
+    return Column(
+      children: [
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: ListView(
+              physics: const ClampingScrollPhysics(),
+              children: [
+                const SizedBox(height: 12),
+                Text(
+                  '거주지역 선택',
+                  style: TextStyle(
+                    color: kFontGray900Color,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    height: 1,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  '선택한 지역의 게시글을 모아 볼 수 있어요.',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: kFontGray500Color,
+                    height: 20 / 14,
+                  ),
+                ),
+                const SizedBox(height: 36),
+                GestureDetector(
+                  onTap: () async {
+                    UserPlace? selectedUserPlace = await showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      backgroundColor: Colors.transparent,
+                      builder: (context) => const SelectLocationBottomSheet(),
+                    );
+                    if (selectedUserPlace == null) return;
+                    setState(() => _userPlace = selectedUserPlace);
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    width: double.infinity,
+                    height: 52,
+                    decoration: BoxDecoration(
+                      color: kFontGray50Color,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Row(
+                      children: [
+                        SvgPicture.asset('assets/icons/svg/location_24px.svg'),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Builder(builder: (context) {
+                            if (_userPlace == null) {
                               return Text(
-                                '${_userPlace!.city} ${_userPlace!.county}',
+                                '사는 지역을 선택해 주세요.',
                                 style: TextStyle(
                                   fontSize: 14,
-                                  color: kFontGray800Color,
+                                  color: kFontGray400Color,
                                   height: 20 / 14,
                                 ),
                               );
-                            }),
-                          ),
-                          SvgPicture.asset(
-                            'assets/icons/svg/arrow_down_20px.svg',
-                            colorFilter: ColorFilter.mode(
-                                kFontGray400Color, BlendMode.srcIn),
-                          ),
-                        ],
-                      ),
+                            }
+                            return Text(
+                              '${_userPlace!.city} ${_userPlace!.county}',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: kFontGray800Color,
+                                height: 20 / 14,
+                              ),
+                            );
+                          }),
+                        ),
+                        SvgPicture.asset(
+                          'assets/icons/svg/arrow_down_20px.svg',
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-          CommonActionButton(
-            value: canNextPressed,
-            title: '다음',
-            onTap: () {
-              if (!canNextPressed) return;
-              widget.nextPressed(_gender.name, _birthday, _userPlace);
-            },
+        ),
+        CommonActionButton(
+          value: canNextPressed,
+          title: '다음',
+          onTap: () {
+            if (!canNextPressed) return;
+            widget.nextPressed(_gender.name, _birthday, _userPlace);
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget genderButton(Gender gender) {
+    return GestureDetector(
+      onTap: () => setState(() => _gender = gender),
+      child: Container(
+        alignment: Alignment.center,
+        margin: const EdgeInsets.only(right: 10),
+        width: 80,
+        height: 52,
+        decoration: BoxDecoration(
+          color: _gender == gender ? kSubColor1 : kFontGray50Color,
+          border: _gender == gender ? Border.all(color: kMainColor) : null,
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Text(
+          gender.name,
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: _gender == gender ? FontWeight.bold : null,
+            color: _gender == gender ? kSubColor3 : kFontGray400Color,
+            height: 20 / 14,
           ),
-        ],
-      );
+        ),
+      ),
+    );
+  }
 }

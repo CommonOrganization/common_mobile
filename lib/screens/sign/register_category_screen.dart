@@ -71,8 +71,9 @@ class _RegisterCategoryScreenState extends State<RegisterCategoryScreen> {
                               message: '관심 카테고리는 최대 5개까지 선택 가능합니다');
                           return;
                         }
-                        setState(
-                            () => _selectedCategoryList.add(commonCategory));
+                        setState(() {
+                          _selectedCategoryList.add(commonCategory);
+                        });
                       },
                       child: Container(
                         alignment: Alignment.center,

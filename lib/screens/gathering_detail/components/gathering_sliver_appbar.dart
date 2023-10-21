@@ -10,7 +10,6 @@ import 'package:provider/provider.dart';
 import '../../../constants/constants_colors.dart';
 import '../../../constants/constants_enum.dart';
 import '../../../utils/date_utils.dart';
-import '../../../utils/local_utils.dart';
 import '../../../widgets/bottom_sheets/gathering_edit_bottom_sheet.dart';
 
 class GatheringSliverAppbar extends StatefulWidget {
@@ -49,7 +48,7 @@ class _GatheringSliverAppbarState extends State<GatheringSliverAppbar> {
         leadingWidth: 48,
         leading: GestureDetector(
           behavior: HitTestBehavior.opaque,
-          onTap: () => popScreen(context),
+          onTap: () => Navigator.pop(context),
           child: Container(
             margin: const EdgeInsets.only(left: 20),
             alignment: Alignment.center,
