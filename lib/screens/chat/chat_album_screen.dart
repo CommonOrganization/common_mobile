@@ -72,7 +72,7 @@ class ChatAlbumScreen extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Text(
-            '${chatDate.year}.${chatDate.month.toString().padLeft(2, '0')}.${chatDate.day.toString().padLeft(2, '0')} ${chatDate.hour}:${chatDate.minute}',
+            '${chatDate.year}년 ${chatDate.month.toString().padLeft(2, '0')}월 ${chatDate.day.toString().padLeft(2, '0')}일 ${chatDate.hour}:${chatDate.minute}',
             style: TextStyle(
               fontSize: 14,
               height: 20 / 14,

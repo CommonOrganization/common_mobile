@@ -65,6 +65,8 @@ class GatheringService {
     required String recruitWay,
   }) async {
     try {
+      // 만약 선착순일경우 applicantList를 굳이 손댈 이유가 없기때문
+      // 바로 멤버에 추가를 해주면 된다.
       if (recruitWay == RecruitWay.firstCome.name) {
         await FirebaseService.fireStore.runTransaction((transaction) async {
           final snapshot = await transaction
@@ -83,6 +85,7 @@ class GatheringService {
         });
         return true;
       }
+      // 이경우 승인제이기때문에 승인이 필요 -> applicantList에만 추가, 추후 승인을 해주는 형태
       bool applySuccess = true;
       await FirebaseService.fireStore.runTransaction((transaction) async {
         final snapshot = await transaction

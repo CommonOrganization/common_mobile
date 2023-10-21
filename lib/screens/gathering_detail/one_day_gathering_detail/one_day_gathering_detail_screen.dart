@@ -71,6 +71,7 @@ class _OneDayGatheringDetailScreenState
       if (recruitWayString == null) return;
       RecruitWay recruitWay =
           RecruitWayExtenstion.getRecruitWay(recruitWayString);
+      //승인제의 경우 계정의 질문/응답이 필요함
       if (recruitWay == RecruitWay.approval) {
         String? recruitQuestion = await GatheringService.get(
             category: kOneDayGatheringCategory,
@@ -93,6 +94,7 @@ class _OneDayGatheringDetailScreenState
                 question: recruitQuestion),
           ),
         );
+        //응답을 적어여하는데 그냥 뒤로가는경우 여기에 해당
         _loading = false;
         if (answer == null) return;
         RecruitAnswer recruitAnswer = RecruitAnswer(

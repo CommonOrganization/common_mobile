@@ -3,9 +3,10 @@ import 'package:common/services/recruit_answer_service.dart';
 import 'package:common/services/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 import '../../constants/constants_colors.dart';
 import '../../constants/constants_value.dart';
+import '../../services/gathering_service.dart';
+import '../../utils/local_utils.dart';
 
 class GatheringApplicationFormDialog extends StatelessWidget {
   final String category;
@@ -19,7 +20,15 @@ class GatheringApplicationFormDialog extends StatelessWidget {
   }) : super(key: key);
 
   String get getTitle =>
-      category == kOneDayGatheringCategory ? '하루모임 참여' : '소모임 가입';
+      category == kOneDayGatheringCategory ? '하루모임 참여 신청서' : '소모임 가입 신청서';
+
+  String get getApproveText => category == kOneDayGatheringCategory
+      ? '하루모임 참여 신청을 승인했습니다.'
+      : '소모임 가입 신청을 승인했습니다.';
+
+  String get getDisapproveText => category == kOneDayGatheringCategory
+      ? '하루모임 참여 신청을 거부했습니다.'
+      : '소모임 가입 신청을 거부했습니다.';
 
   @override
   Widget build(BuildContext context) {
@@ -43,13 +52,7 @@ class GatheringApplicationFormDialog extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                GestureDetector(
-                  onTap: () => Navigator.pop(context),
-                  behavior: HitTestBehavior.opaque,
-                  child: SvgPicture.asset(
-                    'assets/icons/svg/close_20px.svg',
-                  ),
-                ),
+                const SizedBox(width: 20),
                 Text(
                   getTitle,
                   style: TextStyle(
@@ -59,7 +62,13 @@ class GatheringApplicationFormDialog extends StatelessWidget {
                     height: 24 / 16,
                   ),
                 ),
-                const SizedBox(width: 20),
+                GestureDetector(
+                  onTap: () => Navigator.pop(context),
+                  behavior: HitTestBehavior.opaque,
+                  child: SvgPicture.asset(
+                    'assets/icons/svg/close_20px.svg',
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 10),
@@ -79,9 +88,7 @@ class GatheringApplicationFormDialog extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 12),
-            Container(width: double.infinity,height: 1,color: kFontGray50Color,),
-            const SizedBox(height: 12),
+            const SizedBox(height: 24),
             FutureBuilder(
                 future: RecruitAnswerService.getRecruitAnswer(
                   gatheringId: gatheringId,
@@ -90,7 +97,7 @@ class GatheringApplicationFormDialog extends StatelessWidget {
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     RecruitAnswer recruitAnswer =
-                    snapshot.data as RecruitAnswer;
+                        snapshot.data as RecruitAnswer;
                     return Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -115,70 +122,139 @@ class GatheringApplicationFormDialog extends StatelessWidget {
                     );
                   }
                   return Container();
-                })
+                }),
+            const SizedBox(height: 24),
+            Row(
+              children: [
+                kDialogButton(
+                  title: '거부',
+                  onTap: () => GatheringService.disapproveGathering(
+                      category: category,
+                      id: gatheringId,
+                      applicantId: applicantId)
+                      .then((value) {
+                    Navigator.pop(context);
+                    showMessage(context, message: getDisapproveText);
+                  }),
+                  backgroundColor: kDarkGray20Color,
+                  titleColor: kDarkGray30Color,
+                ),
+                const SizedBox(width: 10),
+                kDialogButton(
+                  title: '승인',
+                  onTap: () => GatheringService.approveGathering(
+                          category: category,
+                          id: gatheringId,
+                          applicantId: applicantId)
+                      .then((value) {
+                    Navigator.pop(context);
+                    showMessage(context, message: getApproveText);
+                  }),
+                  backgroundColor: kMainColor,
+                  titleColor: kSubColor1,
+                ),
+              ],
+            ),
           ],
         ),
       ),
     );
   }
 
-  Widget getProfileArea(String userId) => FutureBuilder(
-        future: UserService.get(id: userId, field: 'profileImage'),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return Container(
-              width: 36,
-              height: 36,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(42),
-                color: kDarkGray20Color,
-                image: DecorationImage(
-                  image: NetworkImage(snapshot.data as String),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            );
-          }
+  Widget getProfileArea(String userId) {
+    return FutureBuilder(
+      future: UserService.get(id: userId, field: 'profileImage'),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
           return Container(
             width: 36,
             height: 36,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(42),
               color: kDarkGray20Color,
+              image: DecorationImage(
+                image: NetworkImage(snapshot.data as String),
+                fit: BoxFit.cover,
+              ),
             ),
           );
-        },
-      );
+        }
+        return Container(
+          width: 36,
+          height: 36,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(42),
+            color: kDarkGray20Color,
+          ),
+        );
+      },
+    );
+  }
 
-  Widget getNameArea(String userId) => FutureBuilder(
-        future: UserService.get(id: userId, field: 'name'),
-        builder: (context, snapshot) {
-          return Text(
-            snapshot.data ?? '',
-            style: TextStyle(
-              fontSize: 14,
-              color: kFontGray800Color,
-              height: 20 / 14,
-            ),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          );
-        },
-      );
+  Widget getNameArea(String userId) {
+    return FutureBuilder(
+      future: UserService.get(id: userId, field: 'name'),
+      builder: (context, snapshot) {
+        return Text(
+          snapshot.data ?? '',
+          style: TextStyle(
+            fontSize: 14,
+            color: kFontGray800Color,
+            height: 20 / 14,
+          ),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        );
+      },
+    );
+  }
 
-  Widget getInformationArea(String userId) => FutureBuilder(
-        future: UserService.get(id: userId, field: 'information'),
-        builder: (context, snapshot) {
-          return Text(
-            snapshot.data ?? '',
+  Widget getInformationArea(String userId) {
+    return FutureBuilder(
+      future: UserService.get(id: userId, field: 'information'),
+      builder: (context, snapshot) {
+        return Text(
+          snapshot.data ?? '',
+          style: TextStyle(
+            fontSize: 13,
+            color: kFontGray500Color,
+            height: 16 / 13,
+          ),
+          maxLines: 5,
+          overflow: TextOverflow.ellipsis,
+        );
+      },
+    );
+  }
+
+  Widget kDialogButton({
+    required String title,
+    required Function onTap,
+    required Color backgroundColor,
+    required Color titleColor,
+  }) {
+    return Expanded(
+      child: GestureDetector(
+        onTap: () => onTap(),
+        behavior: HitTestBehavior.opaque,
+        child: Container(
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: backgroundColor,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          height: 44,
+          child: Text(
+            title,
+            textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: 13,
-              color: kFontGray500Color,
-              height: 16 / 13,
+              color: titleColor,
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
             ),
-            maxLines: 5,
-            overflow: TextOverflow.ellipsis,
-          );
-        },
-      );
+          ),
+        ),
+      ),
+    );
+  }
 }

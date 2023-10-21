@@ -5,7 +5,6 @@ import 'package:common/models/one_day_gathering/one_day_gathering.dart';
 import 'package:common/models/user/user.dart';
 import 'package:common/screens/gathering_upload/one_day_gathering_upload/one_day_gathering_upload_main_screen.dart';
 import 'package:common/screens/home/one_day_gathering/one_day_gathering_calendar_card.dart';
-import 'package:common/widgets/common_action_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../constants/constants_value.dart';

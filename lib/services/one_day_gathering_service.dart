@@ -75,8 +75,11 @@ class OneDayGatheringService {
     }
   }
 
-  static Future<bool> applyGathering(
-      {required String id, required String userId,required String recruitWay,}) async {
+  static Future<bool> applyGathering({
+    required String id,
+    required String userId,
+    required String recruitWay,
+  }) async {
     try {
       return await GatheringService.applyGathering(
         category: _category,

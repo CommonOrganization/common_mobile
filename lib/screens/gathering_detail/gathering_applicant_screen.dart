@@ -1,12 +1,9 @@
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/screens/gathering_detail/components/gathering_member_card.dart';
 import 'package:common/services/gathering_service.dart';
-import 'package:common/widgets/dialog/gathering_approve_dialog.dart';
-import 'package:common/widgets/dialog/gathering_disapprove_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-
 import '../../constants/constants_colors.dart';
 import '../../widgets/dialog/gathering_application_form_dialog.dart';
 
@@ -92,10 +89,18 @@ class _GatheringApplicantScreenState extends State<GatheringApplicantScreen> {
     return Row(
       children: [
         Expanded(
-          child: GestureDetector(
+          child: GatheringMemberCard(
+            memberId: applicantId,
+            isOrganizer: false,
+          ),
+        ),
+        const SizedBox(width: 6),
+        if (_isOrganizer)
+          GestureDetector(
             behavior: HitTestBehavior.opaque,
             onTap: () {
               if (!_isOrganizer) return;
+              // 여기서는 굳이 await을 통해 다음 작업을 할 필요 없이 then을 통해 함수끝나면 새로고침만 해줘~ 라는 느낌으로 함수를 작업
               showDialog(
                 context: context,
                 builder: (context) => GatheringApplicationFormDialog(
@@ -103,48 +108,24 @@ class _GatheringApplicantScreenState extends State<GatheringApplicantScreen> {
                   gatheringId: widget.gatheringId,
                   applicantId: applicantId,
                 ),
-              );
+              ).then((value) => setState(() {}));
             },
-            child: GatheringMemberCard(
-              memberId: applicantId,
-              isOrganizer: false,
-            ),
-          ),
-        ),
-        const SizedBox(width: 6),
-        if (_isOrganizer)
-          GestureDetector(
-            behavior: HitTestBehavior.opaque,
-            onTap: () => showDialog(
-              context: context,
-              builder: (context) => GatheringApproveDialog(
-                category: widget.category,
-                gatheringId: widget.gatheringId,
-                applicantId: applicantId,
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 2),
+              alignment: Alignment.center,
+              width: 52,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  border: Border.all(color: kFontGray400Color),
+                  color: kWhiteColor),
+              child: Text(
+                '신청서',
+                style: TextStyle(
+                  fontSize: 13,
+                  height: 16 / 13,
+                  color: kFontGray600Color,
+                ),
               ),
-            ).then(
-              (value) => setState(() {}),
-            ),
-            child: SvgPicture.asset(
-              'assets/icons/svg/success_26px.svg',
-            ),
-          ),
-        const SizedBox(width: 6),
-        if (_isOrganizer)
-          GestureDetector(
-            behavior: HitTestBehavior.opaque,
-            onTap: () => showDialog(
-              context: context,
-              builder: (context) => GatheringDisapproveDialog(
-                category: widget.category,
-                gatheringId: widget.gatheringId,
-                applicantId: applicantId,
-              ),
-            ).then(
-              (value) => setState(() {}),
-            ),
-            child: SvgPicture.asset(
-              'assets/icons/svg/error_26px.svg',
             ),
           ),
       ],
