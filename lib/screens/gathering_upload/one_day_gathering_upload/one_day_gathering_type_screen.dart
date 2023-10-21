@@ -301,11 +301,22 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
                     future: OneDayGatheringService.getConnectedGathering(
                         clubGatheringId: clubGathering.id),
                     builder: (context, snapshot) {
-                      int gatheringCount = snapshot.hasData
-                          ? (snapshot.data as List<OneDayGathering>).length
-                          : 0;
+                      if (snapshot.hasData) {
+                        List<OneDayGathering>? gatheringList = snapshot.data;
+                        if (gatheringList != null) {
+                          return Text(
+                            '${gatheringList.length}개의 하루모임 운영 중',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: kFontGray400Color,
+                              height: 20 / 12,
+                              letterSpacing: -0.5,
+                            ),
+                          );
+                        }
+                      }
                       return Text(
-                        '$gatheringCount개의 하루모임 운영 중',
+                        '0개의 하루모임 운영 중',
                         style: TextStyle(
                           fontSize: 12,
                           color: kFontGray400Color,

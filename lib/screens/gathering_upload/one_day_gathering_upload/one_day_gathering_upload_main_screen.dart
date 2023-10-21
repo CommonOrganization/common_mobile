@@ -150,7 +150,7 @@ class _OneDayGatheringUploadMainScreenState
         ),
       );
     } catch (e) {
-      log('previewPressed failed : $e');
+      log('updatePressed failed : $e');
       showMessage(context, message: '입력한 정보를 다시 한번 확인해 주세요.');
     }
   }

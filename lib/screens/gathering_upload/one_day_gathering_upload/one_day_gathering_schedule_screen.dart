@@ -2,6 +2,7 @@ import 'package:common/constants/constants_colors.dart';
 import 'package:common/constants/constants_value.dart';
 import 'package:common/models/user_place/user_place.dart';
 import 'package:common/utils/local_utils.dart';
+import 'package:common/widgets/common_text_field.dart';
 import 'package:common/widgets/custom_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -289,37 +290,10 @@ class _OneDayGatheringScheduleScreenState
                     ),
                   ),
                   const SizedBox(height: 8),
-                  Container(
-                    alignment: Alignment.center,
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    width: double.infinity,
-                    height: 52,
-                    decoration: BoxDecoration(
-                      color: kFontGray50Color,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: TextField(
-                      controller: _gatheringPlaceDetailController,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: kFontGray800Color,
-                        height: 20 / 14,
-                      ),
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        enabledBorder: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                        isDense: true,
-                        counterText: '',
-                        hintText: '상세주소를 입력해 주세요. ex) 역삼동 스타벅스',
-                        hintStyle: TextStyle(
-                          fontSize: 14,
-                          color: kFontGray400Color,
-                          height: 20 / 14,
-                        ),
-                      ),
-                      onChanged: (text) => setState(() {}),
-                    ),
+                  CommonTextField(
+                    controller: _gatheringPlaceDetailController,
+                    hintText: '상세주소를 입력해 주세요. ex) 역삼동 스타벅스',
+                    textChanged: () => setState(() {}),
                   ),
                   const SizedBox(height: 36),
                   Text(

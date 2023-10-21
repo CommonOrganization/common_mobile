@@ -6,6 +6,7 @@ import 'package:common/screens/main/main_screen.dart';
 import 'package:common/screens/sign/register_main_screen.dart';
 import 'package:common/screens/sign/reset_password_screen.dart';
 import 'package:common/utils/local_utils.dart';
+import 'package:common/widgets/common_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -59,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Text(
-              '우리지역 사람들과 함께하는 취미생활',
+              '내 주변 사람들과 함께하는 취미생활',
               style: TextStyle(
                 fontSize: 14,
                 color: kSubColor3,
@@ -76,69 +77,23 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             const SizedBox(height: 50),
-            Container(
-              alignment: Alignment.center,
-              margin: const EdgeInsets.symmetric(horizontal: 20),
-              padding: const EdgeInsets.symmetric(horizontal: 18),
-              width: double.infinity,
-              height: 52,
-              decoration: BoxDecoration(
-                color: kFontGray50Color,
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: TextField(
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: CommonTextField(
                 controller: _phoneController,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  enabledBorder: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  isDense: true,
-                  hintText: '휴대폰 번호',
-                  hintStyle: TextStyle(
-                    fontSize: 14,
-                    color: kFontGray400Color,
-                    height: 20 / 14,
-                  ),
-                ),
-                style: TextStyle(
-                  fontSize: 14,
-                  color: kFontGray800Color,
-                  height: 20 / 14,
-                ),
+                hintText: '휴대폰 번호',
+                textChanged: () => setState(() {}),
+                maxLength: 11,
               ),
             ),
             const SizedBox(height: 12),
-            Container(
-              alignment: Alignment.center,
-              margin: const EdgeInsets.symmetric(horizontal: 20),
-              padding: const EdgeInsets.symmetric(horizontal: 18),
-              width: double.infinity,
-              height: 52,
-              decoration: BoxDecoration(
-                color: kFontGray50Color,
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: TextField(
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: CommonTextField(
                 controller: _passwordController,
+                hintText: '패스워드',
+                textChanged: () => setState(() {}),
                 obscureText: true,
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  enabledBorder: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  isDense: true,
-                  hintText: '패스워드',
-                  hintStyle: TextStyle(
-                    fontSize: 14,
-                    color: kFontGray400Color,
-                    height: 20 / 14,
-                  ),
-                ),
-                style: TextStyle(
-                  fontSize: 14,
-                  color: kFontGray800Color,
-                  height: 20 / 14,
-                ),
               ),
             ),
             const SizedBox(height: 20),

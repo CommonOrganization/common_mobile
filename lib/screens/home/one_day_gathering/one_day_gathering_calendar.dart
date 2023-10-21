@@ -5,6 +5,7 @@ import 'package:common/models/one_day_gathering/one_day_gathering.dart';
 import 'package:common/models/user/user.dart';
 import 'package:common/screens/gathering_upload/one_day_gathering_upload/one_day_gathering_upload_main_screen.dart';
 import 'package:common/screens/home/one_day_gathering/one_day_gathering_calendar_card.dart';
+import 'package:common/widgets/common_action_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../constants/constants_value.dart';
@@ -55,60 +56,7 @@ class _OneDayGatheringCalendarState extends State<OneDayGatheringCalendar> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [0, 1, 2, 3, 4, 5, 6, 7]
-                      .map((day) => Builder(builder: (context) {
-                            DateTime date = _nowDate.add(Duration(days: day));
-                            return GestureDetector(
-                              onTap: () =>
-                                  setState(() => _selectedAddDay = day),
-                              child: Container(
-                                width: 30,
-                                height: 54,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(6),
-                                  color: _selectedAddDay == day
-                                      ? kMainColor
-                                      : null,
-                                ),
-                                child: Column(
-                                  children: [
-                                    const SizedBox(height: 4),
-                                    Text(
-                                      kShortWeekdayList[date.weekday - 1],
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        height: 20 / 14,
-                                        color: _selectedAddDay == day
-                                            ? kFontGray0Color
-                                            : kFontGray400Color,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 4),
-                                    Container(
-                                      alignment: Alignment.center,
-                                      width: 22,
-                                      height: 22,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(22),
-                                        color: _selectedAddDay == day
-                                            ? kFontGray0Color
-                                            : null,
-                                      ),
-                                      child: Text(
-                                        '${date.day}',
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
-                                          color: _selectedAddDay == day
-                                              ? kMainColor
-                                              : kFontGray400Color,
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            );
-                          }))
+                      .map((day) => calendarTab(day))
                       .toList(),
                 ),
                 const SizedBox(height: 20),
@@ -122,8 +70,10 @@ class _OneDayGatheringCalendarState extends State<OneDayGatheringCalendar> {
               UserPlace userPlace =
                   UserPlace.fromJson(user.userPlace as Map<String, dynamic>);
 
+              //설정된 날짜
               DateTime addedDate =
                   _nowDate.add(Duration(days: _selectedAddDay));
+              //해당 날짜의 0시0분부터 데이터를 가져오기 위해 생성
               DateTime dateTime =
                   DateTime(addedDate.year, addedDate.month, addedDate.day);
 
@@ -170,77 +120,7 @@ class _OneDayGatheringCalendarState extends State<OneDayGatheringCalendar> {
                           ),
                         );
                       }
-                      return Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 26),
-                        color: kDarkGray20Color,
-                        child: Container(
-                          padding: const EdgeInsets.all(18),
-                          width: MediaQuery.of(context).size.width - 40,
-                          height: 342,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: kWhiteColor,
-                            border: Border.all(
-                              color: kFontGray50Color,
-                              width: 0.5,
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                offset: const Offset(0, 2),
-                                blurRadius: 5,
-                                color: kBlurColor,
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            children: [
-                              const SizedBox(height: 8),
-                              Expanded(
-                                child: Center(
-                                  child: Text(
-                                    '해당일에 하루모임이 없어요...\n하루모임을 직접 만들어 보세요!',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      height: 24 / 16,
-                                      letterSpacing: -0.5,
-                                      color: kFontGray400Color,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const OneDayGatheringUploadMainScreen(),
-                                  ),
-                                ),
-                                child: Container(
-                                  width: double.infinity,
-                                  height: 50,
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(27),
-                                    color: kMainColor,
-                                  ),
-                                  child: Text(
-                                    '하루모임 만들기',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      height: 20 / 16,
-                                      color: kFontGray0Color,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
+                      return noGatheringContainer();
                     }
                     return Container();
                   },
@@ -249,6 +129,131 @@ class _OneDayGatheringCalendarState extends State<OneDayGatheringCalendar> {
             },
           ),
         ],
+      ),
+    );
+  }
+
+  Widget calendarTab(int day) {
+    return Builder(builder: (context) {
+      DateTime date = _nowDate.add(Duration(days: day));
+      return GestureDetector(
+        onTap: () => setState(() => _selectedAddDay = day),
+        child: Container(
+          width: 30,
+          height: 54,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(6),
+            color: _selectedAddDay == day ? kMainColor : null,
+          ),
+          child: Column(
+            children: [
+              const SizedBox(height: 4),
+              Text(
+                kShortWeekdayList[date.weekday - 1],
+                style: TextStyle(
+                  fontSize: 14,
+                  height: 20 / 14,
+                  color: _selectedAddDay == day
+                      ? kFontGray0Color
+                      : kFontGray400Color,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Container(
+                alignment: Alignment.center,
+                width: 22,
+                height: 22,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(22),
+                  color: _selectedAddDay == day ? kFontGray0Color : null,
+                ),
+                child: Text(
+                  '${date.day}',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color:
+                        _selectedAddDay == day ? kMainColor : kFontGray400Color,
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      );
+    });
+  }
+
+  Widget noGatheringContainer(){
+    return Container(
+      padding: const EdgeInsets.symmetric(
+          horizontal: 20, vertical: 26),
+      color: kDarkGray20Color,
+      child: Container(
+        padding: const EdgeInsets.all(18),
+        width: MediaQuery.of(context).size.width - 40,
+        height: 342,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: kWhiteColor,
+          border: Border.all(
+            color: kFontGray50Color,
+            width: 0.5,
+          ),
+          boxShadow: [
+            BoxShadow(
+              offset: const Offset(0, 2),
+              blurRadius: 5,
+              color: kBlurColor,
+            ),
+          ],
+        ),
+        child: Column(
+          children: [
+            const SizedBox(height: 8),
+            Expanded(
+              child: Center(
+                child: Text(
+                  '해당일에 하루모임이 없어요...\n하루모임을 직접 만들어 보세요!',
+                  style: TextStyle(
+                    fontSize: 16,
+                    height: 24 / 16,
+                    letterSpacing: -0.5,
+                    color: kFontGray400Color,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                  const OneDayGatheringUploadMainScreen(),
+                ),
+              ),
+              child: Container(
+                width: double.infinity,
+                height: 50,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(27),
+                  color: kMainColor,
+                ),
+                child: Text(
+                  '하루모임 만들기',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    height: 20 / 16,
+                    color: kFontGray0Color,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

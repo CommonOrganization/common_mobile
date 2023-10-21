@@ -100,57 +100,56 @@ class _HomeClubGatheringScreenState extends State<HomeClubGatheringScreen> {
   }
 
   Widget kRankingArea(
-          {required List interestCategory,
-          required String userId,
-          required String city}) =>
-      FutureBuilder(
-        future: ClubGatheringService.canShowGatheringRanking(
-          interestCategory: interestCategory,
-          city: city,
-        ),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            bool value = snapshot.data as bool;
-            if (value) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Text(
-                      '나의 취미 소모임 랭킹',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        height: 20 / 18,
-                        color: kFontGray900Color,
-                      ),
+      {required List interestCategory,
+      required String userId,
+      required String city}) {
+    return FutureBuilder(
+      future: ClubGatheringService.canShowGatheringRanking(
+        interestCategory: interestCategory,
+        city: city,
+      ),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          bool value = snapshot.data as bool;
+          if (value) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    '나의 취미 소모임 랭킹',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      height: 20 / 18,
+                      color: kFontGray900Color,
                     ),
                   ),
-                  const SizedBox(height: 20),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: interestCategory
-                            .map(
-                              (category) => ClubGatheringRanking(
+                ),
+                const SizedBox(height: 20),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: interestCategory
+                          .map((category) => ClubGatheringRanking(
                                 category: category,
                                 userId: userId,
                                 city: city,
-                              ),
-                            )
-                            .toList(),
-                      ),
+                              ))
+                          .toList(),
                     ),
                   ),
-                ],
-              );
-            }
+                ),
+              ],
+            );
           }
-          return Container();
-        },
-      );
+        }
+        return Container();
+      },
+    );
+  }
 }

@@ -10,7 +10,8 @@ class ClubGatheringContentScreen extends StatefulWidget {
   final Function nextPressed;
   const ClubGatheringContentScreen({
     Key? key,
-    required this.nextPressed, this.gathering,
+    required this.nextPressed,
+    this.gathering,
   }) : super(key: key);
 
   @override
@@ -56,7 +57,6 @@ class _ClubGatheringContentScreenState
     _mainImageUrl = widget.gathering!.mainImage;
     _imageUrlList.addAll(widget.gathering!.gatheringImage);
   }
-
 
   @override
   Widget build(BuildContext context) {

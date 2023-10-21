@@ -152,7 +152,7 @@ class _RegisterInformationScreenState extends State<RegisterInformationScreen> {
                           children: [
                             CommonTextField(
                               controller: _passwordController,
-                              obsecureText: true,
+                              obscureText: true,
                               hintText: '영문, 숫자 8자 이상',
                               textChanged: () => setState(() {}),
                             ),
@@ -183,7 +183,7 @@ class _RegisterInformationScreenState extends State<RegisterInformationScreen> {
                           children: [
                             CommonTextField(
                               controller: _passwordCertifyController,
-                              obsecureText: true,
+                              obscureText: true,
                               hintText: '다시 입력',
                               textChanged: () => setState(() {}),
                             ),

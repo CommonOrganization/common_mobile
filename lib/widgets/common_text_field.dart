@@ -8,16 +8,16 @@ class CommonTextField extends StatelessWidget {
   final Function textChanged;
   final int? maxLength;
   final TextInputType? inputType;
-  final bool obsecureText;
-  const CommonTextField(
-      {Key? key,
-      required this.controller,
-      required this.hintText,
-      required this.textChanged,
-      this.maxLength,
-      this.inputType,
-      this.obsecureText = false,})
-      : super(key: key);
+  final bool obscureText;
+  const CommonTextField({
+    Key? key,
+    required this.controller,
+    required this.hintText,
+    required this.textChanged,
+    this.maxLength,
+    this.inputType,
+    this.obscureText = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class CommonTextField extends StatelessWidget {
         controller: controller,
         keyboardType: inputType,
         maxLength: maxLength,
-        obscureText: obsecureText,
+        obscureText: obscureText,
         decoration: InputDecoration(
           border: InputBorder.none,
           enabledBorder: InputBorder.none,

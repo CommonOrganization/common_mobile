@@ -36,65 +36,7 @@ class GatheringRecruitWayArea extends StatelessWidget {
           ),
           const SizedBox(height: 36),
           ...RecruitWay.values.map(
-            (recruitWay) => GestureDetector(
-              onTap: () => recruitWayPressed(recruitWay),
-              child: Container(
-                margin: const EdgeInsets.only(bottom: 16),
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                width: double.infinity,
-                height: 100,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: selectedRecruitWay == recruitWay
-                      ? kMainColor
-                      : kFontGray50Color,
-                ),
-                child: Row(
-                  children: [
-                    SvgPicture.asset(
-                      selectedRecruitWay == recruitWay
-                          ? recruitWay.selectedIcon
-                          : recruitWay.unselectedIcon,
-                      width: 22,
-                      height: 22,
-                    ),
-                    const SizedBox(width: 13),
-                    Expanded(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            recruitWay.title,
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              color: selectedRecruitWay == recruitWay
-                                  ? kFontGray0Color
-                                  : kFontGray600Color,
-                              height: 20 / 14,
-                            ),
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            recruitWay.content,
-                            style: TextStyle(
-                              fontSize: 13,
-                              color: selectedRecruitWay == recruitWay
-                                  ? kFontGray0Color
-                                  : kFontGray400Color,
-                              height: 18 / 13,
-                            ),
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            (recruitWay) => recruitWayButton(recruitWay),
           ),
           if (selectedRecruitWay == RecruitWay.approval)
             Column(
@@ -147,7 +89,7 @@ class GatheringRecruitWayArea extends StatelessWidget {
                   decoration: BoxDecoration(
                     border: Border(
                       bottom: BorderSide(
-                        color: kFontGray800Color,
+                        color: kFontGray600Color,
                       ),
                     ),
                   ),
@@ -178,6 +120,68 @@ class GatheringRecruitWayArea extends StatelessWidget {
             ),
           const SizedBox(height: 40),
         ],
+      ),
+    );
+  }
+
+  Widget recruitWayButton(RecruitWay recruitWay){
+    return GestureDetector(
+      onTap: () => recruitWayPressed(recruitWay),
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        width: double.infinity,
+        height: 100,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          color: selectedRecruitWay == recruitWay
+              ? kMainColor
+              : kFontGray50Color,
+        ),
+        child: Row(
+          children: [
+            SvgPicture.asset(
+              selectedRecruitWay == recruitWay
+                  ? recruitWay.selectedIcon
+                  : recruitWay.unselectedIcon,
+              width: 22,
+              height: 22,
+            ),
+            const SizedBox(width: 13),
+            Expanded(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    recruitWay.title,
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: selectedRecruitWay == recruitWay
+                          ? kFontGray0Color
+                          : kFontGray600Color,
+                      height: 20 / 14,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    recruitWay.content,
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: selectedRecruitWay == recruitWay
+                          ? kFontGray0Color
+                          : kFontGray400Color,
+                      height: 18 / 13,
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

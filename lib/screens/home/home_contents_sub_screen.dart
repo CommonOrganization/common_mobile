@@ -53,7 +53,6 @@ class HomeContentsSubScreen extends StatelessWidget {
       body: Consumer<UserController>(builder: (context, userController, child) {
         if (userController.user == null) return Container();
         String userId = userController.user!.id;
-        //TODO 여기처럼 차단 할 수 있도록 모두 작업할것
         return Consumer<BlockController>(
             builder: (context, blockController, child) {
           List blockedObjectList = blockController.blockedObjectList;

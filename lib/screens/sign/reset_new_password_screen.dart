@@ -81,7 +81,7 @@ class _ResetNewPasswordScreenState extends State<ResetNewPasswordScreen> {
                           children: [
                             CommonTextField(
                               controller: _passwordController,
-                              obsecureText: true,
+                              obscureText: true,
                               hintText: '새 비밀번호 (영문, 숫자 혼합 8자이상)',
                               textChanged: () => setState(() {}),
                             ),
@@ -112,7 +112,7 @@ class _ResetNewPasswordScreenState extends State<ResetNewPasswordScreen> {
                           children: [
                             CommonTextField(
                               controller: _passwordCertifyController,
-                              obsecureText: true,
+                              obscureText: true,
                               hintText: '새 비밀번호 확인',
                               textChanged: () => setState(() {}),
                             ),
