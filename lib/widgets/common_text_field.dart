@@ -48,7 +48,7 @@ class CommonTextField extends StatelessWidget {
             height: 20 / 14,
           ),
         ),
-        onChanged: (text) => textChanged(),
+        onChanged: (text) => textChanged(text),
         style: TextStyle(
           fontSize: 14,
           color: kFontGray800Color,

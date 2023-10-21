@@ -16,18 +16,18 @@ class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key, required this.userId}) : super(key: key);
 
   AppBar getAppBar(BuildContext context) {
-    bool isMyProfile = userId == context.read<UserController>().user?.id;
+    bool isMyProfile = (userId == context.read<UserController>().user?.id);
     bool canPop = Navigator.of(context).canPop();
     if (isMyProfile) {
       return AppBar(
         foregroundColor: kFontGray800Color,
         backgroundColor: kWhiteColor,
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: true,
         centerTitle: false,
         leadingWidth: 48,
         leading: canPop
             ? GestureDetector(
-                onTap: () => Navigator.pop(context),
+                onTap: () => Navigator.maybePop(context),
                 child: Container(
                   margin: const EdgeInsets.only(left: 20),
                   alignment: Alignment.center,
@@ -71,7 +71,7 @@ class ProfileScreen extends StatelessWidget {
           onTap: () => showModalBottomSheet(
             context: context,
             backgroundColor: Colors.transparent,
-            builder: (context) =>  UserReportBottomSheet(userId: userId),
+            builder: (context) => UserReportBottomSheet(userId: userId),
           ),
           child: SvgPicture.asset(
             'assets/icons/svg/more_26px.svg',

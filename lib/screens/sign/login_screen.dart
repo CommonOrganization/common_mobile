@@ -82,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: CommonTextField(
                 controller: _phoneController,
                 hintText: '휴대폰 번호',
-                textChanged: () => setState(() {}),
+                textChanged: (text) => setState(() {}),
                 maxLength: 11,
               ),
             ),
@@ -92,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: CommonTextField(
                 controller: _passwordController,
                 hintText: '패스워드',
-                textChanged: () => setState(() {}),
+                textChanged: (text) => setState(() {}),
                 obscureText: true,
               ),
             ),

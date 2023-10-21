@@ -29,8 +29,6 @@ class ClubGatheringConnectedDailyContents extends StatelessWidget {
                 padding: EdgeInsets.zero,
                 physics: const ClampingScrollPhysics(),
                 crossAxisCount: 3,
-                mainAxisSpacing: 4,
-                crossAxisSpacing: 4,
                 children:
                     dailyList.map((daily) => DailyCard(daily: daily)).toList(),
               );

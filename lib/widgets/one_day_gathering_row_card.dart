@@ -7,7 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import '../constants/constants_enum.dart';
 import '../constants/constants_value.dart';
 import '../screens/gathering_detail/one_day_gathering_detail/one_day_gathering_detail_screen.dart';
-import 'gathering_favorite_button.dart';
+import 'favorite_button.dart';
 
 class OneDayGatheringRowCard extends StatelessWidget {
   final OneDayGathering gathering;
@@ -107,10 +107,10 @@ class OneDayGatheringRowCard extends StatelessWidget {
                           ),
                         ),
                       ),
-                      GatheringFavoriteButton(
+                      FavoriteButton(
                         category: kOneDayGatheringCategory,
                         userId: userId,
-                        gatheringId: gathering.id,
+                        objectId: gathering.id,
                       ),
                     ],
                   ),

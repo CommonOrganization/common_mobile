@@ -1,4 +1,5 @@
 import 'package:common/controllers/user_controller.dart';
+import 'package:common/widgets/common_action_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -183,40 +184,13 @@ class _ChatUploadNameScreenState extends State<ChatUploadNameScreen> {
               ),
             ),
             const Spacer(),
-            GestureDetector(
+            CommonActionButton(
+              value: _nameController.text.isNotEmpty,
               onTap: () {
                 if (_nameController.text.isEmpty) return;
                 widget.onPressed(_nameController.text);
               },
-              child: Container(
-                margin: EdgeInsets.only(
-                  left: 20,
-                  right: 20,
-                  bottom: MediaQuery.of(context).padding.bottom + 20,
-                ),
-                child: Container(
-                  alignment: Alignment.center,
-                  width: double.infinity,
-                  height: 54,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(27),
-                    color: _nameController.text.isNotEmpty
-                        ? kMainColor
-                        : kFontGray100Color,
-                  ),
-                  child: Text(
-                    '확인',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: _nameController.text.isNotEmpty
-                          ? kWhiteColor
-                          : kFontGray200Color,
-                      fontWeight: FontWeight.bold,
-                      height: 20 / 16,
-                    ),
-                  ),
-                ),
-              ),
+              title: '확인',
             ),
           ],
         );

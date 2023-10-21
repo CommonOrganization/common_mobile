@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../constants/constants_enum.dart';
 import '../constants/constants_value.dart';
-import 'gathering_favorite_button.dart';
+import 'favorite_button.dart';
 
 class ClubGatheringRowCard extends StatelessWidget {
   final ClubGathering gathering;
@@ -106,10 +106,10 @@ class ClubGatheringRowCard extends StatelessWidget {
                           ),
                         ),
                       ),
-                      GatheringFavoriteButton(
+                      FavoriteButton(
                         category: kClubGatheringCategory,
                         userId: userId,
-                        gatheringId: gathering.id,
+                        objectId: gathering.id,
                       ),
                     ],
                   ),

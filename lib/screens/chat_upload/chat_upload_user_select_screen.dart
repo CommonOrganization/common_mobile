@@ -2,6 +2,7 @@ import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/gathering/gathering.dart';
 import 'package:common/services/club_gathering_service.dart';
 import 'package:common/services/one_day_gathering_service.dart';
+import 'package:common/widgets/common_action_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -74,40 +75,18 @@ class _ChatUploadUserSelectScreenState
           ],
         );
       }),
-      bottomNavigationBar: GestureDetector(
+      bottomNavigationBar: CommonActionButton(
+        value: _userIdList.isNotEmpty,
         onTap: () {
+          if (_userIdList.isEmpty) return;
           String? userId = context.read<UserController>().user?.id;
-          if(userId==null) return;
-          if(!_userIdList.contains(userId)){
+          if (userId == null) return;
+          if (!_userIdList.contains(userId)) {
             _userIdList.add(userId);
           }
           widget.onPressed(_userIdList);
         },
-        child: Container(
-          margin: EdgeInsets.only(
-            left: 20,
-            right: 20,
-            bottom: MediaQuery.of(context).padding.bottom + 20,
-          ),
-          child: Container(
-            alignment: Alignment.center,
-            width: double.infinity,
-            height: 54,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(27),
-              color: _userIdList.isNotEmpty ? kMainColor : kFontGray100Color,
-            ),
-            child: Text(
-              _userIdList.isNotEmpty ? '${_userIdList.length} 다음  ' : '다음',
-              style: TextStyle(
-                fontSize: 16,
-                color: _userIdList.isNotEmpty ? kWhiteColor : kFontGray200Color,
-                fontWeight: FontWeight.bold,
-                height: 20 / 16,
-              ),
-            ),
-          ),
-        ),
+        title: _userIdList.isNotEmpty ? '${_userIdList.length} 다음  ' : '다음',
       ),
     );
   }

@@ -102,7 +102,7 @@ class _ResetPasswordPhoneScreenState extends State<ResetPasswordPhoneScreen> {
   }
 
   Widget phoneArea() {
-    return  Column(
+    return Column(
       children: [
         Expanded(
           child: Padding(
@@ -182,7 +182,7 @@ class _ResetPasswordPhoneScreenState extends State<ResetPasswordPhoneScreen> {
                       child: CommonTextField(
                         controller: _phoneController,
                         hintText: '전화번호를 입력하세요.',
-                        textChanged: () => setState(() {}),
+                        textChanged: (text) => setState(() {}),
                         maxLength: 11,
                         inputType: TextInputType.number,
                       ),
@@ -255,17 +255,13 @@ class _ResetPasswordPhoneScreenState extends State<ResetPasswordPhoneScreen> {
                         controller: _certifyFirstController,
                         focusNode: _firstFocusNode),
                     const SizedBox(width: 15),
-                    kCertifyTextFieldArea(
-                        controller: _certifySecondController),
+                    kCertifyTextFieldArea(controller: _certifySecondController),
                     const SizedBox(width: 15),
-                    kCertifyTextFieldArea(
-                        controller: _certifyThirdController),
+                    kCertifyTextFieldArea(controller: _certifyThirdController),
                     const SizedBox(width: 15),
-                    kCertifyTextFieldArea(
-                        controller: _certifyFourthController),
+                    kCertifyTextFieldArea(controller: _certifyFourthController),
                     const SizedBox(width: 15),
-                    kCertifyTextFieldArea(
-                        controller: _certifyFifthController),
+                    kCertifyTextFieldArea(controller: _certifyFifthController),
                     const SizedBox(width: 15),
                     kCertifyTextFieldArea(
                         controller: _certifySixthController,

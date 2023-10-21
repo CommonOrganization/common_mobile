@@ -11,7 +11,7 @@ import '../controllers/user_controller.dart';
 import '../screens/gathering_detail/club_gathering_detail/club_gathering_detail_screen.dart';
 import '../services/user_service.dart';
 import '../utils/widget_utils.dart';
-import 'gathering_favorite_button.dart';
+import 'favorite_button.dart';
 
 class ClubGatheringCard extends StatelessWidget {
   final ClubGathering gathering;
@@ -99,9 +99,9 @@ class ClubGatheringCard extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            GatheringFavoriteButton(
+                            FavoriteButton(
                               category: kClubGatheringCategory,
-                              gatheringId: gathering.id,
+                              objectId: gathering.id,
                               userId: context.read<UserController>().user!.id,
                             ),
                             const SizedBox(width: 16),

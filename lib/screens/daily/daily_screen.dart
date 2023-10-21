@@ -63,8 +63,6 @@ class DailyScreen extends StatelessWidget {
                   return GridView.count(
                     physics: const ClampingScrollPhysics(),
                     crossAxisCount: 3,
-                    mainAxisSpacing: 4,
-                    crossAxisSpacing: 4,
                     children:
                         dailyList.map((daily) => DailyCard(daily: daily)).toList(),
                   );

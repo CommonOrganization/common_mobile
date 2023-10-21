@@ -49,25 +49,23 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   Future<bool> appVersionCheck() async {
-    String? appVersion;
-    if (Platform.isAndroid) {
-      appVersion = await DataService.getStoreAppVersion('android');
-    }
-    if (Platform.isIOS) {
-      appVersion = await DataService.getStoreAppVersion('ios');
-    }
-    if (appVersion == null) return false;
-
     PackageInfo? packageInfo = await PackageInfo.fromPlatform();
     String packageVersion = packageInfo.version;
-    if (context.mounted) {
-      if (appVersion != packageVersion) {
+     bool? canAppUse;
+    if (Platform.isAndroid) {
+      canAppUse = await DataService.canAppUse('android',packageVersion);
+    }
+    if (Platform.isIOS) {
+      canAppUse = await DataService.canAppUse('ios',packageVersion);
+    }
+    if(canAppUse==null) return false;
+    if(context.mounted){
+      if(!canAppUse){
         await showDialog(
           context: context,
           barrierDismissible: false,
           builder: (context) => const UpdateDialog(),
         );
-        return false;
       }
     }
     return true;

@@ -157,8 +157,6 @@ class _ProfileUserContentsContainerState
               physics: const ClampingScrollPhysics(),
               shrinkWrap: true,
               crossAxisCount: 3,
-              mainAxisSpacing: 4,
-              crossAxisSpacing: 4,
               children:
                   dailyList.map((daily) => DailyCard(daily: daily)).toList(),
             );

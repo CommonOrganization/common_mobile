@@ -11,7 +11,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import '../../constants/constants_colors.dart';
 import '../../models/daily/daily.dart';
-import 'components/daily_favorite_button.dart';
+import '../../widgets/favorite_button.dart';
 import 'components/daily_image_container.dart';
 import 'components/daily_organizer_card.dart';
 
@@ -103,9 +103,9 @@ class _DailyDetailScreenState extends State<DailyDetailScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
                   children: [
-                    DailyFavoriteButton(
+                    FavoriteButton(
                       category: kDailyCategory,
-                      dailyId: widget.daily.id,
+                      objectId: widget.daily.id,
                       userId: controller.user!.id,
                       size: 28,
                     ),

@@ -3,7 +3,7 @@ import 'package:common/models/gathering/gathering.dart';
 import 'package:common/services/like_service.dart';
 import 'package:common/utils/gathering_utils.dart';
 import 'package:common/widgets/bottom_sheets/gathering_report_bottom_sheet.dart';
-import 'package:common/widgets/gathering_favorite_button.dart';
+import 'package:common/widgets/favorite_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
@@ -265,9 +265,9 @@ class _GatheringSliverAppbarState extends State<GatheringSliverAppbar> {
                                     ),
                                   ),
                                 ),
-                                GatheringFavoriteButton(
+                                FavoriteButton(
                                   category: gatheringType.category,
-                                  gatheringId: widget.gathering.id,
+                                  objectId: widget.gathering.id,
                                   userId:
                                       context.read<UserController>().user!.id,
                                   size: 28,

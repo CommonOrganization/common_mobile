@@ -176,7 +176,7 @@ class _RegisterPhoneScreenState extends State<RegisterPhoneScreen> {
                       child: CommonTextField(
                         controller: _phoneController,
                         hintText: '전화번호를 입력하세요.',
-                        textChanged: () => setState(() {}),
+                        textChanged: (text) => setState(() {}),
                         maxLength: 11,
                         inputType: TextInputType.number,
                       ),

@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:common/models/one_day_gathering/one_day_gathering.dart';
 import 'package:common/screens/gathering_detail/one_day_gathering_detail/one_day_gathering_detail_screen.dart';
-import 'package:common/widgets/gathering_favorite_button.dart';
+import 'package:common/widgets/favorite_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../constants/constants_colors.dart';
@@ -110,10 +110,10 @@ class OneDayGatheringCalendarCard extends StatelessWidget {
                             ),
                           ),
                           const Spacer(),
-                          GatheringFavoriteButton(
+                          FavoriteButton(
                             category: kOneDayGatheringCategory,
                             userId: userId,
-                            gatheringId: gathering.id,
+                            objectId: gathering.id,
                           ),
                           const SizedBox(width: 16),
                         ],

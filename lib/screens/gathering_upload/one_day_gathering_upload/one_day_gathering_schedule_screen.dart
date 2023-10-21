@@ -293,7 +293,7 @@ class _OneDayGatheringScheduleScreenState
                   CommonTextField(
                     controller: _gatheringPlaceDetailController,
                     hintText: '상세주소를 입력해 주세요. ex) 역삼동 스타벅스',
-                    textChanged: () => setState(() {}),
+                    textChanged: (text) => setState(() {}),
                   ),
                   const SizedBox(height: 36),
                   Text(

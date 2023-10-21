@@ -5,30 +5,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
-class GatheringFavoriteButton extends StatefulWidget {
+class FavoriteButton extends StatefulWidget {
   final String category;
-  final String gatheringId;
+  final String objectId;
   final String userId;
   final double size;
-  const GatheringFavoriteButton({
+  const FavoriteButton({
     Key? key,
     required this.category,
-    required this.gatheringId,
+    required this.objectId,
     required this.userId,
     this.size = 20,
   }) : super(key: key);
 
   @override
-  State<GatheringFavoriteButton> createState() =>
-      _GatheringFavoriteButtonState();
+  State<FavoriteButton> createState() =>
+      _FavoriteButtonState();
 }
 
-class _GatheringFavoriteButtonState extends State<GatheringFavoriteButton> {
+class _FavoriteButtonState extends State<FavoriteButton> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: LikeService.isLikeObject(
-        objectId: widget.gatheringId,
+        objectId: widget.objectId,
         userId: widget.userId,
       ),
       builder: (context, snapshot) {
@@ -39,12 +39,12 @@ class _GatheringFavoriteButtonState extends State<GatheringFavoriteButton> {
             onTap: () async {
               if (value) {
                 await LikeService.dislikeObject(
-                  objectId: widget.gatheringId,
+                  objectId: widget.objectId,
                   userId: widget.userId,
                 );
               } else {
                 await LikeService.likeObject(
-                  objectId: widget.gatheringId,
+                  objectId: widget.objectId,
                   userId: widget.userId,
                   likeType:
                       LikeTypeExtenstion.getLikeType(widget.category).name,

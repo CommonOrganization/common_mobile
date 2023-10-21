@@ -86,24 +86,20 @@ class ChatAlbumScreen extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           crossAxisCount: 3,
-          mainAxisSpacing: 4,
-          crossAxisSpacing: 4,
           children: (chat.message as List)
-              .map(
-                (image) => GestureDetector(
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          ShowImageScreen(imageList: chat.message),
+              .map((image) => GestureDetector(
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            ShowImageScreen(imageList: chat.message),
+                      ),
                     ),
-                  ),
-                  child: Image.network(
-                    image,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              )
+                    child: Image.network(
+                      image,
+                      fit: BoxFit.cover,
+                    ),
+                  ))
               .toList(),
         ),
         const SizedBox(height: 10),

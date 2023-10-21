@@ -6,7 +6,7 @@ import 'package:common/screens/gathering_detail/club_gathering_detail/club_gathe
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../utils/format_utils.dart';
-import '../../../widgets/gathering_favorite_button.dart';
+import '../../../widgets/favorite_button.dart';
 
 class ClubGatheringRankingCard extends StatefulWidget {
   final ClubGathering gathering;
@@ -103,10 +103,10 @@ class _ClubGatheringRankingCardState extends State<ClubGatheringRankingCard> {
                                 ),
                               ),
                               const Spacer(),
-                              GatheringFavoriteButton(
+                              FavoriteButton(
                                 category: kClubGatheringCategory,
                                 userId: widget.userId,
-                                gatheringId: widget.gathering.id,
+                                objectId: widget.gathering.id,
                               ),
                             ],
                           ),

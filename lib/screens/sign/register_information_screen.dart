@@ -89,7 +89,7 @@ class _RegisterInformationScreenState extends State<RegisterInformationScreen> {
                             CommonTextField(
                               controller: _nameController,
                               hintText: '8자 이내 한글 혹은 영문',
-                              textChanged: () =>
+                              textChanged: (text) =>
                                   setState(() => _canUseName = true),
                               maxLength: 8,
                             ),
@@ -154,7 +154,7 @@ class _RegisterInformationScreenState extends State<RegisterInformationScreen> {
                               controller: _passwordController,
                               obscureText: true,
                               hintText: '영문, 숫자 8자 이상',
-                              textChanged: () => setState(() {}),
+                              textChanged: (text) => setState(() {}),
                             ),
                             if (_passwordController.text.isNotEmpty)
                               Positioned(
@@ -185,7 +185,7 @@ class _RegisterInformationScreenState extends State<RegisterInformationScreen> {
                               controller: _passwordCertifyController,
                               obscureText: true,
                               hintText: '다시 입력',
-                              textChanged: () => setState(() {}),
+                              textChanged: (text) => setState(() {}),
                             ),
                             if (_passwordCertifyController.text.isNotEmpty)
                               Positioned(

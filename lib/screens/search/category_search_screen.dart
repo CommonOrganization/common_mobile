@@ -432,8 +432,6 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
               physics: const ClampingScrollPhysics(),
               shrinkWrap: true,
               crossAxisCount: 3,
-              mainAxisSpacing: 4,
-              crossAxisSpacing: 4,
               children:
                   dailyList.map((daily) => DailyCard(daily: daily)).toList(),
             );

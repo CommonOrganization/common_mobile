@@ -1,3 +1,4 @@
+import 'package:common/widgets/common_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../constants/constants_colors.dart';
@@ -140,10 +141,6 @@ class _DailyUploadCategoryScreenState extends State<DailyUploadCategoryScreen> {
                         quarterTurns: _showMore ? 90 : 0,
                         child: SvgPicture.asset(
                           'assets/icons/svg/arrow_down_16px.svg',
-                          colorFilter: ColorFilter.mode(
-                            kFontGray600Color,
-                            BlendMode.srcIn,
-                          ),
                         ),
                       ),
                     ],
@@ -182,38 +179,13 @@ class _DailyUploadCategoryScreenState extends State<DailyUploadCategoryScreen> {
                 ),
               ),
               const SizedBox(height: 12),
-              Container(
-                alignment: Alignment.center,
-                margin: const EdgeInsets.symmetric(horizontal: 20),
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                width: double.infinity,
-                height: 52,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: kFontGray50Color,
-                ),
-                child: TextField(
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: CommonTextField(
                   controller: _detailCategoryController,
+                  hintText: '세부 카테고리를 입력해주세요.(선택)',
+                  textChanged: (text) => setState(() {}),
                   maxLength: 8,
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: kFontGray800Color,
-                    height: 20 / 14,
-                  ),
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    enabledBorder: InputBorder.none,
-                    focusedBorder: InputBorder.none,
-                    isDense: true,
-                    counterText: '',
-                    hintText: '세부 카테고리를 입력해주세요.(선택)',
-                    hintStyle: TextStyle(
-                      fontSize: 14,
-                      color: kFontGray400Color,
-                      height: 20 / 14,
-                    ),
-                  ),
-                  onChanged: (text) => setState(() {}),
                 ),
               ),
               const SizedBox(height: 40),
@@ -224,7 +196,8 @@ class _DailyUploadCategoryScreenState extends State<DailyUploadCategoryScreen> {
           value: _selectedCategory != null,
           onTap: () {
             if (_selectedCategory == null) return;
-            widget.nextPressed(_selectedCategory, _detailCategoryController.text);
+            widget.nextPressed(
+                _selectedCategory, _detailCategoryController.text);
           },
           title: '다음',
         ),

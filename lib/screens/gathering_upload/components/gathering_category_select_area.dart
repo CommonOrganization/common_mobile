@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../constants/constants_colors.dart';
 import '../../../constants/constants_enum.dart';
+import '../../../widgets/common_text_field.dart';
 
 class GatheringCategorySelectArea extends StatelessWidget {
   final String title;
@@ -179,38 +180,13 @@ class GatheringCategorySelectArea extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 12),
-        Container(
-          alignment: Alignment.center,
-          margin: const EdgeInsets.symmetric(horizontal: 20),
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          width: double.infinity,
-          height: 52,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            color: kFontGray50Color,
-          ),
-          child: TextField(
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: CommonTextField(
             controller: controller,
+            hintText: '세부 카테고리를 입력해주세요.(선택)',
+            textChanged: (text) => onChanged(text),
             maxLength: 8,
-            style: TextStyle(
-              fontSize: 14,
-              color: kFontGray800Color,
-              height: 20 / 14,
-            ),
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              enabledBorder: InputBorder.none,
-              focusedBorder: InputBorder.none,
-              isDense: true,
-              counterText: '',
-              hintText: '세부 카테고리를 입력해주세요.(선택)',
-              hintStyle: TextStyle(
-                fontSize: 14,
-                color: kFontGray400Color,
-                height: 20 / 14,
-              ),
-            ),
-            onChanged: (text) => onChanged(text),
           ),
         ),
         const SizedBox(height: 40),

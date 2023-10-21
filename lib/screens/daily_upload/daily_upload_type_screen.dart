@@ -22,7 +22,6 @@ class DailyUploadTypeScreen extends StatefulWidget {
 }
 
 class _DailyUploadTypeScreenState extends State<DailyUploadTypeScreen> {
-
   List<ClubGathering> clubGatheringList = [];
 
   DailyType _selectedDailyType = DailyType.own;
@@ -42,14 +41,11 @@ class _DailyUploadTypeScreenState extends State<DailyUploadTypeScreen> {
   void initializeClubGatheringList() async {
     if (context.read<UserController>().user == null) return;
     List<ClubGathering> gatheringList =
-    await ClubGatheringService.getGatheringListWhichUserIsParticipating(
-        userId: context.read<UserController>().user!.id);
-    if (gatheringList.isNotEmpty) {
-      setState(() => clubGatheringList = gatheringList);
-    }
+        await ClubGatheringService.getGatheringListWhichUserIsParticipating(
+            userId: context.read<UserController>().user!.id);
+    if (gatheringList.isEmpty) return;
+    setState(() => clubGatheringList = gatheringList);
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +98,7 @@ class _DailyUploadTypeScreenState extends State<DailyUploadTypeScreen> {
                     Column(
                       children: clubGatheringList
                           .map((clubGathering) =>
-                          kClubGatheringCard(clubGathering))
+                              kClubGatheringCard(clubGathering))
                           .toList(),
                     ),
                   ],
@@ -114,7 +110,7 @@ class _DailyUploadTypeScreenState extends State<DailyUploadTypeScreen> {
           value: canNextPress,
           onTap: () {
             if (!canNextPress) return;
-            widget.nextPressed(_selectedDailyType,_connectedClubGatheringId);
+            widget.nextPressed(_selectedDailyType, _connectedClubGatheringId);
           },
           title: '다음',
         ),
@@ -131,13 +127,12 @@ class _DailyUploadTypeScreenState extends State<DailyUploadTypeScreen> {
         }
         if (dailyType == DailyType.gathering) {
           newConnectedClubGatheringId =
-          clubGatheringList.isNotEmpty ? clubGatheringList.first.id : null;
+              clubGatheringList.isNotEmpty ? clubGatheringList.first.id : null;
         }
         setState(() {
           _selectedDailyType = dailyType;
           _connectedClubGatheringId = newConnectedClubGatheringId;
         });
-
       },
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20),

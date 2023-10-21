@@ -1,7 +1,7 @@
 name: common
 description: 커먼 모바일
 
-version: 1.0.0+1
+version: 1.0.1+2
 
 environment:
   sdk: '>=2.18.6 <3.0.0'

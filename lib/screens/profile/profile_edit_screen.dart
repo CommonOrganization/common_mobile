@@ -2,6 +2,7 @@ import 'package:common/controllers/screen_controller.dart';
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/user/user.dart';
 import 'package:common/widgets/common_action_button.dart';
+import 'package:common/widgets/common_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
@@ -208,38 +209,11 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
         ),
         Expanded(
           flex: 3,
-          child: Container(
-            alignment: Alignment.center,
-            padding: const EdgeInsets.symmetric(horizontal: 18),
-            width: double.infinity,
-            height: 52,
-            decoration: BoxDecoration(
-              color: kFontGray50Color,
-              borderRadius: BorderRadius.circular(15),
-            ),
-            child: TextField(
-              controller: controller,
-              maxLength: maxLength,
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                enabledBorder: InputBorder.none,
-                focusedBorder: InputBorder.none,
-                isDense: true,
-                counterText: '',
-                hintText: hintText,
-                hintStyle: TextStyle(
-                  fontSize: 14,
-                  color: kFontGray400Color,
-                  height: 20 / 14,
-                ),
-              ),
-              onChanged: (text) => setState(() {}),
-              style: TextStyle(
-                fontSize: 14,
-                color: kFontGray800Color,
-                height: 20 / 14,
-              ),
-            ),
+          child: CommonTextField(
+            controller: controller,
+            maxLength: maxLength,
+            hintText: hintText,
+            textChanged: (text) => setState(() {}),
           ),
         ),
       ],

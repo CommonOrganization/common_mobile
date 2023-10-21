@@ -89,7 +89,7 @@ class DataService {
     }
   }
 
-  static Future<String> getStoreAppVersion(String os) async {
+  static Future<bool> canAppUse(String os, String appVersion) async {
     try {
       final snapshot = await FirebaseService.fireStore
           .collection(collection)
@@ -98,13 +98,14 @@ class DataService {
 
       if (snapshot.exists) {
         Map<String, dynamic>? data = snapshot.data();
-        if (data == null) return '1.0.0';
-        return data[os];
+        if (data == null) return false;
+        List versionList = data['${os}VersionList'];
+        return versionList.contains(appVersion);
       }
-      return '1.0.0';
+      return false;
     } catch (e) {
       log('DataService - getStoreAppVersion Failed : $e');
-      return '1.0.0';
+      return false;
     }
   }
 }

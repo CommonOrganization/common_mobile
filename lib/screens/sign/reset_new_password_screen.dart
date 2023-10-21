@@ -83,7 +83,7 @@ class _ResetNewPasswordScreenState extends State<ResetNewPasswordScreen> {
                               controller: _passwordController,
                               obscureText: true,
                               hintText: '새 비밀번호 (영문, 숫자 혼합 8자이상)',
-                              textChanged: () => setState(() {}),
+                              textChanged: (text) => setState(() {}),
                             ),
                             if (_passwordController.text.isNotEmpty)
                               Positioned(
@@ -114,7 +114,7 @@ class _ResetNewPasswordScreenState extends State<ResetNewPasswordScreen> {
                               controller: _passwordCertifyController,
                               obscureText: true,
                               hintText: '새 비밀번호 확인',
-                              textChanged: () => setState(() {}),
+                              textChanged: (text) => setState(() {}),
                             ),
                             if (_passwordCertifyController.text.isNotEmpty)
                               Positioned(

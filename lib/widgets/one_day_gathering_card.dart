@@ -11,7 +11,7 @@ import '../controllers/user_controller.dart';
 import '../screens/gathering_detail/one_day_gathering_detail/one_day_gathering_detail_screen.dart';
 import '../services/user_service.dart';
 import '../utils/widget_utils.dart';
-import 'gathering_favorite_button.dart';
+import 'favorite_button.dart';
 
 class OneDayGatheringCard extends StatelessWidget {
   final OneDayGathering gathering;
@@ -103,9 +103,9 @@ class OneDayGatheringCard extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            GatheringFavoriteButton(
+                            FavoriteButton(
                               category: kOneDayGatheringCategory,
-                              gatheringId: gathering.id,
+                              objectId: gathering.id,
                               userId: context.read<UserController>().user!.id,
                             ),
                             const SizedBox(width: 16),
