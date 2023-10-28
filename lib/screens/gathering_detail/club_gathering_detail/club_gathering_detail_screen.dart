@@ -202,7 +202,7 @@ class _ClubGatheringDetailScreenState extends State<ClubGatheringDetailScreen> {
             MaterialPageRoute(
               builder: (context) => GatheringApplicantScreen(
                 gatheringId: widget.gathering.id,
-                category: kOneDayGatheringCategory,
+                category: kClubGatheringCategory,
                 organizerId: widget.gathering.organizerId,
               ),
             ),

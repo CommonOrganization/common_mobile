@@ -13,7 +13,6 @@ class DrawerMemberCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      //TODO 여기서 프로필 이동
       onTap: () => Navigator.push(
         context,
         MaterialPageRoute(

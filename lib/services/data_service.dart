@@ -8,7 +8,7 @@ class DataService {
   factory DataService() => _instance;
   DataService._internal();
   //Data
-  //Search - gathering, feed, etc
+  //Search - gathering, daily, etc
 
   static const String collection = 'data';
 

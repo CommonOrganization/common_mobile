@@ -38,7 +38,6 @@ class OtherUserChatBubble extends StatelessWidget {
                     if (snapshot.hasData) {
                       String image = snapshot.data as String;
                       return GestureDetector(
-                        //TODO 여기서 프로필 이동
                         onTap: () => Navigator.push(
                           context,
                           MaterialPageRoute(

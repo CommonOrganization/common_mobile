@@ -35,6 +35,7 @@ class _GatheringApplicantScreenState extends State<GatheringApplicantScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: kWhiteColor,
       appBar: AppBar(
@@ -67,9 +68,10 @@ class _GatheringApplicantScreenState extends State<GatheringApplicantScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: FutureBuilder(
             future: GatheringService.get(
-                category: widget.category,
-                id: widget.gatheringId,
-                field: 'applicantList'),
+              category: widget.category,
+              id: widget.gatheringId,
+              field: 'applicantList',
+            ),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 List applicantList = snapshot.data;

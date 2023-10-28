@@ -62,7 +62,6 @@ class _DailyDetailScreenState extends State<DailyDetailScreen> {
             GestureDetector(
               behavior: HitTestBehavior.opaque,
               onTap: () {
-                //TODO 여기서 데일리 수정/삭제 등을 할 것
                 String? userId = context.read<UserController>().user?.id;
                 bool isOrganizer = userId == widget.daily.organizerId;
                 if (isOrganizer) {
@@ -73,15 +72,15 @@ class _DailyDetailScreenState extends State<DailyDetailScreen> {
                       daily: widget.daily,
                     ),
                   );
-                } else {
-                  showModalBottomSheet(
-                    context: context,
-                    backgroundColor: Colors.transparent,
-                    builder: (context) => DailyReportBottomSheet(
-                      daily: widget.daily,
-                    ),
-                  );
+                  return;
                 }
+                showModalBottomSheet(
+                  context: context,
+                  backgroundColor: Colors.transparent,
+                  builder: (context) => DailyReportBottomSheet(
+                    daily: widget.daily,
+                  ),
+                );
               },
               child: SvgPicture.asset('assets/icons/svg/more_26px.svg'),
             ),
