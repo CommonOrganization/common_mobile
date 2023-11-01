@@ -47,32 +47,47 @@ class DailyScreen extends StatelessWidget {
         ],
       ),
       body: Consumer<ScreenController>(
-        builder: (context,screenController,child) {
-          return Consumer<BlockController>(builder: (context, controller, child) {
-            return FutureBuilder(
-              future: DailyService.getRecommendDaily(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  List<Daily>? dailyList = snapshot.data;
-                  if (dailyList == null) return Container();
-                  dailyList = dailyList
-                      .where((daily) =>
-                          !controller.blockedObjectList.contains(daily.id))
-                      .toList();
-                  if (dailyList.isEmpty) return Container();
-                  return GridView.count(
-                    physics: const ClampingScrollPhysics(),
-                    crossAxisCount: 3,
-                    children:
-                        dailyList.map((daily) => DailyCard(daily: daily)).toList(),
+          builder: (context, screenController, child) {
+        return Consumer<BlockController>(builder: (context, controller, child) {
+          return FutureBuilder(
+            future: DailyService.getRecommendDaily(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                List<Daily>? dailyList = snapshot.data;
+                if (dailyList == null) return Container();
+                dailyList = dailyList
+                    .where((daily) =>
+                        !controller.blockedObjectList.contains(daily.id))
+                    .where((daily) => !controller.blockedObjectList
+                        .contains(daily.organizerId))
+                    .toList();
+                if (dailyList.isEmpty) {
+                  return Center(
+                    child: Text(
+                      '데일리가 없어요...\n데일리를 직접 만들어 보세요!',
+                      style: TextStyle(
+                        fontSize: 16,
+                        height: 24 / 16,
+                        letterSpacing: -0.5,
+                        color: kFontGray400Color,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
                   );
                 }
-                return Container();
-              },
-            );
-          });
-        }
-      ),
+                return GridView.count(
+                  physics: const ClampingScrollPhysics(),
+                  crossAxisCount: 3,
+                  children: dailyList
+                      .map((daily) => DailyCard(daily: daily))
+                      .toList(),
+                );
+              }
+              return Container();
+            },
+          );
+        });
+      }),
     );
   }
 }

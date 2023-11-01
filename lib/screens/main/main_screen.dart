@@ -50,6 +50,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    //LocalController.clearSharedPreferences();
     return Scaffold(
       backgroundColor: kWhiteColor,
       body: getScreen(),

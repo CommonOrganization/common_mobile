@@ -248,6 +248,8 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
                 gatheringList = gatheringList
                     .where((gathering) =>
                         !controller.blockedObjectList.contains(gathering.id))
+                    .where((gathering) => !controller.blockedObjectList
+                        .contains(gathering.organizerId))
                     .toList();
                 if (gatheringList.isEmpty) return Container();
 
@@ -338,6 +340,8 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
                 gatheringList = gatheringList
                     .where((gathering) =>
                         !controller.blockedObjectList.contains(gathering.id))
+                    .where((gathering) => !controller.blockedObjectList
+                        .contains(gathering.organizerId))
                     .toList();
                 if (gatheringList.isEmpty) return Container();
                 return ListView(
@@ -423,8 +427,10 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
             List<Daily>? dailyList = snapshot.data;
             if (dailyList == null) return Container();
             dailyList = dailyList
-                .where((gathering) =>
-                    !controller.blockedObjectList.contains(gathering.id))
+                .where((daily) =>
+                    !controller.blockedObjectList.contains(daily.id))
+                .where((daily) => !controller.blockedObjectList
+                    .contains(daily.organizerId))
                 .toList();
             if (dailyList.isEmpty) return Container();
 

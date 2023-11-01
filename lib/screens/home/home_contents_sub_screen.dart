@@ -75,7 +75,10 @@ class HomeContentsSubScreen extends StatelessWidget {
                     padding: const EdgeInsets.only(bottom: 10),
                     physics: const ClampingScrollPhysics(),
                     children: gatheringList
-                        .where((gathering) =>!blockedObjectList.contains(gathering.id))
+                        .where((gathering) =>
+                            !blockedObjectList.contains(gathering.id))
+                        .where((gathering) =>
+                            !blockedObjectList.contains(gathering.organizerId))
                         .map(
                             (gathering) => (category == kOneDayGatheringCategory
                                 ? OneDayGatheringRowCard(

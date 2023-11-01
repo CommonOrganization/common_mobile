@@ -84,6 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 hintText: '휴대폰 번호',
                 textChanged: (text) => setState(() {}),
                 maxLength: 11,
+                inputType: TextInputType.number,
               ),
             ),
             const SizedBox(height: 12),

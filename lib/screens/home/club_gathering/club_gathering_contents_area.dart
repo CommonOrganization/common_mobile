@@ -29,6 +29,8 @@ class ClubGatheringContentsArea extends StatelessWidget {
             gatheringList = gatheringList
                 .where((gathering) =>
                     !controller.blockedObjectList.contains(gathering.id))
+                .where((gathering) => !controller.blockedObjectList
+                    .contains(gathering.organizerId))
                 .toList();
 
             if (gatheringList.isEmpty) return Container();

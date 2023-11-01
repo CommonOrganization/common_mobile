@@ -88,6 +88,8 @@ class _OneDayGatheringCalendarState extends State<OneDayGatheringCalendar> {
                       gatheringList = gatheringList
                           .where((gathering) => !controller.blockedObjectList
                               .contains(gathering.id))
+                          .where((gathering) => !controller.blockedObjectList
+                              .contains(gathering.organizerId))
                           .toList();
                       if (gatheringList.isNotEmpty) {
                         int count = 1;
@@ -183,10 +185,9 @@ class _OneDayGatheringCalendarState extends State<OneDayGatheringCalendar> {
     });
   }
 
-  Widget noGatheringContainer(){
+  Widget noGatheringContainer() {
     return Container(
-      padding: const EdgeInsets.symmetric(
-          horizontal: 20, vertical: 26),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 26),
       color: kDarkGray20Color,
       child: Container(
         padding: const EdgeInsets.all(18),
@@ -228,8 +229,7 @@ class _OneDayGatheringCalendarState extends State<OneDayGatheringCalendar> {
               onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>
-                  const OneDayGatheringUploadMainScreen(),
+                  builder: (context) => const OneDayGatheringUploadMainScreen(),
                 ),
               ),
               child: Container(
