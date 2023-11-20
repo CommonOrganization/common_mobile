@@ -148,4 +148,6 @@ class DailyService {
       return false;
     }
   }
+
+  //댓글 작성하기, 삭제하기, 가져오기, 대댓글 작성하기, 삭제하기, 가져오기
 }

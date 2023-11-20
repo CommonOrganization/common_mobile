@@ -1,5 +1,6 @@
 import 'package:common/constants/constants_value.dart';
 import 'package:common/controllers/user_controller.dart';
+import 'package:common/screens/daily/daily_comment_screen.dart';
 import 'package:common/services/daily_service.dart';
 import 'package:common/services/like_service.dart';
 import 'package:common/utils/date_utils.dart';
@@ -98,39 +99,61 @@ class _DailyDetailScreenState extends State<DailyDetailScreen> {
               const SizedBox(height: 12),
               DailyImageContainer(daily: widget.daily),
               const SizedBox(height: 12),
+              //좋아요 및 댓글 영역
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    FavoriteButton(
-                      category: kDailyCategory,
-                      objectId: widget.daily.id,
-                      userId: controller.user!.id,
-                      size: 28,
+                    Row(
+                      children: [
+                        FavoriteButton(
+                          category: kDailyCategory,
+                          objectId: widget.daily.id,
+                          userId: controller.user!.id,
+                          size: 28,
+                        ),
+                        const SizedBox(width: 6),
+                        GestureDetector(
+                          behavior: HitTestBehavior.opaque,
+                          onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  DailyCommentScreen(dailyId: widget.daily.id),
+                            ),
+                          ),
+                          child: SvgPicture.asset(
+                            'assets/icons/svg/comment_inactive_28px.svg',
+                          ),
+                        ),
+                      ],
                     ),
-                    const SizedBox(width: 6),
                     FutureBuilder(
                       future: LikeService.getLikeObjectCount(
                           objectId: widget.daily.id),
                       builder: (context, snapshot) {
                         int likeCount = snapshot.data ?? 0;
                         if (likeCount > 0) {
-                          return RichText(
-                            text: TextSpan(
-                              style: TextStyle(
-                                fontSize: 14,
-                                height: 20 / 14,
-                                color: kFontGray800Color,
-                              ),
-                              children: [
-                                TextSpan(
-                                  text: '$likeCount명',
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                          return Padding(
+                            padding: const EdgeInsets.all(4),
+                            child: RichText(
+                              text: TextSpan(
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  height: 16 / 12,
+                                  color: kFontGray800Color,
                                 ),
-                                const TextSpan(text: '이 좋아합니다'),
-                              ],
+                                children: [
+                                  TextSpan(
+                                    text: '$likeCount명',
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const TextSpan(text: '이 좋아합니다'),
+                                ],
+                              ),
                             ),
                           );
                         }
@@ -162,8 +185,9 @@ class _DailyDetailScreenState extends State<DailyDetailScreen> {
                 ),
               ),
               const SizedBox(height: 12),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+              Container(
+                alignment: Alignment.centerRight,
+                padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: Text(
                   getDateFromDateTime(
                     DateTime.parse(widget.daily.timeStamp),
@@ -174,6 +198,12 @@ class _DailyDetailScreenState extends State<DailyDetailScreen> {
                     color: kFontGray600Color,
                   ),
                 ),
+              ),
+              const SizedBox(height: 12),
+              Container(
+                padding: const EdgeInsets.all(16),
+                height: 200,
+                color: kMainColor,
               ),
             ],
           );
