@@ -140,6 +140,22 @@ class DailyService {
     }
   }
 
+  static Future<List<Daily>> getLikeGatheringWithObjectList(
+      {required List objectIdList}) async {
+    try {
+      QuerySnapshot<Map<String, dynamic>> snapshot =
+      await FirebaseService.fireStore.collection(collection).get();
+
+      return snapshot.docs
+          .map((element) => Daily.fromJson(element.data()))
+          .where((daily) => objectIdList.contains(daily.id))
+          .toList();
+    } catch (e) {
+      log('DailyService - getLikeGatheringWithObjectList Failed : $e');
+      return [];
+    }
+  }
+
   static Future<bool> deleteDaily({required String dailyId}) async {
     try {
       await FirebaseService.fireStore

@@ -330,4 +330,20 @@ class ClubGatheringService {
       return [];
     }
   }
+
+  static Future<List<ClubGathering>> getLikeGatheringWithObjectList(
+      {required List objectIdList}) async {
+    try {
+      QuerySnapshot<Map<String, dynamic>> snapshot =
+      await FirebaseService.fireStore.collection(_category).get();
+
+      return snapshot.docs
+          .map((element) => ClubGathering.fromJson(element.data()))
+          .where((gathering) => objectIdList.contains(gathering.id))
+          .toList();
+    } catch (e) {
+      log('ClubGatheringService - getLikeGatheringWithObjectList Failed : $e');
+      return [];
+    }
+  }
 }

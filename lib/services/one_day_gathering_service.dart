@@ -9,7 +9,9 @@ import 'gathering_service.dart';
 class OneDayGatheringService {
   static final OneDayGatheringService _instance =
       OneDayGatheringService._internal();
+
   factory OneDayGatheringService() => _instance;
+
   OneDayGatheringService._internal();
 
   static const String _category = 'oneDayGathering';
@@ -327,6 +329,22 @@ class OneDayGatheringService {
           .toList();
     } catch (e) {
       log('OneDayGatheringService - getAllGatheringWithCategory Failed : $e');
+      return [];
+    }
+  }
+
+  static Future<List<OneDayGathering>> getLikeGatheringWithObjectList(
+      {required List objectIdList}) async {
+    try {
+      QuerySnapshot<Map<String, dynamic>> snapshot =
+          await FirebaseService.fireStore.collection(_category).get();
+
+      return snapshot.docs
+          .map((element) => OneDayGathering.fromJson(element.data()))
+          .where((gathering) => objectIdList.contains(gathering.id))
+          .toList();
+    } catch (e) {
+      log('OneDayGatheringService - getLikeGatheringWithObjectList Failed : $e');
       return [];
     }
   }

@@ -1,5 +1,6 @@
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/screens/profile/profile_edit_category_screen.dart';
+import 'package:common/screens/setting/favorite_contents_screen.dart';
 import 'package:common/services/user_service.dart';
 import 'package:common/widgets/bottom_sheets/select_location_bottom_sheet.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +38,23 @@ class ProfileEditBottomSheet extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                             builder: (context) => const SettingScreen(),
+                          ),
+                        );
+                      },
+                    ),
+                    Container(
+                      width: double.infinity,
+                      height: 1,
+                      color: kDarkGray20Color,
+                    ),
+                    BottomSheetCustomButton(
+                      title: '좋아요 표시한 콘텐츠',
+                      onPressed: () {
+                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const FavoriteContentsScreen(),
                           ),
                         );
                       },

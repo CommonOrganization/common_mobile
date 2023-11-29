@@ -4,7 +4,9 @@ import 'firebase_service.dart';
 
 class LikeService {
   static final LikeService _instance = LikeService._internal();
+
   factory LikeService() => _instance;
+
   LikeService._internal();
 
   static const String collection = 'likeObject';
@@ -25,7 +27,9 @@ class LikeService {
   }
 
   static Future<void> likeObject(
-      {required String objectId, required String userId,required String likeType}) async {
+      {required String objectId,
+      required String userId,
+      required String likeType}) async {
     try {
       LikeObject likeObject = LikeObject(
         userId: userId,
@@ -60,7 +64,8 @@ class LikeService {
     }
   }
 
-  static Future<Map<String,dynamic>?> getLikeObjectMap({required String likeType}) async {
+  static Future<Map<String, dynamic>?> getLikeObjectMap(
+      {required String likeType}) async {
     try {
       final snapshot = await FirebaseService.fireStore
           .collection(collection)
@@ -96,6 +101,20 @@ class LikeService {
     } catch (e) {
       log('LikeService - getLikeObjectCount Failed : $e');
       return 0;
+    }
+  }
+
+  static Future<List> getLikeObjectList({required String userId}) async {
+    try {
+      final snapshot = await FirebaseService.fireStore
+          .collection(collection)
+          .where('userId', isEqualTo: userId)
+          .get();
+
+      return snapshot.docs.map((document) => document.get('objectId')).toList();
+    } catch (e) {
+      log('LikeService - getLikeObjectList Failed : $e');
+      return [];
     }
   }
 }
