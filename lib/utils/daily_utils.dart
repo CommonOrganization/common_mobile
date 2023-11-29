@@ -1,5 +1,4 @@
 import 'package:common/models/daily/daily.dart';
-import 'package:crypto/crypto.dart';
 
 bool hasKeywordDaily(
     {required Daily daily, required String keyword}) {

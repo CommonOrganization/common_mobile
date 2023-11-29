@@ -6,12 +6,16 @@ import 'package:common/services/data_service.dart';
 import 'package:common/services/upload_service.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../models/comment/comment.dart';
+import '../models/reply/reply.dart';
 import '../utils/daily_utils.dart';
 import 'firebase_service.dart';
 
 class DailyService {
   static final DailyService _instance = DailyService._internal();
+
   factory DailyService() => _instance;
+
   DailyService._internal();
 
   static const String collection = 'daily';
@@ -150,4 +154,105 @@ class DailyService {
   }
 
   //댓글 작성하기, 삭제하기, 가져오기, 대댓글 작성하기, 삭제하기, 가져오기
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getComment(
+      {required String dailyId}) {
+    try {
+      return FirebaseService.fireStore
+          .collection(collection)
+          .doc(dailyId)
+          .collection('comment')
+          .orderBy('timeStamp')
+          .snapshots();
+    } catch (e) {
+      log('DailyService - getComment Failed : $e');
+      return const Stream.empty();
+    }
+  }
+
+  static Future<bool> writeComment({required Comment comment}) async {
+    try {
+      await FirebaseService.fireStore
+          .collection(collection)
+          .doc(comment.dailyId)
+          .collection('comment')
+          .doc(comment.id)
+          .set(comment.toJson());
+      return true;
+    } catch (e) {
+      log('DailyService - writeComment Failed : $e');
+      return false;
+    }
+  }
+
+  static Future<bool> deleteComment(
+      {required String dailyId, required String commentId}) async {
+    try {
+      await FirebaseService.fireStore
+          .collection(collection)
+          .doc(dailyId)
+          .collection('comment')
+          .doc(commentId)
+          .delete();
+      return true;
+    } catch (e) {
+      log('DailyService - deleteComment Failed : $e');
+      return false;
+    }
+  }
+
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getReply(
+      {required Comment comment}) {
+    try {
+      return FirebaseService.fireStore
+          .collection(collection)
+          .doc(comment.dailyId)
+          .collection('comment')
+          .doc(comment.id)
+          .collection('reply')
+          .orderBy('timeStamp')
+          .snapshots();
+    } catch (e) {
+      log('DailyService - getReply Failed : $e');
+      return const Stream.empty();
+    }
+  }
+
+  static Future<bool> writeReply({required Reply reply}) async {
+    try {
+      await FirebaseService.fireStore
+          .collection(collection)
+          .doc(reply.dailyId)
+          .collection('comment')
+          .doc(reply.commentId)
+          .collection('reply')
+          .doc(reply.id)
+          .set(reply.toJson());
+
+      return true;
+    } catch (e) {
+      log('DailyService - writeReply Failed : $e');
+      return false;
+    }
+  }
+
+  static Future<bool> deleteReply(
+      {required String dailyId,
+      required String commentId,
+      required String replyId}) async {
+    try {
+      await FirebaseService.fireStore
+          .collection(collection)
+          .doc(dailyId)
+          .collection('comment')
+          .doc(commentId)
+          .collection('reply')
+          .doc(replyId)
+          .delete();
+
+      return true;
+    } catch (e) {
+      log('DailyService - deleteReply Failed : $e');
+      return false;
+    }
+  }
 }

@@ -11,6 +11,7 @@ import 'bottom_sheet_custom_button.dart';
 
 class DailyReportBottomSheet extends StatelessWidget {
   final Daily daily;
+
   const DailyReportBottomSheet({Key? key, required this.daily})
       : super(key: key);
 
@@ -44,7 +45,6 @@ class DailyReportBottomSheet extends StatelessWidget {
                     ),
                     Container(
                       width: double.infinity,
-
                       height: 1,
                       color: kDarkGray20Color,
                     ),

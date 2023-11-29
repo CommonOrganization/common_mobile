@@ -199,12 +199,12 @@ class _DailyDetailScreenState extends State<DailyDetailScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 12),
-              Container(
-                padding: const EdgeInsets.all(16),
-                height: 200,
-                color: kMainColor,
-              ),
+              // const SizedBox(height: 12),
+              // Container(
+              //   padding: const EdgeInsets.all(16),
+              //   height: 200,
+              //   color: kMainColor,
+              // ),
             ],
           );
         },
