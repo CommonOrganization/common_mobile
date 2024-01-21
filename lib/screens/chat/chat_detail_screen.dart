@@ -60,6 +60,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                     appBar: AppBar(
                       backgroundColor: kWhiteColor,
                       foregroundColor: kFontGray800Color,
+                      surfaceTintColor: kWhiteColor,
                       elevation: 0,
                       centerTitle: true,
                       leadingWidth: 48,

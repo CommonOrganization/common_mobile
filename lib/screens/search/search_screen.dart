@@ -56,6 +56,7 @@ class _SearchScreenState extends State<SearchScreen> {
         appBar: AppBar(
           foregroundColor: kFontGray800Color,
           backgroundColor: kWhiteColor,
+          surfaceTintColor: kWhiteColor,
           leadingWidth: 48,
           leading: GestureDetector(
             onTap: () => Navigator.pop(context),
@@ -148,15 +149,18 @@ class _SearchScreenState extends State<SearchScreen> {
                         SizedBox(
                           width: 38,
                           height: 20,
-                          child: Switch(
-                            value: _searchWordAutoSave,
-                            thumbColor: MaterialStateProperty.all(kWhiteColor),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            activeTrackColor: kMainColor,
-                            inactiveTrackColor: kFontGray200Color,
-                            onChanged: (value) =>
-                                setState(() => _searchWordAutoSave = value),
+                          child: FittedBox(
+                            fit: BoxFit.fitHeight,
+                            child: Switch(
+                              value: _searchWordAutoSave,
+                              thumbColor: MaterialStateProperty.all(kWhiteColor),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              activeTrackColor: kMainColor,
+                              inactiveTrackColor: kFontGray200Color,
+                              onChanged: (value) =>
+                                  setState(() => _searchWordAutoSave = value),
+                            ),
                           ),
                         ),
                         const Spacer(),

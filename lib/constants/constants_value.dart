@@ -19,6 +19,13 @@ const String kKakaoChannelChatUrl = 'http://pf.kakao.com/_PuUjG/chat';
 const String kPersonalInformationProcessingPolicyUrl = 'https://comeoncommon.modoo.at/?link=7uksbs7w';
 const String kServiceUsePolicyUrl = 'https://comeoncommon.modoo.at/?link=6ry8c7fl';
 
+const String kPlayStoreUrl = 'https://play.google.com/store/apps/details?id=com.junghun.common';
+const String kPlayStoreMarketUrl =
+    'market://details?id=com.junghun.common';
+const String kAppStoreUrl =
+    'https://apps.apple.com/kr/app/%EC%BB%A4%EB%A8%BC/id1671632213?platform=iphone';
+
+
 const List<String> kShortWeekdayList = ['월', '화', '수', '목', '금', '토', '일'];
 const List<String> kWeekdayList = [
   '월요일',

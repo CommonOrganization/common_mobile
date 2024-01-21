@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../constants/constants_colors.dart';
+import '../../constants/constants_value.dart';
 
 class UpdateDialog extends StatelessWidget {
   const UpdateDialog({Key? key}) : super(key: key);
@@ -41,8 +45,21 @@ class UpdateDialog extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                 child: GestureDetector(
-                  onTap: () {
-
+                  onTap: () async {
+                    if (Platform.isAndroid) {
+                      if (await canLaunchUrl(Uri.parse(kPlayStoreMarketUrl))) {
+                        await launchUrl(Uri.parse(kPlayStoreMarketUrl));
+                        return;
+                      }
+                      if (await canLaunchUrl(Uri.parse(kPlayStoreUrl))) {
+                        await launchUrl(Uri.parse(kPlayStoreUrl));
+                      }
+                    }
+                    if(Platform.isIOS){
+                      if (await canLaunchUrl(Uri.parse(kAppStoreUrl))) {
+                        await launchUrl(Uri.parse(kAppStoreUrl));
+                      }
+                    }
                   },
                   child: Container(
                     alignment: Alignment.center,

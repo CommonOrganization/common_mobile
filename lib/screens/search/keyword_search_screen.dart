@@ -56,6 +56,7 @@ class _KeywordSearchScreenState extends State<KeywordSearchScreen> {
       appBar: AppBar(
         foregroundColor: kFontGray800Color,
         backgroundColor: kWhiteColor,
+        surfaceTintColor: kWhiteColor,
         leadingWidth: 48,
         leading: GestureDetector(
           behavior: HitTestBehavior.opaque,
@@ -91,7 +92,7 @@ class _KeywordSearchScreenState extends State<KeywordSearchScreen> {
                   style: TextStyle(
                     fontSize: 14,
                     color: kFontGray600Color,
-                    height: 24 / 14,
+                    height: 20 / 14,
                     letterSpacing: -0.5,
                   ),
                   decoration: InputDecoration(
@@ -104,7 +105,7 @@ class _KeywordSearchScreenState extends State<KeywordSearchScreen> {
                     hintStyle: TextStyle(
                       fontSize: 14,
                       color: kFontGray400Color,
-                      height: 24 / 14,
+                      height: 20 / 14,
                       letterSpacing: -0.5,
                     ),
                   ),

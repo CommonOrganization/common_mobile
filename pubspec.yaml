@@ -1,10 +1,10 @@
 name: common
 description: 커먼 모바일
 
-version: 1.0.2+4
+version: 1.0.3+5
 
 environment:
-  sdk: '>=2.18.6 <3.0.0'
+  sdk: '>=3.2.3 <4.0.0'
 
 dependencies:
   flutter:
@@ -13,50 +13,50 @@ dependencies:
   cupertino_icons: ^1.0.6
 
   json_annotation: ^4.8.1
-  flutter_svg: ^2.0.7
+  flutter_svg: ^2.0.9
 
-  cloud_firestore: ^4.3.1
-  firebase_core: ^2.4.1
-  firebase_storage: ^11.0.10
-  firebase_messaging: ^14.0.3
-  flutter_local_notifications: ^13.0.0
+  cloud_firestore: ^4.14.0
+  firebase_core: ^2.24.2
+  firebase_storage: ^11.6.0
+  firebase_messaging: ^14.7.10
+  flutter_local_notifications: ^16.3.1+1
 
-  crypto: ^3.0.2
+  crypto: ^3.0.3
 
-  http: ^1.1.0
+  http: ^1.2.0
 
   scrollable_positioned_list: ^0.3.8
   another_flushbar: ^1.12.30
 
-  image_picker: ^1.0.4
+  image_picker: ^1.0.7
 
-  shared_preferences: ^2.2.1
+  shared_preferences: ^2.2.2
 
-  provider: ^6.0.5
+  provider: ^6.1.1
 
   flutter_speed_dial: ^7.0.0
 
-  flutter_localization: ^0.1.14
-  intl: ^0.18.0
+  flutter_localization: ^0.2.0
+  intl: ^0.18.1
 
-  url_launcher: ^6.1.14
+  url_launcher: ^6.2.3
 
-  dotted_border: ^2.0.0+3
+  dotted_border: ^2.1.0
 
   image_gallery_saver: ^2.0.3
-  permission_handler: ^11.0.0
+  permission_handler: ^11.2.0
 
-  cached_network_image: ^3.2.3
+  cached_network_image: ^3.3.1
 
-  package_info_plus: ^5.0.0
+  package_info_plus: ^5.0.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^2.0.0
-  json_serializable: ^6.5.4
-  build_runner: ^2.3.3
+  json_serializable: ^6.7.1
+  build_runner: ^2.4.8
 
 flutter:
 

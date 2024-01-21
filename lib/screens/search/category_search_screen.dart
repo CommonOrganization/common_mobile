@@ -73,6 +73,7 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
       appBar: AppBar(
         foregroundColor: kFontGray800Color,
         backgroundColor: kWhiteColor,
+        surfaceTintColor: kWhiteColor,
         leadingWidth: 48,
         leading: GestureDetector(
           behavior: HitTestBehavior.opaque,

@@ -18,6 +18,7 @@ class GatheringSliverAppbar extends StatefulWidget {
   final Gathering gathering;
   final GatheringType gatheringType;
   final bool isPreview;
+
   const GatheringSliverAppbar({
     Key? key,
     required this.showAppbarBlack,
@@ -42,6 +43,7 @@ class _GatheringSliverAppbarState extends State<GatheringSliverAppbar> {
     return SliverAppBar(
         backgroundColor:
             widget.showAppbarBlack ? kWhiteColor : Colors.transparent,
+        surfaceTintColor: kWhiteColor,
         elevation: 0,
         pinned: true,
         expandedHeight: MediaQuery.of(context).size.width,

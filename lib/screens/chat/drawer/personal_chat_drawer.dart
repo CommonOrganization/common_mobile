@@ -22,6 +22,8 @@ class PersonalChatDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      surfaceTintColor: kWhiteColor,
+      backgroundColor: kWhiteColor,
       child: SafeArea(
         child: Column(
           children: [
