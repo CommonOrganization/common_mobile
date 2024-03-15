@@ -13,3 +13,6 @@
 ### 체크 할 내용
 
 ### 개발 할 내용
+
+### 개선 할 내용
+1. 현재 service 에 위치한 폴더를 모두 spring 으로 개발, service 의 기능은 controller 로 개선

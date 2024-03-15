@@ -1,5 +1,5 @@
 import 'dart:developer';
-import 'package:common/controllers/local_controller.dart';
+import 'package:common/services/local_service.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import '../models/user/user.dart';
@@ -9,12 +9,12 @@ class UserController extends ChangeNotifier {
   User? user;
 
   Future<bool> autoLogin() async {
-    User? userInfo = await LocalController.getUserInfo();
+    User? userInfo = await LocalService.getUserInfo();
     if (userInfo == null) return false;
     User? loginUserInfo = await UserService.login(
         phone: userInfo.phone, password: userInfo.password);
     if (loginUserInfo == null) return false;
-    await LocalController.saveUserData(loginUserInfo);
+    await LocalService.saveUserData(loginUserInfo);
     user = loginUserInfo;
     notifyListeners();
     log('${user?.id}유저 자동 로그인');
@@ -50,7 +50,7 @@ class UserController extends ChangeNotifier {
   }
 
   Future<void> logout() async {
-    await LocalController.logoutClearUserData();
+    await LocalService.logoutClearUserData();
     log('${user?.id}유저 로그아웃');
     user = null;
     notifyListeners();

@@ -20,9 +20,7 @@ ClubGathering _$ClubGatheringFromJson(Map<String, dynamic> json) =>
       recruitQuestion: json['recruitQuestion'] as String,
       capacity: json['capacity'] as int,
       tagList: json['tagList'] as List<dynamic>,
-      memberList: json['memberList'] as List<dynamic>,
       timeStamp: json['timeStamp'] as String,
-      applicantList: json['applicantList'] as List<dynamic>,
       cityList: json['cityList'] as List<dynamic>,
     );
 
@@ -40,8 +38,6 @@ Map<String, dynamic> _$ClubGatheringToJson(ClubGathering instance) =>
       'recruitQuestion': instance.recruitQuestion,
       'capacity': instance.capacity,
       'tagList': instance.tagList,
-      'memberList': instance.memberList,
       'timeStamp': instance.timeStamp,
-      'applicantList': instance.applicantList,
       'cityList': instance.cityList,
     };

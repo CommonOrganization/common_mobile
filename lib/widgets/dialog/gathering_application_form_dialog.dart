@@ -11,11 +11,12 @@ import '../../utils/local_utils.dart';
 class GatheringApplicationFormDialog extends StatelessWidget {
   final String category;
   final String gatheringId;
-  final String applicantId;
+  final String applierId;
+
   const GatheringApplicationFormDialog({
     Key? key,
     required this.gatheringId,
-    required this.applicantId,
+    required this.applierId,
     required this.category,
   }) : super(key: key);
 
@@ -75,14 +76,14 @@ class GatheringApplicationFormDialog extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                getProfileArea(applicantId),
+                getProfileArea(applierId),
                 const SizedBox(width: 10),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      getNameArea(applicantId),
-                      getInformationArea(applicantId),
+                      getNameArea(applierId),
+                      getInformationArea(applierId),
                     ],
                   ),
                 ),
@@ -92,7 +93,7 @@ class GatheringApplicationFormDialog extends StatelessWidget {
             FutureBuilder(
                 future: RecruitAnswerService.getRecruitAnswer(
                   gatheringId: gatheringId,
-                  userId: applicantId,
+                  userId: applierId,
                 ),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
@@ -129,9 +130,9 @@ class GatheringApplicationFormDialog extends StatelessWidget {
                 kDialogButton(
                   title: '거부',
                   onTap: () => GatheringService.disapproveGathering(
-                      category: category,
-                      id: gatheringId,
-                      applicantId: applicantId)
+                          category: category,
+                          id: gatheringId,
+                          applierId: applierId)
                       .then((value) {
                     Navigator.pop(context);
                     showMessage(context, message: getDisapproveText);
@@ -145,7 +146,7 @@ class GatheringApplicationFormDialog extends StatelessWidget {
                   onTap: () => GatheringService.approveGathering(
                           category: category,
                           id: gatheringId,
-                          applicantId: applicantId)
+                          applierId: applierId)
                       .then((value) {
                     Navigator.pop(context);
                     showMessage(context, message: getApproveText);

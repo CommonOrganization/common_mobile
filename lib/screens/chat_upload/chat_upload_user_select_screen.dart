@@ -1,6 +1,7 @@
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/gathering/gathering.dart';
 import 'package:common/services/club_gathering_service.dart';
+import 'package:common/services/gathering_service.dart';
 import 'package:common/services/one_day_gathering_service.dart';
 import 'package:common/widgets/common_action_button.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ import '../../services/user_service.dart';
 
 class ChatUploadUserSelectScreen extends StatefulWidget {
   final Function onPressed;
+
   const ChatUploadUserSelectScreen({Key? key, required this.onPressed})
       : super(key: key);
 
@@ -182,10 +184,20 @@ class _ChatUploadUserSelectScreenState
           ),
         ),
         if (_selectedGatheringId == gathering.id)
-          ...gathering.memberList.map((memberId) {
-            if (memberId == userId) return Container();
-            return kUserCard(memberId);
-          }).toList(),
+          FutureBuilder(
+              future: GatheringService.getGatheringMemberList(id:gathering.id),
+              builder: (context, snapshot) {
+                if(snapshot.hasData){
+                  List<String> memberList = snapshot.data as List<String>;
+                  return Column(
+                    children: memberList.map((memberId) {
+                      if (memberId == userId) return Container();
+                      return kUserCard(memberId);
+                    }).toList(),
+                  );
+                }
+                return Container();
+              }),
       ],
     );
   }

@@ -61,17 +61,6 @@ class ClubGatheringService {
     }
   }
 
-  static Future<bool> applyGathering(
-      {required String id, required String userId,required String recruitWay,}) async {
-    try {
-      return await GatheringService.applyGathering(
-          category: _category, id: id, userId: userId,recruitWay:recruitWay,);
-    } catch (e) {
-      log('ClubGatheringService - applyGathering Failed : $e');
-      return false;
-    }
-  }
-
   static Future<List<ClubGathering>> getGatheringListWhichUserIsParticipating(
       {required String userId}) async {
     try {

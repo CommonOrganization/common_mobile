@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:common/models/one_day_gathering/one_day_gathering.dart';
 import 'package:common/screens/gathering_detail/one_day_gathering_detail/one_day_gathering_detail_screen.dart';
+import 'package:common/services/gathering_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../constants/constants_colors.dart';
@@ -163,17 +164,25 @@ class ConnectedGatheringCard extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 8),
-                  memberListArea(gathering.memberList),
-                  const SizedBox(width: 8),
-                  SvgPicture.asset('assets/icons/svg/people_18px.svg'),
-                  Text(
-                    '${gathering.memberList.length}/${gathering.capacity}',
-                    style: TextStyle(
-                      fontSize: 13,
-                      height: 17 / 13,
-                      color: kFontGray400Color,
-                    ),
-                  ),
+                  FutureBuilder(
+                    future: GatheringService.getGatheringMemberList(id: gathering.id),
+                    builder: (context,snapshot) {
+                      List<String> memberList = snapshot.data??[];
+                      return Row(children: [
+                        memberListArea(memberList),
+                        const SizedBox(width: 8),
+                        SvgPicture.asset('assets/icons/svg/people_18px.svg'),
+                        Text(
+                          '${memberList.length}/${gathering.capacity}',
+                          style: TextStyle(
+                            fontSize: 13,
+                            height: 17 / 13,
+                            color: kFontGray400Color,
+                          ),
+                        ),
+                      ],);
+                    }
+                  )
                 ],
               ),
             ),

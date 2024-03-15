@@ -3,7 +3,7 @@ import 'package:common/screens/gathering_detail/components/gathering_member_list
 import 'package:flutter/material.dart';
 import '../../../constants/constants_colors.dart';
 import '../../../constants/constants_value.dart';
-import '../components/gathering_applicant_list.dart';
+import '../components/gathering_applier_list.dart';
 import '../components/gathering_content_card.dart';
 import '../components/gathering_information_card.dart';
 import '../components/gathering_organizer_card.dart';
@@ -41,9 +41,9 @@ class ClubGatheringBasicContents extends StatelessWidget {
           ),
           const SizedBox(height: 28),
           GatheringStatusCard(
-            memberList: gathering.memberList,
             capacity: gathering.capacity,
             organizerId: gathering.organizerId,
+            gatheringId: gathering.id,
           ),
           const SizedBox(height: 12),
           Container(
@@ -92,14 +92,13 @@ class ClubGatheringBasicContents extends StatelessWidget {
           const SizedBox(height: 36),
           GatheringMemberList(
             title: '우리랑 소모임 함께 해요',
-            memberList: gathering.memberList,
+            gatheringId: gathering.id,
             organizerId: gathering.organizerId,
           ),
           const SizedBox(height: 36),
-          GatheringApplicantList(
+          GatheringApplierList(
             category: kClubGatheringCategory,
             gatheringId: gathering.id,
-            applicantList: gathering.applicantList,
             organizerId: gathering.organizerId,
           ),
           const SizedBox(height: 40),

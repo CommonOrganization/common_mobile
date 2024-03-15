@@ -1360,6 +1360,25 @@ extension RecruitWayExtenstion on RecruitWay {
   String get unselectedIcon => unselectedIcons[this];
 }
 
+enum GatheringStatus { apply  , member }
+
+extension GatheringStatusExtenstion on GatheringStatus {
+  static Map names = {
+    GatheringStatus.apply: 'apply',
+    GatheringStatus.member: 'member',
+  };
+
+  static Map types = {
+    'apply': GatheringStatus.apply,
+    'member': GatheringStatus.member,
+  };
+
+  String get name => names[this];
+  static GatheringStatus getType(String text) => types[text];
+}
+
+enum GatheringApplyReturn { success  ,already ,full ,failed,  }
+
 enum LikeType { oneDayGathering, clubGathering, daily, user }
 
 extension LikeTypeExtenstion on LikeType {
@@ -1468,3 +1487,4 @@ extension NoticeTypeExtenstion on NoticeType {
   String get shortTitle => shortTitles[this];
   static NoticeType getType(String text) => types[text];
 }
+

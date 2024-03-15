@@ -19,9 +19,7 @@ Gathering _$GatheringFromJson(Map<String, dynamic> json) => Gathering(
       recruitQuestion: json['recruitQuestion'] as String,
       capacity: json['capacity'] as int,
       tagList: json['tagList'] as List<dynamic>,
-      memberList: json['memberList'] as List<dynamic>,
       timeStamp: json['timeStamp'] as String,
-      applicantList: json['applicantList'] as List<dynamic>,
     );
 
 Map<String, dynamic> _$GatheringToJson(Gathering instance) => <String, dynamic>{
@@ -37,7 +35,5 @@ Map<String, dynamic> _$GatheringToJson(Gathering instance) => <String, dynamic>{
       'recruitQuestion': instance.recruitQuestion,
       'capacity': instance.capacity,
       'tagList': instance.tagList,
-      'memberList': instance.memberList,
       'timeStamp': instance.timeStamp,
-      'applicantList': instance.applicantList,
     };

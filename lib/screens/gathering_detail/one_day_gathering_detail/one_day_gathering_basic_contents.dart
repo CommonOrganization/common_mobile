@@ -5,7 +5,7 @@ import '../../../constants/constants_value.dart';
 import '../../../models/one_day_gathering/one_day_gathering.dart';
 import '../../../utils/date_utils.dart';
 import '../../../utils/format_utils.dart';
-import '../components/gathering_applicant_list.dart';
+import '../components/gathering_applier_list.dart';
 import '../components/gathering_content_card.dart';
 import '../components/gathering_information_card.dart';
 import '../components/gathering_organizer_card.dart';
@@ -67,7 +67,7 @@ class OneDayGatheringBasicContents extends StatelessWidget {
           GatheringPlaceCard(place: gathering.place),
           const SizedBox(height: 32),
           GatheringStatusCard(
-            memberList: gathering.memberList,
+            gatheringId: gathering.id,
             capacity: gathering.capacity,
             organizerId: gathering.organizerId,
           ),
@@ -118,14 +118,13 @@ class OneDayGatheringBasicContents extends StatelessWidget {
           const SizedBox(height: 36),
           GatheringMemberList(
             title: '우리랑 하루모임 함께 해요',
-            memberList: gathering.memberList,
+            gatheringId: gathering.id,
             organizerId: gathering.organizerId,
           ),
           const SizedBox(height: 36),
-          GatheringApplicantList(
+          GatheringApplierList(
             category: kOneDayGatheringCategory,
             gatheringId: gathering.id,
-            applicantList: gathering.applicantList,
             organizerId: gathering.organizerId,
           ),
           const SizedBox(height: 40),

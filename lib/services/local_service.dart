@@ -3,16 +3,15 @@ import 'dart:developer';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/user/user.dart';
 
-class LocalController {
-  static final LocalController _instance = LocalController();
-  factory LocalController() => _instance;
+class LocalService {
+  static final LocalService _instance = LocalService();
+  factory LocalService() => _instance;
 
   static SharedPreferences? _sharedPreferences;
 
   static const String _userInfoKey = 'userInfo';
   static const String _userPhoneKey = 'userPhone';
   static const String _searchWorkKey = 'searchWord';
-
   static const String _blockObjectListKey = 'blockObjectList';
 
   static Future<void> _setSharedPreferences() async {

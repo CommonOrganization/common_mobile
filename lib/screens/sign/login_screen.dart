@@ -1,5 +1,5 @@
 import 'package:common/constants/constants_colors.dart';
-import 'package:common/controllers/local_controller.dart';
+import 'package:common/services/local_service.dart';
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/user/user.dart';
 import 'package:common/screens/main/main_screen.dart';
@@ -40,7 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
     }
     await context.read<UserController>().setUser(user);
     if (_keepLogin) {
-      await LocalController.saveUserData(user);
+      await LocalService.saveUserData(user);
     }
     if (!mounted) return;
     Navigator.pushAndRemoveUntil(

@@ -10,6 +10,7 @@ import '../../constants/constants_enum.dart';
 import '../../controllers/user_controller.dart';
 import '../../models/gathering/gathering.dart';
 import '../../services/club_gathering_service.dart';
+import '../../services/gathering_service.dart';
 import '../../services/one_day_gathering_service.dart';
 import '../../services/user_service.dart';
 
@@ -237,10 +238,21 @@ class _UserInviteScreenState extends State<UserInviteScreen> {
           ),
         ),
         if (_selectedGatheringId == gathering.id)
-          ...gathering.memberList.map((memberId) {
-            if (memberId == userId) return Container();
-            return kUserCard(memberId);
-          }).toList(),
+          FutureBuilder(
+              future: GatheringService.getGatheringMemberList(id:gathering.id),
+              builder: (context, snapshot) {
+                if(snapshot.hasData){
+                  List<String> memberList = snapshot.data as List<String>;
+                  return Column(
+                    children: memberList.map((memberId) {
+                      if (memberId == userId) return Container();
+                      return kUserCard(memberId);
+                    }).toList(),
+                  );
+                }
+                return Container();
+              }),
+
       ],
     );
   }

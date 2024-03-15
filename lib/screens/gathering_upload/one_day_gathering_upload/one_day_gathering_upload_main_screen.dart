@@ -77,8 +77,6 @@ class _OneDayGatheringUploadMainScreenState
         'isHaveEntryFee': _isHaveEntryFee,
         'entryFee': _isHaveEntryFee ? int.parse(_gatheringEntryFee) : 0,
         'tagList': _gatheringTagList,
-        'memberList': [userId],
-        'applicantList': [],
       };
 
       OneDayGathering gathering = OneDayGathering.fromJson({
@@ -128,8 +126,6 @@ class _OneDayGatheringUploadMainScreenState
         'isHaveEntryFee': _isHaveEntryFee,
         'entryFee': _isHaveEntryFee ? int.parse(_gatheringEntryFee) : 0,
         'tagList': _gatheringTagList,
-        'memberList': widget.gathering!.memberList,
-        'applicantList': widget.gathering!.applicantList,
       };
 
       OneDayGathering gathering = OneDayGathering.fromJson({

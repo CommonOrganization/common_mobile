@@ -8,7 +8,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import '../../constants/constants_colors.dart';
 import '../../constants/constants_value.dart';
-import '../../controllers/local_controller.dart';
+import '../../services/local_service.dart';
 import '../../services/data_service.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -27,7 +27,7 @@ class _SearchScreenState extends State<SearchScreen> {
     try {
       if (word.isEmpty) return;
       if (_searchWordAutoSave) {
-        await LocalController.addSearchWord(word);
+        await LocalService.addSearchWord(word);
       }
       DataService.addSearchGatheringWord(word: word);
       setState(() => _searchController.clear());
@@ -167,7 +167,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         GestureDetector(
                           onTap: () async {
                             bool clearSearchWord =
-                                await LocalController.clearSearchWord();
+                                await LocalService.clearSearchWord();
                             if (!mounted) return;
                             if (clearSearchWord) {
                               context.read<ScreenController>().pageRefresh();
@@ -190,7 +190,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   Consumer<ScreenController>(
                       builder: (context, controller, child) {
                     return FutureBuilder(
-                      future: LocalController.getSearchWord(),
+                      future: LocalService.getSearchWord(),
                       builder: (context, snapshot) {
                         List<String> wordList = snapshot.data ?? [];
                         if (wordList.isEmpty) return Container();
@@ -410,7 +410,7 @@ class _SearchScreenState extends State<SearchScreen> {
               const SizedBox(width: 6),
               GestureDetector(
                 behavior: HitTestBehavior.opaque,
-                onTap: () => LocalController.removeSearchWord(index)
+                onTap: () => LocalService.removeSearchWord(index)
                     .then((value) => setState(() {})),
                 child: SvgPicture.asset(
                   'assets/icons/svg/close_6px.svg',

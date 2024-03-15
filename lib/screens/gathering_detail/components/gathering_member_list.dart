@@ -1,3 +1,4 @@
+import 'package:common/services/gathering_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -7,11 +8,12 @@ import 'gathering_member_card.dart';
 class GatheringMemberList extends StatefulWidget {
   final String title;
   final String organizerId;
-  final List memberList;
+  final String gatheringId;
+
   const GatheringMemberList({
     Key? key,
     required this.title,
-    required this.memberList,
+    required this.gatheringId,
     required this.organizerId,
   }) : super(key: key);
 
@@ -21,6 +23,8 @@ class GatheringMemberList extends StatefulWidget {
 
 class _GatheringMemberListState extends State<GatheringMemberList> {
   bool _showMore = false;
+
+  List<String> memberList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -48,48 +52,59 @@ class _GatheringMemberListState extends State<GatheringMemberList> {
             ),
           ),
           const SizedBox(height: 8),
-          ...(widget.memberList.length > 5 && !_showMore
-                  ? widget.memberList.sublist(0, 5)
-                  : widget.memberList)
-              .map(
-                (memberId) => GatheringMemberCard(
-                  memberId: memberId,
-                  isOrganizer: memberId == widget.organizerId,
-                ),
-              )
-              .toList(),
-          if (widget.memberList.length > 5 && !_showMore)
-            GestureDetector(
-              onTap: () => setState(() => _showMore = !_showMore),
-              child: Container(
-                alignment: Alignment.center,
-                margin: const EdgeInsets.only(top: 12),
-                width: double.infinity,
-                height: 38,
-                decoration: BoxDecoration(
-                  color: kFontGray50Color,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const SizedBox(width: 15),
-                    Text(
-                      '더보기',
-                      style: TextStyle(
-                        fontSize: 13,
-                        height: 17 / 13,
-                        color: kFontGray600Color,
+          FutureBuilder(
+            future: GatheringService.getGatheringMemberList(id: widget.gatheringId),
+            builder: (context, snapshot) {
+              List<String> memberList = snapshot.data??[];
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ...(memberList.length > 5 && !_showMore
+                          ? memberList.sublist(0, 5)
+                          : memberList)
+                      .map(
+                        (memberId) => GatheringMemberCard(
+                          memberId: memberId,
+                          isOrganizer: memberId == widget.organizerId,
+                        ),
+                      )
+                      .toList(),
+                  if (memberList.length > 5 && !_showMore)
+                    GestureDetector(
+                      onTap: () => setState(() => _showMore = !_showMore),
+                      child: Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.only(top: 12),
+                        width: double.infinity,
+                        height: 38,
+                        decoration: BoxDecoration(
+                          color: kFontGray50Color,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const SizedBox(width: 15),
+                            Text(
+                              '더보기',
+                              style: TextStyle(
+                                fontSize: 13,
+                                height: 17 / 13,
+                                color: kFontGray600Color,
+                              ),
+                            ),
+                            const SizedBox(width: 15),
+                            SvgPicture.asset(
+                              'assets/icons/svg/arrow_down_16px.svg',
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                    const SizedBox(width: 15),
-                    SvgPicture.asset(
-                      'assets/icons/svg/arrow_down_16px.svg',
-                    ),
-                  ],
-                ),
-              ),
-            ),
+                ],
+              );
+            },
+          ),
         ],
       ),
     );

@@ -15,9 +15,7 @@ class Gathering {
   final String recruitQuestion;
   final int capacity;
   final List tagList;
-  final List memberList;
   final String timeStamp;
-  final List applicantList;
 
   Gathering({
     required this.id,
@@ -32,9 +30,7 @@ class Gathering {
     required this.recruitQuestion,
     required this.capacity,
     required this.tagList,
-    required this.memberList,
     required this.timeStamp,
-    required this.applicantList,
   });
 
   factory Gathering.fromJson(Map<String, dynamic> json) =>

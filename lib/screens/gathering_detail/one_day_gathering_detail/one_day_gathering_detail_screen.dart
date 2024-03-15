@@ -10,6 +10,7 @@ import 'package:common/widgets/bottom_sheets/recruit_question_bottom_sheet.dart'
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../constants/constants_colors.dart';
+import '../../../models/gathering_apply_status/gathering_apply_status.dart';
 import '../../../services/one_day_gathering_service.dart';
 import '../components/gathering_button.dart';
 import '../components/gathering_sliver_appbar.dart';
@@ -107,18 +108,29 @@ class _OneDayGatheringDetailScreenState
         await RecruitAnswerService.uploadRecruitAnswer(
             recruitAnswer: recruitAnswer);
       }
-      bool applySuccess = await OneDayGatheringService.applyGathering(
-        id: widget.gathering.id,
-        userId: userId,
-        recruitWay: recruitWay.name,
-      );
+      GatheringApplyReturn applyReturn = await GatheringService.applyGathering(
+          id: widget.gathering.id, userId: userId,recruitWay:recruitWay.name,capacity: widget.gathering.capacity);
       if (!mounted) return;
       _loading = false;
-      if (!applySuccess) {
-        showMessage(context, message: '이미 참여중이거나 신청중인 모임입니다.');
-        return;
+      switch(applyReturn){
+        case GatheringApplyReturn.success:{
+          showMessage(context, message: '하루모임에 참여 신청했습니다.');
+          return;
+        }
+        case GatheringApplyReturn.full:{
+          showMessage(context, message: '인원 초과된 모임입니다.');
+          return;
+        }
+        case GatheringApplyReturn.already:{
+          showMessage(context, message: '이미 가입중이거나 신청중인 모임입니다.');
+          return;
+        }
+        case GatheringApplyReturn.failed:
+        default:{
+          showMessage(context, message: '잠시후에 다시 신청해 주세요.');
+          return;
+        }
       }
-      showMessage(context, message: '하루모임에 참여 신청했습니다.');
     } catch (e) {
       showMessage(context, message: '잠시후에 다시 신청해 주세요.');
       _loading = false;
@@ -160,9 +172,9 @@ class _OneDayGatheringDetailScreenState
     }
   }
 
-  Widget getActionButton() {
+  Widget getActionButton({required GatheringApplyStatus? gatheringApplyStatus, required String userId}) {
     bool isOrganizer =
-        context.read<UserController>().user?.id == widget.gathering.organizerId;
+        userId == widget.gathering.organizerId;
     bool canApply = DateTime.now()
         .difference(DateTime.parse(widget.gathering.openingDate))
         .isNegative;
@@ -189,29 +201,14 @@ class _OneDayGatheringDetailScreenState
           ),
         );
       }
-      if (widget.gathering.memberList
-          .contains(context.read<UserController>().user?.id)) {
+      if(gatheringApplyStatus!=null){
         return GatheringButton(
-          title: '이미 참여중인 모임입니다',
+          title: gatheringApplyStatus.status == GatheringStatus.member.name?'이미 참여중인 모임입니다':'참여 신청중인 모임입니다',
           enabled: false,
           onTap: () {},
         );
       }
-      if (widget.gathering.applicantList
-          .contains(context.read<UserController>().user?.id)) {
-        return GatheringButton(
-          title: '참여 신청중인 모임입니다',
-          enabled: false,
-          onTap: () {},
-        );
-      }
-      if (widget.gathering.capacity <= widget.gathering.memberList.length) {
-        return GatheringButton(
-          title: '인원 마감된 모임입니다',
-          enabled: false,
-          onTap: () {},
-        );
-      }
+
       return GatheringButton(
         title: '하루모임 참여하기',
         onTap: () => applyPressed(),
@@ -252,7 +249,25 @@ class _OneDayGatheringDetailScreenState
           )
         ],
       ),
-      bottomNavigationBar: getActionButton(),
+      bottomNavigationBar: Consumer<UserController>(
+          builder: (context,controller,child) {
+            if(controller.user==null) return const SizedBox.shrink();
+            if (widget.isPreview) {
+              return getActionButton(
+                  gatheringApplyStatus: GatheringApplyStatus(
+                      status: GatheringStatus.member.name,
+                      gatheringId: widget.gathering.id,
+                      applierId: controller.user!.id),
+                  userId: controller.user!.id,);
+            }
+            return FutureBuilder(
+                future: GatheringService.getGatheringApplyStatus(id: widget.gathering.id  , userId: controller.user!.id),
+                builder: (context,snapshot) {
+                  return getActionButton(gatheringApplyStatus: snapshot.data, userId: controller.user!.id);
+                }
+            );
+          }
+      ),
     );
   }
 }

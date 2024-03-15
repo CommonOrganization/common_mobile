@@ -1,20 +1,19 @@
 import 'package:common/screens/gathering_detail/gathering_applicant_screen.dart';
+import 'package:common/services/gathering_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../constants/constants_colors.dart';
 import '../../../services/user_service.dart';
 
-class GatheringApplicantList extends StatelessWidget {
+class GatheringApplierList extends StatelessWidget {
   final String category;
   final String gatheringId;
   final String organizerId;
-  final List applicantList;
-  const GatheringApplicantList({
+  const GatheringApplierList({
     Key? key,
     required this.category,
     required this.gatheringId,
     required this.organizerId,
-    required this.applicantList,
   }) : super(key: key);
 
   @override
@@ -63,21 +62,27 @@ class GatheringApplicantList extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
-          Wrap(
-            spacing: 16,
-            runSpacing: 16,
-            children: applicantList
-                .map((userId) => SizedBox(
-                      width: 42,
-                      child: Column(
-                        children: [
-                          getProfileArea(userId),
-                          const SizedBox(height: 8),
-                          getNameArea(userId),
-                        ],
-                      ),
-                    ))
-                .toList(),
+          FutureBuilder(
+            future: GatheringService.getGatheringApplierList(id: gatheringId),
+            builder: (context,snapshot) {
+              List<String> applierList = snapshot.data??[];
+              return Wrap(
+                spacing: 16,
+                runSpacing: 16,
+                children: applierList
+                    .map((userId) => SizedBox(
+                          width: 42,
+                          child: Column(
+                            children: [
+                              getProfileArea(userId),
+                              const SizedBox(height: 8),
+                              getNameArea(userId),
+                            ],
+                          ),
+                        ))
+                    .toList(),
+              );
+            }
           ),
         ],
       ),

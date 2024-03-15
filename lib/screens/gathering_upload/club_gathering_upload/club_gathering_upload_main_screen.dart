@@ -59,8 +59,6 @@ class _ClubGatheringUploadMainScreenState
       'cityList': _gatheringCityList.map((city) => city.name).toList(),
       'capacity': _gatheringCapacity,
       'tagList': _gatheringTagList,
-      'memberList': [userId],
-      'applicantList': [],
     };
     ClubGathering gathering = ClubGathering.fromJson({
       'id': 'preview',
@@ -95,8 +93,6 @@ class _ClubGatheringUploadMainScreenState
         'cityList': _gatheringCityList.map((city) => city.name).toList(),
         'capacity': _gatheringCapacity,
         'tagList': _gatheringTagList,
-        'memberList': widget.gathering!.memberList,
-        'applicantList': widget.gathering!.applicantList,
       };
 
       ClubGathering gathering = ClubGathering.fromJson({

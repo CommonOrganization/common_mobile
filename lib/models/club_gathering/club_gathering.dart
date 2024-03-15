@@ -19,9 +19,7 @@ class ClubGathering extends Gathering {
     required super.recruitQuestion,
     required super.capacity,
     required super.tagList,
-    required super.memberList,
     required super.timeStamp,
-    required super.applicantList,
     required this.cityList,
   });
 

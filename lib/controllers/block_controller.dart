@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:common/controllers/local_controller.dart';
+import 'package:common/services/local_service.dart';
 import 'package:flutter/material.dart';
 
 class BlockController extends ChangeNotifier {
@@ -15,12 +15,12 @@ class BlockController extends ChangeNotifier {
 
   void initializeBlockedObjectList() async {
     List localSavedBlockedObjectList =
-        await LocalController.getBlockObjectList();
+        await LocalService.getBlockObjectList();
     blockedObjectList.addAll(localSavedBlockedObjectList);
   }
 
   Future<void> removeBlockedObject(String id) async {
-    bool removeSuccess = await LocalController.removeBlockedObject(id);
+    bool removeSuccess = await LocalService.removeBlockedObject(id);
     blockedObjectList.remove(id);
     if (removeSuccess) {
       notifyListeners();
@@ -28,7 +28,7 @@ class BlockController extends ChangeNotifier {
   }
 
   Future<void> blockObject(String id) async {
-    bool blockSuccess = await LocalController.blockNewObject(id);
+    bool blockSuccess = await LocalService.blockNewObject(id);
     blockedObjectList.add(id);
     if (blockSuccess) {
       notifyListeners();

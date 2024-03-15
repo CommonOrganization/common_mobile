@@ -67,17 +67,15 @@ class _GatheringApplicantScreenState extends State<GatheringApplicantScreen> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: FutureBuilder(
-            future: GatheringService.get(
-              category: widget.category,
+            future: GatheringService.getGatheringApplierList(
               id: widget.gatheringId,
-              field: 'applicantList',
             ),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                List applicantList = snapshot.data;
+                List<String> applierList = snapshot.data??[];
                 return ListView(
-                  children: applicantList
-                      .map((applicantId) => kApplicantMemberCard(applicantId))
+                  children: applierList
+                      .map((applierId) => kApplicantMemberCard(applierId))
                       .toList(),
                 );
               }
@@ -87,12 +85,12 @@ class _GatheringApplicantScreenState extends State<GatheringApplicantScreen> {
     );
   }
 
-  Widget kApplicantMemberCard(String applicantId) {
+  Widget kApplicantMemberCard(String applierId) {
     return Row(
       children: [
         Expanded(
           child: GatheringMemberCard(
-            memberId: applicantId,
+            memberId: applierId,
             isOrganizer: false,
           ),
         ),
@@ -108,7 +106,7 @@ class _GatheringApplicantScreenState extends State<GatheringApplicantScreen> {
                 builder: (context) => GatheringApplicationFormDialog(
                   category: widget.category,
                   gatheringId: widget.gatheringId,
-                  applicantId: applicantId,
+                  applierId: applierId,
                 ),
               ).then((value) => setState(() {}));
             },
