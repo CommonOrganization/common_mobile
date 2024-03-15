@@ -312,13 +312,14 @@ class _ClubGatheringDetailScreenState extends State<ClubGatheringDetailScreen> {
               userId: controller.user!.id);
         }
         return FutureBuilder(
-            future: GatheringService.getGatheringApplyStatus(
-                id: widget.gathering.id, userId: controller.user!.id),
-            builder: (context, snapshot) {
-              return getActionButton(
-                  gatheringApplyStatus: snapshot.data,
-                  userId: controller.user!.id);
-            });
+          future: GatheringService.getGatheringApplyStatus(
+              id: widget.gathering.id, userId: controller.user!.id),
+          builder: (context, snapshot) {
+            return getActionButton(
+                gatheringApplyStatus: snapshot.data,
+                userId: controller.user!.id);
+          },
+        );
       }),
     );
   }

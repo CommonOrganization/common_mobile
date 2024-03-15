@@ -99,6 +99,7 @@ class _ProfileUserContentsContainerState
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<OneDayGathering>? gatheringList = snapshot.data;
+
           if (gatheringList == null || gatheringList.isEmpty) {
             return Container();
           }

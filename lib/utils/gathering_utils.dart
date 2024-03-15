@@ -28,3 +28,20 @@ bool hasKeywordClubGathering(
   if (gathering.content.contains(keyword)) return true;
   return false;
 }
+
+List<OneDayGathering> getOneDayGatheringListByGatheringList(List gatheringList){
+  List<OneDayGathering> result = [];
+  for(var gathering in gatheringList){
+    result.add(OneDayGathering.fromJson(gathering));
+  }
+  result.sort((OneDayGathering a, OneDayGathering b)=>DateTime.parse(b.openingDate).difference(DateTime.parse(a.openingDate)).inSeconds);
+  return result;
+}
+
+List<ClubGathering> getClubGatheringListByGatheringList(List gatheringList){
+  List<ClubGathering> result = [];
+  for(var gathering in gatheringList){
+    result.add(ClubGathering.fromJson(gathering));
+  }
+  return result;
+}

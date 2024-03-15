@@ -1,9 +1,13 @@
 import 'dart:developer';
 import 'package:common/constants/constants_enum.dart';
+import 'package:common/constants/constants_value.dart';
 import 'package:common/models/gathering_apply_status/gathering_apply_status.dart';
 import 'package:common/services/firebase_service.dart';
 import 'package:common/services/upload_service.dart';
+import 'package:common/utils/gathering_utils.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../models/gathering/gathering.dart';
 
 //모임 공통 기능
 class GatheringService {
@@ -214,6 +218,46 @@ class GatheringService {
           .toList();
     } catch (e) {
       log('GatheringService - getGatheringApplierList Failed : $e');
+      return [];
+    }
+  }
+
+  static Future<List<Gathering>> getParticipatingGatheringList({
+    required String userId,
+    required String category, // kOneDayGathering or kClubGathering
+  }) async {
+    try {
+      List gatheringList = [];
+      await FirebaseService.fireStore.runTransaction((transaction) async {
+        final snapshot = await FirebaseService.fireStore
+            .collection(statusCollection)
+            .where('applierId', isEqualTo: userId)
+            .where('status', isEqualTo: 'member')
+            .get();
+
+        if (snapshot.docs.isEmpty) return [];
+        List gatheringIdList = snapshot.docs
+            .map((document) => document.get('gatheringId'))
+            .toList();
+
+        List result = [];
+
+        for (var id in gatheringIdList) {
+          final gathering = await transaction
+              .get(FirebaseService.fireStore.collection(category).doc(id));
+          if(gathering.exists){
+            result.add(gathering.data());
+          }
+
+        }
+        gatheringList = result;
+      });
+      if (category == kOneDayGatheringCategory) {
+        return getOneDayGatheringListByGatheringList(gatheringList);
+      }
+      return getClubGatheringListByGatheringList(gatheringList);
+    } catch (e) {
+      log('GatheringService - getParticipatingGatheringList Failed : $e');
       return [];
     }
   }

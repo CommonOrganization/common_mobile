@@ -187,16 +187,13 @@ class _ChatUploadUserSelectScreenState
           FutureBuilder(
               future: GatheringService.getGatheringMemberList(id:gathering.id),
               builder: (context, snapshot) {
-                if(snapshot.hasData){
-                  List<String> memberList = snapshot.data as List<String>;
-                  return Column(
-                    children: memberList.map((memberId) {
-                      if (memberId == userId) return Container();
-                      return kUserCard(memberId);
-                    }).toList(),
-                  );
-                }
-                return Container();
+                List<String> memberList = snapshot.data??[];
+                return Column(
+                  children: memberList.map((memberId) {
+                    if (memberId == userId) return Container();
+                    return kUserCard(memberId);
+                  }).toList(),
+                );
               }),
       ],
     );

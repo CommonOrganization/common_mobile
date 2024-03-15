@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:common/constants/constants_value.dart';
 import 'package:common/models/one_day_gathering/one_day_gathering.dart';
 import '../utils/gathering_utils.dart';
 import 'data_service.dart';
@@ -79,43 +80,22 @@ class OneDayGatheringService {
 
   static Future<List<OneDayGathering>> getGatheringListWhichUserIsParticipating(
       {required String userId}) async {
-    try {
-      DateTime nowDate = DateTime.now();
-      final snapshot = await FirebaseService.fireStore
-          .collection(_category)
-          .where('memberList', arrayContains: userId)
-          .where('openingDate', isGreaterThanOrEqualTo: nowDate.toString())
-          .orderBy('openingDate', descending: true)
-          .get();
-      if (snapshot.docs.isEmpty) return [];
-
-      return snapshot.docs
-          .map((gathering) => OneDayGathering.fromJson(gathering.data()))
-          .toList();
-    } catch (e) {
-      log('OneDayGatheringService - getGatheringListWhichUserIsParticipating Failed : $e');
-      return [];
-    }
+    DateTime nowDate = DateTime.now();
+    return (await GatheringService.getParticipatingGatheringList(
+            userId: userId,
+            category: kOneDayGatheringCategory) as List<OneDayGathering>)
+        .where((gathering) =>
+            DateTime.parse(gathering.openingDate).difference(nowDate) >=
+            Duration.zero)
+        .toList();
   }
 
   static Future<List<OneDayGathering>>
       getAllGatheringListWhichUserIsParticipating(
           {required String userId}) async {
-    try {
-      final snapshot = await FirebaseService.fireStore
-          .collection(_category)
-          .where('memberList', arrayContains: userId)
-          .orderBy('openingDate', descending: true)
-          .get();
-      if (snapshot.docs.isEmpty) return [];
-
-      return snapshot.docs
-          .map((gathering) => OneDayGathering.fromJson(gathering.data()))
-          .toList();
-    } catch (e) {
-      log('OneDayGatheringService - getAllGatheringListWhichUserIsParticipating Failed : $e');
-      return [];
-    }
+    return await GatheringService.getParticipatingGatheringList(
+        userId: userId,
+        category: kOneDayGatheringCategory) as List<OneDayGathering>;
   }
 
   /// 하루모임 콘텐츠

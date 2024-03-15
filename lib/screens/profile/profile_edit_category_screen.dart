@@ -157,7 +157,7 @@ class _ProfileEditCategoryScreenState extends State<ProfileEditCategoryScreen> {
                 );
                 if (updateSuccess) {
                   await controller.refreshUser();
-                  if (!mounted) return;
+                  if (!context.mounted) return;
                   Navigator.pop(context);
                 }
               },

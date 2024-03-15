@@ -52,7 +52,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   builder: (context) => const ChatUploadScreen(),
                 ),
               );
-              if (!mounted) return;
+              if (!context.mounted) return;
               if (chatId != null) {
                 Navigator.push(
                   context,

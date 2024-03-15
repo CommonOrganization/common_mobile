@@ -215,7 +215,7 @@ class _DailyDetailScreenState extends State<DailyDetailScreen> {
               onTap: () async {
                 bool uploadSuccess =
                     await DailyService.uploadDaily(daily: widget.daily);
-                if (!mounted) return;
+                if (!context.mounted) return;
                 if (uploadSuccess) {
                   Navigator.pop(context);
                   Navigator.pop(context);

@@ -168,7 +168,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           onTap: () async {
                             bool clearSearchWord =
                                 await LocalService.clearSearchWord();
-                            if (!mounted) return;
+                            if (!context.mounted) return;
                             if (clearSearchWord) {
                               context.read<ScreenController>().pageRefresh();
                             }

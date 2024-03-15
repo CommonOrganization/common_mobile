@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:common/constants/constants_enum.dart';
+import 'package:common/constants/constants_value.dart';
 import 'package:common/models/club_gathering/club_gathering.dart';
 import 'package:common/services/data_service.dart';
 import 'package:common/services/firebase_service.dart';
@@ -11,7 +12,9 @@ import 'gathering_service.dart';
 class ClubGatheringService {
   static final ClubGatheringService _instance =
       ClubGatheringService._internal();
+
   factory ClubGatheringService() => _instance;
+
   ClubGatheringService._internal();
 
   static const String _category = 'clubGathering';
@@ -63,21 +66,9 @@ class ClubGatheringService {
 
   static Future<List<ClubGathering>> getGatheringListWhichUserIsParticipating(
       {required String userId}) async {
-    try {
-      final snapshot = await FirebaseService.fireStore
-          .collection(_category)
-          .where('memberList', arrayContains: userId)
-          .get();
-
-      if (snapshot.docs.isEmpty) return [];
-
-      return snapshot.docs
-          .map((gathering) => ClubGathering.fromJson(gathering.data()))
-          .toList();
-    } catch (e) {
-      log('ClubGatheringService - getGatheringListWhichUserIsParticipating Failed : $e');
-      return [];
-    }
+    return await GatheringService.getParticipatingGatheringList(
+        userId: userId,
+        category: kClubGatheringCategory) as List<ClubGathering>;
   }
 
   /// 소모임 콘텐츠
@@ -167,7 +158,7 @@ class ClubGatheringService {
   }
 
   static Future<bool> canShowGatheringRanking(
-      {required List interestCategory,required String city}) async {
+      {required List interestCategory, required String city}) async {
     try {
       bool result = false;
       for (var category in interestCategory) {
@@ -324,7 +315,7 @@ class ClubGatheringService {
       {required List objectIdList}) async {
     try {
       QuerySnapshot<Map<String, dynamic>> snapshot =
-      await FirebaseService.fireStore.collection(_category).get();
+          await FirebaseService.fireStore.collection(_category).get();
 
       return snapshot.docs
           .map((element) => ClubGathering.fromJson(element.data()))

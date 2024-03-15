@@ -112,7 +112,7 @@ class _UserInviteScreenState extends State<UserInviteScreen> {
             if (_userIdList.isEmpty) return;
             await GroupChatService()
                 .inviteUser(chatId: widget.chatId, newUserIdList: _userIdList);
-            if (!mounted) return;
+            if (!context.mounted) return;
             Navigator.pop(context);
           } catch (e) {
             log('대화상대 초대 에러 : $e');

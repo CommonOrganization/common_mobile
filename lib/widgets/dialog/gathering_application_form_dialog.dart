@@ -37,6 +37,7 @@ class GatheringApplicationFormDialog extends StatelessWidget {
       actionsPadding: EdgeInsets.zero,
       contentPadding: EdgeInsets.zero,
       backgroundColor: kWhiteColor,
+      surfaceTintColor: kWhiteColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),

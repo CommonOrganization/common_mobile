@@ -57,13 +57,14 @@ class _ImageSaveBottomSheetState extends State<ImageSaveBottomSheet> {
                         for (int i = 0; i < widget.imageList.length; i++) {
                           saveSuccess = await saveImage(widget.imageList[i]);
                           if (!saveSuccess) {
-                            if (!mounted) return;
+                            if (!context.mounted) return;
                             Navigator.pop(context);
                             showMessage(context, message: '잠시후에 다시 시도해주세요.');
                             return;
                           }
+
                         }
-                        if (!mounted) return;
+                        if (!context.mounted) return;
                         if (saveSuccess) {
                           Navigator.pop(context);
                           showMessage(context, message: '사진이 갤러리에 저장되었습니다.');
@@ -79,7 +80,7 @@ class _ImageSaveBottomSheetState extends State<ImageSaveBottomSheet> {
                       onPressed: () async {
                         bool saveSuccess = await saveImage(
                             widget.imageList[widget.currentImageIndex]);
-                        if (!mounted) return;
+                        if (!context.mounted) return;
                         if (saveSuccess) {
                           Navigator.pop(context);
                           showMessage(context, message: '사진이 갤러리에 저장되었습니다.');

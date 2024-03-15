@@ -50,7 +50,7 @@ class _FavoriteButtonState extends State<FavoriteButton> {
                       LikeTypeExtenstion.getLikeType(widget.category).name,
                 );
               }
-              if (!mounted) return;
+              if (!context.mounted) return;
               context.read<ScreenController>().pageRefresh();
               setState(() {});
             },

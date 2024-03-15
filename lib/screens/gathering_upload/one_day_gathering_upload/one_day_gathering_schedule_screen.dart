@@ -109,7 +109,7 @@ class _OneDayGatheringScheduleScreenState
                         backgroundColor: Colors.transparent,
                         builder: (context) => const CustomDatePicker(),
                       );
-                      if (!mounted) return;
+                      if (!context.mounted) return;
                       if (selectedDate != null) {
                         if (selectedDate
                             .difference(DateTime.now()

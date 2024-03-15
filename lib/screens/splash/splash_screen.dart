@@ -48,7 +48,7 @@ class _SplashScreenState extends State<SplashScreen>
         () => _animationController.forward());
   }
 
-  Future<bool> appVersionCheck() async {
+  Future<bool> appVersionCheck(BuildContext context) async {
     PackageInfo? packageInfo = await PackageInfo.fromPlatform();
     String packageVersion = packageInfo.version;
      bool? canAppUse;
@@ -59,20 +59,19 @@ class _SplashScreenState extends State<SplashScreen>
       canAppUse = await DataService.canAppUse('ios',packageVersion);
     }
     if(canAppUse==null) return false;
-    if(context.mounted){
-      if(!canAppUse){
-        await showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (context) => const UpdateDialog(),
-        );
-      }
+    if(!context.mounted) return false;
+    if(!canAppUse){
+      await showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => const UpdateDialog(),
+      );
     }
     return true;
   }
 
   void autoLoginCheck() async {
-    bool versionCheckSuccess = await appVersionCheck();
+    bool versionCheckSuccess = await appVersionCheck(context);
     if (!versionCheckSuccess) return;
     Future.delayed(
       const Duration(milliseconds: 2250),
