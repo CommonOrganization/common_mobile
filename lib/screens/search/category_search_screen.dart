@@ -241,7 +241,7 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
         children: [
           FutureBuilder(
             future: OneDayGatheringService.getNewGatheringWithCategory(
-                city: city, category: _selectedCategory.name),
+                city: city, category: _selectedCategory.name,userId: userId),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 List<OneDayGathering>? gatheringList = snapshot.data;
@@ -286,7 +286,7 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
           ),
           FutureBuilder(
             future: OneDayGatheringService.getAllGatheringWithCategory(
-                city: city, category: _selectedCategory.name),
+                city: city, category: _selectedCategory.name,userId: userId),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 List<OneDayGathering> gatheringList =

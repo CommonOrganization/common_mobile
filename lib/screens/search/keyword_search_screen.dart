@@ -16,6 +16,7 @@ import '../../widgets/one_day_gathering_row_card.dart';
 
 class KeywordSearchScreen extends StatefulWidget {
   final String keyword;
+
   const KeywordSearchScreen({Key? key, required this.keyword})
       : super(key: key);
 
@@ -139,11 +140,14 @@ class _KeywordSearchScreenState extends State<KeywordSearchScreen> {
   }
 
   Widget kOneDayGatheringArea(String city) {
-    return Consumer<BlockController>(builder: (context, controller, child) {
+    return Consumer2<BlockController, UserController>(
+        builder: (context, controller, userController, child) {
+      if (userController.user == null) return Container();
       return FutureBuilder(
         future: OneDayGatheringService.searchGatheringWithKeyword(
           keyword: _searchWord,
           city: city,
+          userId: userController.user!.id,
         ),
         builder: (context, snapshot) {
           if (snapshot.hasData) {

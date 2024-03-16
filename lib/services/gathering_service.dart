@@ -185,6 +185,24 @@ class GatheringService {
     }
   }
 
+  static Future<List<String>> getUserParticipatingGatheringIdList({
+    required String userId,
+  }) async {
+    try {
+      final snapshot = await FirebaseService.fireStore
+          .collection(statusCollection)
+          .where('applierId', isEqualTo: userId)
+          .where('status', isEqualTo: 'member')
+          .get();
+
+      if (snapshot.docs.isEmpty) return [];
+      return snapshot.docs.map((e) => e.get('gatheringId') as String).toList();
+    } catch (e) {
+      log('GatheringService - getUserParticipatingGatheringIdList Failed : $e');
+      return [];
+    }
+  }
+
   static Future<List<String>> getGatheringMemberList(
       {required String id}) async {
     try {
@@ -245,10 +263,9 @@ class GatheringService {
         for (var id in gatheringIdList) {
           final gathering = await transaction
               .get(FirebaseService.fireStore.collection(category).doc(id));
-          if(gathering.exists){
+          if (gathering.exists) {
             result.add(gathering.data());
           }
-
         }
         gatheringList = result;
       });

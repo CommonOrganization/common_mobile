@@ -17,6 +17,7 @@ import '../../../services/one_day_gathering_service.dart';
 
 class GatheringCategoryContainer extends StatelessWidget {
   final String category;
+
   const GatheringCategoryContainer({Key? key, required this.category})
       : super(key: key);
 
@@ -80,7 +81,8 @@ class GatheringCategoryContainer extends StatelessWidget {
               default:
                 future = OneDayGatheringService
                     .getGatheringListWhichUserIsParticipating(
-                        userId: controller.user!.id);
+                  userId: controller.user!.id,
+                );
                 break;
             }
             return FutureBuilder(

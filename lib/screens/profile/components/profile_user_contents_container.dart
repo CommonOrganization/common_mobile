@@ -1,4 +1,6 @@
+import 'package:common/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../constants/constants_colors.dart';
 import '../../../models/club_gathering/club_gathering.dart';
@@ -13,6 +15,7 @@ import '../../../widgets/one_day_gathering_row_card.dart';
 
 class ProfileUserContentsContainer extends StatefulWidget {
   final String userId;
+
   const ProfileUserContentsContainer({Key? key, required this.userId})
       : super(key: key);
 
@@ -92,32 +95,35 @@ class _ProfileUserContentsContainerState
   }
 
   Widget kOneDayGatheringContents() {
-    return FutureBuilder(
-      future:
-          OneDayGatheringService.getAllGatheringListWhichUserIsParticipating(
-              userId: widget.userId),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          List<OneDayGathering>? gatheringList = snapshot.data;
+    return Consumer<UserController>(builder: (context, controller, child) {
+      if (controller.user == null) return Container();
+      return FutureBuilder(
+        future:
+            OneDayGatheringService.getAllGatheringListWhichUserIsParticipating(
+                userId: widget.userId),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            List<OneDayGathering>? gatheringList = snapshot.data;
 
-          if (gatheringList == null || gatheringList.isEmpty) {
-            return Container();
+            if (gatheringList == null || gatheringList.isEmpty) {
+              return Container();
+            }
+            return ListView(
+              physics: const ClampingScrollPhysics(),
+              shrinkWrap: true,
+              padding: const EdgeInsets.only(bottom: 10),
+              children: gatheringList
+                  .map((gathering) => OneDayGatheringRowCard(
+                        gathering: gathering,
+                        userId: widget.userId,
+                      ))
+                  .toList(),
+            );
           }
-          return ListView(
-            physics: const ClampingScrollPhysics(),
-            shrinkWrap: true,
-            padding: const EdgeInsets.only(bottom: 10),
-            children: gatheringList
-                .map((gathering) => OneDayGatheringRowCard(
-                      gathering: gathering,
-                      userId: widget.userId,
-                    ))
-                .toList(),
-          );
-        }
-        return Container();
-      },
-    );
+          return Container();
+        },
+      );
+    });
   }
 
   Widget kClubGatheringContents() {

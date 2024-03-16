@@ -78,9 +78,25 @@ class OneDayGatheringService {
     }
   }
 
+  // 모든 과정에 이를 추가해주어야함.
+  static Future<List<OneDayGathering>> canProvideGathering(
+      {required List<OneDayGathering> gatheringList,
+      required String userId}) async {
+    List<String> gatheringIdList =
+        await GatheringService.getUserParticipatingGatheringIdList(
+            userId: userId);
+    return gatheringList
+        .where((gathering) =>
+            gathering.showAllThePeople ||
+            gatheringIdList.contains(gathering.connectedClubGatheringId))
+        .toList();
+  }
+
+  /// 어떤 유저가 이 유저가 가입한 모든 하루모임을 리턴 ( 앞으로의 하루모임만을 리턴 )
   static Future<List<OneDayGathering>> getGatheringListWhichUserIsParticipating(
       {required String userId}) async {
     DateTime nowDate = DateTime.now();
+
     return (await GatheringService.getParticipatingGatheringList(
             userId: userId,
             category: kOneDayGatheringCategory) as List<OneDayGathering>)
@@ -90,6 +106,7 @@ class OneDayGatheringService {
         .toList();
   }
 
+  /// 이 유저가 참여했던 모든 하루모임을 리턴 ( 지난 하루모임 포함 )
   static Future<List<OneDayGathering>>
       getAllGatheringListWhichUserIsParticipating(
           {required String userId}) async {
@@ -100,7 +117,7 @@ class OneDayGatheringService {
 
   /// 하루모임 콘텐츠
   static Future<List<OneDayGathering>> getTodayGathering(
-      {required String city}) async {
+      {required String city, required String userId}) async {
     try {
       DateTime nowDate = DateTime.now();
       final snapshot = await FirebaseService.fireStore
@@ -111,10 +128,12 @@ class OneDayGatheringService {
                   nowDate.add(const Duration(days: 1)).toString())
           .get();
 
-      return snapshot.docs
+      List<OneDayGathering> result = snapshot.docs
           .map((element) => OneDayGathering.fromJson(element.data()))
           .where((element) => element.place['city'] == city)
           .toList();
+
+      return await canProvideGathering(gatheringList: result, userId: userId);
     } catch (e) {
       log('OneDayGatheringService - getTodayGathering Failed : $e');
       return [];
@@ -122,7 +141,9 @@ class OneDayGatheringService {
   }
 
   static Future<List<OneDayGathering>> getDailyGathering(
-      {required String city, required DateTime dateTime}) async {
+      {required String city,
+      required DateTime dateTime,
+      required String userId}) async {
     try {
       final snapshot = await FirebaseService.fireStore
           .collection(_category)
@@ -131,10 +152,11 @@ class OneDayGatheringService {
               isLessThan: dateTime.add(const Duration(days: 1)).toString())
           .get();
 
-      return snapshot.docs
+      List<OneDayGathering> result = snapshot.docs
           .map((element) => OneDayGathering.fromJson(element.data()))
           .where((element) => element.place['city'] == city)
           .toList();
+      return await canProvideGathering(gatheringList: result, userId: userId);
     } catch (e) {
       log('OneDayGatheringService - getDailyGathering Failed : $e');
       return [];
@@ -142,7 +164,9 @@ class OneDayGatheringService {
   }
 
   static Future<List<OneDayGathering>> getRecommendGathering(
-      {required String category, required String city}) async {
+      {required String category,
+      required String city,
+      required String userId}) async {
     try {
       DateTime nowDate = DateTime.now();
       final snapshot = await FirebaseService.fireStore
@@ -151,10 +175,11 @@ class OneDayGatheringService {
           .where('category', isEqualTo: category)
           .get();
 
-      return snapshot.docs
+      List<OneDayGathering> result = snapshot.docs
           .map((element) => OneDayGathering.fromJson(element.data()))
           .where((element) => element.place['city'] == city)
           .toList();
+      return await canProvideGathering(gatheringList: result, userId: userId);
     } catch (e) {
       log('OneDayGatheringService - getRecommendGathering Failed : $e');
       return [];
@@ -162,7 +187,7 @@ class OneDayGatheringService {
   }
 
   static Future<List<OneDayGathering>> getNearGathering(
-      {required String city}) async {
+      {required String city, required String userId}) async {
     try {
       DateTime nowDate = DateTime.now();
       final snapshot = await FirebaseService.fireStore
@@ -170,10 +195,12 @@ class OneDayGatheringService {
           .where('openingDate', isGreaterThanOrEqualTo: nowDate.toString())
           .get();
 
-      return snapshot.docs
+      List<OneDayGathering> result = snapshot.docs
           .map((element) => OneDayGathering.fromJson(element.data()))
           .where((element) => element.place['city'] == city)
           .toList();
+
+      return await canProvideGathering(gatheringList: result, userId: userId);
     } catch (e) {
       log('OneDayGatheringService - getNearGathering Failed : $e');
       return [];
@@ -181,7 +208,7 @@ class OneDayGatheringService {
   }
 
   static Future<List<OneDayGathering>> getNewGathering(
-      {required String city}) async {
+      {required String city, required String userId}) async {
     try {
       DateTime nowDate = DateTime.now();
       //TODO 쿼리에 timeStamp와 openingDate를 못넣는 이유 - Firestore 이슈 -> 스프링 전환시 동시 처리 예정
@@ -193,13 +220,14 @@ class OneDayGatheringService {
           .orderBy('timeStamp', descending: true)
           .get();
 
-      return snapshot.docs
+      List<OneDayGathering> result = snapshot.docs
           .map((element) => OneDayGathering.fromJson(element.data()))
           .where((element) => nowDate
               .difference(DateTime.parse(element.openingDate))
               .isNegative)
           .where((element) => element.place['city'] == city)
           .toList();
+      return await canProvideGathering(gatheringList: result, userId: userId);
     } catch (e) {
       log('OneDayGatheringService - getNewGathering Failed : $e');
       return [];
@@ -208,7 +236,9 @@ class OneDayGatheringService {
 
   /// 하루모임 검색
   static Future<List<OneDayGathering>> searchGatheringWithKeyword(
-      {required String keyword, required String city}) async {
+      {required String keyword,
+      required String city,
+      required String userId}) async {
     try {
       DateTime nowDate = DateTime.now();
       final snapshot = await FirebaseService.fireStore
@@ -216,12 +246,13 @@ class OneDayGatheringService {
           .where('openingDate', isGreaterThanOrEqualTo: nowDate.toString())
           .get();
 
-      return snapshot.docs
+      List<OneDayGathering> result = snapshot.docs
           .map((element) => OneDayGathering.fromJson(element.data()))
           .where((element) =>
               hasKeywordOneDayGathering(gathering: element, keyword: keyword))
           .where((element) => element.place['city'] == city)
           .toList();
+      return await canProvideGathering(gatheringList: result, userId: userId);
     } catch (e) {
       log('OneDayGatheringService - searchGatheringWithKeyword Failed : $e');
       return [];
@@ -230,7 +261,9 @@ class OneDayGatheringService {
 
   /// 카테고리 검색
   static Future<List<OneDayGathering>> getNewGatheringWithCategory(
-      {required String city, required String category}) async {
+      {required String city,
+      required String category,
+      required String userId}) async {
     try {
       DateTime nowDate = DateTime.now();
       //TODO 쿼리에 timeStamp와 openingDate를 못넣는 이유 - Firestore 이슈 -> 스프링 전환시 동시 처리 예정
@@ -254,13 +287,14 @@ class OneDayGatheringService {
             .get();
       }
 
-      return snapshot.docs
+      List<OneDayGathering> result = snapshot.docs
           .map((element) => OneDayGathering.fromJson(element.data()))
           .where((element) => nowDate
               .difference(DateTime.parse(element.openingDate))
               .isNegative)
           .where((element) => element.place['city'] == city)
           .toList();
+      return await canProvideGathering(gatheringList: result, userId: userId);
     } catch (e) {
       log('OneDayGatheringService - getNewGatheringWithCategory Failed : $e');
       return [];
@@ -268,7 +302,9 @@ class OneDayGatheringService {
   }
 
   static Future<List<OneDayGathering>> getAllGatheringWithCategory(
-      {required String city, required String category}) async {
+      {required String city,
+      required String category,
+      required String userId}) async {
     try {
       DateTime nowDate = DateTime.now();
       late QuerySnapshot<Map<String, dynamic>> snapshot;
@@ -285,10 +321,12 @@ class OneDayGatheringService {
             .get();
       }
 
-      return snapshot.docs
+      List<OneDayGathering> result = snapshot.docs
           .map((element) => OneDayGathering.fromJson(element.data()))
           .where((element) => element.place['city'] == city)
           .toList();
+
+      return await canProvideGathering(gatheringList: result, userId: userId);
     } catch (e) {
       log('OneDayGatheringService - getAllGatheringWithCategory Failed : $e');
       return [];

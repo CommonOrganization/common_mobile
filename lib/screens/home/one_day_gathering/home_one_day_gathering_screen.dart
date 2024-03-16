@@ -50,7 +50,7 @@ class _HomeOneDayGatheringScreenState extends State<HomeOneDayGatheringScreen> {
                     const SizedBox(height: 45),
                     OneDayGatheringContentsArea(
                       future: OneDayGatheringService.getTodayGathering(
-                          city: userPlace.city),
+                          city: userPlace.city, userId: controller.user!.id),
                       title: '오늘 당장 만날 수 있는 하루모임',
                     ),
                     Builder(builder: (context) {
@@ -63,19 +63,21 @@ class _HomeOneDayGatheringScreenState extends State<HomeOneDayGatheringScreen> {
 
                       return OneDayGatheringContentsArea(
                         future: OneDayGatheringService.getRecommendGathering(
-                            category: category.name, city: userPlace.city),
+                            category: category.name,
+                            city: userPlace.city,
+                            userId: controller.user!.id),
                         title: '추천하는 ${category.title} 하루모임',
                       );
                     }),
                     const OneDayGatheringCalendar(),
                     OneDayGatheringContentsArea(
                       future: OneDayGatheringService.getNearGathering(
-                          city: userPlace.city),
+                          city: userPlace.city, userId: controller.user!.id),
                       title: '나와 가까운 하루모임',
                     ),
                     OneDayGatheringContentsArea(
                       future: OneDayGatheringService.getNewGathering(
-                          city: userPlace.city),
+                          city: userPlace.city, userId: controller.user!.id),
                       title: '새로 열린 하루모임',
                     ),
                   ],

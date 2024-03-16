@@ -2,7 +2,6 @@ import 'package:common/constants/constants_colors.dart';
 import 'package:common/controllers/block_controller.dart';
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/one_day_gathering/one_day_gathering.dart';
-import 'package:common/models/user/user.dart';
 import 'package:common/screens/gathering_upload/one_day_gathering_upload/one_day_gathering_upload_main_screen.dart';
 import 'package:common/screens/home/one_day_gathering/one_day_gathering_calendar_card.dart';
 import 'package:flutter/material.dart';
@@ -62,73 +61,68 @@ class _OneDayGatheringCalendarState extends State<OneDayGatheringCalendar> {
               ],
             ),
           ),
-          Builder(
-            builder: (context) {
-              User? user = context.read<UserController>().user;
-              if (user == null) return Container();
-              UserPlace userPlace =
-                  UserPlace.fromJson(user.userPlace as Map<String, dynamic>);
+          Consumer2<BlockController,UserController>(
+              builder: (context, controller,userController, child) {
+                if (userController.user == null) return Container();
+                UserPlace userPlace =
+                UserPlace.fromJson(userController.user!.userPlace as Map<String, dynamic>);
 
-              //설정된 날짜
-              DateTime addedDate =
-                  _nowDate.add(Duration(days: _selectedAddDay));
-              //해당 날짜의 0시0분부터 데이터를 가져오기 위해 생성
-              DateTime dateTime =
-                  DateTime(addedDate.year, addedDate.month, addedDate.day);
+                //설정된 날짜
+                DateTime addedDate =
+                _nowDate.add(Duration(days: _selectedAddDay));
+                //해당 날짜의 0시0분부터 데이터를 가져오기 위해 생성
+                DateTime dateTime =
+                DateTime(addedDate.year, addedDate.month, addedDate.day);
 
-              return Consumer<BlockController>(
-                  builder: (context, controller, child) {
                 return FutureBuilder(
-                  future: OneDayGatheringService.getDailyGathering(
-                      city: userPlace.city, dateTime: dateTime),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      List<OneDayGathering>? gatheringList = snapshot.data;
-                      if (gatheringList == null) return Container();
-                      gatheringList = gatheringList
-                          .where((gathering) => !controller.blockedObjectList
-                              .contains(gathering.id))
-                          .where((gathering) => !controller.blockedObjectList
-                              .contains(gathering.organizerId))
-                          .toList();
-                      if (gatheringList.isNotEmpty) {
-                        int count = 1;
-                        int gatheringSize =
-                            gatheringList.length > 3 ? 3 : gatheringList.length;
-                        return Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 26),
+              future: OneDayGatheringService.getDailyGathering(
+                  city: userPlace.city, dateTime: dateTime,userId: userController.user!.id),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  List<OneDayGathering>? gatheringList = snapshot.data;
+                  if (gatheringList == null) return Container();
+                  gatheringList = gatheringList
+                      .where((gathering) => !controller.blockedObjectList
+                          .contains(gathering.id))
+                      .where((gathering) => !controller.blockedObjectList
+                          .contains(gathering.organizerId))
+                      .toList();
+                  if (gatheringList.isNotEmpty) {
+                    int count = 1;
+                    int gatheringSize =
+                        gatheringList.length > 3 ? 3 : gatheringList.length;
+                    return Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 26),
+                      color: kDarkGray20Color,
+                      child: Container(
+                        width: MediaQuery.of(context).size.width - 40,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
                           color: kDarkGray20Color,
-                          child: Container(
-                            width: MediaQuery.of(context).size.width - 40,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: kDarkGray20Color,
-                            ),
-                            child: Column(
-                              children: gatheringList
-                                  .sublist(0, gatheringSize)
-                                  .map(
-                                    (gathering) => OneDayGatheringCalendarCard(
-                                      count: count++,
-                                      gathering: gathering,
-                                      gatheringSize: gatheringSize,
-                                      userId: user.id,
-                                    ),
-                                  )
-                                  .toList(),
-                            ),
-                          ),
-                        );
-                      }
-                      return noGatheringContainer();
-                    }
-                    return Container();
-                  },
-                );
-              });
-            },
-          ),
+                        ),
+                        child: Column(
+                          children: gatheringList
+                              .sublist(0, gatheringSize)
+                              .map(
+                                (gathering) => OneDayGatheringCalendarCard(
+                                  count: count++,
+                                  gathering: gathering,
+                                  gatheringSize: gatheringSize,
+                                  userId: userController.user!.id,
+                                ),
+                              )
+                              .toList(),
+                        ),
+                      ),
+                    );
+                  }
+                  return noGatheringContainer();
+                }
+                return Container();
+              },
+            );
+          }),
         ],
       ),
     );
