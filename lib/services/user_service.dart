@@ -44,11 +44,11 @@ class UserService {
   }
 
   static Future<User?> login(
-      {required String phone, required String password}) async {
+      {required String email, required String password}) async {
     try {
       final snapshot = await FirebaseService.fireStore
           .collection(collection)
-          .where('phone', isEqualTo: phone)
+          .where('email', isEqualTo: email)
           .where('password', isEqualTo: password)
           .get();
 
@@ -166,13 +166,13 @@ class UserService {
   }
 
   static Future<bool> updatePassword({
-    required String phone,
+    required String email,
     required String newPassword,
   }) async {
     try {
       final snapshot = await FirebaseService.fireStore
           .collection(collection)
-          .where('phone', isEqualTo: phone)
+          .where('email', isEqualTo: email)
           .get();
 
       if (snapshot.docs.isNotEmpty) {

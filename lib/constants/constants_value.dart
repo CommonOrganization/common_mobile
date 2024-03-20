@@ -2,10 +2,6 @@ import 'package:common/constants/constants_enum.dart';
 
 const String kAdminNumber = '990116';
 
-const String kSENSServiceId = 'ncp:sms:kr:272033445057:common_damoim';
-const String kSENSAccessKey = 'zjOM8XgBcfQ2NdUBwEVM';
-const String kSENSSecretKey = 'xcCu4cBzvoRbChlXXroyOBDoAtzdTxpLaqW7XVAi';
-
 const String kKakaoRestAPIKey = 'fc0ad4a3411161995e5b2bbe9381c594';
 
 const double kBottomSheetHeight = 350;

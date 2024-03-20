@@ -82,7 +82,7 @@ class _SplashScreenState extends State<SplashScreen>
           context,
           MaterialPageRoute(
             builder: (context) =>
-                autoLoggedIn ? const MainScreen() : const LoginScreen(),
+                !autoLoggedIn ? const MainScreen() : const LoginScreen(),
           ),
         );
       },

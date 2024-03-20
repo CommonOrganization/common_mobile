@@ -2,8 +2,8 @@ import 'dart:developer';
 import 'package:common/constants/constants_colors.dart';
 import 'package:common/models/user_place/user_place.dart';
 import 'package:common/screens/sign/register_category_screen.dart';
+import 'package:common/screens/sign/register_email_screen.dart';
 import 'package:common/screens/sign/register_information_screen.dart';
-import 'package:common/screens/sign/register_phone_screen.dart';
 import 'package:common/screens/sign/register_profile_screen.dart';
 import 'package:common/screens/sign/register_user_information_screen.dart';
 import 'package:common/screens/sign/welcome_screen.dart';
@@ -26,8 +26,7 @@ class RegisterMainScreen extends StatefulWidget {
 
 class _RegisterMainScreenState extends State<RegisterMainScreen> {
   int _pageIndex = 0;
-  late String _userPhone;
-  late Country _userCountry;
+  late String _userEmail;
   late String _userName;
   late String _userPassword;
   late String _userGender;
@@ -42,8 +41,7 @@ class _RegisterMainScreenState extends State<RegisterMainScreen> {
       if (_isLoading) return;
       _isLoading = true;
       Map<String, dynamic> userData = {
-        'phone': _userPhone,
-        'country': _userCountry.name,
+        'email': _userEmail,
         'name': _userName,
         'password': _userPassword,
         'gender': _userGender,
@@ -79,19 +77,18 @@ class _RegisterMainScreenState extends State<RegisterMainScreen> {
   Widget getScreen() {
     switch (_pageIndex) {
       case 0:
-        return RegisterPhoneScreen(
-          nextPressed: (String phone, Country country) async {
-            bool isDuplicatedPhoneNumber =
-                await UserService.duplicate(field: 'phone', value: phone);
+        return RegisterEmailScreen(
+          nextPressed: (String email) async {
+            bool isDuplicatedEmail =
+                await UserService.duplicate(field: 'phone', value: email);
             if (!mounted) return;
-            if (isDuplicatedPhoneNumber) {
-              showMessage(context, message: '이미 가입된 번호입니다.');
+            if (isDuplicatedEmail) {
+              showMessage(context, message: '이미 가입된 이메일입니다.');
               return;
             }
             setState(() {
               _pageIndex++;
-              _userPhone = phone;
-              _userCountry = country;
+              _userEmail = email;
             });
           },
         );

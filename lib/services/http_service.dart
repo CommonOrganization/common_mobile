@@ -1,9 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
-import '../constants/constants_enum.dart';
 import '../constants/constants_value.dart';
-import '../utils/local_utils.dart';
 
 class HttpService {
   static final HttpService _instance = HttpService._initialize();
@@ -12,49 +10,34 @@ class HttpService {
     log('HttpService Initialized');
   }
 
-  static Future<bool> sendSMS({
-    required String phoneNumber,
-    required String certificationNumber,
-    required Country country,
+  static Future<void> sendEmail({
+    required String email,
+    required String certifyCode,
   }) async {
-    try {
-      Map<String, dynamic> data = {
-        "type": "SMS",
-        "contentType": "COMM",
-        "countryCode": country.code.toString(),
-        "from": "01037058825", //여기는 발신번호
-        "content": "[커먼]인증번호는[$certificationNumber]입니다",
-        "messages": [
-          {
-            "to": phoneNumber, //수신자 번호
-            "content": "[커먼]인증번호는[$certificationNumber]입니다", //내용
+    final url = Uri.parse('https://api.emailjs.com/api/v1.0/email/send');
+
+    const serviceId = 'service_kbwouod';
+    const templateId = 'template_fhs7vkp';
+    const userId = 'UB1SvQLjvQV50-rvG';
+
+    await http.post(
+      url,
+      headers: {
+        'origin': 'http://localhost',
+        'Content-Type': 'application/json',
+      },
+      body: json.encode(
+        {
+          'service_id': serviceId,
+          'template_id': templateId,
+          'user_id': userId,
+          'template_params': {
+            'email': email,
+            'certifyCode': certifyCode,
           }
-        ],
-      };
-      String timeStamp = (DateTime.now().millisecondsSinceEpoch).toString();
-      await http.post(
-        Uri.parse(
-            'https://sens.apigw.ntruss.com/sms/v2/services/$kSENSServiceId/messages'),
-        headers: {
-          "accept": "application/json",
-          'content-Type': 'application/json; charset=UTF-8',
-          'x-ncp-apigw-timestamp': timeStamp,
-          'x-ncp-iam-access-key': kSENSAccessKey,
-          'x-ncp-apigw-signature-v2': getSignatureKey(
-            serviceId: kSENSServiceId,
-            timeStamp: timeStamp,
-            accessKey: kSENSAccessKey,
-            secretKey: kSENSSecretKey,
-          ),
         },
-        body: json.encode(data),
-      );
-      log('$phoneNumber에게 보낸 메세지 : [커먼]인증번호는[$certificationNumber]입니다');
-      return true;
-    } catch (e) {
-      log('HttpService - sendSMS Failed : $e');
-      return false;
-    }
+      ),
+    );
   }
 
   static Future<String?> searchPlaceWithKeyword(String keyword) async {

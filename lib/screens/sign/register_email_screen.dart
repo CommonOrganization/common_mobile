@@ -1,32 +1,27 @@
 import 'dart:async';
 import 'package:common/constants/constants_colors.dart';
-import 'package:common/constants/constants_enum.dart';
 import 'package:common/constants/constants_reg.dart';
-import 'package:common/screens/sign/bottom_sheets/country_select_bottom_sheet.dart';
 import 'package:common/services/http_service.dart';
 import 'package:common/utils/local_utils.dart';
+import 'package:common/widgets/common_text_field.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-
 import '../../constants/constants_value.dart';
 import '../../widgets/common_action_button.dart';
-import '../../widgets/common_text_field.dart';
 
-class ResetPasswordPhoneScreen extends StatefulWidget {
+class RegisterEmailScreen extends StatefulWidget {
   final Function nextPressed;
-  const ResetPasswordPhoneScreen({Key? key, required this.nextPressed})
+  const RegisterEmailScreen({Key? key, required this.nextPressed})
       : super(key: key);
 
   @override
-  State<ResetPasswordPhoneScreen> createState() =>
-      _ResetPasswordPhoneScreenState();
+  State<RegisterEmailScreen> createState() => _RegisterEmailScreenState();
 }
 
-class _ResetPasswordPhoneScreenState extends State<ResetPasswordPhoneScreen> {
+class _RegisterEmailScreenState extends State<RegisterEmailScreen> {
   int _index = 0;
-  int _time = 60;
+  int _time = 300;
 
-  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _certifyFirstController = TextEditingController();
   final TextEditingController _certifySecondController =
       TextEditingController();
@@ -38,8 +33,6 @@ class _ResetPasswordPhoneScreenState extends State<ResetPasswordPhoneScreen> {
 
   final FocusNode _firstFocusNode = FocusNode();
   final FocusNode _lastFocusNode = FocusNode();
-
-  Country _country = Country.republicOfKorea;
 
   late String _certificationNumber;
   Timer? _timer;
@@ -53,19 +46,21 @@ class _ResetPasswordPhoneScreenState extends State<ResetPasswordPhoneScreen> {
   @override
   void dispose() {
     _timer?.cancel();
-    _phoneController.dispose();
+    _emailController.dispose();
     _certifyFirstController.dispose();
     _certifySecondController.dispose();
     _certifyThirdController.dispose();
     _certifyFourthController.dispose();
     _certifyFifthController.dispose();
     _certifySixthController.dispose();
+    _firstFocusNode.dispose();
+    _lastFocusNode.dispose();
     super.dispose();
   }
 
   void sendCertificationNumber() {
     _timer?.cancel();
-    setState(() => _time = 60);
+    setState(() => _time = 300);
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() => _time--);
       if (_time == 0) {
@@ -73,15 +68,18 @@ class _ResetPasswordPhoneScreenState extends State<ResetPasswordPhoneScreen> {
       }
     });
     _certificationNumber = getNewCertificationNumber();
-    HttpService.sendSMS(
-      phoneNumber: _phoneController.text,
-      certificationNumber: _certificationNumber,
-      country: _country,
+
+    HttpService.sendEmail(
+      email: _emailController.text,
+      certifyCode: _certificationNumber,
     );
   }
 
   void resendCertificationNumber() {
-    if (_time > 50) return;
+    if (_time > 240){
+      showMessage(context, message: '1분이 지난 후에 다시 시도해 주세요.');
+      return;
+    }
     _certifyFirstController.clear();
     _certifySecondController.clear();
     _certifyThirdController.clear();
@@ -97,11 +95,11 @@ class _ResetPasswordPhoneScreenState extends State<ResetPasswordPhoneScreen> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
-      child: _index > 0 ? certifyArea() : phoneArea(),
+      child: _index > 0 ? certifyArea() : emailArea(),
     );
   }
 
-  Widget phoneArea() {
+  Widget emailArea() {
     return Column(
       children: [
         Expanded(
@@ -112,7 +110,7 @@ class _ResetPasswordPhoneScreenState extends State<ResetPasswordPhoneScreen> {
               children: [
                 const SizedBox(height: 12),
                 Text(
-                  '가입정보 확인',
+                  '이메일 주소 입력',
                   style: TextStyle(
                     color: kFontGray900Color,
                     fontSize: 20,
@@ -122,7 +120,7 @@ class _ResetPasswordPhoneScreenState extends State<ResetPasswordPhoneScreen> {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  '가입한 전화번호를 입력해주세요.',
+                  '이메일 주소는 중복 가입을 막기 위해서만 사용되어요.',
                   style: TextStyle(
                     fontSize: 14,
                     color: kFontGray500Color,
@@ -130,74 +128,43 @@ class _ResetPasswordPhoneScreenState extends State<ResetPasswordPhoneScreen> {
                   ),
                 ),
                 const SizedBox(height: 36),
-                Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () async {
-                        Country? selectedCountry = await showModalBottomSheet(
-                          context: context,
-                          isScrollControlled: true,
-                          backgroundColor: Colors.transparent,
-                          builder: (context) =>
-                              CountrySelectBottomSheet(country: _country),
-                        );
-                        if (selectedCountry != null) {
-                          setState(() => _country = selectedCountry);
-                        }
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        alignment: Alignment.center,
-                        constraints: const BoxConstraints(minWidth: 70),
-                        height: 52,
-                        decoration: BoxDecoration(
-                          color: kFontGray50Color,
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              '+${_country.code}',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: kFontGray800Color,
-                                height: 20 / 14,
-                              ),
-                            ),
-                            const SizedBox(width: 4),
-                            SvgPicture.asset(
-                              'assets/icons/svg/arrow_down_20px.svg',
-                              colorFilter: ColorFilter.mode(
-                                kFontGray400Color,
-                                BlendMode.srcIn,
-                              ),
-                            ),
-                          ],
-                        ),
+                CommonTextField(
+                  controller: _emailController,
+                  hintText: '이메일 주소를 입력하세요.',
+                  textChanged: (text) => setState(() {}),
+                  inputType: TextInputType.emailAddress,
+                ),
+                const SizedBox(height: 8),
+                SingleChildScrollView(
+                  physics: const ClampingScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      policyText(text: '회원가입과 동시에 '),
+                      policyText(
+                        text: '이용약관, ',
+                        isPolicy: true,
+                        onTap: () => launchServiceUsePolicy(),
                       ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: CommonTextField(
-                        controller: _phoneController,
-                        hintText: '전화번호를 입력하세요.',
-                        textChanged: (text) => setState(() {}),
-                        maxLength: 11,
-                        inputType: TextInputType.number,
+                      policyText(
+                        text: '개인정보 취급방침',
+                        isPolicy: true,
+                        onTap: () =>
+                            launchPersonalInformationProcessingPolicy(),
                       ),
-                    ),
-                  ],
+                      policyText(text: '에 동의하는 것으로 간주합니다.'),
+                    ],
+                  ),
                 ),
               ],
             ),
           ),
         ),
         CommonActionButton(
-          value: kPhoneRegExp.hasMatch(_phoneController.text),
+          value: kEmailRegExp.hasMatch(_emailController.text),
           title: '다음',
           onTap: () {
-            if (kPhoneRegExp.hasMatch(_phoneController.text)) {
+            if (kEmailRegExp.hasMatch(_emailController.text)) {
               _index++;
               sendCertificationNumber();
               _firstFocusNode.requestFocus();
@@ -236,7 +203,7 @@ class _ResetPasswordPhoneScreenState extends State<ResetPasswordPhoneScreen> {
                       height: 20 / 14,
                     ),
                     children: [
-                      TextSpan(text: '${_phoneController.text} 로 '),
+                      TextSpan(text: '${_emailController.text} 로 '),
                       TextSpan(
                         text: '$_time',
                         style: TextStyle(
@@ -307,7 +274,7 @@ class _ResetPasswordPhoneScreenState extends State<ResetPasswordPhoneScreen> {
               showMessage(context, message: '시간이 초과되었습니다.');
               return;
             }
-            widget.nextPressed(_phoneController.text);
+            widget.nextPressed(_emailController.text);
           },
         ),
       ],
@@ -315,46 +282,69 @@ class _ResetPasswordPhoneScreenState extends State<ResetPasswordPhoneScreen> {
   }
 
   Widget kCertifyTextFieldArea(
-          {required TextEditingController controller, FocusNode? focusNode}) =>
-      Expanded(
-        child: Container(
-          decoration: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(
-                color:
-                    controller.text.isNotEmpty ? kMainColor : kFontGray100Color,
-                width: 3,
-              ),
+      {required TextEditingController controller, FocusNode? focusNode}) {
+    return Expanded(
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              color:
+                  controller.text.isNotEmpty ? kMainColor : kFontGray100Color,
+              width: 3,
             ),
-          ),
-          child: TextField(
-            controller: controller,
-            focusNode: focusNode,
-            keyboardType: TextInputType.number,
-            maxLength: 1,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 36,
-              color: kMainColor,
-              height: 47 / 36,
-            ),
-            decoration: const InputDecoration(
-              border: InputBorder.none,
-              enabledBorder: InputBorder.none,
-              focusedBorder: InputBorder.none,
-              isDense: true,
-              counterText: '',
-            ),
-            onChanged: (text) => setState(() {
-              if (checkCertificationNumber) {
-                _timer?.cancel();
-              }
-              if (text.isNotEmpty) {
-                if (focusNode == _lastFocusNode) return;
-                FocusScope.of(context).nextFocus();
-              }
-            }),
           ),
         ),
-      );
+        child: TextField(
+          controller: controller,
+          focusNode: focusNode,
+          keyboardType: TextInputType.number,
+          maxLength: 1,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 36,
+            color: kMainColor,
+            height: 47 / 36,
+          ),
+          decoration: const InputDecoration(
+            border: InputBorder.none,
+            enabledBorder: InputBorder.none,
+            focusedBorder: InputBorder.none,
+            isDense: true,
+            counterText: '',
+          ),
+          onChanged: (text) => setState(() {
+            if (checkCertificationNumber) {
+              _timer?.cancel();
+            }
+            if (text.isNotEmpty) {
+              if (focusNode == _lastFocusNode) return;
+              FocusScope.of(context).nextFocus();
+            }
+          }),
+        ),
+      ),
+    );
+  }
+
+  Widget policyText({
+    required String text,
+    bool isPolicy = false,
+    Function? onTap,
+  }) {
+    return GestureDetector(
+      onTap: () {
+        if (onTap == null) return;
+        onTap();
+      },
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 11,
+          color: isPolicy ? kSubColor3 : kFontGray400Color,
+          height: 20 / 11,
+          fontWeight: isPolicy ? FontWeight.bold : FontWeight.normal,
+        ),
+      ),
+    );
+  }
 }

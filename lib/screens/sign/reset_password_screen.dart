@@ -1,5 +1,5 @@
 import 'package:common/screens/sign/reset_new_password_screen.dart';
-import 'package:common/screens/sign/reset_password_phone_screen.dart';
+import 'package:common/screens/sign/reset_password_email_screen.dart';
 import 'package:common/utils/local_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -15,13 +15,13 @@ class ResetPasswordScreen extends StatefulWidget {
 
 class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   int _pageIndex = 0;
-  late String _userPhone;
+  late String _userEmail;
   late String _userNewPassword;
 
   Future<void> resetPasswordPressed(String newPassword) async {
     _userNewPassword = newPassword;
     bool updateSuccess = await UserService.updatePassword(
-        phone: _userPhone, newPassword: _userNewPassword);
+        email: _userEmail, newPassword: _userNewPassword);
     if (!mounted) return;
     if (updateSuccess) {
       Navigator.pop(context);
@@ -34,10 +34,10 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   Widget getScreen() {
     switch (_pageIndex) {
       case 0:
-        return ResetPasswordPhoneScreen(
-          nextPressed: (String phone) => setState(() {
+        return ResetPasswordEmailScreen(
+          nextPressed: (String email) => setState(() {
             _pageIndex++;
-            _userPhone = phone;
+            _userEmail = email;
           }),
         );
       case 1:

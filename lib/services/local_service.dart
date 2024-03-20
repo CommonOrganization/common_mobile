@@ -10,7 +10,6 @@ class LocalService {
   static SharedPreferences? _sharedPreferences;
 
   static const String _userInfoKey = 'userInfo';
-  static const String _userPhoneKey = 'userPhone';
   static const String _searchWorkKey = 'searchWord';
   static const String _blockObjectListKey = 'blockObjectList';
 
@@ -68,32 +67,6 @@ class LocalService {
       return User.fromJson(userInfo);
     } catch (e) {
       log('LocalController - getUserInfo Failed : $e');
-      return null;
-    }
-  }
-
-  static Future<bool> saveUserPhone(String userPhone) async {
-    try {
-      if (_sharedPreferences == null) {
-        await _setSharedPreferences();
-      }
-      await _sharedPreferences?.setString(_userPhoneKey, userPhone);
-      return true;
-    } catch (e) {
-      log('LocalController - saveUserPhone Failed : $e');
-      return false;
-    }
-  }
-
-  static Future<String?> getUserPhone() async {
-    try {
-      if (_sharedPreferences == null) {
-        await _setSharedPreferences();
-      }
-      String? userPhone = _sharedPreferences?.getString(_userPhoneKey);
-      return userPhone;
-    } catch (e) {
-      log('LocalController - getUserPhone Failed : $e');
       return null;
     }
   }

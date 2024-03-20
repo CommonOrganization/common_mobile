@@ -12,7 +12,7 @@ class UserController extends ChangeNotifier {
     User? userInfo = await LocalService.getUserInfo();
     if (userInfo == null) return false;
     User? loginUserInfo = await UserService.login(
-        phone: userInfo.phone, password: userInfo.password);
+        email: userInfo.email, password: userInfo.password);
     if (loginUserInfo == null) return false;
     await LocalService.saveUserData(loginUserInfo);
     user = loginUserInfo;

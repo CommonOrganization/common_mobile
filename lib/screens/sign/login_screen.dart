@@ -21,18 +21,18 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   bool _keepLogin = true;
 
   void loginPressed() async {
-    if (_phoneController.text.isEmpty || _passwordController.text.isEmpty) {
-      showMessage(context, message: '전화번호와 비밀번호를 모두 입력해 주세요');
+    if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
+      showMessage(context, message: '이메일 주소와 비밀번호를 모두 입력해 주세요');
       return;
     }
     User? user = await UserService.login(
-        phone: _phoneController.text, password: _passwordController.text);
+        email: _emailController.text, password: _passwordController.text);
     if (!mounted) return;
     if (user == null) {
       showMessage(context, message: '입력한 정보를 다시 한번 확인해 주세요');
@@ -80,11 +80,10 @@ class _LoginScreenState extends State<LoginScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: CommonTextField(
-                controller: _phoneController,
-                hintText: '휴대폰 번호',
+                controller: _emailController,
+                hintText: '이메일 주소',
                 textChanged: (text) => setState(() {}),
-                maxLength: 11,
-                inputType: TextInputType.number,
+                inputType: TextInputType.emailAddress,
               ),
             ),
             const SizedBox(height: 12),
