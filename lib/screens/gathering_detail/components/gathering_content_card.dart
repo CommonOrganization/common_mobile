@@ -4,8 +4,7 @@ import '../../../constants/constants_colors.dart';
 
 class GatheringContentCard extends StatelessWidget {
   final String content;
-  const GatheringContentCard({Key? key, required this.content})
-      : super(key: key);
+  const GatheringContentCard({super.key, required this.content});
 
   @override
   Widget build(BuildContext context) {

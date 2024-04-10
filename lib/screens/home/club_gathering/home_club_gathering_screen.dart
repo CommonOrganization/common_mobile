@@ -14,7 +14,7 @@ import 'club_gathering_contents_area.dart';
 import 'club_gathering_ranking.dart';
 
 class HomeClubGatheringScreen extends StatefulWidget {
-  const HomeClubGatheringScreen({Key? key}) : super(key: key);
+  const HomeClubGatheringScreen({super.key});
 
   @override
   State<HomeClubGatheringScreen> createState() =>

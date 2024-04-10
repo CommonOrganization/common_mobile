@@ -13,10 +13,10 @@ class CommentInputContainer extends StatefulWidget {
   final String? commentId;
 
   const CommentInputContainer({
-    Key? key,
+    super.key,
     required this.dailyId,
     this.commentId,
-  }) : super(key: key);
+  });
 
   @override
   State<CommentInputContainer> createState() => _CommentInputContainerState();

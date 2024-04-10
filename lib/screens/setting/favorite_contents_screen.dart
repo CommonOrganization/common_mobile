@@ -15,7 +15,7 @@ import '../../widgets/daily_card.dart';
 import '../../widgets/one_day_gathering_row_card.dart';
 
 class FavoriteContentsScreen extends StatefulWidget {
-  const FavoriteContentsScreen({Key? key}) : super(key: key);
+  const FavoriteContentsScreen({super.key});
 
   @override
   State<FavoriteContentsScreen> createState() => _FavoriteContentsScreenState();

@@ -10,10 +10,10 @@ class ChatAlbumScreen extends StatelessWidget {
   final String chatId;
   final ChatService service;
   const ChatAlbumScreen({
-    Key? key,
+    super.key,
     required this.chatId,
     required this.service,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

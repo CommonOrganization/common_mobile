@@ -7,8 +7,7 @@ class GatheringInformationCard extends StatelessWidget {
   final String image;
   final String title;
   const GatheringInformationCard(
-      {Key? key, required this.image, required this.title})
-      : super(key: key);
+      {super.key, required this.image, required this.title});
 
   @override
   Widget build(BuildContext context) {

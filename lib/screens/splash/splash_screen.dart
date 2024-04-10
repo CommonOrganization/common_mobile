@@ -12,7 +12,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({super.key});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -51,16 +51,16 @@ class _SplashScreenState extends State<SplashScreen>
   Future<bool> appVersionCheck(BuildContext context) async {
     PackageInfo? packageInfo = await PackageInfo.fromPlatform();
     String packageVersion = packageInfo.version;
-     bool? canAppUse;
+    bool? canAppUse;
     if (Platform.isAndroid) {
-      canAppUse = await DataService.canAppUse('android',packageVersion);
+      canAppUse = await DataService.canAppUse('android', packageVersion);
     }
     if (Platform.isIOS) {
-      canAppUse = await DataService.canAppUse('ios',packageVersion);
+      canAppUse = await DataService.canAppUse('ios', packageVersion);
     }
-    if(canAppUse==null) return false;
-    if(!context.mounted) return false;
-    if(!canAppUse){
+    if (canAppUse == null) return false;
+    if (!context.mounted) return false;
+    if (!canAppUse) {
       await showDialog(
         context: context,
         barrierDismissible: false,
@@ -82,7 +82,7 @@ class _SplashScreenState extends State<SplashScreen>
           context,
           MaterialPageRoute(
             builder: (context) =>
-                !autoLoggedIn ? const MainScreen() : const LoginScreen(),
+                autoLoggedIn ? const MainScreen() : const LoginScreen(),
           ),
         );
       },

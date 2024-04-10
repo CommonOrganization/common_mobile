@@ -6,8 +6,7 @@ import '../../../constants/constants_value.dart';
 
 class CountrySelectBottomSheet extends StatefulWidget {
   final Country country;
-  const CountrySelectBottomSheet({Key? key, required this.country})
-      : super(key: key);
+  const CountrySelectBottomSheet({super.key, required this.country});
 
   @override
   State<CountrySelectBottomSheet> createState() =>

@@ -9,10 +9,10 @@ class NoticeDetailScreen extends StatelessWidget {
   final NoticeType type;
   final Notice notice;
   const NoticeDetailScreen({
-    Key? key,
+    super.key,
     required this.type,
     required this.notice,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

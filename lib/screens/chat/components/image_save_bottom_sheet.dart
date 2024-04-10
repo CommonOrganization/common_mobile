@@ -10,8 +10,7 @@ class ImageSaveBottomSheet extends StatefulWidget {
   final List imageList;
   final int currentImageIndex;
   const ImageSaveBottomSheet(
-      {Key? key, required this.imageList, required this.currentImageIndex})
-      : super(key: key);
+      {super.key, required this.imageList, required this.currentImageIndex});
 
   @override
   State<ImageSaveBottomSheet> createState() => _ImageSaveBottomSheetState();

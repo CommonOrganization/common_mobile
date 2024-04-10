@@ -13,7 +13,7 @@ import 'components/profile_user_information_container.dart';
 
 class ProfileScreen extends StatelessWidget {
   final String userId;
-  const ProfileScreen({Key? key, required this.userId}) : super(key: key);
+  const ProfileScreen({super.key, required this.userId});
 
   AppBar getAppBar(BuildContext context) {
     bool isMyProfile = (userId == context.read<UserController>().user?.id);

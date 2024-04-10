@@ -14,8 +14,7 @@ import '../../screens/gathering_upload/one_day_gathering_upload/one_day_gatherin
 
 class GatheringEditBottomSheet extends StatelessWidget {
   final Gathering gathering;
-  const GatheringEditBottomSheet({Key? key, required this.gathering})
-      : super(key: key);
+  const GatheringEditBottomSheet({super.key, required this.gathering});
 
   @override
   Widget build(BuildContext context) {

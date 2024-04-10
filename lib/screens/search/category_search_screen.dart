@@ -20,11 +20,12 @@ import '../../widgets/daily_card.dart';
 class CategorySearchScreen extends StatefulWidget {
   final CommonCategory category;
   final String? gatheringCategory;
+
   const CategorySearchScreen({
-    Key? key,
+    super.key,
     required this.category,
     this.gatheringCategory,
-  }) : super(key: key);
+  });
 
   @override
   State<CategorySearchScreen> createState() => _CategorySearchScreenState();
@@ -241,7 +242,7 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
         children: [
           FutureBuilder(
             future: OneDayGatheringService.getNewGatheringWithCategory(
-                city: city, category: _selectedCategory.name,userId: userId),
+                city: city, category: _selectedCategory.name, userId: userId),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 List<OneDayGathering>? gatheringList = snapshot.data;
@@ -275,8 +276,7 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
                             ? gatheringList.sublist(0, 3)
                             : gatheringList)
                         .map((gathering) => OneDayGatheringRowCard(
-                            gathering: gathering, userId: userId))
-                        .toList(),
+                            gathering: gathering, userId: userId)),
                     const SizedBox(height: 24),
                   ],
                 );
@@ -286,7 +286,7 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
           ),
           FutureBuilder(
             future: OneDayGatheringService.getAllGatheringWithCategory(
-                city: city, category: _selectedCategory.name,userId: userId),
+                city: city, category: _selectedCategory.name, userId: userId),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 List<OneDayGathering> gatheringList =
@@ -309,10 +309,8 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
                       ),
                     ),
                     const SizedBox(height: 4),
-                    ...gatheringList
-                        .map((gathering) => OneDayGatheringRowCard(
-                            gathering: gathering, userId: userId))
-                        .toList(),
+                    ...gatheringList.map((gathering) => OneDayGatheringRowCard(
+                        gathering: gathering, userId: userId)),
                     const SizedBox(height: 24),
                   ],
                 );
@@ -366,10 +364,9 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
                             ? gatheringList.sublist(0, 3)
                             : gatheringList)
                         .map(
-                          (gathering) => ClubGatheringRowCard(
-                              gathering: gathering, userId: userId),
-                        )
-                        .toList(),
+                      (gathering) => ClubGatheringRowCard(
+                          gathering: gathering, userId: userId),
+                    ),
                     const SizedBox(height: 24),
                   ],
                 );
@@ -402,10 +399,8 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
                       ),
                     ),
                     const SizedBox(height: 4),
-                    ...gatheringList
-                        .map((gathering) => ClubGatheringRowCard(
-                            gathering: gathering, userId: userId))
-                        .toList(),
+                    ...gatheringList.map((gathering) => ClubGatheringRowCard(
+                        gathering: gathering, userId: userId)),
                     const SizedBox(height: 24),
                   ],
                 );
@@ -428,10 +423,10 @@ class _CategorySearchScreenState extends State<CategorySearchScreen> {
             List<Daily>? dailyList = snapshot.data;
             if (dailyList == null) return Container();
             dailyList = dailyList
+                .where(
+                    (daily) => !controller.blockedObjectList.contains(daily.id))
                 .where((daily) =>
-                    !controller.blockedObjectList.contains(daily.id))
-                .where((daily) => !controller.blockedObjectList
-                    .contains(daily.organizerId))
+                    !controller.blockedObjectList.contains(daily.organizerId))
                 .toList();
             if (dailyList.isEmpty) return Container();
 

@@ -10,8 +10,7 @@ import '../../widgets/common_action_button.dart';
 
 class RegisterEmailScreen extends StatefulWidget {
   final Function nextPressed;
-  const RegisterEmailScreen({Key? key, required this.nextPressed})
-      : super(key: key);
+  const RegisterEmailScreen({super.key, required this.nextPressed});
 
   @override
   State<RegisterEmailScreen> createState() => _RegisterEmailScreenState();

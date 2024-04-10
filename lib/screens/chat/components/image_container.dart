@@ -6,8 +6,7 @@ class ImageContainer extends StatelessWidget {
   final double topMargin;
   final List imageList;
   const ImageContainer(
-      {Key? key, required this.topMargin, required this.imageList})
-      : super(key: key);
+      {super.key, required this.topMargin, required this.imageList});
 
   @override
   Widget build(BuildContext context) {

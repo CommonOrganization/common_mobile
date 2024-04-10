@@ -6,7 +6,7 @@ import '../screens/daily/daily_detail_screen.dart';
 
 class DailyCard extends StatelessWidget {
   final Daily daily;
-  const DailyCard({Key? key, required this.daily}) : super(key: key);
+  const DailyCard({super.key, required this.daily});
 
   @override
   Widget build(BuildContext context) {

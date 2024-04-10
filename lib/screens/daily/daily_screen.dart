@@ -10,7 +10,7 @@ import '../../constants/constants_colors.dart';
 import '../search/search_screen.dart';
 
 class DailyScreen extends StatelessWidget {
-  const DailyScreen({Key? key}) : super(key: key);
+  const DailyScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

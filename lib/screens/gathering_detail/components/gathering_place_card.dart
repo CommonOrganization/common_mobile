@@ -8,7 +8,7 @@ import '../../../services/http_service.dart';
 
 class GatheringPlaceCard extends StatelessWidget {
   final Map place;
-  const GatheringPlaceCard({Key? key, required this.place}) : super(key: key);
+  const GatheringPlaceCard({super.key, required this.place});
 
   @override
   Widget build(BuildContext context) {

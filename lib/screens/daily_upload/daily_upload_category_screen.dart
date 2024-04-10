@@ -9,9 +9,9 @@ import '../../widgets/common_action_button.dart';
 class DailyUploadCategoryScreen extends StatefulWidget {
   final Function nextPressed;
   const DailyUploadCategoryScreen({
-    Key? key,
+    super.key,
     required this.nextPressed,
-  }) : super(key: key);
+  });
 
   @override
   State<DailyUploadCategoryScreen> createState() =>

@@ -7,8 +7,7 @@ class GatheringButton extends StatelessWidget {
   final Function onTap;
   final bool enabled;
   const GatheringButton(
-      {Key? key, required this.title, required this.onTap, this.enabled = true})
-      : super(key: key);
+      {super.key, required this.title, required this.onTap, this.enabled = true});
 
   @override
   Widget build(BuildContext context) {

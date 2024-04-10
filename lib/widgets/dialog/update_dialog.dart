@@ -7,7 +7,7 @@ import '../../constants/constants_colors.dart';
 import '../../constants/constants_value.dart';
 
 class UpdateDialog extends StatelessWidget {
-  const UpdateDialog({Key? key}) : super(key: key);
+  const UpdateDialog({super.key});
 
   @override
   Widget build(BuildContext context) {

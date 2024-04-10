@@ -11,7 +11,7 @@ import '../../../models/user_place/user_place.dart';
 import '../../../services/one_day_gathering_service.dart';
 
 class OneDayGatheringCalendar extends StatefulWidget {
-  const OneDayGatheringCalendar({Key? key}) : super(key: key);
+  const OneDayGatheringCalendar({super.key});
 
   @override
   State<OneDayGatheringCalendar> createState() =>

@@ -12,8 +12,7 @@ import 'bottom_sheet_custom_button.dart';
 class DailyReportBottomSheet extends StatelessWidget {
   final Daily daily;
 
-  const DailyReportBottomSheet({Key? key, required this.daily})
-      : super(key: key);
+  const DailyReportBottomSheet({super.key, required this.daily});
 
   @override
   Widget build(BuildContext context) {

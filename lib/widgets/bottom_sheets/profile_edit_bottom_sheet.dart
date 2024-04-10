@@ -12,7 +12,7 @@ import '../../screens/setting/setting_screen.dart';
 import 'bottom_sheet_custom_button.dart';
 
 class ProfileEditBottomSheet extends StatelessWidget {
-  const ProfileEditBottomSheet({Key? key}) : super(key: key);
+  const ProfileEditBottomSheet({super.key});
 
   @override
   Widget build(BuildContext context) {

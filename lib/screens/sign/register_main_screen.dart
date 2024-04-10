@@ -18,7 +18,7 @@ import '../../models/user/user.dart';
 import '../../services/user_service.dart';
 
 class RegisterMainScreen extends StatefulWidget {
-  const RegisterMainScreen({Key? key}) : super(key: key);
+  const RegisterMainScreen({super.key});
 
   @override
   State<RegisterMainScreen> createState() => _RegisterMainScreenState();
@@ -153,44 +153,42 @@ class _RegisterMainScreenState extends State<RegisterMainScreen> {
           ),
         ),
         actions: [
-          ...[0, 1, 2, 3, 4]
-              .map(
-                (index) => index == _pageIndex
-                    ? Center(
-                        child: Container(
-                          margin: const EdgeInsets.only(left: 12),
-                          alignment: Alignment.center,
-                          width: 20,
-                          height: 20,
-                          decoration: BoxDecoration(
-                            color: kMainColor,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Text(
-                            '${index + 1}',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: kFontGray0Color,
-                              fontWeight: FontWeight.bold,
-                              height: 20 / 14,
-                              letterSpacing: -0.5,
-                            ),
-                          ),
-                        ),
-                      )
-                    : Center(
-                        child: Container(
-                          margin: const EdgeInsets.only(left: 12),
-                          width: 8,
-                          height: 8,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: kFontGray100Color,
-                          ),
+          ...[0, 1, 2, 3, 4].map(
+            (index) => index == _pageIndex
+                ? Center(
+                    child: Container(
+                      margin: const EdgeInsets.only(left: 12),
+                      alignment: Alignment.center,
+                      width: 20,
+                      height: 20,
+                      decoration: BoxDecoration(
+                        color: kMainColor,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Text(
+                        '${index + 1}',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: kFontGray0Color,
+                          fontWeight: FontWeight.bold,
+                          height: 20 / 14,
+                          letterSpacing: -0.5,
                         ),
                       ),
-              )
-              .toList(),
+                    ),
+                  )
+                : Center(
+                    child: Container(
+                      margin: const EdgeInsets.only(left: 12),
+                      width: 8,
+                      height: 8,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: kFontGray100Color,
+                      ),
+                    ),
+                  ),
+          ),
           const SizedBox(width: 20),
         ],
         elevation: 0,

@@ -18,7 +18,7 @@ class UserController extends ChangeNotifier {
     user = loginUserInfo;
     notifyListeners();
     log('${user?.id}유저 자동 로그인');
-    return true;
+    return user != null;
   }
 
   Future<bool> setUser(User newUser) async {
@@ -37,7 +37,7 @@ class UserController extends ChangeNotifier {
   Future<bool> refreshUser() async {
     try {
       if (user == null) return false;
-      User? newUser = await UserService.refresh(id: user!.id);
+      User? newUser = await UserService.getUser(id: user!.id);
       if (newUser == null) return false;
       user = newUser;
       notifyListeners();

@@ -20,8 +20,7 @@ import '../../../models/one_day_gathering/one_day_gathering.dart';
 
 class OneDayGatheringUploadMainScreen extends StatefulWidget {
   final OneDayGathering? gathering;
-  const OneDayGatheringUploadMainScreen({Key? key, this.gathering})
-      : super(key: key);
+  const OneDayGatheringUploadMainScreen({super.key, this.gathering});
 
   @override
   State<OneDayGatheringUploadMainScreen> createState() =>

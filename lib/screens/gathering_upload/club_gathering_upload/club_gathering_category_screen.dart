@@ -8,8 +8,7 @@ import '../components/gathering_category_select_area.dart';
 class ClubGatheringCategoryScreen extends StatefulWidget {
   final ClubGathering? gathering;
   final Function nextPressed;
-  const ClubGatheringCategoryScreen({Key? key, required this.nextPressed, this.gathering})
-      : super(key: key);
+  const ClubGatheringCategoryScreen({super.key, required this.nextPressed, this.gathering});
 
   @override
   State<ClubGatheringCategoryScreen> createState() =>

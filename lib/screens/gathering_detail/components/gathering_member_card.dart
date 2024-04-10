@@ -7,8 +7,7 @@ class GatheringMemberCard extends StatelessWidget {
   final String memberId;
   final bool isOrganizer;
   const GatheringMemberCard(
-      {Key? key, required this.memberId, required this.isOrganizer})
-      : super(key: key);
+      {super.key, required this.memberId, required this.isOrganizer});
 
   @override
   Widget build(BuildContext context) {

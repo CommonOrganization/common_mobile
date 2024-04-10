@@ -14,7 +14,7 @@ import '../../services/user_service.dart';
 import '../../widgets/custom_check_box.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();

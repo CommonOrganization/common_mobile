@@ -14,11 +14,11 @@ class GatheringApplicationFormDialog extends StatelessWidget {
   final String applierId;
 
   const GatheringApplicationFormDialog({
-    Key? key,
+    super.key,
     required this.gatheringId,
     required this.applierId,
     required this.category,
-  }) : super(key: key);
+  });
 
   String get getTitle =>
       category == kOneDayGatheringCategory ? '하루모임 참여 신청서' : '소모임 가입 신청서';

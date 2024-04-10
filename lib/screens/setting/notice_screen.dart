@@ -9,7 +9,7 @@ import '../../constants/constants_colors.dart';
 
 class NoticeScreen extends StatelessWidget {
   final NoticeType type;
-  const NoticeScreen({Key? key, required this.type}) : super(key: key);
+  const NoticeScreen({super.key, required this.type});
 
   @override
   Widget build(BuildContext context) {

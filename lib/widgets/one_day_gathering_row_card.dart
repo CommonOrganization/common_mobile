@@ -13,10 +13,10 @@ class OneDayGatheringRowCard extends StatelessWidget {
   final OneDayGathering gathering;
   final String userId;
   const OneDayGatheringRowCard({
-    Key? key,
+    super.key,
     required this.gathering,
     required this.userId,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

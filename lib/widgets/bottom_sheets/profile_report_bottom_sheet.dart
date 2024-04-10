@@ -9,8 +9,7 @@ import 'bottom_sheet_custom_button.dart';
 
 class ProfileReportBottomSheet extends StatelessWidget {
   final String userId;
-  const ProfileReportBottomSheet({Key? key, required this.userId})
-      : super(key: key);
+  const ProfileReportBottomSheet({super.key, required this.userId});
 
   @override
   Widget build(BuildContext context) {

@@ -13,10 +13,10 @@ class GroupChatCard extends StatelessWidget {
   final String chatId;
   final String userId;
   const GroupChatCard({
-    Key? key,
+    super.key,
     required this.userId,
     required this.chatId,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

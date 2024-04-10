@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../../constants/constants_colors.dart';
 
 class SelectCityBottomSheet extends StatefulWidget {
-  const SelectCityBottomSheet({Key? key}) : super(key: key);
+  const SelectCityBottomSheet({super.key});
 
   @override
   State<SelectCityBottomSheet> createState() => _SelectCityBottomSheetState();

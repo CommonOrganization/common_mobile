@@ -7,8 +7,7 @@ import '../../widgets/common_action_button.dart';
 
 class DailyUploadTagScreen extends StatefulWidget {
   final Function previewPressed;
-  const DailyUploadTagScreen({Key? key, required this.previewPressed})
-      : super(key: key);
+  const DailyUploadTagScreen({super.key, required this.previewPressed});
 
   @override
   State<DailyUploadTagScreen> createState() => _DailyUploadTagScreenState();

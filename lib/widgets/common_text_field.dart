@@ -10,14 +10,14 @@ class CommonTextField extends StatelessWidget {
   final TextInputType? inputType;
   final bool obscureText;
   const CommonTextField({
-    Key? key,
+    super.key,
     required this.controller,
     required this.hintText,
     required this.textChanged,
     this.maxLength,
     this.inputType,
     this.obscureText = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -13,8 +13,7 @@ class CommentReplyReportBottomSheet extends StatelessWidget {
   final String? replyId;
 
   const CommentReplyReportBottomSheet(
-      {Key? key, required this.commentId, this.replyId})
-      : super(key: key);
+      {super.key, required this.commentId, this.replyId});
 
   @override
   Widget build(BuildContext context) {

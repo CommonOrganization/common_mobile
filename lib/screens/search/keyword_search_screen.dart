@@ -17,8 +17,7 @@ import '../../widgets/one_day_gathering_row_card.dart';
 class KeywordSearchScreen extends StatefulWidget {
   final String keyword;
 
-  const KeywordSearchScreen({Key? key, required this.keyword})
-      : super(key: key);
+  const KeywordSearchScreen({super.key, required this.keyword});
 
   @override
   State<KeywordSearchScreen> createState() => _KeywordSearchScreenState();

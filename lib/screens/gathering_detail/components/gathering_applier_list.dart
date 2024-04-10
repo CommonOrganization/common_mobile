@@ -10,11 +10,11 @@ class GatheringApplierList extends StatelessWidget {
   final String gatheringId;
   final String organizerId;
   const GatheringApplierList({
-    Key? key,
+    super.key,
     required this.category,
     required this.gatheringId,
     required this.organizerId,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

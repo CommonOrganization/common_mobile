@@ -20,13 +20,13 @@ class GatheringSliverAppbar extends StatefulWidget {
   final bool isPreview;
 
   const GatheringSliverAppbar({
-    Key? key,
+    super.key,
     required this.showAppbarBlack,
     required this.size,
     required this.gathering,
     required this.gatheringType,
     required this.isPreview,
-  }) : super(key: key);
+  });
 
   @override
   State<GatheringSliverAppbar> createState() => _GatheringSliverAppbarState();

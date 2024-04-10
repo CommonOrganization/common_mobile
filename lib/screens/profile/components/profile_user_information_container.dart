@@ -13,10 +13,10 @@ class ProfileUserInformationContainer extends StatelessWidget {
   final User user;
   final bool isMyProfile;
   const ProfileUserInformationContainer({
-    Key? key,
+    super.key,
     required this.user,
     this.isMyProfile = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

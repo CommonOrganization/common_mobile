@@ -14,12 +14,11 @@ class ClubGatheringRankingCard extends StatefulWidget {
   final int gatheringSize;
   final String userId;
   const ClubGatheringRankingCard(
-      {Key? key,
+      {super.key,
       required this.gathering,
       required this.rank,
       required this.gatheringSize,
-      required this.userId})
-      : super(key: key);
+      required this.userId});
 
   @override
   State<ClubGatheringRankingCard> createState() =>

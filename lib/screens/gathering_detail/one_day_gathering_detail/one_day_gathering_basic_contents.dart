@@ -14,8 +14,7 @@ import '../components/gathering_status_card.dart';
 
 class OneDayGatheringBasicContents extends StatelessWidget {
   final OneDayGathering gathering;
-  const OneDayGatheringBasicContents({Key? key, required this.gathering})
-      : super(key: key);
+  const OneDayGatheringBasicContents({super.key, required this.gathering});
 
   @override
   Widget build(BuildContext context) {

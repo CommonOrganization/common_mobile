@@ -4,7 +4,7 @@ import '../constants/constants_colors.dart';
 
 class ContentsTag extends StatelessWidget {
   final String tag;
-  const ContentsTag({Key? key, required this.tag}) : super(key: key);
+  const ContentsTag({super.key, required this.tag});
 
   @override
   Widget build(BuildContext context) {

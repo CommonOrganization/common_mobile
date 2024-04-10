@@ -4,6 +4,7 @@ part 'daily.g.dart';
 @JsonSerializable()
 class Daily {
   final String id;
+  // writerId로 변경하는게 좋을듯
   final String organizerId;
   final String category;
   final String detailCategory;

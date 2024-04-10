@@ -12,10 +12,10 @@ class PersonalChatCard extends StatelessWidget {
   final String otherUserId;
   final String chatId;
   const PersonalChatCard({
-    Key? key,
+    super.key,
     required this.otherUserId,
     required this.chatId,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

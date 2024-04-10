@@ -13,9 +13,9 @@ import '../../widgets/common_action_button.dart';
 class DailyUploadTypeScreen extends StatefulWidget {
   final Function nextPressed;
   const DailyUploadTypeScreen({
-    Key? key,
+    super.key,
     required this.nextPressed,
-  }) : super(key: key);
+  });
 
   @override
   State<DailyUploadTypeScreen> createState() => _DailyUploadTypeScreenState();

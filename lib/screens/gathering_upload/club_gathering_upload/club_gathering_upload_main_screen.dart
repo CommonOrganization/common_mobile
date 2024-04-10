@@ -19,8 +19,7 @@ import 'club_gathering_tag_screen.dart';
 
 class ClubGatheringUploadMainScreen extends StatefulWidget {
   final ClubGathering? gathering;
-  const ClubGatheringUploadMainScreen({Key? key, this.gathering})
-      : super(key: key);
+  const ClubGatheringUploadMainScreen({super.key, this.gathering});
 
   @override
   State<ClubGatheringUploadMainScreen> createState() =>

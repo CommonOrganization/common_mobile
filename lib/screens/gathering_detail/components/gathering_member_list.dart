@@ -11,11 +11,11 @@ class GatheringMemberList extends StatefulWidget {
   final String gatheringId;
 
   const GatheringMemberList({
-    Key? key,
+    super.key,
     required this.title,
     required this.gatheringId,
     required this.organizerId,
-  }) : super(key: key);
+  });
 
   @override
   State<GatheringMemberList> createState() => _GatheringMemberListState();
@@ -67,8 +67,7 @@ class _GatheringMemberListState extends State<GatheringMemberList> {
                           memberId: memberId,
                           isOrganizer: memberId == widget.organizerId,
                         ),
-                      )
-                      .toList(),
+                      ),
                   if (memberList.length > 5 && !_showMore)
                     GestureDetector(
                       onTap: () => setState(() => _showMore = !_showMore),

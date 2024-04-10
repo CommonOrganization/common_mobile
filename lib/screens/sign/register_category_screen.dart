@@ -7,8 +7,7 @@ import '../../widgets/common_action_button.dart';
 
 class RegisterCategoryScreen extends StatefulWidget {
   final Function nextPressed;
-  const RegisterCategoryScreen({Key? key, required this.nextPressed})
-      : super(key: key);
+  const RegisterCategoryScreen({super.key, required this.nextPressed});
 
   @override
   State<RegisterCategoryScreen> createState() => _RegisterCategoryScreenState();

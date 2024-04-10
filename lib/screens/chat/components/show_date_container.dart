@@ -8,10 +8,10 @@ class ShowDateContainer extends StatelessWidget {
   final String? lastChatDate;
   final String chatDate;
   const ShowDateContainer({
-    Key? key,
+    super.key,
     this.lastChatDate,
     required this.chatDate,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

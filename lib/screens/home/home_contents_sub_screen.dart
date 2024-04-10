@@ -16,11 +16,10 @@ class HomeContentsSubScreen extends StatelessWidget {
   final Future future;
   final String title;
   const HomeContentsSubScreen(
-      {Key? key,
+      {super.key,
       required this.category,
       required this.future,
-      required this.title})
-      : super(key: key);
+      required this.title});
 
   @override
   Widget build(BuildContext context) {

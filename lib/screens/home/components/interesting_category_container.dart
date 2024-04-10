@@ -8,8 +8,7 @@ import 'package:provider/provider.dart';
 class InterestingCategoryContainer extends StatelessWidget {
   final String gatheringCategory;
   const InterestingCategoryContainer(
-      {Key? key, required this.gatheringCategory})
-      : super(key: key);
+      {super.key, required this.gatheringCategory});
 
   @override
   Widget build(BuildContext context) {

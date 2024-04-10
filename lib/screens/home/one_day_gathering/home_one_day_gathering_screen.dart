@@ -14,7 +14,7 @@ import 'one_day_gathering_calendar.dart';
 import 'one_day_gathering_contents_area.dart';
 
 class HomeOneDayGatheringScreen extends StatefulWidget {
-  const HomeOneDayGatheringScreen({Key? key}) : super(key: key);
+  const HomeOneDayGatheringScreen({super.key});
 
   @override
   State<HomeOneDayGatheringScreen> createState() =>

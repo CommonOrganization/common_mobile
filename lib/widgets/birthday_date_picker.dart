@@ -4,7 +4,7 @@ import '../constants/constants_colors.dart';
 import '../constants/constants_value.dart';
 
 class BirthdayDatePicker extends StatefulWidget {
-  const BirthdayDatePicker({Key? key}) : super(key: key);
+  const BirthdayDatePicker({super.key});
 
   @override
   State<BirthdayDatePicker> createState() => _BirthdayDatePickerState();

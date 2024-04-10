@@ -8,9 +8,9 @@ import '../../widgets/common_text_field.dart';
 class ResetNewPasswordScreen extends StatefulWidget {
   final Function nextPressed;
   const ResetNewPasswordScreen({
-    Key? key,
+    super.key,
     required this.nextPressed,
-  }) : super(key: key);
+  });
 
   @override
   State<ResetNewPasswordScreen> createState() => _ResetNewPasswordScreenState();

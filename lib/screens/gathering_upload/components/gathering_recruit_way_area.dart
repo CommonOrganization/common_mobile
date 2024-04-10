@@ -10,12 +10,12 @@ class GatheringRecruitWayArea extends StatelessWidget {
   final Function recruitWayPressed;
   final Function textFieldOnChange;
   const GatheringRecruitWayArea({
-    Key? key,
+    super.key,
     required this.selectedRecruitWay,
     required this.controller,
     required this.recruitWayPressed,
     required this.textFieldOnChange,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

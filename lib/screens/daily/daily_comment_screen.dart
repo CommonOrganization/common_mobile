@@ -18,7 +18,7 @@ import 'components/comment_input_container.dart';
 class DailyCommentScreen extends StatefulWidget {
   final String dailyId;
 
-  const DailyCommentScreen({Key? key, required this.dailyId}) : super(key: key);
+  const DailyCommentScreen({super.key, required this.dailyId});
 
   @override
   State<DailyCommentScreen> createState() => _DailyCommentScreenState();

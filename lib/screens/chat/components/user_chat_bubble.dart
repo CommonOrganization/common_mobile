@@ -10,11 +10,11 @@ class UserChatBubble extends StatelessWidget {
   final String? lastSenderId;
   final String? lastChatDate;
   const UserChatBubble({
-    Key? key,
+    super.key,
     required this.chat,
     required this.lastSenderId,
     required this.lastChatDate,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

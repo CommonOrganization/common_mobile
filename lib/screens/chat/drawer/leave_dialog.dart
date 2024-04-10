@@ -4,7 +4,7 @@ import '../../../constants/constants_colors.dart';
 
 class LeaveDialog extends StatelessWidget {
   final bool isGroupChat;
-  const LeaveDialog({Key? key, required this.isGroupChat}) : super(key: key);
+  const LeaveDialog({super.key, required this.isGroupChat});
 
   @override
   Widget build(BuildContext context) {

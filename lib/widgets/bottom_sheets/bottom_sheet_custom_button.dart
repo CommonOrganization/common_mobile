@@ -8,12 +8,11 @@ class BottomSheetCustomButton extends StatelessWidget {
   final Color? color;
   final FontWeight? fontWeight;
   const BottomSheetCustomButton(
-      {Key? key,
+      {super.key,
       required this.title,
       required this.onPressed,
       this.color,
-      this.fontWeight})
-      : super(key: key);
+      this.fontWeight});
 
   @override
   Widget build(BuildContext context) {

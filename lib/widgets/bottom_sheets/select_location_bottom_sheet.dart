@@ -7,7 +7,7 @@ import '../../../../constants/constants_colors.dart';
 import '../../utils/format_utils.dart';
 
 class SelectLocationBottomSheet extends StatefulWidget {
-  const SelectLocationBottomSheet({Key? key}) : super(key: key);
+  const SelectLocationBottomSheet({super.key});
 
   @override
   State<SelectLocationBottomSheet> createState() =>

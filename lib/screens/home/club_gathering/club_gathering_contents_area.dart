@@ -12,9 +12,9 @@ import '../home_contents_sub_screen.dart';
 class ClubGatheringContentsArea extends StatelessWidget {
   final Future future;
   final String title;
+
   const ClubGatheringContentsArea(
-      {Key? key, required this.future, required this.title})
-      : super(key: key);
+      {super.key, required this.future, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -88,8 +88,7 @@ class ClubGatheringContentsArea extends StatelessWidget {
                                   margin: const EdgeInsets.only(right: 16),
                                   child:
                                       ClubGatheringCard(gathering: gathering),
-                                ))
-                            .toList(),
+                                )),
                       ],
                     ),
                   ),

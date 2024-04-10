@@ -22,11 +22,11 @@ class OneDayGatheringDetailScreen extends StatefulWidget {
   final bool isPreview;
   final bool isEdit;
   const OneDayGatheringDetailScreen({
-    Key? key,
+    super.key,
     required this.gathering,
     this.isPreview = false,
     this.isEdit = false,
-  }) : super(key: key);
+  });
 
   @override
   State<OneDayGatheringDetailScreen> createState() =>

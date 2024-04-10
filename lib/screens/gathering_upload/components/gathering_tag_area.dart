@@ -11,13 +11,13 @@ class GatheringTagArea extends StatelessWidget {
   final Function submitPressed;
   final Function removePressed;
   const GatheringTagArea({
-    Key? key,
+    super.key,
     required this.title,
     required this.controller,
     required this.tagList,
     required this.submitPressed,
     required this.removePressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

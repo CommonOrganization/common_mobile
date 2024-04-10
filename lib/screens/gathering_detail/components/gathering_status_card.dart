@@ -13,12 +13,11 @@ class GatheringStatusCard extends StatelessWidget {
   final String organizerId;
   final String gatheringId;
   const GatheringStatusCard(
-      {Key? key,
+      {super.key,
 
       required this.capacity,
       required this.organizerId,
-        required this.gatheringId,})
-      : super(key: key);
+        required this.gatheringId,});
 
   @override
   Widget build(BuildContext context) {

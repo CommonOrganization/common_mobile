@@ -8,7 +8,7 @@ import '../../profile/profile_screen.dart';
 class DrawerMemberCard extends StatelessWidget {
   final User user;
   final bool isMe;
-  const DrawerMemberCard({Key? key, required this.user, required this.isMe}) : super(key: key);
+  const DrawerMemberCard({super.key, required this.user, required this.isMe});
 
   @override
   Widget build(BuildContext context) {

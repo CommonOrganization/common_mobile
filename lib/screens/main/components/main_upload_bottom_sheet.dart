@@ -7,7 +7,7 @@ import '../../gathering_upload/club_gathering_upload/club_gathering_upload_main_
 import '../../gathering_upload/one_day_gathering_upload/one_day_gathering_upload_main_screen.dart';
 
 class MainUploadBottomSheet extends StatelessWidget {
-  const MainUploadBottomSheet({Key? key}) : super(key: key);
+  const MainUploadBottomSheet({super.key});
 
   @override
   Widget build(BuildContext context) {

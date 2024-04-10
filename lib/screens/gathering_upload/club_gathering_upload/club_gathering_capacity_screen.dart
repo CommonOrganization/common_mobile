@@ -8,8 +8,7 @@ class ClubGatheringCapacityScreen extends StatefulWidget {
   final ClubGathering? gathering;
   final Function nextPressed;
   const ClubGatheringCapacityScreen(
-      {Key? key, required this.nextPressed, this.gathering})
-      : super(key: key);
+      {super.key, required this.nextPressed, this.gathering});
 
   @override
   State<ClubGatheringCapacityScreen> createState() =>

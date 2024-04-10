@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 
 class LeaveUserDialog extends StatelessWidget {
-  const LeaveUserDialog({Key? key}) : super(key: key);
+  const LeaveUserDialog({super.key});
 
   @override
   Widget build(BuildContext context) {

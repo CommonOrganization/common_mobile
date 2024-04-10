@@ -20,10 +20,10 @@ class DailyDetailScreen extends StatefulWidget {
   final Daily daily;
   final bool isPreview;
   const DailyDetailScreen({
-    Key? key,
+    super.key,
     required this.daily,
     this.isPreview = false,
-  }) : super(key: key);
+  });
 
   @override
   State<DailyDetailScreen> createState() => _DailyDetailScreenState();

@@ -8,11 +8,12 @@ import '../../../widgets/common_action_button.dart';
 class OneDayGatheringContentScreen extends StatefulWidget {
   final OneDayGathering? gathering;
   final Function nextPressed;
+
   const OneDayGatheringContentScreen({
-    Key? key,
+    super.key,
     this.gathering,
     required this.nextPressed,
-  }) : super(key: key);
+  });
 
   @override
   State<OneDayGatheringContentScreen> createState() =>
@@ -104,10 +105,8 @@ class _OneDayGatheringContentScreenState
                         kSelectedImageArea(_mainImageUrl!, true)
                       else
                         kImageSelectButton(true),
-                      ..._imageUrlList
-                          .map(
-                              (imageUrl) => kSelectedImageArea(imageUrl, false))
-                          .toList(),
+                      ..._imageUrlList.map(
+                          (imageUrl) => kSelectedImageArea(imageUrl, false)),
                       kImageSelectButton(false),
                     ],
                   ),

@@ -11,12 +11,12 @@ class FavoriteButton extends StatefulWidget {
   final String userId;
   final double size;
   const FavoriteButton({
-    Key? key,
+    super.key,
     required this.category,
     required this.objectId,
     required this.userId,
     this.size = 20,
-  }) : super(key: key);
+  });
 
   @override
   State<FavoriteButton> createState() =>

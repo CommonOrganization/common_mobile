@@ -5,7 +5,7 @@ import '../constants/constants_value.dart';
 import '../utils/local_utils.dart';
 
 class CustomTimePicker extends StatefulWidget {
-  const CustomTimePicker({Key? key}) : super(key: key);
+  const CustomTimePicker({super.key});
 
   @override
   State<CustomTimePicker> createState() => _CustomTimePickerState();

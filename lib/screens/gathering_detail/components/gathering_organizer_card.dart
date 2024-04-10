@@ -5,8 +5,7 @@ import '../../../services/user_service.dart';
 
 class GatheringOrganizerCard extends StatelessWidget {
   final String organizerId;
-  const GatheringOrganizerCard({Key? key, required this.organizerId})
-      : super(key: key);
+  const GatheringOrganizerCard({super.key, required this.organizerId});
 
   @override
   Widget build(BuildContext context) {

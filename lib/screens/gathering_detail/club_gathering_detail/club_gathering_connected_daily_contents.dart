@@ -8,8 +8,7 @@ import '../../../widgets/daily_card.dart';
 class ClubGatheringConnectedDailyContents extends StatelessWidget {
   final String gatheringId;
   const ClubGatheringConnectedDailyContents(
-      {Key? key, required this.gatheringId})
-      : super(key: key);
+      {super.key, required this.gatheringId});
 
   @override
   Widget build(BuildContext context) {

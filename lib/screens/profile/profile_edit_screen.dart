@@ -12,7 +12,7 @@ import '../../constants/constants_colors.dart';
 import '../../services/user_service.dart';
 
 class ProfileEditScreen extends StatefulWidget {
-  const ProfileEditScreen({Key? key}) : super(key: key);
+  const ProfileEditScreen({super.key});
 
   @override
   State<ProfileEditScreen> createState() => _ProfileEditScreenState();

@@ -8,9 +8,9 @@ class ClubGatheringRecruitScreen extends StatefulWidget {
   final ClubGathering? gathering;
   final Function nextPressed;
   const ClubGatheringRecruitScreen({
-    Key? key,
+    super.key,
     required this.nextPressed, this.gathering,
-  }) : super(key: key);
+  });
 
   @override
   State<ClubGatheringRecruitScreen> createState() =>

@@ -7,9 +7,9 @@ class ClubGatheringTitleScreen extends StatefulWidget {
   final ClubGathering? gathering;
   final Function nextPressed;
   const ClubGatheringTitleScreen({
-    Key? key,
+    super.key,
     required this.nextPressed, this.gathering,
-  }) : super(key: key);
+  });
 
   @override
   State<ClubGatheringTitleScreen> createState() =>

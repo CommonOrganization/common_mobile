@@ -8,10 +8,10 @@ class OneDayGatheringCategoryScreen extends StatefulWidget {
   final OneDayGathering? gathering;
   final Function nextPressed;
   const OneDayGatheringCategoryScreen({
-    Key? key,
+    super.key,
     this.gathering,
     required this.nextPressed,
-  }) : super(key: key);
+  });
 
   @override
   State<OneDayGatheringCategoryScreen> createState() =>

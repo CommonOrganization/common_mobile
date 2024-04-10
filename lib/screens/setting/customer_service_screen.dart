@@ -8,7 +8,7 @@ import '../../constants/constants_colors.dart';
 import '../../utils/local_utils.dart';
 
 class CustomerServiceScreen extends StatelessWidget {
-  const CustomerServiceScreen({Key? key}) : super(key: key);
+  const CustomerServiceScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

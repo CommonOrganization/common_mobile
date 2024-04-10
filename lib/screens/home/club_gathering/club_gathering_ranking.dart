@@ -13,11 +13,10 @@ class ClubGatheringRanking extends StatelessWidget {
   final String userId;
   final String city;
   const ClubGatheringRanking(
-      {Key? key,
+      {super.key,
       required this.category,
       required this.userId,
-      required this.city})
-      : super(key: key);
+      required this.city});
 
   @override
   Widget build(BuildContext context) {

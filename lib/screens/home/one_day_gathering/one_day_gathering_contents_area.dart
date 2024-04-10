@@ -12,9 +12,9 @@ import '../../../widgets/one_day_gathering_card.dart';
 class OneDayGatheringContentsArea extends StatelessWidget {
   final Future future;
   final String title;
+
   const OneDayGatheringContentsArea(
-      {Key? key, required this.future, required this.title})
-      : super(key: key);
+      {super.key, required this.future, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -88,8 +88,7 @@ class OneDayGatheringContentsArea extends StatelessWidget {
                                     margin: const EdgeInsets.only(right: 16),
                                     child: OneDayGatheringCard(
                                         gathering: gathering),
-                                  ))
-                              .toList(),
+                                  )),
                         ],
                       ),
                     ),

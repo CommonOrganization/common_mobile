@@ -18,10 +18,10 @@ class UserInviteScreen extends StatefulWidget {
   final String chatId;
   final List userIdList;
   const UserInviteScreen({
-    Key? key,
+    super.key,
     required this.userIdList,
     required this.chatId,
-  }) : super(key: key);
+  });
 
   @override
   State<UserInviteScreen> createState() => _UserInviteScreenState();

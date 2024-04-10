@@ -8,9 +8,9 @@ class ClubGatheringTagScreen extends StatefulWidget {
   final ClubGathering? gathering;
   final Function previewPressed;
   const ClubGatheringTagScreen({
-    Key? key,
+    super.key,
     required this.previewPressed, this.gathering,
-  }) : super(key: key);
+  });
 
   @override
   State<ClubGatheringTagScreen> createState() => _ClubGatheringTagScreenState();

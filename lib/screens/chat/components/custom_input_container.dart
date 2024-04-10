@@ -12,10 +12,10 @@ class CustomInputContainer extends StatefulWidget {
   final String chatId;
   final String userId;
   const CustomInputContainer({
-    Key? key,
+    super.key,
     required this.chatId,
     required this.userId,
-  }) : super(key: key);
+  });
 
   @override
   State<CustomInputContainer> createState() => _CustomInputContainerState();

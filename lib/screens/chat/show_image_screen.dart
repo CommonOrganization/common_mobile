@@ -6,7 +6,7 @@ import 'components/image_save_bottom_sheet.dart';
 
 class ShowImageScreen extends StatefulWidget {
   final List imageList;
-  const ShowImageScreen({Key? key, required this.imageList}) : super(key: key);
+  const ShowImageScreen({super.key, required this.imageList});
 
   @override
   State<ShowImageScreen> createState() => _ShowImageScreenState();

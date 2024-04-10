@@ -8,10 +8,10 @@ class OneDayGatheringTagScreen extends StatefulWidget {
   final OneDayGathering? gathering;
   final Function previewPressed;
   const OneDayGatheringTagScreen({
-    Key? key,
+    super.key,
     this.gathering,
     required this.previewPressed,
-  }) : super(key: key);
+  });
 
   @override
   State<OneDayGatheringTagScreen> createState() =>

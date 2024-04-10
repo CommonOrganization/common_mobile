@@ -25,11 +25,11 @@ class ClubGatheringDetailScreen extends StatefulWidget {
   final bool isEdit;
 
   const ClubGatheringDetailScreen({
-    Key? key,
+    super.key,
     required this.gathering,
     this.isPreview = false,
     this.isEdit = false,
-  }) : super(key: key);
+  });
 
   @override
   State<ClubGatheringDetailScreen> createState() =>

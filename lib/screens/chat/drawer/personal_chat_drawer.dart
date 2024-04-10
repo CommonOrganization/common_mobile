@@ -14,10 +14,10 @@ class PersonalChatDrawer extends StatelessWidget {
   final PersonalChat personalChat;
   final String userId;
   const PersonalChatDrawer({
-    Key? key,
+    super.key,
     required this.personalChat,
     required this.userId,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

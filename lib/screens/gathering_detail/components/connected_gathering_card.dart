@@ -12,8 +12,7 @@ import '../../../widgets/contents_tag.dart';
 
 class ConnectedGatheringCard extends StatelessWidget {
   final OneDayGathering gathering;
-  const ConnectedGatheringCard({Key? key, required this.gathering})
-      : super(key: key);
+  const ConnectedGatheringCard({super.key, required this.gathering});
 
   @override
   Widget build(BuildContext context) {

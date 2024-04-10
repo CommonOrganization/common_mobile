@@ -4,7 +4,7 @@ import '../constants/constants_colors.dart';
 import '../constants/constants_value.dart';
 
 class CustomDatePicker extends StatefulWidget {
-  const CustomDatePicker({Key? key}) : super(key: key);
+  const CustomDatePicker({super.key});
 
   @override
   State<CustomDatePicker> createState() => _CustomDatePickerState();

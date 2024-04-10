@@ -14,7 +14,7 @@ import 'daily_upload_image_screen.dart';
 import 'daily_upload_tag_screen.dart';
 
 class DailyUploadMainScreen extends StatefulWidget {
-  const DailyUploadMainScreen({Key? key}) : super(key: key);
+  const DailyUploadMainScreen({super.key});
 
   @override
   State<DailyUploadMainScreen> createState() => _DailyUploadMainScreenState();

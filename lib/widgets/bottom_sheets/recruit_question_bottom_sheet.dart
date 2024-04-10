@@ -8,11 +8,10 @@ class RecruitQuestionBottomSheet extends StatefulWidget {
   final String userId;
   final String question;
   const RecruitQuestionBottomSheet(
-      {Key? key,
+      {super.key,
       required this.gatheringId,
       required this.userId,
-      required this.question})
-      : super(key: key);
+      required this.question});
 
   @override
   State<RecruitQuestionBottomSheet> createState() =>

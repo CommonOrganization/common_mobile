@@ -15,8 +15,7 @@ import '../../services/user_service.dart';
 class ChatUploadUserSelectScreen extends StatefulWidget {
   final Function onPressed;
 
-  const ChatUploadUserSelectScreen({Key? key, required this.onPressed})
-      : super(key: key);
+  const ChatUploadUserSelectScreen({super.key, required this.onPressed});
 
   @override
   State<ChatUploadUserSelectScreen> createState() =>

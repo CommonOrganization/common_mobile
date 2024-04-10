@@ -10,8 +10,7 @@ import '../../../widgets/common_action_button.dart';
 class ClubGatheringLocationScreen extends StatefulWidget {
   final ClubGathering? gathering;
   final Function nextPressed;
-  const ClubGatheringLocationScreen({Key? key, required this.nextPressed, this.gathering})
-      : super(key: key);
+  const ClubGatheringLocationScreen({super.key, required this.nextPressed, this.gathering});
 
   @override
   State<ClubGatheringLocationScreen> createState() =>

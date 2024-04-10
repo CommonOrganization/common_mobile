@@ -11,7 +11,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../constants/constants_colors.dart';
 
 class ChatUploadScreen extends StatefulWidget {
-  const ChatUploadScreen({Key? key}) : super(key: key);
+  const ChatUploadScreen({super.key});
 
   @override
   State<ChatUploadScreen> createState() => _ChatUploadScreenState();

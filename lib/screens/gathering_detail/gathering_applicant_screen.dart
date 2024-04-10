@@ -12,11 +12,10 @@ class GatheringApplicantScreen extends StatefulWidget {
   final String organizerId;
   final String gatheringId;
   const GatheringApplicantScreen(
-      {Key? key,
+      {super.key,
       required this.gatheringId,
       required this.category,
-      required this.organizerId})
-      : super(key: key);
+      required this.organizerId});
 
   @override
   State<GatheringApplicantScreen> createState() =>

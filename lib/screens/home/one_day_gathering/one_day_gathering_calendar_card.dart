@@ -14,12 +14,11 @@ class OneDayGatheringCalendarCard extends StatelessWidget {
   final int gatheringSize;
   final String userId;
   const OneDayGatheringCalendarCard(
-      {Key? key,
+      {super.key,
       required this.gathering,
       required this.count,
       required this.gatheringSize,
-      required this.userId})
-      : super(key: key);
+      required this.userId});
 
   @override
   Widget build(BuildContext context) {

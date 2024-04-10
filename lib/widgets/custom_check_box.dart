@@ -9,13 +9,13 @@ class CustomCheckBox extends StatefulWidget {
   final Color? activeColor;
   final Color? inactiveColor;
   const CustomCheckBox({
-    Key? key,
+    super.key,
     required this.value,
     required this.onTap,
     required this.size,
     this.activeColor,
     this.inactiveColor,
-  }) : super(key: key);
+  });
 
   @override
   State<CustomCheckBox> createState() => _CustomCheckBoxState();

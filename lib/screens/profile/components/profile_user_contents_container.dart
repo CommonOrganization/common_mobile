@@ -16,8 +16,7 @@ import '../../../widgets/one_day_gathering_row_card.dart';
 class ProfileUserContentsContainer extends StatefulWidget {
   final String userId;
 
-  const ProfileUserContentsContainer({Key? key, required this.userId})
-      : super(key: key);
+  const ProfileUserContentsContainer({super.key, required this.userId});
 
   @override
   State<ProfileUserContentsContainer> createState() =>

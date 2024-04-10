@@ -10,10 +10,10 @@ class ChatUploadNameScreen extends StatefulWidget {
   final List userIdList;
   final Function onPressed;
   const ChatUploadNameScreen({
-    Key? key,
+    super.key,
     required this.onPressed,
     required this.userIdList,
-  }) : super(key: key);
+  });
 
   @override
   State<ChatUploadNameScreen> createState() => _ChatUploadNameScreenState();

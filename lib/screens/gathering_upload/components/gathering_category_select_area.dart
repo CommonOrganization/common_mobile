@@ -15,7 +15,7 @@ class GatheringCategorySelectArea extends StatelessWidget {
   final Function showMorePressed;
   final Function onChanged;
   const GatheringCategorySelectArea({
-    Key? key,
+    super.key,
     required this.title,
     required this.controller,
     this.selectedCategory,
@@ -23,7 +23,7 @@ class GatheringCategorySelectArea extends StatelessWidget {
     required this.showMore,
     required this.showMorePressed,
     required this.onChanged,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

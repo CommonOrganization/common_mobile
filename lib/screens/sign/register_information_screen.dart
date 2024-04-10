@@ -9,9 +9,9 @@ import '../../widgets/common_text_field.dart';
 class RegisterInformationScreen extends StatefulWidget {
   final Function nextPressed;
   const RegisterInformationScreen({
-    Key? key,
+    super.key,
     required this.nextPressed,
-  }) : super(key: key);
+  });
 
   @override
   State<RegisterInformationScreen> createState() =>

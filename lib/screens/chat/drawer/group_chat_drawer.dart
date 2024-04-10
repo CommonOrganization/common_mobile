@@ -15,10 +15,10 @@ class GroupChatDrawer extends StatelessWidget {
   final GroupChat groupChat;
   final String userId;
   const GroupChatDrawer({
-    Key? key,
+    super.key,
     required this.groupChat,
     required this.userId,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

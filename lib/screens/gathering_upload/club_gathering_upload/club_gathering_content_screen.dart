@@ -9,10 +9,10 @@ class ClubGatheringContentScreen extends StatefulWidget {
   final ClubGathering? gathering;
   final Function nextPressed;
   const ClubGatheringContentScreen({
-    Key? key,
+    super.key,
     required this.nextPressed,
     this.gathering,
-  }) : super(key: key);
+  });
 
   @override
   State<ClubGatheringContentScreen> createState() =>
@@ -103,8 +103,7 @@ class _ClubGatheringContentScreenState
                     else
                       kImageSelectButton(true),
                     ..._imageUrlList
-                        .map((imageUrl) => kSelectedImageArea(imageUrl, false))
-                        .toList(),
+                        .map((imageUrl) => kSelectedImageArea(imageUrl, false)),
                     kImageSelectButton(false),
                   ],
                 ),

@@ -10,8 +10,7 @@ import '../../widgets/common_text_field.dart';
 
 class ResetPasswordEmailScreen extends StatefulWidget {
   final Function nextPressed;
-  const ResetPasswordEmailScreen({Key? key, required this.nextPressed})
-      : super(key: key);
+  const ResetPasswordEmailScreen({super.key, required this.nextPressed});
 
   @override
   State<ResetPasswordEmailScreen> createState() =>

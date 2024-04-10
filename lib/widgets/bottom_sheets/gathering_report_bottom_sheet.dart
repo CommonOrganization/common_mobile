@@ -10,8 +10,7 @@ import '../../models/gathering/gathering.dart';
 
 class GatheringReportBottomSheet extends StatelessWidget {
   final Gathering gathering;
-  const GatheringReportBottomSheet({Key? key, required this.gathering})
-      : super(key: key);
+  const GatheringReportBottomSheet({super.key, required this.gathering});
 
   @override
   Widget build(BuildContext context) {

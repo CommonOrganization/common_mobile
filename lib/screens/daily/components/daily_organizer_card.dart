@@ -6,7 +6,7 @@ import '../../profile/profile_screen.dart';
 
 class DailyOrganizerCard extends StatelessWidget {
   final String organizerId;
-  const DailyOrganizerCard({Key? key, required this.organizerId}) : super(key: key);
+  const DailyOrganizerCard({super.key, required this.organizerId});
 
   @override
   Widget build(BuildContext context) {

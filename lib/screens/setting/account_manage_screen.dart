@@ -9,7 +9,7 @@ import '../../widgets/dialog/leave_user_dialog.dart';
 import 'components/setting_more_button.dart';
 
 class AccountManageScreen extends StatelessWidget {
-  const AccountManageScreen({Key? key}) : super(key: key);
+  const AccountManageScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

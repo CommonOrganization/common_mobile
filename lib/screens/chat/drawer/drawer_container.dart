@@ -7,7 +7,13 @@ class DrawerContainer extends StatelessWidget {
   final String icon;
   final Function onPressed;
   final String title;
-  const DrawerContainer({Key? key, required this.icon, required this.onPressed, required this.title}) : super(key: key);
+
+  const DrawerContainer({
+    super.key,
+    required this.icon,
+    required this.onPressed,
+    required this.title,
+  });
 
   @override
   Widget build(BuildContext context) {

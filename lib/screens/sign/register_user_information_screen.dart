@@ -10,8 +10,7 @@ import '../../widgets/common_action_button.dart';
 
 class RegisterUserInformationScreen extends StatefulWidget {
   final Function nextPressed;
-  const RegisterUserInformationScreen({Key? key, required this.nextPressed})
-      : super(key: key);
+  const RegisterUserInformationScreen({super.key, required this.nextPressed});
 
   @override
   State<RegisterUserInformationScreen> createState() =>

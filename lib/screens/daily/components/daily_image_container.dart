@@ -5,7 +5,7 @@ import '../../../constants/constants_colors.dart';
 
 class DailyImageContainer extends StatefulWidget {
   final Daily daily;
-  const DailyImageContainer({Key? key, required this.daily}) : super(key: key);
+  const DailyImageContainer({super.key, required this.daily});
 
   @override
   State<DailyImageContainer> createState() => _DailyImageContainerState();

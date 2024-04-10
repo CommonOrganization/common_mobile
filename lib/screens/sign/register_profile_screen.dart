@@ -9,10 +9,10 @@ class RegisterProfileScreen extends StatefulWidget {
   final String userName;
   final Function nextPressed;
   const RegisterProfileScreen({
-    Key? key,
+    super.key,
     required this.userName,
     required this.nextPressed,
-  }) : super(key: key);
+  });
 
   @override
   State<RegisterProfileScreen> createState() => _RegisterProfileScreenState();

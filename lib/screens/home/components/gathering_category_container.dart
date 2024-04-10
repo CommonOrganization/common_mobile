@@ -18,8 +18,7 @@ import '../../../services/one_day_gathering_service.dart';
 class GatheringCategoryContainer extends StatelessWidget {
   final String category;
 
-  const GatheringCategoryContainer({Key? key, required this.category})
-      : super(key: key);
+  const GatheringCategoryContainer({super.key, required this.category});
 
   @override
   Widget build(BuildContext context) {

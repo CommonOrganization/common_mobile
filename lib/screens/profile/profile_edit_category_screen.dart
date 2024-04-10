@@ -11,7 +11,7 @@ import '../../utils/local_utils.dart';
 import '../../widgets/common_action_button.dart';
 
 class ProfileEditCategoryScreen extends StatefulWidget {
-  const ProfileEditCategoryScreen({Key? key}) : super(key: key);
+  const ProfileEditCategoryScreen({super.key});
 
   @override
   State<ProfileEditCategoryScreen> createState() =>

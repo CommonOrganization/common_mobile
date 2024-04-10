@@ -11,7 +11,7 @@ class UserService {
   UserService._internal();
 
   static const String collection = 'user';
-
+  // TODO
   static Future<String?> uploadProfileImage({required XFile image}) async {
     try {
       DateTime nowDate = DateTime.now();
@@ -75,21 +75,6 @@ class UserService {
     }
   }
 
-  static Future<User?> refresh({required String id}) async {
-    try {
-      final snapshot =
-          await FirebaseService.fireStore.collection(collection).doc(id).get();
-
-      if (snapshot.exists) {
-        return User.fromJson(snapshot.data()!);
-      }
-      return null;
-    } catch (e) {
-      log('UserService - refresh Failed : $e');
-      return null;
-    }
-  }
-
   static Future<bool> update(
       {required String id,
       required String field,
@@ -121,7 +106,7 @@ class UserService {
       return false;
     }
   }
-
+  // TODO
   static Future<dynamic> get(
       {required String id, required String field}) async {
     try {

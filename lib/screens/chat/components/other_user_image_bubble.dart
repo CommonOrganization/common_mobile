@@ -12,11 +12,11 @@ class OtherUserImageBubble extends StatelessWidget {
   final String? lastSenderId;
   final String? lastChatDate;
   const OtherUserImageBubble({
-    Key? key,
+    super.key,
     required this.chat,
     this.lastSenderId,
     this.lastChatDate,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -15,8 +15,7 @@ import 'favorite_button.dart';
 
 class OneDayGatheringCard extends StatelessWidget {
   final OneDayGathering gathering;
-  const OneDayGatheringCard({Key? key, required this.gathering})
-      : super(key: key);
+  const OneDayGatheringCard({super.key, required this.gathering});
 
   @override
   Widget build(BuildContext context) {
