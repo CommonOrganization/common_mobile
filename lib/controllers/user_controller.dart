@@ -11,11 +11,11 @@ class UserController extends ChangeNotifier {
   Future<bool> autoLogin() async {
     User? userInfo = await LocalService.getUserInfo();
     if (userInfo == null) return false;
-    User? loginUserInfo = await UserService.login(
+    User? loginUser = await UserService.login(
         email: userInfo.email, password: userInfo.password);
-    if (loginUserInfo == null) return false;
-    await LocalService.saveUserData(loginUserInfo);
-    user = loginUserInfo;
+    if (loginUser == null) return false;
+    await LocalService.saveUserData(loginUser);
+    user = loginUser;
     notifyListeners();
     log('${user?.id}유저 자동 로그인');
     return user != null;
