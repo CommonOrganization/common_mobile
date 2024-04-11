@@ -34,6 +34,16 @@ migrate_working_dir/
 /lib/constants/
 /lib/constants/constants_url.dart
 /lib/constants/constants_value.dart
+/assets/
+/assets/icons/
+/assets/images/
+/assets/fonts/
+/assets/category/
+/assets/mini_category/
+
+.metadata
+analysis_options.yaml
+pubspec.yaml
 # Symbolication related
 app.*.symbols
 
