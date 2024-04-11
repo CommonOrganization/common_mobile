@@ -18,19 +18,19 @@ class UploadService {
     try {
       File file = File(image.path);
 
-      // var task = await FirebaseService.fireStorage.ref(imageRef).putFile(file);
-      // return await task.ref.getDownloadURL();
+      var task = await FirebaseService.fireStorage.ref(imageRef).putFile(file);
+      return await task.ref.getDownloadURL();
 
-      var request = http.MultipartRequest('POST',Uri.parse("http://localhost:8080/api/upload/image/gathering"));
-
-      request.files.add(await http.MultipartFile.fromPath("file",file.path));
-
-      var result = await request.send();
-      final bodyBytes =  await result.stream.toBytes();
-      final responseBody = utf8.decode(bodyBytes);
-
-      print(responseBody);
-      return responseBody;
+      // var request = http.MultipartRequest('POST',Uri.parse("http://localhost:8080/api/upload/image/gathering"));
+      //
+      // request.files.add(await http.MultipartFile.fromPath("file",file.path));
+      //
+      // var result = await request.send();
+      // final bodyBytes =  await result.stream.toBytes();
+      // final responseBody = utf8.decode(bodyBytes);
+      //
+      // print(responseBody);
+      // return responseBody;
     } catch (e) {
       log('UploadService - uploadImage Failed : $e');
       return null;
