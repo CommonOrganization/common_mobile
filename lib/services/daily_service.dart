@@ -140,6 +140,7 @@ class DailyService {
     }
   }
 
+  //TODO 스프링으로 전환시 추가해야할 함수(Gathering Controller 개발시 추가)
   static Future<List<Daily>> getLikeGatheringWithObjectList(
       {required List objectIdList}) async {
     try {

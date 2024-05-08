@@ -6,6 +6,7 @@ import '../utils/gathering_utils.dart';
 import 'data_service.dart';
 import 'firebase_service.dart';
 import 'gathering_service.dart';
+import 'package:http/http.dart' as http;
 
 class OneDayGatheringService {
   static final OneDayGatheringService _instance =
@@ -20,6 +21,7 @@ class OneDayGatheringService {
   static Future<bool> uploadGathering(
       {required OneDayGathering gathering}) async {
     try {
+
       String? id = await DataService.getId(name: _category);
       if (id == null) return false;
       Map<String, dynamic> gatheringData = gathering.toJson();
@@ -92,7 +94,7 @@ class OneDayGatheringService {
         .toList();
   }
 
-  /// 어떤 유저가 이 유저가 가입한 모든 하루모임을 리턴 ( 앞으로의 하루모임만을 리턴 )
+  /// 이 유저가 가입한 모든 하루모임을 리턴 ( 앞으로의 하루모임만을 리턴 )
   static Future<List<OneDayGathering>> getGatheringListWhichUserIsParticipating(
       {required String userId}) async {
     DateTime nowDate = DateTime.now();

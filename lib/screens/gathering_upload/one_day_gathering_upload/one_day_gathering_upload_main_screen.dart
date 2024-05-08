@@ -77,6 +77,30 @@ class _OneDayGatheringUploadMainScreenState
         'entryFee': _isHaveEntryFee ? int.parse(_gatheringEntryFee) : 0,
         'tagList': _gatheringTagList,
       };
+      /**
+       * Map<String, dynamic> oneDayGatheringMap = {
+          'type': _gatheringType.name,
+          'clubGatheringId': _gatheringConnectedClubGatheringId,
+          'showAllThePeople': _gatheringShowAllThePeople,
+          'category': _gatheringMainCategory.name,
+          'detailCategory': _gatheringDetailCategory,
+          'title': _gatheringTitle,
+          'content': _gatheringContent,
+          'mainImage': _gatheringMainImageUrl,
+          'imageList': _gatheringImageUrlList,
+          'recruitWay': _gatheringRecruitWay.name,
+          'recruitQuestion': _gatheringRecruitQuestion,
+          'capacity': _gatheringCapacity,
+          'openingDate': DateFormat('yyyy-MM-ddTHH:mm:ss').format(_gatheringOpeningDate),
+          'place': {
+          ..._gatheringPlace.toJson(),
+          'detail': _gatheringPlaceDetail,
+          },
+          'haveEntryFee': _isHaveEntryFee,
+          'entryFee': _isHaveEntryFee ? int.parse(_gatheringEntryFee) : 0,
+          'tagList': _gatheringTagList,
+          };
+       */
 
       OneDayGathering gathering = OneDayGathering.fromJson({
         'id': 'preview',
