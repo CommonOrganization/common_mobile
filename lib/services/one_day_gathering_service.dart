@@ -6,7 +6,6 @@ import '../utils/gathering_utils.dart';
 import 'data_service.dart';
 import 'firebase_service.dart';
 import 'gathering_service.dart';
-import 'package:http/http.dart' as http;
 
 class OneDayGatheringService {
   static final OneDayGatheringService _instance =

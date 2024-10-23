@@ -153,7 +153,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             fit: BoxFit.fitHeight,
                             child: Switch(
                               value: _searchWordAutoSave,
-                              thumbColor: MaterialStateProperty.all(kWhiteColor),
+                              thumbColor: WidgetStateProperty.all(kWhiteColor),
                               materialTapTargetSize:
                                   MaterialTapTargetSize.shrinkWrap,
                               activeTrackColor: kMainColor,

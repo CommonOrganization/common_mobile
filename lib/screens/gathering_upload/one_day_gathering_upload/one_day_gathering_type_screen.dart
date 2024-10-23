@@ -122,7 +122,7 @@ class _OneDayGatheringTypeScreenState extends State<OneDayGatheringTypeScreen> {
                             child: Switch(
                               value: _showAllThePeople,
                               thumbColor:
-                                  MaterialStateProperty.all(kWhiteColor),
+                                  WidgetStateProperty.all(kWhiteColor),
                               materialTapTargetSize:
                                   MaterialTapTargetSize.shrinkWrap,
                               activeTrackColor: kMainColor,

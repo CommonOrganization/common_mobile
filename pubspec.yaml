@@ -1,7 +1,7 @@
 name: common
 description: 커먼 모바일
 
-version: 1.0.6+9
+version: 1.0.7+11
 
 environment:
   sdk: '>=3.2.3 <4.0.0'
@@ -15,11 +15,9 @@ dependencies:
   json_annotation: ^4.8.1
   flutter_svg: ^2.0.9
 
-  cloud_firestore: ^4.14.0
-  firebase_core: ^2.24.2
-  firebase_storage: ^11.6.0
-  firebase_messaging: ^14.7.10
-  flutter_local_notifications: ^17.0.0
+  cloud_firestore: ^5.4.4
+  firebase_core: ^3.6.0
+  firebase_storage: ^12.3.4
 
   crypto: ^3.0.3
 
@@ -37,9 +35,9 @@ dependencies:
   flutter_speed_dial: ^7.0.0
 
   flutter_localization: ^0.2.0
-  intl: ^0.18.1
+  intl: ^0.19.0
 
-  url_launcher: ^6.2.3
+  url_launcher: ^6.3.1
 
   dotted_border: ^2.1.0
 
@@ -48,13 +46,13 @@ dependencies:
 
   cached_network_image: ^3.3.1
 
-  package_info_plus: ^5.0.1
+  package_info_plus: ^8.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^3.0.2
+  flutter_lints: ^5.0.0
   json_serializable: ^6.7.1
   build_runner: ^2.4.8
 
