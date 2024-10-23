@@ -49,7 +49,7 @@ class HttpService {
       );
       String? result;
       final placeSearchResult = jsonDecode(res.body);
-      List placeList = placeSearchResult['documents'];
+      List placeList = placeSearchResult['documents']??[];
       if (placeList.isNotEmpty) {
         if (placeList.first['road_address_name'].isNotEmpty) {
           result = placeList.first['road_address_name'];

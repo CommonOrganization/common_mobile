@@ -7,6 +7,8 @@ import 'package:image_picker/image_picker.dart';
 
 import 'package:http/http.dart' as http;
 
+import 'firebase_service.dart';
+
 class UploadService {
   static final UploadService _instance = UploadService._internal();
 
@@ -18,24 +20,9 @@ class UploadService {
       {required XFile image, required String imageRef}) async {
     try {
       File file = File(image.path);
+      var task = await FirebaseService.fireStorage.ref(imageRef).putFile(file);
 
-      // var task = await FirebaseService.fireStorage.ref(imageRef).putFile(file);
-      // return await task.ref.getDownloadURL();
-
-      
-      var request = http.MultipartRequest('POST',
-          Uri.parse("http://localhost:8080/api/image/upload/gathering"));
-
-      request.files.add(await http.MultipartFile.fromPath("file", file.path));
-
-      var result = await request.send();
-      final bodyBytes = await result.stream.toBytes();
-      final responseBody = utf8.decode(bodyBytes);
-      if (result.statusCode == 200) {
-        return responseBody;
-      }
-
-      return null;
+      return await task.ref.getDownloadURL();
     } catch (e) {
       log('UploadService - uploadImage Failed : $e');
       return null;
